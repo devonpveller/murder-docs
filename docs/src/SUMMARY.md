@@ -5,6 +5,7 @@
 
 # Getting Started
 - [Hello World](getting-started/helloworld.md)
+- [Asset Hot-Reloading](getting-started/hot-reload.md)
 
 ----------
 
