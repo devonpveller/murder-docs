@@ -1,6 +1,6 @@
 # Asset Hot-Reloading
 
-The Murder editor supports hot-reloading of ECS asset JSON files. When enabled, any changes you make to asset files on disk are automatically detected and reloaded into the editor the next time the editor window regains focus — no manual rebuild required.
+The Murder editor supports hot-reloading of all asset types — ECS asset JSON files, images, fonts, shaders, localization, and dialogue. When enabled, any changes you make to asset files on disk are automatically detected and reloaded into the editor the next time the editor window regains focus — no manual rebuild required.
 
 This mirrors Unity's batched import workflow: changes accumulate asynchronously, then are processed in a single non-blocking pipeline when the editor is brought back into focus.
 
@@ -21,7 +21,7 @@ When enabled, the editor initializes a file system watcher on both asset directo
 
 ### 1. Change Detection
 
-A [`FileSystemWatcher`](https://learn.microsoft.com/en-us/dotnet/api/system.io.filesystemwatcher) monitors the asset directories for `.json` file changes (create, modify, delete, rename). Paths are accumulated in two thread-safe sets — **changed** paths (modified or deleted files) and **created** paths (new files or renames) — so the refresh pipeline can distinguish between updating existing assets and discovering new ones. No processing happens during the file events themselves.
+A [`FileSystemWatcher`](https://learn.microsoft.com/en-us/dotnet/api/system.io.filesystemwatcher) monitors the asset directories for changes across all supported formats: `.json` (ECS assets), `.png` (sprites), `.aseprite`/`.ase` (Aseprite animations), `.ttf` (fonts), `.fx` (shaders), `.csv` (localization), and `.gum` (dialogue). Paths are accumulated in two thread-safe sets — **changed** paths (modified or deleted files) and **created** paths (new files or renames) — so the refresh pipeline can distinguish between updating existing assets and discovering new ones. No processing happens during the file events themselves.
 
 ### 2. Metadata Cache
 
@@ -46,7 +46,15 @@ Each asset is deserialized from disk, removed from the database, and re-added. T
 
 After the phased reload, the pipeline scans the **created paths** set for any `.json` files not yet in the asset database. Each new file is deserialized, added to the database (with duplicate GUID handling), and registered in the metadata cache. This means newly created asset files appear in the editor automatically on the next focus cycle — no manual import step needed.
 
-### 6. Error Handling
+### 6. Non-JSON Resource Reimport
+
+Any non-JSON files (images, fonts, shaders, etc.) that changed or were created trigger the resource importer pipeline. This re-processes affected sprites, fonts, and shaders through the same importers used during initial content load, ensuring all asset types stay in sync.
+
+### 7. Loading Overlay
+
+While a refresh cycle is in progress, the editor displays a semi-transparent overlay with an animated spinner and "Refreshing assets..." text. This provides visual feedback that background work is happening and signals the user to wait before interacting with the UI.
+
+### 8. Error Handling
 
 Individual asset failures (corrupt JSON, missing files) are logged and skipped — they never abort the entire refresh cycle. Deleted files are cleanly removed from the database. Failed new-asset deserialization is logged as a warning and skipped.
 
