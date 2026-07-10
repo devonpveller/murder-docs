@@ -21,7 +21,7 @@ When enabled, the editor initializes a file system watcher on both asset directo
 
 ### 1. Change Detection
 
-A [`FileSystemWatcher`](https://learn.microsoft.com/en-us/dotnet/api/system.io.filesystemwatcher) monitors the asset directories for `.json` file changes (create, modify, delete, rename). Changed paths are accumulated in a thread-safe set — no processing happens during the file events themselves.
+A [`FileSystemWatcher`](https://learn.microsoft.com/en-us/dotnet/api/system.io.filesystemwatcher) monitors the asset directories for `.json` file changes (create, modify, delete, rename). Paths are accumulated in two thread-safe sets — **changed** paths (modified or deleted files) and **created** paths (new files or renames) — so the refresh pipeline can distinguish between updating existing assets and discovering new ones. No processing happens during the file events themselves.
 
 ### 2. Metadata Cache
 
@@ -42,9 +42,13 @@ Assets are reloaded in dependency order to ensure referenced assets are availabl
 
 Each asset is deserialized from disk, removed from the database, and re-added. The metadata cache is rebuilt after the full cycle completes.
 
-### 5. Error Handling
+### 5. New Asset Discovery
 
-Individual asset failures (corrupt JSON, missing files) are logged and skipped — they never abort the entire refresh cycle. Deleted files are cleanly removed from the database.
+After the phased reload, the pipeline scans the **created paths** set for any `.json` files not yet in the asset database. Each new file is deserialized, added to the database (with duplicate GUID handling), and registered in the metadata cache. This means newly created asset files appear in the editor automatically on the next focus cycle — no manual import step needed.
+
+### 6. Error Handling
+
+Individual asset failures (corrupt JSON, missing files) are logged and skipped — they never abort the entire refresh cycle. Deleted files are cleanly removed from the database. Failed new-asset deserialization is logged as a warning and skipped.
 
 ## Triggering a Refresh
 
