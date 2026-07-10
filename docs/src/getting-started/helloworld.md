@@ -6,9 +6,9 @@ You can take a peek at [IMurderGame](../Murder/IMurderGame.html) on tweaking bas
 
 ---
 
-## Setting Up a New FNA Game with Murder from Scratch
+## Setting Up a New Game with Murder from Scratch
 
-### 1. Create a new FNA game project
+### 1. Create a new game project
 
 ```bash
 mkdir MyGame && cd MyGame
@@ -26,30 +26,20 @@ Edit `MyGame/MyGame.csproj`:
 </PropertyGroup>
 ```
 
-Add FNA:
+> **Note:** You do **not** need to add FNA manually. Murder depends on the `Murder.FNA` NuGet package, which is pulled in automatically when you reference Murder.
 
-```bash
-git submodule add https://github.com/FNA-XNA/FNA.git libs/FNA
-```
-
-Then reference `FNA.Core.csproj` in your `.csproj`:
-
-```xml
-<ItemGroup>
-  <ProjectReference Include="..\libs\FNA\FNA.Core.csproj" />
-</ItemGroup>
-```
-
-### 2. Add a submodule for Murder
+### 2. Add Murder as a submodule
 
 ```bash
 git submodule add https://github.com/isadorasophia/murder.git libs/murder
 git submodule update --init --recursive
 ```
 
-### 3. Reference Murder in your games `.csproj`
+The `--recursive` flag is important — Murder itself depends on the [Bang](https://github.com/isadorasophia/bang) ECS framework and the [Gum](https://github.com/isadorasophia/gum) UI library, both of which are submodules that must be initialized for Murder to build.
 
-In your game’s `.csproj`, add:
+### 3. Reference Murder in your game's `.csproj`
+
+In your game's `.csproj`, add:
 
 ```xml
 <ItemGroup>
@@ -80,3 +70,20 @@ cd MyGame.Editor
 dotnet build
 dotnet run
 ```
+
+### 5. Implement your game
+
+Create a class that implements [`IMurderGame`](../Murder/IMurderGame.html). At minimum you'll override `Name` and call `base` lifecycle methods:
+
+```csharp
+public class MyGame : IMurderGame
+{
+    public string Name => "My Game";
+
+    public void Initialize() { /* one-time startup */ }
+    public Task LoadContentAsync() => Task.CompletedTask;
+    // ... other lifecycle hooks as needed
+}
+```
+
+See the [IMurderGame](../Murder/IMurderGame.html) docs for the full list of lifecycle callbacks and factory methods.
