@@ -7,11 +7,18 @@
 public static class DirectionHelper
 ```
 
+Utility methods for converting between `Direction` enum values, angles, vectors, and sprite flip flags.
+
+**Intent:** Centralizes all direction math so game code can convert freely between angle radians, `Vector2` velocities, and the eight-direction enum.
+
+**Use-case:** Use `FromVector` to derive a character's facing direction from its velocity, `ToAngle` to rotate a projectile sprite, and `Flipped`/`GetFlipped` to determine whether a sprite should be horizontally mirrored.
+
 ### ⭐ Properties
 #### Cardinal4
 ```csharp
 public static ImmutableArray<T> Cardinal4;
 ```
+The four axis-aligned directions: Right, Down, Left, Up.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -19,6 +26,7 @@ public static ImmutableArray<T> Cardinal4;
 ```csharp
 public static ImmutableArray<T> Cardinal4Flipped;
 ```
+The four axis-aligned directions in reverse (Up, Left, Down, Right).
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -26,6 +34,7 @@ public static ImmutableArray<T> Cardinal4Flipped;
 ```csharp
 public static ImmutableArray<T> Cardinal8;
 ```
+All eight compass directions in clockwise order starting from Right.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -33,6 +42,7 @@ public static ImmutableArray<T> Cardinal8;
 ```csharp
 public static ImmutableArray<T> Cardinal8Flipped;
 ```
+All eight compass directions in counter-clockwise order.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -41,6 +51,7 @@ public static ImmutableArray<T> Cardinal8Flipped;
 ```csharp
 public bool Flipped(Direction direction)
 ```
+Returns `true` if the given direction requires the sprite to be horizontally flipped.
 
 **Parameters** \
 `direction` [Direction](../../Murder/Helpers/Direction.html) \
@@ -67,6 +78,7 @@ Converts an angle (in radians) to a Direction enum.
 ```csharp
 public Direction FromVector(Vector2 vector)
 ```
+Converts a `Vector2` velocity or offset to the closest of the eight `Direction` values.
 
 **Parameters** \
 `vector` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -78,6 +90,7 @@ public Direction FromVector(Vector2 vector)
 ```csharp
 public Direction FromVectorWith4Directions(Vector2 vector)
 ```
+Converts a `Vector2` to the closest of the four cardinal `Direction` values (no diagonals).
 
 **Parameters** \
 `vector` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -89,6 +102,7 @@ public Direction FromVectorWith4Directions(Vector2 vector)
 ```csharp
 public Direction Invert(Direction direction)
 ```
+Returns the opposite of the given direction (e.g. Up → Down, UpLeft → DownRight).
 
 **Parameters** \
 `direction` [Direction](../../Murder/Helpers/Direction.html) \
@@ -100,6 +114,7 @@ public Direction Invert(Direction direction)
 ```csharp
 public Direction LookAtEntity(Entity e, Entity target)
 ```
+Returns the direction from entity `e` toward entity `target`.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -112,6 +127,7 @@ public Direction LookAtEntity(Entity e, Entity target)
 ```csharp
 public Direction LookAtPosition(Entity e, Vector2 target)
 ```
+Returns the direction from entity `e` toward world position `target`.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -124,6 +140,7 @@ public Direction LookAtPosition(Entity e, Vector2 target)
 ```csharp
 public Direction Random()
 ```
+Returns a random one of the eight compass directions.
 
 **Returns** \
 [Direction](../../Murder/Helpers/Direction.html) \
@@ -132,6 +149,7 @@ public Direction Random()
 ```csharp
 public Direction RandomCardinal()
 ```
+Returns a random one of the four cardinal directions (no diagonals).
 
 **Returns** \
 [Direction](../../Murder/Helpers/Direction.html) \
@@ -140,6 +158,7 @@ public Direction RandomCardinal()
 ```csharp
 public Direction Reverse(Direction direction)
 ```
+Returns the opposite of the given direction; alias for `Invert`.
 
 **Parameters** \
 `direction` [Direction](../../Murder/Helpers/Direction.html) \
@@ -151,6 +170,7 @@ public Direction Reverse(Direction direction)
 ```csharp
 public Direction RoundTo4Directions(Direction direction, Orientation bias)
 ```
+Rounds a diagonal direction to the nearest cardinal direction, using `bias` to break ties.
 
 **Parameters** \
 `direction` [Direction](../../Murder/Helpers/Direction.html) \
@@ -178,6 +198,7 @@ The angle of the direction, in radians.
 ```csharp
 public ImageFlip GetFlipped(Direction direction)
 ```
+Returns the `ImageFlip` flags needed to orient a sprite for the given direction.
 
 **Parameters** \
 `direction` [Direction](../../Murder/Helpers/Direction.html) \
@@ -189,6 +210,7 @@ public ImageFlip GetFlipped(Direction direction)
 ```csharp
 public ImageFlip GetFlippedHorizontal(Direction direction)
 ```
+Returns only the horizontal component of `ImageFlip` for the given direction.
 
 **Parameters** \
 `direction` [Direction](../../Murder/Helpers/Direction.html) \
@@ -200,6 +222,7 @@ public ImageFlip GetFlippedHorizontal(Direction direction)
 ```csharp
 public string ToCardinal(Direction direction, string n, string e, string s, string w)
 ```
+Maps a direction to one of the four provided cardinal label strings (N/E/S/W).
 
 **Parameters** \
 `direction` [Direction](../../Murder/Helpers/Direction.html) \
@@ -215,6 +238,7 @@ public string ToCardinal(Direction direction, string n, string e, string s, stri
 ```csharp
 public string ToCardinal(Direction direction)
 ```
+Returns the short compass string for the direction (e.g. `"N"`, `"SE"`).
 
 **Parameters** \
 `direction` [Direction](../../Murder/Helpers/Direction.html) \
@@ -226,6 +250,7 @@ public string ToCardinal(Direction direction)
 ```csharp
 public string ToCardinal4(Direction direction, string n, string e, string s, bool verticalPriority)
 ```
+Maps a direction to one of three cardinal label strings using four-direction snapping; `verticalPriority` determines tie-breaking for diagonal inputs.
 
 **Parameters** \
 `direction` [Direction](../../Murder/Helpers/Direction.html) \
@@ -241,6 +266,7 @@ public string ToCardinal4(Direction direction, string n, string e, string s, boo
 ```csharp
 public ValueTuple<T1, T2> GetName(int i, int totalDirections, bool flipWest)
 ```
+Returns the animation suffix name and flip flag for direction index `i` out of `totalDirections`.
 
 **Parameters** \
 `i` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -269,6 +295,7 @@ Get the suffix from a suffix list based on an angle
 ```csharp
 public ValueTuple<T1, T2> ToCardinalFlipped(Direction direction, string n, string e, string s)
 ```
+Returns the animation suffix name and horizontal flip flag for the given direction using three cardinal label strings.
 
 **Parameters** \
 `direction` [Direction](../../Murder/Helpers/Direction.html) \

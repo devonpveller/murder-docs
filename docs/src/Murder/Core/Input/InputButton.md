@@ -7,6 +7,12 @@
 public sealed struct InputButton
 ```
 
+Represents a single physical input binding — a keyboard key, gamepad button, mouse button, or gamepad axis — along with its device source.
+
+**Intent:** Map one physical control to a logical input slot.
+
+**Use-case:** Create `InputButton` instances from keys, buttons, or axes and add them to a `VirtualButton` or `VirtualAxis` via `PlayerInput.Register()` to define the control scheme.
+
 ### ⭐ Constructors
 ```csharp
 public InputButton()
@@ -46,6 +52,8 @@ public InputButton(MouseButtons button)
 public readonly InputSource Source;
 ```
 
+The device this button is bound to (keyboard, mouse, gamepad, or gamepad axis).
+
 **Returns** \
 [InputSource](../../../Murder/Core/Input/InputSource.html) \
 ### ⭐ Methods
@@ -53,6 +61,8 @@ public readonly InputSource Source;
 ```csharp
 public bool Check(InputState state)
 ```
+
+Returns `true` if this button is currently held down in the given `state`.
 
 **Parameters** \
 `state` [InputState](../../../Murder/Core/Input/InputState.html) \
@@ -65,6 +75,8 @@ public bool Check(InputState state)
 public bool IsAvailable(GamePadCapabilities capabilities)
 ```
 
+Returns `true` if this button's physical control is present on the gamepad described by `capabilities`.
+
 **Parameters** \
 `capabilities` [GamePadCapabilities](https://docs.monogame.net/api/Microsoft.Xna.Framework.Input.GamePadCapabilities.html) \
 
@@ -76,6 +88,8 @@ public bool IsAvailable(GamePadCapabilities capabilities)
 public InputImageStyle GetInputImageStyle()
 ```
 
+Returns the `InputImageStyle` enum value used to look up the correct icon image for this button.
+
 **Returns** \
 [InputImageStyle](../../../Murder/Core/Input/InputImageStyle.html) \
 
@@ -83,6 +97,8 @@ public InputImageStyle GetInputImageStyle()
 ```csharp
 public Vector2 ButtonToAxis(bool up, bool right, bool left, bool down)
 ```
+
+Converts four directional button states into a normalised 2D axis vector.
 
 **Parameters** \
 `up` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -97,6 +113,8 @@ public Vector2 ButtonToAxis(bool up, bool right, bool left, bool down)
 ```csharp
 public Vector2 GetAxis(GamePadState gamepadState)
 ```
+
+Returns the 2D axis value for this button's gamepad axis binding, or `Vector2.Zero` if it is not an axis binding.
 
 **Parameters** \
 `gamepadState` [GamePadState](https://docs.monogame.net/api/Microsoft.Xna.Framework.Input.GamePadState.html) \

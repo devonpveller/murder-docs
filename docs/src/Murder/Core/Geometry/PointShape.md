@@ -7,6 +7,12 @@
 public sealed struct PointShape : IShape
 ```
 
+An `IShape` implementation that represents a single point as a degenerate collision shape.
+
+**Intent:** Mark a precise world-space point as a collision or trigger location.
+
+**Use-case:** Use `PointShape` in a `ColliderComponent` for pixel-accurate hit detection, such as a cursor, a bullet impact point, or a single-tile trigger.
+
 **Implements:** _[IShape](../../../Murder/Core/Geometry/IShape.html)_
 
 ### ⭐ Constructors
@@ -23,6 +29,8 @@ public PointShape(Point point)
 public readonly Point Point;
 ```
 
+The single point that defines this shape's position.
+
 **Returns** \
 [Point](../../../Murder/Core/Geometry/Point.html) \
 ### ⭐ Methods
@@ -31,6 +39,8 @@ public readonly Point Point;
 public virtual PolygonShape GetPolygon()
 ```
 
+Returns a minimal degenerate triangle polygon centred on this point. Result is cached.
+
 **Returns** \
 [PolygonShape](../../../Murder/Core/Geometry/PolygonShape.html) \
 
@@ -38,6 +48,8 @@ public virtual PolygonShape GetPolygon()
 ```csharp
 public virtual Rectangle GetBoundingBox()
 ```
+
+Returns a 1×1 bounding rectangle at this point's position.
 
 **Returns** \
 [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \

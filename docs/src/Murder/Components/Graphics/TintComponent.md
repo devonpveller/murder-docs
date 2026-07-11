@@ -7,6 +7,12 @@
 public sealed struct TintComponent : IComponent, IEquatable<T>
 ```
 
+Applies a solid color tint to the entity's entire sprite, blending the tint color multiplicatively with the original pixel colors.
+
+**Intent:** Colorize or recolor a sprite at runtime without modifying the source asset.
+
+**Use-case:** Add with a chosen `TintColor` to highlight an entity (e.g. a red tint on damage), and remove the component to restore the original appearance.
+
 **Implements:** _[IComponent](../../../Bang/Components/IComponent.html), [IEquatable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0)_
 
 ### ⭐ Constructors
@@ -23,6 +29,8 @@ public TintComponent(Color TintColor)
 public Color TintColor { get; public set; }
 ```
 
+The color multiplied with every pixel of the sprite to produce the tinted result.
+
 **Returns** \
 [Color](../../../Murder/Core/Graphics/Color.html) \
 ### ⭐ Methods
@@ -30,6 +38,8 @@ public Color TintColor { get; public set; }
 ```csharp
 public virtual bool Equals(TintComponent other)
 ```
+
+Returns `true` if `other` has the same `TintColor` as this instance.
 
 **Parameters** \
 `other` [TintComponent](../../../Murder/Components/Graphics/TintComponent.html) \
@@ -41,6 +51,8 @@ public virtual bool Equals(TintComponent other)
 ```csharp
 public virtual bool Equals(Object obj)
 ```
+
+Returns `true` if `obj` is a `TintComponent` with the same `TintColor`.
 
 **Parameters** \
 `obj` [Object](https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0) \

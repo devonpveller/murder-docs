@@ -7,6 +7,12 @@
 public class VelocityTowardsFacingSystem : IReactiveSystem, ISystem
 ```
 
+Converts a `VelocityTowardsFacingComponent` into a world-space velocity vector aligned with the entity's current facing angle, then removes the component.
+
+**Intent:** Translates a magnitude-based impulse into a directional velocity oriented along the entity's facing direction in a single reactive step.
+
+**Use-case:** Use when you want to fire a projectile or dash an agent in the direction they are currently facing without manually computing the angle vector.
+
 **Implements:** _[IReactiveSystem](../../Bang/Systems/IReactiveSystem.html), [ISystem](../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Constructors

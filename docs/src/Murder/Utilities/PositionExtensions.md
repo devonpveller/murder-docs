@@ -7,11 +7,19 @@
 public static class PositionExtensions
 ```
 
+Extension methods for `IMurderTransformComponent` and related types for grid-coordinate conversion, global transform queries, and cell comparison.
+
+**Intent:** Provides the coordinate-space conversions that game systems need when working with the tile grid and entity positions.
+
+**Use-case:** Use in any system that needs to convert world-space positions to tile-grid cells, compare entity occupancy, or retrieve an entity's world-space position including parent transforms.
+
 ### ⭐ Methods
 #### IsSameCell(IMurderTransformComponent, IMurderTransformComponent)
 ```csharp
 public bool IsSameCell(IMurderTransformComponent this, IMurderTransformComponent other)
 ```
+
+Returns `true` if both transforms occupy the same tile-grid cell.
 
 **Parameters** \
 `this` [IMurderTransformComponent](../../Murder/Components/IMurderTransformComponent.html) \
@@ -25,6 +33,8 @@ public bool IsSameCell(IMurderTransformComponent this, IMurderTransformComponent
 public IMurderTransformComponent GetGlobalTransform(Entity entity)
 ```
 
+Returns the entity's transform in world space, composing all parent transforms up the hierarchy.
+
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
 
@@ -35,6 +45,8 @@ public IMurderTransformComponent GetGlobalTransform(Entity entity)
 ```csharp
 public Point CellPoint(IMurderTransformComponent this)
 ```
+
+Returns the tile-grid cell coordinate of the transform as a `Point`.
 
 **Parameters** \
 `this` [IMurderTransformComponent](../../Murder/Components/IMurderTransformComponent.html) \
@@ -47,6 +59,8 @@ public Point CellPoint(IMurderTransformComponent this)
 public Point FromCellToPointPosition(Point& point)
 ```
 
+Converts a tile-grid cell coordinate to its world-space pixel position (top-left of the cell).
+
 **Parameters** \
 `point` [Point&](../../Murder/Core/Geometry/Point.html) \
 
@@ -57,6 +71,8 @@ public Point FromCellToPointPosition(Point& point)
 ```csharp
 public Point FromWorldToLowerBoundGridPosition(Point& point)
 ```
+
+Snaps a world-space pixel position down to the lower-left corner of its enclosing grid cell.
 
 **Parameters** \
 `point` [Point&](../../Murder/Core/Geometry/Point.html) \
@@ -69,6 +85,8 @@ public Point FromWorldToLowerBoundGridPosition(Point& point)
 public Point ToCellPoint(IMurderTransformComponent position)
 ```
 
+Converts the given world-space transform to its tile-grid cell coordinate.
+
 **Parameters** \
 `position` [IMurderTransformComponent](../../Murder/Components/IMurderTransformComponent.html) \
 
@@ -80,16 +98,19 @@ public Point ToCellPoint(IMurderTransformComponent position)
 public Point ToPoint(PositionComponent position)
 ```
 
+Returns the position component's coordinates as an integer `Point`.
+
 **Parameters** \
 `position` [PositionComponent](../../Murder/Components/PositionComponent.html) \
 
 **Returns** \
 [Point](../../Murder/Core/Geometry/Point.html) \
 
-#### Add(PositionComponent, Point)
 ```csharp
 public PositionComponent Add(PositionComponent position, Point delta)
 ```
+
+Returns a new `PositionComponent` offset from `position` by the integer `delta`.
 
 **Parameters** \
 `position` [PositionComponent](../../Murder/Components/PositionComponent.html) \
@@ -98,10 +119,11 @@ public PositionComponent Add(PositionComponent position, Point delta)
 **Returns** \
 [PositionComponent](../../Murder/Components/PositionComponent.html) \
 
-#### Add(PositionComponent, float, float)
 ```csharp
 public PositionComponent Add(PositionComponent position, float dx, float dy)
 ```
+
+Returns a new `PositionComponent` offset from `position` by the given float deltas.
 
 **Parameters** \
 `position` [PositionComponent](../../Murder/Components/PositionComponent.html) \
@@ -111,10 +133,11 @@ public PositionComponent Add(PositionComponent position, float dx, float dy)
 **Returns** \
 [PositionComponent](../../Murder/Components/PositionComponent.html) \
 
-#### Add(PositionComponent, Vector2)
 ```csharp
 public PositionComponent Add(PositionComponent position, Vector2 delta)
 ```
+
+Returns a new `PositionComponent` offset from `position` by the given `Vector2` delta.
 
 **Parameters** \
 `position` [PositionComponent](../../Murder/Components/PositionComponent.html) \
@@ -123,10 +146,11 @@ public PositionComponent Add(PositionComponent position, Vector2 delta)
 **Returns** \
 [PositionComponent](../../Murder/Components/PositionComponent.html) \
 
-#### ToPosition(Point&)
 ```csharp
 public PositionComponent ToPosition(Point& position)
 ```
+
+Converts an integer `Point` to a `PositionComponent`.
 
 **Parameters** \
 `position` [Point&](../../Murder/Core/Geometry/Point.html) \
@@ -134,10 +158,11 @@ public PositionComponent ToPosition(Point& position)
 **Returns** \
 [PositionComponent](../../Murder/Components/PositionComponent.html) \
 
-#### ToPosition(Vector2&)
 ```csharp
 public PositionComponent ToPosition(Vector2& position)
 ```
+
+Converts a `Vector2` to a `PositionComponent`.
 
 **Parameters** \
 `position` [Vector2&](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -145,10 +170,11 @@ public PositionComponent ToPosition(Vector2& position)
 **Returns** \
 [PositionComponent](../../Murder/Components/PositionComponent.html) \
 
-#### AddToVector2(IMurderTransformComponent, Vector2)
 ```csharp
 public Vector2 AddToVector2(IMurderTransformComponent position, Vector2 delta)
 ```
+
+Returns the transform's position as a `Vector2` offset by `delta`.
 
 **Parameters** \
 `position` [IMurderTransformComponent](../../Murder/Components/IMurderTransformComponent.html) \
@@ -157,10 +183,11 @@ public Vector2 AddToVector2(IMurderTransformComponent position, Vector2 delta)
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
-#### AddToVector2(PositionComponent, float, float)
 ```csharp
 public Vector2 AddToVector2(PositionComponent position, float dx, float dy)
 ```
+
+Returns the position component as a `Vector2` offset by the given float deltas.
 
 **Parameters** \
 `position` [PositionComponent](../../Murder/Components/PositionComponent.html) \
@@ -174,6 +201,8 @@ public Vector2 AddToVector2(PositionComponent position, float dx, float dy)
 ```csharp
 public Vector2 FromCellToVector2CenterPosition(Point& point)
 ```
+
+Converts a tile-grid cell coordinate to the world-space `Vector2` position at the center of that cell.
 
 **Parameters** \
 `point` [Point&](../../Murder/Core/Geometry/Point.html) \

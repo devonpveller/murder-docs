@@ -9,6 +9,10 @@ public sealed struct IgnoreUntilComponent : IComponent
 
 Useful for tagging an entity for some systems until X time
 
+**Intent:** Temporarily exclude an entity from system processing or interaction until a specified game time is reached.
+
+**Use-case:** Add with the desired expiry time to make systems skip this entity (e.g. during a spawn invincibility window); the system that watches for this component removes it automatically once `Until` is passed.
+
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors

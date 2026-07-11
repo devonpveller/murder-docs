@@ -15,6 +15,10 @@ Serialization context for all the types within Murder. You may find here all the
              
             And any private fields that these types have.
 
+**Intent:** The AOT-compatible `JsonSerializerContext` generated for all Murder serializable types.
+
+**Use-case:** Referenced by the Murder serialization system for source-generated, reflection-free JSON serialization of components, assets, and interactions.
+
 **Implements:** _[JsonSerializerContext](https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Serialization.JsonSerializerContext?view=net-7.0), [IJsonTypeInfoResolver](https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver?view=net-7.0), [IBuiltInJsonTypeInfoResolver](https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Serialization.Metadata.IBuiltInJsonTypeInfoResolver?view=net-7.0), [IMurderSerializer](../../Murder/Serialization/IMurderSerializer.html)_
 
 ### ⭐ Constructors

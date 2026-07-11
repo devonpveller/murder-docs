@@ -9,6 +9,10 @@ public sealed struct Matrix : IEquatable<T>
 
 Implements a matrix within our engine. It can be converted to other matrix data types.
 
+**Intent:** Murder's 2D transformation matrix, wrapping XNA's `Matrix` for camera and world-to-screen transforms.
+
+**Use-case:** Used primarily by `Camera2D` for world-to-screen coordinate transformations; prefer the helper methods over manipulating matrix elements directly.
+
 **Implements:** _[IEquatable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0)_
 
 ### ⭐ Properties

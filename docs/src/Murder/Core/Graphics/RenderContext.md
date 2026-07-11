@@ -7,6 +7,12 @@
 public class RenderContext : IDisposable
 ```
 
+Manages all `Batch2D` layers, render targets, and the active camera for one complete rendering frame.
+
+**Intent:** Serves as the central hub for all drawing activity — it owns every sprite batch, the camera, and the pipeline of render targets from game-resolution through to the final screen buffer.
+
+**Use-case:** Receive a `RenderContext` in your `IMurderRenderSystem.Draw()` call and use batch properties such as `GameplayBatch` or `UiBatch` to issue sprite draw calls; override `RenderContext` in your game assembly to add custom render passes.
+
 **Implements:** _[IDisposable](https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0)_
 
 ### ⭐ Constructors
@@ -29,12 +35,16 @@ A context for how to render your game. Holds everything you need to draw on the 
 protected RenderTarget2D _debugTarget;
 ```
 
+Internal render target used to accumulate debug overlay draws.
+
 **Returns** \
 [RenderTarget2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html) \
 #### _debugTargetPreview
 ```csharp
 protected RenderTarget2D _debugTargetPreview;
 ```
+
+Internal render target used to capture a snapshot of one batch step when previewing individual render passes in the editor.
 
 **Returns** \
 [RenderTarget2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html) \
@@ -52,12 +62,16 @@ The final screen target, has the real screen size.
 protected RenderTarget2D _floorBufferTarget;
 ```
 
+Render target for the floor layer drawn behind the gameplay batch.
+
 **Returns** \
 [RenderTarget2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html) \
 #### _graphicsDevice
 ```csharp
 protected GraphicsDevice _graphicsDevice;
 ```
+
+The underlying MonoGame `GraphicsDevice` used to create render targets and issue draw calls.
 
 **Returns** \
 [GraphicsDevice](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.GraphicsDevice.html) \
@@ -66,6 +80,8 @@ protected GraphicsDevice _graphicsDevice;
 protected RenderTarget2D _mainTarget;
 ```
 
+Primary game-resolution render target where all gameplay and floor sprites are composited before post-processing.
+
 **Returns** \
 [RenderTarget2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html) \
 #### _spriteBatches
@@ -73,12 +89,16 @@ protected RenderTarget2D _mainTarget;
 public Batch2D[] _spriteBatches;
 ```
 
+Array of all registered `Batch2D` instances, indexed by their batch ID constants defined in `Batches2D`.
+
 **Returns** \
 [Batch2D[]](../../../Murder/Core/Graphics/Batch2D.html) \
 #### _subPixelOffset
 ```csharp
 protected Vector2 _subPixelOffset;
 ```
+
+Sub-pixel camera offset applied to prevent texture bleeding at fractional camera positions.
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -98,12 +118,16 @@ Temporary buffer with the camera size. Used so we can apply effects
 protected RenderTarget2D _uiTarget;
 ```
 
+Render target that receives all UI sprites drawn above the gameplay layer.
+
 **Returns** \
 [RenderTarget2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html) \
 #### _useDebugBatches
 ```csharp
 protected readonly bool _useDebugBatches;
 ```
+
+Whether debug batches (`DebugBatch`, `DebugFxBatch`) were enabled when this context was created via `RenderContextFlags.Debug`.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -112,12 +136,16 @@ protected readonly bool _useDebugBatches;
 public Color BackColor { get; }
 ```
 
+Background clear color read from the active game profile, applied before every frame.
+
 **Returns** \
 [Color](../../../Murder/Core/Graphics/Color.html) \
 #### CachedTextTextures
 ```csharp
 public readonly CacheDictionary<TKey, TValue> CachedTextTextures;
 ```
+
+Per-string texture cache used to avoid re-rendering static text every frame; holds up to 32 recently used text textures.
 
 **Returns** \
 [CacheDictionary\<TKey, TValue\>](../../../Murder/Utilities/CacheDictionary-2.html) \
@@ -135,6 +163,8 @@ The active camera used for rendering scenes.
 public readonly static int CAMERA_BLEED;
 ```
 
+Extra pixel margin added to each camera edge to hide seam artifacts at viewport boundaries.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### CAMERA_BLEED_VECTOR
@@ -142,12 +172,16 @@ public readonly static int CAMERA_BLEED;
 public readonly static Vector2 CAMERA_BLEED_VECTOR;
 ```
 
+`CAMERA_BLEED` expressed as a `Vector2` for convenient use in offset calculations.
+
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 #### ColorGrade
 ```csharp
 public Texture2D ColorGrade;
 ```
+
+Optional color-grading lookup table texture applied as a post-processing step; null if color grading is disabled.
 
 **Returns** \
 [Texture2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html) \
@@ -183,6 +217,8 @@ Renders behind the [RenderContext.GameplayBatch](../../../Murder/Core/Graphics/R
 public Point GameBufferSize;
 ```
 
+Pixel dimensions of the game-resolution render buffer (independent of the window size).
+
 **Returns** \
 [Point](../../../Murder/Core/Geometry/Point.html) \
 #### GameplayBatch
@@ -208,12 +244,16 @@ Renders in front of the [RenderContext.GameplayBatch](../../../Murder/Core/Graph
 public RenderTarget2D LastRenderTarget { get; }
 ```
 
+The screen-resolution render target produced at the end of the previous frame.
+
 **Returns** \
 [RenderTarget2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html) \
 #### MainTarget
 ```csharp
 public RenderTarget2D MainTarget { get; }
 ```
+
+The game-resolution render target for the current frame.
 
 **Returns** \
 [RenderTarget2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html) \
@@ -222,12 +262,16 @@ public RenderTarget2D MainTarget { get; }
 public BatchPreviewState PreviewState;
 ```
 
+Controls which intermediate render pass is displayed when stepping through batch previews in the editor.
+
 **Returns** \
 [BatchPreviewState](../../../Murder/Core/Graphics/BatchPreviewState.html) \
 #### PreviewStretch
 ```csharp
 public bool PreviewStretch;
 ```
+
+When true, the preview render target is stretched to fill the full screen in the editor preview.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -236,6 +280,8 @@ public bool PreviewStretch;
 public bool RenderToScreen;
 ```
 
+When false, the final render target is not blitted to the display; useful for off-screen rendering or screenshots.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### Settings
@@ -243,12 +289,16 @@ public bool RenderToScreen;
 protected readonly RenderContextFlags Settings;
 ```
 
+The `RenderContextFlags` bitmask that was passed when this context was constructed, controlling optional features such as debug batches and custom shaders.
+
 **Returns** \
 [RenderContextFlags](../../../Murder/Core/Graphics/RenderContextFlags.html) \
 #### SubPixelOffset
 ```csharp
 public Vector2 SubPixelOffset { get; }
 ```
+
+Sub-pixel camera alignment offset exposed to render systems for precise pixel-perfect positioning.
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -265,6 +315,8 @@ Renders above everything, ignores any camera movement.
 ```csharp
 public Viewport Viewport;
 ```
+
+The active screen viewport region that the game image is rendered into.
 
 **Returns** \
 [Viewport](../../../Murder/Core/Viewport.html) \
@@ -350,6 +402,8 @@ Registers a SpriteBatch at a specified index. If the index is already taken, it 
 protected void TakeScreenshotIfNecessary(RenderTarget2D target)
 ```
 
+Saves the provided render target to disk if a screenshot was requested via `SaveScreenShot()`.
+
 **Parameters** \
 `target` [RenderTarget2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html) \
 
@@ -357,6 +411,8 @@ protected void TakeScreenshotIfNecessary(RenderTarget2D target)
 ```csharp
 public Batch2D GetBatch(int index)
 ```
+
+Returns the `Batch2D` registered at the given index, or logs an error and returns batch 0 if the index is invalid.
 
 **Parameters** \
 `index` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -386,6 +442,8 @@ Refreshes the window with the new viewport size and camera scale.
 public virtual Texture2D GetRenderTargetFromEnum(RenderTargets inspectingRenderTarget)
 ```
 
+Resolves a `RenderTargets` enum value to its underlying `Texture2D` render target.
+
 **Parameters** \
 `inspectingRenderTarget` [RenderTargets](../../../Murder/Core/Graphics/RenderTargets.html) \
 
@@ -396,6 +454,8 @@ public virtual Texture2D GetRenderTargetFromEnum(RenderTargets inspectingRenderT
 ```csharp
 public virtual void Begin()
 ```
+
+Begins all registered sprite batches in preparation for drawing the current frame.
 
 #### Dispose()
 ```csharp
@@ -409,20 +469,28 @@ Disposes of all associated resources.
 public virtual void End()
 ```
 
+Flushes all active sprite batches and ends the current frame.
+
 #### Initialize()
 ```csharp
 public virtual void Initialize()
 ```
+
+Allocates render targets, creates all default sprite batches, and performs initial viewport setup.
 
 #### UpdateViewport()
 ```csharp
 public virtual void UpdateViewport()
 ```
 
+Recomputes the viewport dimensions and camera scale factor after a window resize event.
+
 #### CreateDebugPreviewIfNecessary(BatchPreviewState, RenderTarget2D)
 ```csharp
 public void CreateDebugPreviewIfNecessary(BatchPreviewState currentState, RenderTarget2D target)
 ```
+
+Copies `target` into the debug preview buffer when `currentState` matches the active `PreviewState`, enabling step-by-step batch inspection.
 
 **Parameters** \
 `currentState` [BatchPreviewState](../../../Murder/Core/Graphics/BatchPreviewState.html) \

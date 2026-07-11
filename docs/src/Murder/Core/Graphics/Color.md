@@ -10,6 +10,10 @@ public sealed struct Color : IEquatable<T>
 The color type as described by the engine. Values are represented as [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) from 0 to 1.
             To create a color using 0-255, use [Color.CreateFrom256(System.Byte,System.Byte,System.Byte,System.Byte)](../../../Murder/Core/Graphics/Color.html#createfrom256(byte,).
 
+**Intent:** Provides a float-precision RGBA color type with named constants, conversion helpers, and color-math operations (lerp, darken, premultiply).
+
+**Use-case:** Use `Color` wherever tinting, blending, or color animation is needed; pass it to `DrawInfo.Color`, `Batch2D.Draw`, and animation/particle systems.
+
 **Implements:** _[IEquatable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0)_
 
 ### ⭐ Constructors
@@ -305,6 +309,8 @@ Finds a color that is in the point <paramref name="factor" /> between <paramref 
 public Color LerpSmooth(Color a, Color b, float deltaTime, float halfLife)
 ```
 
+Smooth (frame-rate-independent) interpolation between `a` and `b`, reaching halfway to `b` in `halfLife` seconds.
+
 **Parameters** \
 `a` [Color](../../../Murder/Core/Graphics/Color.html) \
 `b` [Color](../../../Murder/Core/Graphics/Color.html) \
@@ -342,7 +348,7 @@ Multiplies the R, G and B values of this color by the Alpha value.
 public uint ToUint(Vector4 color)
 ```
 
-Interprets the Vector4 <paramref name="color" /> as a color and return the unsigned integer representation of that color.
+Packs the RGBA components of `color` (0–1 floats) into a single `uint` in RGBA byte order.
 
 **Parameters** \
 `color` [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \

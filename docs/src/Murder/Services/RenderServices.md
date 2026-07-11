@@ -7,11 +7,18 @@
 public static class RenderServices
 ```
 
+Core rendering utility class providing methods for drawing sprites, shapes, text, and UI elements to a `Batch2D`.
+
+**Intent:** Centralises all 2D drawing operations so game systems and interactions can render content without directly managing batches or atlases.
+
+**Use-case:** Call the `DrawSprite` family to render animated sprites, `DrawText`/`DrawSimpleText` for labels, `Draw9Slice` for scalable UI panels, and shape primitives (`DrawLine`, `DrawRectangle`, etc.) for debug or gameplay overlays.
+
 ### ⭐ Properties
 #### BLEND_COLOR_ONLY
 ```csharp
 public static Vector3 BLEND_COLOR_ONLY;
 ```
+Blend vector that applies only the color channel while discarding the original sprite colors (tint-only mode).
 
 **Returns** \
 [Vector3](https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector3.html) \
@@ -19,6 +26,7 @@ public static Vector3 BLEND_COLOR_ONLY;
 ```csharp
 public static Vector3 BLEND_NORMAL;
 ```
+Default blend vector that draws the sprite with its original colors unchanged.
 
 **Returns** \
 [Vector3](https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector3.html) \
@@ -26,6 +34,7 @@ public static Vector3 BLEND_NORMAL;
 ```csharp
 public static Vector3 BLEND_WASH;
 ```
+Blend vector that washes the sprite toward the tint color, mixing original and tint hues.
 
 **Returns** \
 [Vector3](https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector3.html) \
@@ -34,6 +43,7 @@ public static Vector3 BLEND_WASH;
 ```csharp
 public DrawMenuInfo DrawVerticalMenu(Batch2D batch, Point& position, Point& textPosition, DrawMenuStyle& style, MenuInfo& menuInfo)
 ```
+Draws a vertical list of menu options, returning layout info such as the final drawn position and selected item bounds.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -49,6 +59,7 @@ public DrawMenuInfo DrawVerticalMenu(Batch2D batch, Point& position, Point& text
 ```csharp
 public DrawMenuInfo DrawVerticalMenu(Batch2D batch, Point& position, DrawMenuStyle& style, MenuInfo& menuInfo)
 ```
+Draws a vertical list of menu options with text and selector positions collapsed to a single origin.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -76,6 +87,7 @@ Fetch the current time for this animation.
 ```csharp
 public float YSort(float y)
 ```
+Converts a world-space Y coordinate to a normalized depth-sort value for correct depth ordering in the render batch.
 
 **Parameters** \
 `y` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -87,6 +99,7 @@ public float YSort(float y)
 ```csharp
 public FrameInfo DrawPortrait(Batch2D batch, Portrait portrait, Vector2 position, DrawInfo drawInfo)
 ```
+Draws a portrait sprite (a named animation from a sprite asset) at `position` and returns the rendered frame information.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -101,6 +114,7 @@ public FrameInfo DrawPortrait(Batch2D batch, Portrait portrait, Vector2 position
 ```csharp
 public FrameInfo DrawSprite(Batch2D batch, SpriteAsset asset, Vector2 position, DrawInfo drawInfo, AnimationInfo animationInfo)
 ```
+Draws a sprite asset at `position` using the specified draw and animation parameters.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -116,6 +130,7 @@ public FrameInfo DrawSprite(Batch2D batch, SpriteAsset asset, Vector2 position, 
 ```csharp
 public FrameInfo DrawSprite(Batch2D batch, SpriteAsset asset, Vector2 position, T? drawInfo)
 ```
+Draws a sprite asset at `position` using optional draw parameters (null uses defaults).
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -130,6 +145,7 @@ public FrameInfo DrawSprite(Batch2D batch, SpriteAsset asset, Vector2 position, 
 ```csharp
 public FrameInfo DrawSprite(Batch2D batch, Guid assetGuid, float x, float y, DrawInfo drawInfo, AnimationInfo animationInfo)
 ```
+Draws the sprite asset identified by `assetGuid` at pixel coordinates `(x, y)`.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -146,6 +162,7 @@ public FrameInfo DrawSprite(Batch2D batch, Guid assetGuid, float x, float y, Dra
 ```csharp
 public FrameInfo DrawSprite(Batch2D batch, Guid assetGuid, Vector2 position, DrawInfo drawInfo, AnimationInfo animationInfo)
 ```
+Draws the sprite asset identified by `assetGuid` at `position`.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -161,6 +178,7 @@ public FrameInfo DrawSprite(Batch2D batch, Guid assetGuid, Vector2 position, Dra
 ```csharp
 public FrameInfo DrawSprite(Batch2D batch, Guid assetGuid, Vector2 position, T? drawInfo)
 ```
+Draws the sprite asset identified by `assetGuid` at `position` with optional draw parameters.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -333,6 +351,7 @@ public Point DrawText(Batch2D uiBatch, int pixelFont, string text, Vector2 posit
 ```csharp
 public T? FetchPortraitAsSprite(Portrait portrait)
 ```
+Returns the `AtlasCoordinates` for a portrait's current animation frame, or `null` if the asset is not loaded.
 
 **Parameters** \
 `portrait` [Portrait](../../Murder/Core/Portrait.html) \
@@ -355,6 +374,7 @@ Don't forget to dispose this!
 ```csharp
 public void Draw3Slice(Batch2D batch, AtlasCoordinates texture, Rectangle core, Vector2 position, Vector2 size, Vector2 origin, Orientation orientation, float sort)
 ```
+Draws a three-slice (horizontal or vertical) stretched texture between `position` and `size` using `core` as the fixed center region.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -370,6 +390,7 @@ public void Draw3Slice(Batch2D batch, AtlasCoordinates texture, Rectangle core, 
 ```csharp
 public void Draw9Slice(Batch2D batch, AtlasCoordinates texture, IntRectangle core, IntRectangle target, NineSliceStyle style, DrawInfo info)
 ```
+Draws a nine-slice scalable UI element stretching `texture` to fill `target` while keeping the `core` corners unstretched.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -383,6 +404,7 @@ public void Draw9Slice(Batch2D batch, AtlasCoordinates texture, IntRectangle cor
 ```csharp
 public void Draw9Slice(Batch2D batch, AtlasCoordinates texture, Rectangle core, Rectangle target, float sort)
 ```
+Draws a nine-slice element using float rectangles for the core and target regions.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -437,6 +459,7 @@ Draws a 9-slice using the given texture and target rectangle. The core rectangle
 ```csharp
 public void Draw9SliceWithText(Batch2D batch, Guid sprite, string text, int font, Rectangle target, DrawInfo textDrawInfo, DrawInfo sliceDrawInfo, AnimationInfo sliceAnimationInfo)
 ```
+Draws a nine-slice sprite and renders `text` centered inside it.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -452,6 +475,7 @@ public void Draw9SliceWithText(Batch2D batch, Guid sprite, string text, int font
 ```csharp
 public void DrawArrow(Batch2D spriteBatch, Vector2 point1, Vector2 point2, Color color, float thickness, float headSize, float sort)
 ```
+Draws an arrow from `point1` to `point2` with a filled arrowhead of size `headSize`.
 
 **Parameters** \
 `spriteBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -466,6 +490,7 @@ public void DrawArrow(Batch2D spriteBatch, Vector2 point1, Vector2 point2, Color
 ```csharp
 public void DrawCircleOutline(Batch2D spriteBatch, Point center, float radius, int sides, Color color, float sort)
 ```
+Draws a wireframe circle centred at `center` (integer point overload).
 
 **Parameters** \
 `spriteBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -479,6 +504,7 @@ public void DrawCircleOutline(Batch2D spriteBatch, Point center, float radius, i
 ```csharp
 public void DrawCircleOutline(Batch2D spriteBatch, Rectangle rectangle, int sides, Color color)
 ```
+Draws a wireframe ellipse inscribed within `rectangle`.
 
 **Parameters** \
 `spriteBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -511,6 +537,7 @@ Draw a circle
 ```csharp
 public void DrawFilledCircle(Batch2D batch, Rectangle circleRect, int steps, DrawInfo drawInfo)
 ```
+Draws a filled circle (approximated as a polygon) inscribed within `circleRect`.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -522,6 +549,7 @@ public void DrawFilledCircle(Batch2D batch, Rectangle circleRect, int steps, Dra
 ```csharp
 public void DrawFilledCircle(Batch2D batch, Vector2 center, float radius, int steps, T? drawInfo)
 ```
+Draws a filled circle centred at `center` with the given `radius`, approximated with `steps` polygon vertices.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -534,6 +562,7 @@ public void DrawFilledCircle(Batch2D batch, Vector2 center, float radius, int st
 ```csharp
 public void DrawHorizontalLine(Batch2D spriteBatch, int x, int y, int length, Color color, float sorting)
 ```
+Draws a single-pixel horizontal line of `length` pixels starting at `(x, y)`.
 
 **Parameters** \
 `spriteBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -547,6 +576,7 @@ public void DrawHorizontalLine(Batch2D spriteBatch, int x, int y, int length, Co
 ```csharp
 public void DrawIndexedVertices(Matrix matrix, GraphicsDevice graphicsDevice, T[] vertices, int vertexCount, Int16[] indices, int primitiveCount, Effect effect, BlendState blendState, Texture2D texture, bool smoothing)
 ```
+Submits indexed vertex data directly to the graphics device for custom mesh rendering.
 
 **Parameters** \
 `matrix` [Matrix](https://docs.monogame.net/api/Microsoft.Xna.Framework.Matrix.html) \
@@ -564,6 +594,7 @@ public void DrawIndexedVertices(Matrix matrix, GraphicsDevice graphicsDevice, T[
 ```csharp
 public void DrawLine(Batch2D spriteBatch, Point point1, Point point2, Color color, float sort)
 ```
+Draws a line segment between two integer-coordinate points.
 
 **Parameters** \
 `spriteBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -576,6 +607,7 @@ public void DrawLine(Batch2D spriteBatch, Point point1, Point point2, Color colo
 ```csharp
 public void DrawLine(Batch2D spriteBatch, Vector2 point, float length, float angle, Color color, float sort)
 ```
+Draws a line of `length` pixels starting at `point` and extending in the direction of `angle` (radians).
 
 **Parameters** \
 `spriteBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -589,6 +621,7 @@ public void DrawLine(Batch2D spriteBatch, Vector2 point, float length, float ang
 ```csharp
 public void DrawLine(Batch2D spriteBatch, Vector2 point, float length, float angle, Color color, float thickness, float sort)
 ```
+Draws a line of `length` pixels at `angle` (radians) with a custom `thickness`.
 
 **Parameters** \
 `spriteBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -603,6 +636,7 @@ public void DrawLine(Batch2D spriteBatch, Vector2 point, float length, float ang
 ```csharp
 public void DrawLine(Batch2D spriteBatch, Vector2 point1, Vector2 point2, Color color, float sort)
 ```
+Draws a line segment between two float-precision world positions.
 
 **Parameters** \
 `spriteBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -615,6 +649,7 @@ public void DrawLine(Batch2D spriteBatch, Vector2 point1, Vector2 point2, Color 
 ```csharp
 public void DrawLine(Batch2D spriteBatch, Vector2 point1, Vector2 point2, Color color, float thickness, float sort)
 ```
+Draws a line segment between two float-precision positions with a custom `thickness`.
 
 **Parameters** \
 `spriteBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -628,6 +663,7 @@ public void DrawLine(Batch2D spriteBatch, Vector2 point1, Vector2 point2, Color 
 ```csharp
 public void DrawPoint(Batch2D spriteBatch, Point pos, Color color, float sorting)
 ```
+Draws a single pixel-sized point at the given coordinates.
 
 **Parameters** \
 `spriteBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -677,6 +713,7 @@ Draws a list of connecting points
 ```csharp
 public void DrawPolygon(Batch2D batch, ImmutableArray<T> vertices, T? drawInfo)
 ```
+Draws a closed polygon from the given vertex array using the specified draw parameters.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -687,6 +724,7 @@ public void DrawPolygon(Batch2D batch, ImmutableArray<T> vertices, T? drawInfo)
 ```csharp
 public void DrawQuad(Rectangle rect, Color color)
 ```
+Fills the full-screen quad with `color`, ignoring batch sorting; used for full-screen overlays.
 
 **Parameters** \
 `rect` [Rectangle](../../Murder/Core/Geometry/Rectangle.html) \
@@ -696,6 +734,7 @@ public void DrawQuad(Rectangle rect, Color color)
 ```csharp
 public void DrawQuadOutline(Rectangle rect, Color color)
 ```
+Draws an outlined quad (border only) over the specified rectangle.
 
 **Parameters** \
 `rect` [Rectangle](../../Murder/Core/Geometry/Rectangle.html) \
@@ -705,6 +744,7 @@ public void DrawQuadOutline(Rectangle rect, Color color)
 ```csharp
 public void DrawRectangle(Batch2D batch, Rectangle rectangle, Color color, float sorting)
 ```
+Fills `rectangle` with `color` at the given sort depth.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -716,6 +756,7 @@ public void DrawRectangle(Batch2D batch, Rectangle rectangle, Color color, float
 ```csharp
 public void DrawRectangleOutline(Batch2D spriteBatch, Rectangle rectangle, Color color, int lineWidth, float sorting)
 ```
+Draws the border of `rectangle` with `lineWidth` thickness at `sorting` depth.
 
 **Parameters** \
 `spriteBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -728,6 +769,7 @@ public void DrawRectangleOutline(Batch2D spriteBatch, Rectangle rectangle, Color
 ```csharp
 public void DrawRectangleOutline(Batch2D spriteBatch, Rectangle rectangle, Color color, int lineWidth)
 ```
+Draws the border of `rectangle` with `lineWidth` thickness.
 
 **Parameters** \
 `spriteBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -739,6 +781,7 @@ public void DrawRectangleOutline(Batch2D spriteBatch, Rectangle rectangle, Color
 ```csharp
 public void DrawRectangleOutline(Batch2D spriteBatch, Rectangle rectangle, Color color)
 ```
+Draws a single-pixel border around `rectangle`.
 
 **Parameters** \
 `spriteBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -749,6 +792,7 @@ public void DrawRectangleOutline(Batch2D spriteBatch, Rectangle rectangle, Color
 ```csharp
 public void DrawRepeating(Batch2D batch, AtlasCoordinates texture, Rectangle area, float sort)
 ```
+Tiles `texture` to fill the entire `area` rectangle.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -760,6 +804,7 @@ public void DrawRepeating(Batch2D batch, AtlasCoordinates texture, Rectangle are
 ```csharp
 public void DrawTexture(Batch2D batch, Texture2D texture, Vector2 position, DrawInfo drawInfo)
 ```
+Draws a raw `Texture2D` (not an atlas sprite) at `position` using the given draw parameters.
 
 **Parameters** \
 `batch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -771,6 +816,7 @@ public void DrawTexture(Batch2D batch, Texture2D texture, Vector2 position, Draw
 ```csharp
 public void DrawTextureQuad(Texture2D texture, Rectangle source, Rectangle destination, Matrix matrix, Color color, BlendState blend, Effect shaderEffect, Vector3 colorBlend)
 ```
+Blits `source` region of `texture` into `destination` on screen using the given matrix, color, blend state, shader, and color-blend vector.
 
 **Parameters** \
 `texture` [Texture2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html) \
@@ -786,6 +832,7 @@ public void DrawTextureQuad(Texture2D texture, Rectangle source, Rectangle desti
 ```csharp
 public void DrawTextureQuad(Texture2D texture, Rectangle source, Rectangle destination, Matrix matrix, Color color, BlendState blend, Effect shaderEffect)
 ```
+Blits `source` region of `texture` into `destination` using a shader effect and blend state.
 
 **Parameters** \
 `texture` [Texture2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html) \
@@ -800,6 +847,7 @@ public void DrawTextureQuad(Texture2D texture, Rectangle source, Rectangle desti
 ```csharp
 public void DrawTextureQuad(Texture2D texture, Rectangle source, Rectangle destination, Matrix matrix, Color color, BlendState blend)
 ```
+Blits `source` region of `texture` into `destination` with the given blend state.
 
 **Parameters** \
 `texture` [Texture2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html) \
@@ -813,6 +861,7 @@ public void DrawTextureQuad(Texture2D texture, Rectangle source, Rectangle desti
 ```csharp
 public void DrawTextureQuad(Texture2D texture, Rectangle source, Rectangle destination, Matrix matrix, Color color, Effect effect, BlendState blend, bool smoothing)
 ```
+Blits `source` region of `texture` into `destination` with smoothing control.
 
 **Parameters** \
 `texture` [Texture2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html) \
@@ -828,6 +877,7 @@ public void DrawTextureQuad(Texture2D texture, Rectangle source, Rectangle desti
 ```csharp
 public void DrawVerticalLine(Batch2D spriteBatch, int x, int y, int length, Color color, float sorting)
 ```
+Draws a single-pixel vertical line of `length` pixels starting at `(x, y)`.
 
 **Parameters** \
 `spriteBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -841,6 +891,7 @@ public void DrawVerticalLine(Batch2D spriteBatch, int x, int y, int length, Colo
 ```csharp
 public void MessageCompleteAnimations(Entity e, SpriteComponent s)
 ```
+Sends an `AnimationCompleteMessage` for all completed animations on entity `e` given sprite component `s`.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -850,6 +901,7 @@ public void MessageCompleteAnimations(Entity e, SpriteComponent s)
 ```csharp
 public void MessageCompleteAnimations(Entity e)
 ```
+Sends animation-complete messages for all finished animations on entity `e`, reading its current sprite component.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -858,6 +910,7 @@ public void MessageCompleteAnimations(Entity e)
 ```csharp
 public void TriggerEventsIfNeeded(Entity e, RenderedSpriteCacheComponent cache, bool useUnscaledTime)
 ```
+Fires any animation frame events that occurred since the last render for entity `e`.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -868,6 +921,7 @@ public void TriggerEventsIfNeeded(Entity e, RenderedSpriteCacheComponent cache, 
 ```csharp
 public void TriggerEventsIfNeeded(Entity e, RenderedSpriteCacheComponent cache, float previousTime, float currentTime)
 ```
+Fires any animation frame events that fell within the time window `[previousTime, currentTime]` for entity `e`.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \

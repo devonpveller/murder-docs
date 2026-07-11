@@ -9,6 +9,10 @@ public sealed struct AtlasCoordinates
 
 An image coordinate inside an atlas
 
+**Intent:** Describes a single sprite frame — its pixel rectangle within a packed texture atlas, its original (pre-trim) size, and UV coordinates ready for the GPU.
+
+**Use-case:** Obtained from `Game.Data.FetchAtlas()` or from a `SpriteAsset` frame lookup; passed directly to `Batch2D.Draw` or `AtlasCoordinates.Draw` to render the frame.
+
 ### ⭐ Constructors
 ```csharp
 public AtlasCoordinates(string name, AtlasId atlasId, IntRectangle atlasRectangle, IntRectangle trimArea, Point size, int atlasIndex, int atlasWidth, int atlasHeight)
@@ -30,12 +34,16 @@ public AtlasCoordinates(string name, AtlasId atlasId, IntRectangle atlasRectangl
 public Texture2D Atlas { get; }
 ```
 
+The GPU texture object for the atlas page that contains this coordinate.
+
 **Returns** \
 [Texture2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html) \
 #### AtlasId
 ```csharp
 public readonly AtlasId AtlasId;
 ```
+
+Identifier of the atlas that owns this coordinate, used to retrieve the correct `Texture2D` page.
 
 **Returns** \
 [AtlasId](../../../Murder/Data/AtlasId.html) \
@@ -44,12 +52,16 @@ public readonly AtlasId AtlasId;
 public readonly int AtlasIndex;
 ```
 
+Zero-based index of the atlas texture page that stores this image, for multi-page atlases.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### AtlasSize
 ```csharp
 public Point AtlasSize { get; }
 ```
+
+The pixel dimensions of the atlas texture page (width × height), used for UV normalisation.
 
 **Returns** \
 [Point](../../../Murder/Core/Geometry/Point.html) \
@@ -58,6 +70,8 @@ public Point AtlasSize { get; }
 public static AtlasCoordinates Empty;
 ```
 
+A default-initialised `AtlasCoordinates` with no atlas or rectangle data; safe to use as a null-equivalent sentinel.
+
 **Returns** \
 [AtlasCoordinates](../../../Murder/Core/Graphics/AtlasCoordinates.html) \
 #### Height
@@ -65,12 +79,16 @@ public static AtlasCoordinates Empty;
 public int Height { get; }
 ```
 
+Pixel height of the source rectangle within the atlas (the visible trimmed area).
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### Name
 ```csharp
 public readonly string Name;
 ```
+
+The asset name of the sprite as packed in the atlas (matches the key used to fetch it).
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -88,12 +106,16 @@ The real size of the image, without trimming
 public readonly IntRectangle SourceRectangle;
 ```
 
+Pixel rectangle within the atlas texture that contains this image's visible pixels (after trimming transparent borders).
+
 **Returns** \
 [IntRectangle](../../../Murder/Core/Geometry/IntRectangle.html) \
 #### TrimArea
 ```csharp
 public readonly IntRectangle TrimArea;
 ```
+
+The pixel offset of the trimmed bounding box within the original (un-trimmed) image, used to restore correct positioning when rendering.
 
 **Returns** \
 [IntRectangle](../../../Murder/Core/Geometry/IntRectangle.html) \
@@ -102,12 +124,16 @@ public readonly IntRectangle TrimArea;
 public readonly Rectangle UV;
 ```
 
+Normalized (0–1) UV rectangle mapping `SourceRectangle` into the atlas texture, ready to pass to the GPU shader.
+
 **Returns** \
 [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
 #### Width
 ```csharp
 public int Width { get; }
 ```
+
+Pixel width of the source rectangle within the atlas (the visible trimmed area).
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \

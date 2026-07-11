@@ -7,6 +7,12 @@
 public class SpriteAsset : GameAsset, IPreview
 ```
 
+Stores the complete animation data for a sprite, including atlas coordinates for every frame, named animation sequences, and optional nine-slice rectangle.
+
+**Intent:** Serve as the authoritative data record for a sprite: which frames exist, how they are grouped into named animations, where the sprite origin sits, and which texture atlas they live in.
+
+**Use-case:** Reference a `SpriteAsset` GUID from a `SpriteComponent` to render an animated sprite. Call `GetFrame(int)` to get atlas coordinates for a given frame index, and inspect `Animations` to retrieve an `Animation` by name when playing a specific sequence.
+
 **Implements:** _[GameAsset](../../../Murder/Assets/GameAsset.html), [IPreview](../../../Murder/Assets/IPreview.html)_
 
 ### ⭐ Constructors
@@ -48,12 +54,16 @@ public SpriteAsset(Guid guid, AtlasId atlasId, string name, ImmutableArray<T> fr
 public ImmutableDictionary<TKey, TValue> Animations { get; private set; }
 ```
 
+Named animation sequences, each mapping an animation name to its `Animation` definition (frame list, events, speed).
+
 **Returns** \
 [ImmutableDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0) \
 #### AsepriteFileInfo
 ```csharp
 public T? AsepriteFileInfo;
 ```
+
+Optional metadata from the source Aseprite file, retained for round-trip editing in the editor.
 
 **Returns** \
 [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
@@ -62,12 +72,16 @@ public T? AsepriteFileInfo;
 public readonly AtlasId Atlas;
 ```
 
+Identifier of the texture atlas that contains this sprite's frames.
+
 **Returns** \
 [AtlasId](../../../Murder/Data/AtlasId.html) \
 #### CanBeCreated
 ```csharp
 public virtual bool CanBeCreated { get; }
 ```
+
+Determines if the asset can be created, override to change this capability.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -76,12 +90,16 @@ public virtual bool CanBeCreated { get; }
 public virtual bool CanBeDeleted { get; }
 ```
 
+Determines if the asset can be deleted, override to change this capability.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### CanBeRenamed
 ```csharp
 public virtual bool CanBeRenamed { get; }
 ```
+
+Determines if the asset can be renamed, override to change this capability.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -90,12 +108,16 @@ public virtual bool CanBeRenamed { get; }
 public virtual bool CanBeSaved { get; }
 ```
 
+Determines if the asset can be saved, override to change this capability.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### EditorColor
 ```csharp
 public virtual Vector4 EditorColor { get; }
 ```
+
+Gets the default color used in the editor for the asset.
 
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
@@ -104,12 +126,16 @@ public virtual Vector4 EditorColor { get; }
 public virtual string EditorFolder { get; }
 ```
 
+Gets the folder path in the editor where this asset is grouped.
+
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 #### FileChanged
 ```csharp
 public bool FileChanged { get; public set; }
 ```
+
+Indicates whether the asset has unsaved modifications.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -118,12 +144,16 @@ public bool FileChanged { get; public set; }
 public string FilePath { get; public set; }
 ```
 
+Path to this asset file, relative to its base directory.
+
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 #### Frames
 ```csharp
 public readonly ImmutableArray<T> Frames;
 ```
+
+Ordered list of atlas coordinates for each frame of this sprite.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -132,12 +162,16 @@ public readonly ImmutableArray<T> Frames;
 public Guid Guid { get; protected set; }
 ```
 
+Unique identifier for this asset, used to reference it from other assets and components.
+
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
 #### Icon
 ```csharp
 public virtual char Icon { get; }
 ```
+
+FontAwesome character icon displayed next to this asset in the editor.
 
 **Returns** \
 [char](https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0) \
@@ -146,12 +180,16 @@ public virtual char Icon { get; }
 public virtual bool IsStoredInSaveData { get; }
 ```
 
+Whether this file is stored relative to the save path.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### Name
 ```csharp
 public string Name { get; public set; }
 ```
+
+Display name of this asset as shown in the editor.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -160,12 +198,16 @@ public string Name { get; public set; }
 public readonly Rectangle NineSlice;
 ```
 
+Rectangle defining the nine-slice border insets for stretching this sprite without distorting its corners.
+
 **Returns** \
 [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
 #### Origin
 ```csharp
 public readonly Point Origin;
 ```
+
+Pixel offset of the sprite's pivot point from the top-left corner of its bounding box.
 
 **Returns** \
 [Point](../../../Murder/Core/Geometry/Point.html) \
@@ -174,12 +216,16 @@ public readonly Point Origin;
 public bool Rename { get; public set; }
 ```
 
+Whether the file should be renamed and the previous name deleted on next save.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### SaveLocation
 ```csharp
 public virtual string SaveLocation { get; }
 ```
+
+The folder path where this asset is saved on disk.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -188,6 +234,8 @@ public virtual string SaveLocation { get; }
 public readonly Point Size;
 ```
 
+Dimensions in pixels of the sprite's bounding box.
+
 **Returns** \
 [Point](../../../Murder/Core/Geometry/Point.html) \
 #### StoreInDatabase
@@ -195,12 +243,16 @@ public readonly Point Size;
 public virtual bool StoreInDatabase { get; }
 ```
 
+Whether this asset is stored following the database hierarchy.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### TaggedForDeletion
 ```csharp
 public bool TaggedForDeletion;
 ```
+
+Marks this asset for removal on the next save.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -210,10 +262,14 @@ public bool TaggedForDeletion;
 protected virtual void OnModified()
 ```
 
+Called by the editor when the asset is modified; clears the animation cache.
+
 #### GetFrame(int)
 ```csharp
 public AtlasCoordinates GetFrame(int frame)
 ```
+
+Returns the atlas texture coordinates for the given frame index.
 
 **Parameters** \
 `frame` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -225,6 +281,8 @@ public AtlasCoordinates GetFrame(int frame)
 ```csharp
 public bool AddMessageToAnimationFrame(string animationName, int frame, string message)
 ```
+
+Attaches an event message string to a specific frame of the named animation; returns true if successful.
 
 **Parameters** \
 `animationName` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -239,6 +297,8 @@ public bool AddMessageToAnimationFrame(string animationName, int frame, string m
 public bool RemoveMessageFromAnimationFrame(string animationName, int frame)
 ```
 
+Removes the event message from the specified frame of the named animation; returns true if a message was present.
+
 **Parameters** \
 `animationName` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 `frame` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -251,6 +311,8 @@ public bool RemoveMessageFromAnimationFrame(string animationName, int frame)
 public GameAsset Duplicate(string name)
 ```
 
+Creates a deep copy of this asset with the given new name.
+
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
@@ -262,6 +324,8 @@ public GameAsset Duplicate(string name)
 public List<T> AssetsToBeSaved()
 ```
 
+Returns and clears the list of dependent assets queued to be saved alongside this asset.
+
 **Returns** \
 [List\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0) \
 
@@ -269,6 +333,8 @@ public List<T> AssetsToBeSaved()
 ```csharp
 public string GetSimplifiedName()
 ```
+
+Returns the asset name stripped of any editor-folder prefix characters.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -278,6 +344,8 @@ public string GetSimplifiedName()
 public String[] GetSplitNameWithEditorPath()
 ```
 
+Returns the display name split into path segments following the EditorFolder hierarchy.
+
 **Returns** \
 [string[]](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
@@ -286,6 +354,8 @@ public String[] GetSplitNameWithEditorPath()
 public virtual ValueTuple<T1, T2> GetPreviewId()
 ```
 
+Returns the atlas ID and sprite name pair used to generate a preview thumbnail in the editor.
+
 **Returns** \
 [ValueTuple\<T1, T2\>](https://learn.microsoft.com/en-us/dotnet/api/System.ValueTuple-2?view=net-7.0) \
 
@@ -293,6 +363,8 @@ public virtual ValueTuple<T1, T2> GetPreviewId()
 ```csharp
 public virtual void AfterDeserialized()
 ```
+
+Called after deserialization; override to rebuild caches from deserialized data.
 
 #### AppendEditorPath(string)
 ```csharp
@@ -309,10 +381,14 @@ Set a directory prefix used for the editor folder.
 public void MakeGuid()
 ```
 
+Generates and assigns a new GUID to this asset.
+
 #### TrackAssetOnSave(Guid)
 ```csharp
 public void TrackAssetOnSave(Guid g)
 ```
+
+Queues a dependent asset by GUID to be saved whenever this asset is saved.
 
 **Parameters** \
 `g` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \

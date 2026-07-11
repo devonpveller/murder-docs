@@ -7,7 +7,13 @@
 public sealed struct ColliderComponent : IComponent
 ```
 
+Defines the collision shapes and physics layer for an entity in the physics simulation.
+
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
+
+**Intent:** Provides the geometry and layer information that the physics system uses to test overlaps and collisions between entities.
+
+**Use-case:** Attach to any entity that should participate in physics queries; configure `Shapes` with one or more `IShape` instances and set `Layer` to the appropriate `CollisionLayersBase` flag.
 
 ### ⭐ Constructors
 ```csharp
@@ -38,6 +44,8 @@ public ColliderComponent(ImmutableArray<T> shapes, int layer, Color color)
 public readonly Color DebugColor;
 ```
 
+Color used to draw the collider shape in debug/editor mode.
+
 **Returns** \
 [Color](../../Murder/Core/Graphics/Color.html) \
 #### Layer
@@ -53,6 +61,8 @@ Value of layer according to [CollisionLayersBase](../../Murder/Core/Physics/Coll
 ```csharp
 public readonly ImmutableArray<T> Shapes;
 ```
+
+The list of collision shapes (boxes, circles, polygons) that make up this entity's collider.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \

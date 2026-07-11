@@ -7,11 +7,18 @@
 public static class FileHelper
 ```
 
+Collection of static helper methods for file path manipulation, platform-specific extensions, and save-file path resolution.
+
+**Intent:** Provides OS-agnostic file system utilities used throughout the engine for locating resources, cleaning asset names, and resolving save paths.
+
+**Use-case:** Call `GetPath(paths)` to resolve a resource path relative to the game's executable, `GetSaveBasePath(gameName)` to locate user save data, and `Clean(str)` to sanitize asset name strings.
+
 ### ⭐ Methods
 #### Clean(string)
 ```csharp
 public ReadOnlySpan<T> Clean(string str)
 ```
+Strips non-alphanumeric characters (except path separators and hyphens) from `str` and normalizes path separators.
 
 **Parameters** \
 `str` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -23,6 +30,7 @@ public ReadOnlySpan<T> Clean(string str)
 ```csharp
 public string EscapePath(string path)
 ```
+Normalizes all path separators in `path` to the current operating system's directory separator character.
 
 **Parameters** \
 `path` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -64,6 +72,7 @@ Gets the rooted path from a relative one
 ```csharp
 public string GetPathWithoutExtension(string path)
 ```
+Returns `path` with the file extension removed, preserving the directory structure.
 
 **Parameters** \
 `path` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \

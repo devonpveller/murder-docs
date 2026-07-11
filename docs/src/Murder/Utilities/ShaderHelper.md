@@ -7,21 +7,31 @@
 public static class ShaderHelper
 ```
 
+Extension methods for setting typed parameters on MonoGame `Effect` objects by their shader variable name.
+
+**Intent:** Provides a type-safe, overload-based API for applying shader parameters, eliminating direct calls to `Effect.Parameters[name].SetValue`.
+
+**Use-case:** Call `SetParameter` on any loaded effect to apply textures, vectors, colors, or scalars by their shader variable name.
+
 ### ⭐ Methods
 #### SetParameter(Effect, string, Texture2D)
 ```csharp
 public void SetParameter(Effect effect, string id, Texture2D val)
 ```
 
+Sets the `Texture2D` shader parameter named `id` on the given effect.
+
 **Parameters** \
 `effect` [Effect](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html) \
 `id` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
-`val` [Texture2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html) \
+`val` [Texture2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html)
 
 #### SetParameter(Effect, string, Vector2)
 ```csharp
 public void SetParameter(Effect effect, string id, Vector2 val)
 ```
+
+Sets the `Vector2` (XNA) shader parameter named `id` on the given effect.
 
 **Parameters** \
 `effect` [Effect](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html) \
@@ -33,6 +43,8 @@ public void SetParameter(Effect effect, string id, Vector2 val)
 public void SetParameter(Effect effect, string id, Vector3 val)
 ```
 
+Sets the `Vector3` shader parameter named `id` on the given effect.
+
 **Parameters** \
 `effect` [Effect](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html) \
 `id` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -42,6 +54,8 @@ public void SetParameter(Effect effect, string id, Vector3 val)
 ```csharp
 public void SetParameter(Effect effect, string id, Vector3[] val)
 ```
+
+Sets the `Vector3` array shader parameter named `id` on the given effect.
 
 **Parameters** \
 `effect` [Effect](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html) \
@@ -53,6 +67,8 @@ public void SetParameter(Effect effect, string id, Vector3[] val)
 public void SetParameter(Effect effect, string id, Point val)
 ```
 
+Sets the `Point` shader parameter named `id` on the given effect as a two-component integer vector.
+
 **Parameters** \
 `effect` [Effect](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html) \
 `id` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -62,6 +78,8 @@ public void SetParameter(Effect effect, string id, Point val)
 ```csharp
 public void SetParameter(Effect effect, string id, bool val)
 ```
+
+Sets the `bool` shader parameter named `id` on the given effect.
 
 **Parameters** \
 `effect` [Effect](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html) \
@@ -73,6 +91,8 @@ public void SetParameter(Effect effect, string id, bool val)
 public void SetParameter(Effect effect, string id, float val)
 ```
 
+Sets the `float` scalar shader parameter named `id` on the given effect.
+
 **Parameters** \
 `effect` [Effect](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html) \
 `id` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -82,6 +102,8 @@ public void SetParameter(Effect effect, string id, float val)
 ```csharp
 public void SetParameter(Effect effect, string id, int val)
 ```
+
+Sets the `int` scalar shader parameter named `id` on the given effect.
 
 **Parameters** \
 `effect` [Effect](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html) \

@@ -7,10 +7,18 @@
 public class CharacterRuntime
 ```
 
+Maintains the live playback state for a character's dialogue: the active situation, current dialog node, and active line index.
+
+**Intent:** Drives a character's dialogue session at runtime — advancing through dialog nodes, evaluating blackboard conditions, resolving the next displayable line, and committing choices.
+
+**Use-case:** Instantiate with a `Character` and a starting situation name; call `HasNext` each frame to check whether dialogue remains, `NextLine` to retrieve the next displayable line, and `DoChoice` to commit a player-selected option.
+
 ### ⭐ Constructors
 ```csharp
 public CharacterRuntime(Character character, int situation)
 ```
+
+Creates a new runtime for the given character, starting playback at the specified situation.
 
 **Parameters** \
 `character` [Character](../../../Murder/Core/Dialogs/Character.html) \
@@ -21,6 +29,8 @@ public CharacterRuntime(Character character, int situation)
 ```csharp
 public bool CheckRequirements(World world, ImmutableArray<T> requirements, Int32& score)
 ```
+
+Evaluates a set of `CriterionNode` requirements against the current world state and returns whether they pass, writing the match score into `score`.
 
 **Parameters** \
 `world` [World](../../../Bang/World.html) \
@@ -34,6 +44,8 @@ public bool CheckRequirements(World world, ImmutableArray<T> requirements, Int32
 ```csharp
 public bool HasContentOnNextDialogueLine(World world, Entity target, bool checkForNewContentOnly)
 ```
+
+Returns whether the upcoming dialogue node contains at least one displayable line; when `checkForNewContentOnly` is `true`, also requires that the node has never been visited before.
 
 **Parameters** \
 `world` [World](../../../Bang/World.html) \
@@ -63,6 +75,8 @@ Returns whether the active dialog state for this dialogue is valid or not.
 public T? NextLine(World world, Entity target)
 ```
 
+Advances the dialogue and returns the next `DialogLine` to display (either a `Line` or a `ChoiceLine`), or `null` when the conversation is over.
+
 **Parameters** \
 `world` [World](../../../Bang/World.html) \
 `target` [Entity](../../../Bang/Entities/Entity.html) \
@@ -75,6 +89,8 @@ public T? NextLine(World world, Entity target)
 public void DoChoice(int choice, World world, Entity target)
 ```
 
+Commits the player's selected choice index, executing any associated actions and advancing the dialogue to the chosen branch.
+
 **Parameters** \
 `choice` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 `world` [World](../../../Bang/World.html) \
@@ -84,6 +100,8 @@ public void DoChoice(int choice, World world, Entity target)
 ```csharp
 public void StartAtSituation(int situation)
 ```
+
+Resets playback state and begins the dialogue from the specified situation ID.
 
 **Parameters** \
 `situation` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \

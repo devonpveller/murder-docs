@@ -7,6 +7,12 @@
 public class GameDataManager : IDisposable
 ```
 
+Central manager responsible for loading, caching, and providing access to all game assets, atlases, shaders, save data, and localization.
+
+**Intent:** Acts as the single source of truth for all persistent game content at runtime — from sprite atlases to serialized world data.
+
+**Use-case:** Access it via `Game.Data` to retrieve assets by GUID, load or save game progress, switch localization, and manage texture atlases. Override it (e.g. in a custom editor host) to hook additional loading logic.
+
 **Implements:** _[IDisposable](https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0)_
 
 ### ⭐ Constructors
@@ -56,6 +62,7 @@ This is the collection of save data according to the slots.
 ```csharp
 protected string _assetsBinDirectoryPath;
 ```
+Cached path to the directory containing the packed binary asset files.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -63,6 +70,7 @@ protected string _assetsBinDirectoryPath;
 ```csharp
 protected string _binResourcesDirectory;
 ```
+Root directory for binary resource files, defaulting to `"resources"`.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -80,6 +88,7 @@ Maps:
 ```csharp
 public ImmutableDictionary<TKey, TValue> _fonts;
 ```
+Immutable map from font index to loaded `PixelFont` instances.
 
 **Returns** \
 [ImmutableDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0) \
@@ -87,6 +96,7 @@ public ImmutableDictionary<TKey, TValue> _fonts;
 ```csharp
 protected readonly IMurderGame _game;
 ```
+Reference to the game implementation used to provide custom profiles, processors, and shaders.
 
 **Returns** \
 [IMurderGame](../../Murder/IMurderGame.html) \
@@ -94,6 +104,7 @@ protected readonly IMurderGame _game;
 ```csharp
 protected GameProfile _gameProfile;
 ```
+Cached game profile loaded during initialization; contains global game configuration.
 
 **Returns** \
 [GameProfile](../../Murder/Assets/GameProfile.html) \
@@ -133,6 +144,7 @@ Active saved run in the game.
 ```csharp
 public string AssetsBinDirectoryPath { get; }
 ```
+Full path to the directory where packed binary asset files are located.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -149,6 +161,7 @@ Used for loading the editor asynchronously.
 ```csharp
 public string BinResourcesDirectoryPath { get; }
 ```
+Full path to the binary resources directory, used to locate shaders, fonts, and atlases.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -156,6 +169,7 @@ public string BinResourcesDirectoryPath { get; }
 ```csharp
 public readonly CacheDictionary<TKey, TValue> CachedUniqueTextures;
 ```
+LRU cache of individually loaded `Texture2D` objects that are not part of any atlas.
 
 **Returns** \
 [CacheDictionary\<TKey, TValue\>](../../Murder/Utilities/CacheDictionary-2.html) \
@@ -204,6 +218,7 @@ public Texture2D DitherTexture;
 ```csharp
 public readonly FileManager FileManager;
 ```
+Provides all file I/O operations including serialization, deserialization, and directory management.
 
 **Returns** \
 [FileManager](../../Murder/Serialization/FileManager.html) \
@@ -220,6 +235,7 @@ Directory used for saving custom data.
 ```csharp
 public GameProfile GameProfile { get; protected set; }
 ```
+The active game profile containing global configuration such as window size and available systems.
 
 **Returns** \
 [GameProfile](../../Murder/Assets/GameProfile.html) \
@@ -227,6 +243,7 @@ public GameProfile GameProfile { get; protected set; }
 ```csharp
 public static const string GameProfileFileName;
 ```
+Base filename (without extension) used when serializing the `GameProfile` asset to disk.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -234,6 +251,7 @@ public static const string GameProfileFileName;
 ```csharp
 public static const string HiddenAssetsRelativePath;
 ```
+Relative subdirectory name used to store editor-only hidden assets that are skipped in release builds.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -250,6 +268,7 @@ Whether we will continue trying to deserialize a file after finding an issue.
 ```csharp
 public Task LoadContentProgress;
 ```
+Task that tracks the ongoing asynchronous content load; check its status to know when loading is complete.
 
 **Returns** \
 [Task](https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0) \
@@ -257,6 +276,7 @@ public Task LoadContentProgress;
 ```csharp
 public readonly Dictionary<TKey, TValue> LoadedAtlasses;
 ```
+Maps atlas name strings to the currently loaded `TextureAtlas` instances.
 
 **Returns** \
 [Dictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0) \
@@ -264,6 +284,7 @@ public readonly Dictionary<TKey, TValue> LoadedAtlasses;
 ```csharp
 public LocalizationAsset Localization { get; }
 ```
+The localization asset for the currently active language.
 
 **Returns** \
 [LocalizationAsset](../../Murder/Assets/Localization/LocalizationAsset.html) \
@@ -271,6 +292,7 @@ public LocalizationAsset Localization { get; }
 ```csharp
 public virtual Effect[] OtherEffects { get; }
 ```
+Additional game-specific shader effects beyond the built-in set; override to supply custom shaders.
 
 **Returns** \
 [Effect[]](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html) \
@@ -278,6 +300,7 @@ public virtual Effect[] OtherEffects { get; }
 ```csharp
 public string PackedBinDirectoryPath { get; }
 ```
+Full path to the directory containing packed binary asset archives.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -285,6 +308,7 @@ public string PackedBinDirectoryPath { get; }
 ```csharp
 public T? PendingSave;
 ```
+A save operation that is waiting to be flushed to disk on the next safe opportunity.
 
 **Returns** \
 [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
@@ -292,6 +316,7 @@ public T? PendingSave;
 ```csharp
 public GamePreferences Preferences { get; }
 ```
+The current player preferences (volume, language, etc.) deserialized from disk.
 
 **Returns** \
 [GamePreferences](../../Murder/Save/GamePreferences.html) \
@@ -317,6 +342,7 @@ Save directory path used when serializing user data.
 ```csharp
 public JsonSerializerOptions SerializationOptions { get; }
 ```
+JSON serializer options configured with all Murder type converters and source-generation contexts.
 
 **Returns** \
 [JsonSerializerOptions](https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.JsonSerializerOptions?view=net-7.0) \
@@ -333,6 +359,7 @@ A shader specialized for rendering pixel art.
 ```csharp
 protected readonly string ShaderRelativePath;
 ```
+Format string for the relative path to compiled shader files, e.g. `"shaders/{0}.fxb"`.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -358,6 +385,7 @@ Actually a fancy shader, has some sprite effect tools for us, like different col
 ```csharp
 public static const char SKIP_CHAR;
 ```
+Assets whose names begin with this character (`_`) are considered hidden and skipped during game loading.
 
 **Returns** \
 [char](https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0) \
@@ -365,6 +393,7 @@ public static const char SKIP_CHAR;
 ```csharp
 public bool WaitPendingSaveTrackerOperation { get; }
 ```
+Returns `true` while a pending save-tracker write operation has not yet completed.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -373,6 +402,7 @@ public bool WaitPendingSaveTrackerOperation { get; }
 ```csharp
 protected Task LoadContentAsync()
 ```
+Orchestrates the full asynchronous content load pipeline.
 
 **Returns** \
 [Task](https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0) \
@@ -395,6 +425,7 @@ This will skip loading assets that start with a certain char. This is used to fi
 ```csharp
 protected virtual bool TryCompileShader(string name, Effect& result)
 ```
+Attempts to compile or load the named shader into `result`; returns `true` on success.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -407,6 +438,7 @@ protected virtual bool TryCompileShader(string name, Effect& result)
 ```csharp
 protected virtual GameProfile CreateGameProfile()
 ```
+Factory method that creates the game's configuration profile; override to return a custom profile type.
 
 **Returns** \
 [GameProfile](../../Murder/Assets/GameProfile.html) \
@@ -426,6 +458,7 @@ This has the collection of systems which will be added to any world that will be
 ```csharp
 protected virtual LocalizationAsset GetLocalization(LanguageId id)
 ```
+Returns the localization asset for the given language identifier, falling back to English if unavailable.
 
 **Parameters** \
 `id` [LanguageId](../../Murder/Assets/Localization/LanguageId.html) \
@@ -450,6 +483,7 @@ Creates an implementation of SaveData for the game.
 ```csharp
 protected virtual Task LoadAllAssetsAsync()
 ```
+Loads all game assets from packed archives into `_allAssets` and `_database`.
 
 **Returns** \
 [Task](https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0) \
@@ -458,6 +492,7 @@ protected virtual Task LoadAllAssetsAsync()
 ```csharp
 protected virtual Task LoadContentAsyncImpl()
 ```
+Override point for subclasses to execute custom async content loading logic after base loading completes.
 
 **Returns** \
 [Task](https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0) \
@@ -466,6 +501,7 @@ protected virtual Task LoadContentAsyncImpl()
 ```csharp
 protected virtual Task LoadFontsAndTexturesAsync()
 ```
+Loads font assets and standalone textures that are not part of any atlas.
 
 **Returns** \
 [Task](https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0) \
@@ -517,6 +553,7 @@ Implemented by custom implementations of data manager that want to do some prepr
 ```csharp
 protected virtual void RemoveAsset(Type t, Guid assetGuid)
 ```
+Removes the asset with the given GUID from the internal database and asset map.
 
 **Parameters** \
 `t` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
@@ -526,11 +563,13 @@ protected virtual void RemoveAsset(Type t, Guid assetGuid)
 ```csharp
 protected void PreloadContent()
 ```
+Executes the synchronous preload phase, loading the minimum assets required before async loading begins.
 
 #### TrackFont(FontAsset)
 ```csharp
 protected void TrackFont(FontAsset asset)
 ```
+Registers a loaded `FontAsset` in the internal font lookup table.
 
 **Parameters** \
 `asset` [FontAsset](../../Murder/Assets/Graphics/FontAsset.html) \
@@ -554,6 +593,7 @@ Quick and dirty way to get a aseprite frame, animated when you don't want to dea
 ```csharp
 public bool AddAssetForCurrentSave(GameAsset asset)
 ```
+Adds a dynamic asset to the active save slot; returns `true` if successfully added.
 
 **Parameters** \
 `asset` [GameAsset](../../Murder/Assets/GameAsset.html) \
@@ -565,6 +605,7 @@ public bool AddAssetForCurrentSave(GameAsset asset)
 ```csharp
 public bool CanLoadSaveData(int slot)
 ```
+Returns `true` if a save file exists for the given slot and can be deserialized.
 
 **Parameters** \
 `slot` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -576,6 +617,7 @@ public bool CanLoadSaveData(int slot)
 ```csharp
 public bool HasAsset(Guid id)
 ```
+Returns `true` if an asset with the given GUID is currently loaded.
 
 **Parameters** \
 `id` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -587,6 +629,7 @@ public bool HasAsset(Guid id)
 ```csharp
 public bool IsPathOnSkipLoading(string name)
 ```
+Returns `true` if the given path is on the skip-loading list, meaning it will not be reloaded on hot-reload.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -598,6 +641,7 @@ public bool IsPathOnSkipLoading(string name)
 ```csharp
 public bool LoadAllSaves()
 ```
+Scans the save directory and populates `_allSavedData` with all found save slots; returns `true` on success.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -620,6 +664,7 @@ Load a save as the current save. If more than one, it will grab whatever
 ```csharp
 public bool LoadShader(string name, Effect& effect, bool breakOnFail, bool forceReload)
 ```
+Loads or reloads a compiled shader by name into `effect`; returns `true` on success.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -634,6 +679,7 @@ public bool LoadShader(string name, Effect& effect, bool breakOnFail, bool force
 ```csharp
 public bool RemoveAssetForCurrentSave(Guid guid)
 ```
+Removes a dynamic asset by GUID from the active save slot; returns `true` if the asset was found and removed.
 
 **Parameters** \
 `guid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -645,6 +691,7 @@ public bool RemoveAssetForCurrentSave(Guid guid)
 ```csharp
 public bool TryGetDynamicAsset(T& asset)
 ```
+Attempts to retrieve a dynamic asset of type `T` from the active save; returns `true` if found.
 
 **Parameters** \
 `asset` [T&](../../) \
@@ -666,6 +713,7 @@ List all the available saves within the game.
 ```csharp
 public GameAsset GetAsset(Guid id)
 ```
+Returns the loaded asset with the given GUID, throwing if not found.
 
 **Parameters** \
 `id` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -703,6 +751,7 @@ Retrieve a dynamic asset within the current save data based on a guid.
 ```csharp
 public GameAsset TryLoadAsset(string path, string relativePath, bool skipFailures, bool hasEditorPath)
 ```
+Attempts to deserialize a single asset from disk; returns `null` on failure when `skipFailures` is true.
 
 **Parameters** \
 `path` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -717,6 +766,7 @@ public GameAsset TryLoadAsset(string path, string relativePath, bool skipFailure
 ```csharp
 public IEnumerable<T> GetAllAssets()
 ```
+Returns all currently loaded assets as an unordered enumerable sequence.
 
 **Returns** \
 [IEnumerable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0) \
@@ -725,6 +775,7 @@ public IEnumerable<T> GetAllAssets()
 ```csharp
 public ImmutableDictionary<TKey, TValue> FilterAllAssets(Type[] types)
 ```
+Returns a dictionary of all loaded assets that match one of the given types.
 
 **Parameters** \
 `types` [Type[]](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
@@ -763,6 +814,7 @@ Find all the assets names for an asset type <paramref name="t" />.
 ```csharp
 public LocalizationAsset GetDefaultLocalization()
 ```
+Returns the English (default) localization asset regardless of the current language setting.
 
 **Returns** \
 [LocalizationAsset](../../Murder/Assets/Localization/LocalizationAsset.html) \
@@ -771,6 +823,7 @@ public LocalizationAsset GetDefaultLocalization()
 ```csharp
 public MonoWorld CreateWorldInstanceFromSave(Guid guid, Camera2D camera)
 ```
+Instantiates a `MonoWorld` for the world asset identified by `guid`, rehydrating it from the current save data.
 
 **Parameters** \
 `guid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -783,6 +836,7 @@ public MonoWorld CreateWorldInstanceFromSave(Guid guid, Camera2D camera)
 ```csharp
 public PixelFont GetFont(int index)
 ```
+Returns the loaded `PixelFont` at the given index.
 
 **Parameters** \
 `index` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -794,6 +848,7 @@ public PixelFont GetFont(int index)
 ```csharp
 public PrefabAsset GetPrefab(Guid id)
 ```
+Returns the `PrefabAsset` with the given GUID, throwing if not found.
 
 **Parameters** \
 `id` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -805,6 +860,7 @@ public PrefabAsset GetPrefab(Guid id)
 ```csharp
 public PrefabAsset TryGetPrefab(Guid id)
 ```
+Returns the `PrefabAsset` with the given GUID, or `null` if not found.
 
 **Parameters** \
 `id` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -836,6 +892,7 @@ Active saved run in the game.
 ```csharp
 public T GetAsset(Guid id)
 ```
+Returns the loaded asset of type `T` with the given GUID, throwing if not found.
 
 **Parameters** \
 `id` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -858,6 +915,7 @@ Retrieve a dynamic asset within the current save data.
 ```csharp
 public T TryGetAsset(Guid id)
 ```
+Returns the loaded asset of type `T` with the given GUID, or `null` if not found.
 
 **Parameters** \
 `id` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -882,6 +940,7 @@ This will load all the sounds to the game.
 ```csharp
 public Task<TResult> TryLoadAssetAsync(string path, string relativePath, bool skipFailures, bool hasEditorPath)
 ```
+Asynchronously attempts to deserialize a single asset from disk.
 
 **Parameters** \
 `path` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -896,6 +955,7 @@ public Task<TResult> TryLoadAssetAsync(string path, string relativePath, bool sk
 ```csharp
 public Texture2D FetchTexture(string path)
 ```
+Loads or retrieves from cache an individual `Texture2D` from the given path.
 
 **Parameters** \
 `path` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -907,6 +967,7 @@ public Texture2D FetchTexture(string path)
 ```csharp
 public TextureAtlas FetchAtlas(AtlasId atlas, bool warnOnError)
 ```
+Returns the loaded `TextureAtlas` for the given `AtlasId`, optionally logging a warning if not found.
 
 **Parameters** \
 `atlas` [AtlasId](../../Murder/Data/AtlasId.html) \
@@ -919,6 +980,7 @@ public TextureAtlas FetchAtlas(AtlasId atlas, bool warnOnError)
 ```csharp
 public TextureAtlas TryFetchAtlas(AtlasId atlas)
 ```
+Returns the loaded `TextureAtlas` for the given `AtlasId`, or `null` if not loaded.
 
 **Parameters** \
 `atlas` [AtlasId](../../Murder/Data/AtlasId.html) \
@@ -930,6 +992,7 @@ public TextureAtlas TryFetchAtlas(AtlasId atlas)
 ```csharp
 public ValueTask<TResult> SerializeSaveAsync()
 ```
+Flushes all pending save data to disk asynchronously.
 
 **Returns** \
 [ValueTask\<TResult\>](https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.ValueTask-1?view=net-7.0) \
@@ -938,6 +1001,7 @@ public ValueTask<TResult> SerializeSaveAsync()
 ```csharp
 public virtual bool DeleteSaveAt(int slot)
 ```
+Deletes the save file in the given slot; returns `true` if the file existed and was removed.
 
 **Parameters** \
 `slot` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -969,16 +1033,19 @@ Called after the content was loaded back from the main thread.
 ```csharp
 public virtual void DeleteAllSaves()
 ```
+Deletes every save file from disk and clears the in-memory save data collection.
 
 #### Dispose()
 ```csharp
 public virtual void Dispose()
 ```
+Releases all managed and GPU resources held by this manager.
 
 #### Initialize(string)
 ```csharp
 public virtual void Initialize(string resourcesBinPath)
 ```
+Initializes the data manager with the given binary resources directory path and prepares internal structures.
 
 **Parameters** \
 `resourcesBinPath` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -987,21 +1054,25 @@ public virtual void Initialize(string resourcesBinPath)
 ```csharp
 public virtual void InitShaders()
 ```
+Loads and compiles all built-in and custom shaders required by the engine.
 
 #### LoadContent()
 ```csharp
 public virtual void LoadContent()
 ```
+Begins the full content load sequence, starting async loading of all assets.
 
 #### OnAssetRenamedOrAddedOrDeleted()
 ```csharp
 public virtual void OnAssetRenamedOrAddedOrDeleted()
 ```
+Called when an asset is renamed, added, or deleted; use to refresh internal caches.
 
 #### AddAsset(T, bool)
 ```csharp
 public void AddAsset(T asset, bool overwriteDuplicateGuids)
 ```
+Registers a new asset in the asset database; set `overwriteDuplicateGuids` to replace an existing entry with the same GUID.
 
 **Parameters** \
 `asset` [T](../../) \
@@ -1011,6 +1082,7 @@ public void AddAsset(T asset, bool overwriteDuplicateGuids)
 ```csharp
 public void ChangeLanguage(LanguageId id)
 ```
+Switches the active localization to the given language and reloads the localization asset.
 
 **Parameters** \
 `id` [LanguageId](../../Murder/Assets/Localization/LanguageId.html) \
@@ -1019,6 +1091,7 @@ public void ChangeLanguage(LanguageId id)
 ```csharp
 public void ChangeLanguage(LanguageIdData data)
 ```
+Switches the active localization using a full `LanguageIdData` descriptor.
 
 **Parameters** \
 `data` [LanguageIdData](../../Murder/Assets/Localization/LanguageIdData.html) \
@@ -1027,11 +1100,13 @@ public void ChangeLanguage(LanguageIdData data)
 ```csharp
 public void ClearContent()
 ```
+Unloads all atlases, assets, and shaders, returning the manager to an uninitialized state.
 
 #### DisposeAtlas(AtlasId)
 ```csharp
 public void DisposeAtlas(AtlasId atlasId)
 ```
+Unloads and disposes the `TextureAtlas` for the given `AtlasId`, freeing GPU memory.
 
 **Parameters** \
 `atlasId` [AtlasId](../../Murder/Data/AtlasId.html) \
@@ -1040,6 +1115,7 @@ public void DisposeAtlas(AtlasId atlasId)
 ```csharp
 public void DisposeAtlases()
 ```
+Unloads and disposes all currently loaded texture atlases.
 
 #### LoadShaders(bool, bool)
 ```csharp
@@ -1058,6 +1134,7 @@ Override this to load all shaders present in the game.
 ```csharp
 public void OnErrorLoadingAsset()
 ```
+Marks that an error occurred during asset loading so the manager can react appropriately.
 
 #### QuickSave()
 ```csharp
@@ -1070,6 +1147,7 @@ Quickly serialize our save assets.
 ```csharp
 public void RemoveAsset(Guid assetGuid)
 ```
+Removes the asset with the given GUID from the in-memory database.
 
 **Parameters** \
 `assetGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -1078,6 +1156,7 @@ public void RemoveAsset(Guid assetGuid)
 ```csharp
 public void RemoveAsset(T asset)
 ```
+Removes the given asset instance from the in-memory database.
 
 **Parameters** \
 `asset` [T](../../) \
@@ -1086,6 +1165,7 @@ public void RemoveAsset(T asset)
 ```csharp
 public void ReplaceAtlas(AtlasId atlasId, TextureAtlas newAtlas)
 ```
+Replaces the currently loaded atlas for `atlasId` with `newAtlas`, disposing the old one.
 
 **Parameters** \
 `atlasId` [AtlasId](../../Murder/Data/AtlasId.html) \
@@ -1095,6 +1175,7 @@ public void ReplaceAtlas(AtlasId atlasId, TextureAtlas newAtlas)
 ```csharp
 public void SaveWorld(MonoWorld world)
 ```
+Persists the current state of `world` into the active save slot.
 
 **Parameters** \
 `world` [MonoWorld](../../Murder/Core/MonoWorld.html) \
@@ -1103,6 +1184,7 @@ public void SaveWorld(MonoWorld world)
 ```csharp
 public void SkipLoadingAssetsAt(string path)
 ```
+Adds `path` to the skip-loading set so that hot-reload will not overwrite assets at that location.
 
 **Parameters** \
 `path` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \

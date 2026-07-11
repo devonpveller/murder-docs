@@ -7,10 +7,18 @@
 public sealed struct Character
 ```
 
+Immutable data record for a dialogue character asset, bundling the character's identity, default speaker, portrait, and all authored situations.
+
+**Intent:** Represents the complete authored dialogue script for one character: who speaks, which portrait is shown by default, and the full set of `Situation`s that constitute their dialogue graph.
+
+**Use-case:** Loaded from a `CharacterAsset` and handed to `CharacterRuntime` to drive a live dialogue session; read `Situations` to enumerate all authored dialogue trees for a character.
+
 ### ⭐ Constructors
 ```csharp
 public Character(Guid guid, Guid speaker, string portrait, ImmutableArray<T> situations)
 ```
+
+Creates a fully-initialised character record with the given asset GUID, speaker GUID, default portrait, and situation dictionary.
 
 **Parameters** \
 `guid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \

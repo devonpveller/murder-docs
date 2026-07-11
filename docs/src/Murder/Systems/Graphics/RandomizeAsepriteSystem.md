@@ -7,6 +7,12 @@
 public class RandomizeAsepriteSystem : IReactiveSystem, ISystem
 ```
 
+Reacts to `RandomizeSpriteComponent` being added and picks a random animation frame or sprite variant.
+
+**Intent:** Assigns a random animation variant to new entities with `RandomizeSpriteComponent`.
+
+**Use-case:** Use to add visual variety to entities (e.g., foliage, decorations) that share a sprite but should start on a random frame.
+
 **Implements:** _[IReactiveSystem](../../../Bang/Systems/IReactiveSystem.html), [ISystem](../../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Constructors

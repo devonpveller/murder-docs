@@ -9,6 +9,10 @@ public class TooltipAttribute : Attribute
 
 Tooltip that will show up when hovering over a field in the editor.
 
+**Intent:** Attach a descriptive tooltip string to a field that appears in the editor inspector on hover.
+
+**Use-case:** Apply to non-obvious component fields to give designers brief inline documentation while they are tweaking values, reducing the need to consult external references.
+
 **Implements:** _[Attribute](https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0)_
 
 ### ⭐ Constructors
@@ -36,6 +40,8 @@ The content of the tooltip.
 ```csharp
 public virtual Object TypeId { get; }
 ```
+
+Unique type identifier for this attribute, inherited from `System.Attribute`.
 
 **Returns** \
 [Object](https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0) \

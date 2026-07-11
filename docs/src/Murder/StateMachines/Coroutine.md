@@ -9,6 +9,10 @@ public class Coroutine : StateMachine
 
 This CANNOT and WONT be serialized it is just a bad idea. Remember, we can't (or don't want to) serialize lambdas.
 
+**Intent:** Wraps a caller-supplied `IEnumerator<Wait>` routine inside a `StateMachine` so any iterator-based coroutine can be driven by the Bang ECS scheduler without needing a dedicated class.
+
+**Use-case:** Create a one-off coroutine in-place via `new Coroutine(MyMethod())` and attach it as a state-machine component to a temporary entity rather than writing a full `StateMachine` subclass.
+
 **Implements:** _[StateMachine](../../Bang/StateMachines/StateMachine.html)_
 
 ### ⭐ Constructors
@@ -19,6 +23,7 @@ public Coroutine()
 ```csharp
 public Coroutine(IEnumerator<T> routine)
 ```
+Creates a coroutine state machine that will run `routine` until it completes.
 
 **Parameters** \
 `routine` [IEnumerator\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerator-1?view=net-7.0) \
@@ -28,6 +33,7 @@ public Coroutine(IEnumerator<T> routine)
 ```csharp
 protected Entity Entity;
 ```
+The ECS entity that owns this state machine, set by the Bang framework on start.
 
 **Returns** \
 [Entity](../../Bang/Entities/Entity.html) \
@@ -35,6 +41,7 @@ protected Entity Entity;
 ```csharp
 public string Name { get; }
 ```
+Debug name of this state machine (typically the class name).
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -42,6 +49,7 @@ public string Name { get; }
 ```csharp
 protected virtual bool PersistStateOnSave { get; }
 ```
+When `false` (the default for `Coroutine`), the state machine state is not persisted across save/load.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -49,6 +57,7 @@ protected virtual bool PersistStateOnSave { get; }
 ```csharp
 protected World World;
 ```
+The ECS world in which this state machine is running.
 
 **Returns** \
 [World](../../Bang/World.html) \
@@ -57,6 +66,7 @@ protected World World;
 ```csharp
 protected virtual void OnMessage(IMessage message)
 ```
+Called when a message is dispatched to the owning entity; override to handle specific messages.
 
 **Parameters** \
 `message` [IMessage](../../Bang/Components/IMessage.html) \
@@ -65,11 +75,13 @@ protected virtual void OnMessage(IMessage message)
 ```csharp
 protected virtual void OnStart()
 ```
+Called once when the state machine is first activated; override to perform initialization.
 
 #### Transition(Func<TResult>)
 ```csharp
 protected virtual void Transition(Func<TResult> routine)
 ```
+Transitions the state machine to the given routine immediately, without waiting for the current tick to finish.
 
 **Parameters** \
 `routine` [Func\<TResult\>](https://learn.microsoft.com/en-us/dotnet/api/System.Func-1?view=net-7.0) \
@@ -78,6 +90,7 @@ protected virtual void Transition(Func<TResult> routine)
 ```csharp
 protected virtual Wait GoTo(Func<TResult> routine)
 ```
+Yields a `Wait` that transitions to `routine` on the next tick.
 
 **Parameters** \
 `routine` [Func\<TResult\>](https://learn.microsoft.com/en-us/dotnet/api/System.Func-1?view=net-7.0) \
@@ -89,11 +102,13 @@ protected virtual Wait GoTo(Func<TResult> routine)
 ```csharp
 protected void Reset()
 ```
+Resets the state machine back to its initial state.
 
 #### State(Func<TResult>)
 ```csharp
 protected void State(Func<TResult> routine)
 ```
+Registers `routine` as the current entry-point state; called in the constructor to set the initial routine.
 
 **Parameters** \
 `routine` [Func\<TResult\>](https://learn.microsoft.com/en-us/dotnet/api/System.Func-1?view=net-7.0) \

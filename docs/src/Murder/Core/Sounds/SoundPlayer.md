@@ -7,6 +7,12 @@
 public class SoundPlayer : ISoundPlayer
 ```
 
+The default no-op `ISoundPlayer` implementation. All methods are stubs that log an error or return safely.
+
+**Intent:** Provide a safe fallback sound player for projects without custom audio integration.
+
+**Use-case:** Murder registers `SoundPlayer` automatically when no `[SoundPlayer]` attribute is found. Replace it by implementing `ISoundPlayer` in your game assembly.
+
 **Implements:** _[ISoundPlayer](../../../Murder/Core/Sounds/ISoundPlayer.html)_
 
 ### ⭐ Constructors

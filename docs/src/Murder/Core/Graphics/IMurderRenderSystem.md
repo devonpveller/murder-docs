@@ -10,6 +10,10 @@ public abstract IMurderRenderSystem : IRenderSystem, ISystem
 Main render system. This is used to draw on the screen and should not 
             have any update logic.
 
+**Intent:** The primary interface for ECS systems that render game entities; provides access to the full `RenderContext` and the component query `Context`.
+
+**Use-case:** Implement `Draw(RenderContext, Context)` in any system that needs to issue sprite or primitive draw calls each frame; the engine calls all `IMurderRenderSystem` implementations once per frame after simulation.
+
 **Implements:** _[IRenderSystem](../../../Bang/Systems/IRenderSystem.html), [ISystem](../../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Methods

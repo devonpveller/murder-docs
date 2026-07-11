@@ -7,11 +7,19 @@
 public static class Vector2Extensions
 ```
 
+Extension methods on `System.Numerics.Vector2` for game-specific operations like angle calculation, Manhattan distance, perpendicular products, and size shorthand.
+
+**Intent:** Adds game-oriented convenience methods to `Vector2` that are used frequently in physics, animation, and rendering code.
+
+**Use-case:** Use `Angle` to get a heading, `Manhattan` for grid distance checks, `PerpendicularCounterClockwise` for collision math, and `Width`/`Height` to treat a vector as a size.
+
 ### ⭐ Methods
 #### HasValue(Vector2)
 ```csharp
 public bool HasValue(Vector2 vector)
 ```
+
+Returns `true` if the vector is non-zero (i.e., it has a meaningful direction or magnitude).
 
 **Parameters** \
 `vector` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -23,6 +31,8 @@ public bool HasValue(Vector2 vector)
 ```csharp
 public float Angle(Vector2 vector)
 ```
+
+Returns the angle of the vector in radians, measured from the positive X axis.
 
 **Parameters** \
 `vector` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -48,6 +58,8 @@ A quick shorthand for when using a vector as a "size"
 public float Manhattan(Vector2 vector)
 ```
 
+Returns the Manhattan (L1) distance of the vector from the origin (|X| + |Y|).
+
 **Parameters** \
 `vector` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
@@ -58,6 +70,8 @@ public float Manhattan(Vector2 vector)
 ```csharp
 public float PerpendicularCounterClockwise(Vector2 vector, Vector2 other)
 ```
+
+Returns the scalar perpendicular dot product (2D cross product Z component) of the two vectors.
 
 **Parameters** \
 `vector` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -84,6 +98,8 @@ A quick shorthand for when using a vector as a "size"
 public Point Ceiling(Vector2 vector)
 ```
 
+Returns the vector rounded up to the nearest integer components as a `Point`.
+
 **Parameters** \
 `vector` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
@@ -94,6 +110,8 @@ public Point Ceiling(Vector2 vector)
 ```csharp
 public Point Floor(Vector2 vector)
 ```
+
+Returns the vector rounded down to the nearest integer components as a `Point`.
 
 **Parameters** \
 `vector` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -106,6 +124,8 @@ public Point Floor(Vector2 vector)
 public Point Point(Vector2 vector)
 ```
 
+Converts the vector to an integer `Point` by truncating each component.
+
 **Parameters** \
 `vector` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
@@ -117,6 +137,8 @@ public Point Point(Vector2 vector)
 public Point Round(Vector2 vector)
 ```
 
+Returns the vector rounded to the nearest integer components as a `Point`.
+
 **Parameters** \
 `vector` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
@@ -127,6 +149,8 @@ public Point Round(Vector2 vector)
 ```csharp
 public Point ToGridPoint(Vector2 vector)
 ```
+
+Converts a world-space vector to the tile-grid cell coordinate it falls in.
 
 **Parameters** \
 `vector` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \

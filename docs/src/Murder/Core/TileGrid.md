@@ -7,10 +7,18 @@
 public class TileGrid
 ```
 
+Stores a 2D integer array of tile flags for a single tilemap layer. Each cell holds a bitmask indicating which tile types are present at that position.
+
+**Intent:** The fundamental per-layer data structure for tilemap rendering and collision, supporting efficient lookup and modification of tile flags by grid coordinate.
+
+**Use-case:** Queried by tile rendering systems and the `Map` collision layer to determine which tiles to draw or collide with at any given grid position.
+
 ### ⭐ Constructors
 ```csharp
 public TileGrid(Point origin, int width, int height)
 ```
+
+Creates a tile grid at the given world-space origin with the specified dimensions, initialized to empty.
 
 **Parameters** \
 `origin` [Point](../../Murder/Core/Geometry/Point.html) \
@@ -23,6 +31,8 @@ public TileGrid(Point origin, int width, int height)
 public int Height { get; }
 ```
 
+The height of this tile grid in tile units.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### Origin
@@ -30,12 +40,16 @@ public int Height { get; }
 public Point Origin { get; }
 ```
 
+The world-space origin (top-left grid cell) of this tile grid.
+
 **Returns** \
 [Point](../../Murder/Core/Geometry/Point.html) \
 #### Width
 ```csharp
 public int Width { get; }
 ```
+
+The width of this tile grid in tile units.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -61,6 +75,8 @@ Checks whether is solid at a position <paramref name="x" /> and <paramref name="
 public int At(Point p)
 ```
 
+Returns the tile flag bitmask at local grid position `p`.
+
 **Parameters** \
 `p` [Point](../../Murder/Core/Geometry/Point.html) \
 
@@ -71,6 +87,8 @@ public int At(Point p)
 ```csharp
 public int At(int x, int y)
 ```
+
+Returns the tile flag bitmask at local grid coordinates `(x, y)`.
 
 **Parameters** \
 `x` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -84,6 +102,8 @@ public int At(int x, int y)
 public int AtGridPosition(Point p)
 ```
 
+Returns the tile flag bitmask at world grid position `p`, converting from world to local coordinates using `Origin`.
+
 **Parameters** \
 `p` [Point](../../Murder/Core/Geometry/Point.html) \
 
@@ -94,6 +114,8 @@ public int AtGridPosition(Point p)
 ```csharp
 public ValueTuple<T1, T2, T3> GetTile(ImmutableArray<T> tileEntities, int index, int totalTilemaps, int x, int y)
 ```
+
+Returns the tile sprite information for the given grid position across all tilemap layers, used by rendering systems to determine which sprite slice to draw.
 
 **Parameters** \
 `tileEntities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -110,6 +132,8 @@ public ValueTuple<T1, T2, T3> GetTile(ImmutableArray<T> tileEntities, int index,
 public virtual bool HasFlagAt(int x, int y, int value)
 ```
 
+Returns `true` when the tile flag at local `(x, y)` has all bits of `value` set.
+
 **Parameters** \
 `x` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 `y` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -122,6 +146,8 @@ public virtual bool HasFlagAt(int x, int y, int value)
 ```csharp
 public void MoveFromTo(Point from, Point to, Point size)
 ```
+
+Moves a rectangular block of tiles from `from` to `to` within the grid.
 
 **Parameters** \
 `from` [Point](../../Murder/Core/Geometry/Point.html) \

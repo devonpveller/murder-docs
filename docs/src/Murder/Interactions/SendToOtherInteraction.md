@@ -7,6 +7,12 @@
 public sealed struct SendToOtherInteraction : IInteraction
 ```
 
+Sends a Bang `IMessage` to one or more entities referenced by name in the interacted entity's target collection.
+
+**Intent:** Dispatches a message to explicitly named target entities rather than the direct interactor or parent.
+
+**Use-case:** Use to trigger behaviour on distant or unrelated entities from a single interaction point, such as opening a gate elsewhere in the level when a lever is pulled.
+
 **Implements:** _[IInteraction](../../Bang/Interactions/IInteraction.html)_
 
 ### ⭐ Constructors
@@ -28,6 +34,7 @@ Guid of the target entity.
 ```csharp
 public readonly IMessage Message;
 ```
+The message to send to each resolved target entity.
 
 **Returns** \
 [IMessage](../../Bang/Components/IMessage.html) \
@@ -36,6 +43,7 @@ public readonly IMessage Message;
 ```csharp
 public virtual void Interact(World world, Entity interactor, Entity interacted)
 ```
+Resolves each target entity by name, then sends `Message` to each one found.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \

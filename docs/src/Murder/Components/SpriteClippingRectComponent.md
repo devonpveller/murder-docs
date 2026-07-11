@@ -7,6 +7,12 @@
 public sealed struct SpriteClippingRectComponent : IComponent
 ```
 
+Defines a clipping rectangle that masks a portion of the entity's sprite, allowing it to grow or shrink from the center or be cut from its borders.
+
+**Intent:** Dynamically reveal or hide parts of a sprite using a rectangular mask.
+
+**Use-case:** Attach to a health-bar sprite to animate it filling or draining, or to a UI element that should slide in from one edge.
+
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
@@ -27,12 +33,16 @@ public SpriteClippingRectComponent(float left, float right, float top, float dow
 public readonly float Down;
 ```
 
+Clipping amount on the bottom edge (0 = no clip, 1 = fully clipped from that edge).
+
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 #### Left
 ```csharp
 public readonly float Left;
 ```
+
+Clipping amount on the left edge.
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -41,12 +51,16 @@ public readonly float Left;
 public readonly float Right;
 ```
 
+Clipping amount on the right edge.
+
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 #### Style
 ```csharp
 public readonly ClippingStyle Style;
 ```
+
+Determines whether the clip grows from the center outward or cuts from the borders inward.
 
 **Returns** \
 [ClippingStyle](../../Murder/Components/ClippingStyle.html) \
@@ -55,6 +69,8 @@ public readonly ClippingStyle Style;
 public readonly float Top;
 ```
 
+Clipping amount on the top edge.
+
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 ### ⭐ Methods
@@ -62,6 +78,8 @@ public readonly float Top;
 ```csharp
 public Rectangle GetClippingRect(Point spriteSize)
 ```
+
+Calculates the source clipping rectangle in sprite-pixel space for the current `Left`, `Right`, `Top`, and `Down` values.
 
 **Parameters** \
 `spriteSize` [Point](../../Murder/Core/Geometry/Point.html) \

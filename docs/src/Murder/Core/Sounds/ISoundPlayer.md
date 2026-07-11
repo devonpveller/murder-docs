@@ -7,11 +7,19 @@
 public abstract ISoundPlayer
 ```
 
+Contract for all sound system back-ends. Games replace the default no-op implementation with an FMOD (or other audio library) adapter.
+
+**Intent:** Decouple the engine's audio calls from any specific audio middleware.
+
+**Use-case:** Implement `ISoundPlayer` in your game project and register it via `[SoundPlayer]` attribute so Murder routes all audio through your backend. Use `PlayEvent()`, `Stop()`, `SetParameter()`, and `UpdateListener()` in systems and services.
+
 ### ⭐ Methods
 #### Stop(bool, out SoundEventId[]&)
 ```csharp
 public abstract bool Stop(bool fadeOut, SoundEventId[]& stoppedEvents)
 ```
+
+Stops all currently playing sound events. Returns `true` if any events were stopped; `stoppedEvents` receives the list of stopped IDs.
 
 **Parameters** \
 `fadeOut` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -58,6 +66,8 @@ Update spatial attributes for a specific event instance.
 ```csharp
 public abstract float GetGlobalParameter(ParameterId parameter)
 ```
+
+Returns the current value of a global audio parameter.
 
 **Parameters** \
 `parameter` [ParameterId](../../../Murder/Core/Sounds/ParameterId.html) \
@@ -113,6 +123,8 @@ This will reload the content of all the fmod banks in the application.
 public abstract ValueTask PlayEvent(SoundEventId id, SoundProperties properties, T? attributes)
 ```
 
+Plays the sound event identified by `id` with the given flags and optional spatial attributes.
+
 **Parameters** \
 `id` [SoundEventId](../../../Murder/Core/Sounds/SoundEventId.html) \
 `properties` [SoundProperties](../../../Murder/Core/Sounds/SoundProperties.html) \
@@ -137,6 +149,8 @@ This will initialize the fmod libraries, but not load any banks.
 public abstract void SetGlobalParameter(ParameterId parameter, float value)
 ```
 
+Sets a global audio parameter to `value` (affects all instances).
+
 **Parameters** \
 `parameter` [ParameterId](../../../Murder/Core/Sounds/ParameterId.html) \
 `value` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -145,6 +159,8 @@ public abstract void SetGlobalParameter(ParameterId parameter, float value)
 ```csharp
 public abstract void SetParameter(SoundEventId instance, ParameterId parameter, float value)
 ```
+
+Sets an instance-level audio parameter on a specific playing event.
 
 **Parameters** \
 `instance` [SoundEventId](../../../Murder/Core/Sounds/SoundEventId.html) \
@@ -182,6 +198,8 @@ Update listener information (e.g. position and facing).
 ```csharp
 public virtual bool Stop(bool fadeOut, HashSet<T> exceptForSoundsList, SoundEventId[]& stoppedEvents)
 ```
+
+Stops all playing events except those in `exceptForSoundsList`.
 
 **Parameters** \
 `fadeOut` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \

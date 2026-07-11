@@ -9,11 +9,17 @@ public abstract IMurderGame
 
 This is the main loop of a murder game. This has the callbacks to relevant events in the game.
 
+**Intent:** `IMurderGame` is the central contract every Murder-based game must implement. It wires your game-specific logic into the engine's lifecycle (initialization, loading, update, draw, shutdown) and serves as a factory for engine subsystems such as save data, the sound player, and the render context.
+
+**Use-case:** Create a class that implements `IMurderGame`, override the lifecycle hooks you need (`Initialize`, `LoadContentAsync`, `OnUpdate`, etc.), and pass it to the `Game` constructor. The engine calls these methods at the appropriate points in the game loop. Override factory methods (`CreateSoundPlayer`, `CreateRenderContext`, `CreateGameProfile`) to substitute custom subsystem implementations.
+
 ### ⭐ Properties
 #### HasCursor
 ```csharp
 public virtual bool HasCursor { get; }
 ```
+
+Whether the game renders and updates a visible mouse cursor. When `true` the engine shows the OS or custom cursor; when `false` the cursor is hidden. Defaults to `true`; override to `false` for controller-only games.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \

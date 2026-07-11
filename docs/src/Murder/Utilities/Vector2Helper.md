@@ -7,11 +7,19 @@
 public static class Vector2Helper
 ```
 
+Static helpers and well-known direction constants for `System.Numerics.Vector2`.
+
+**Intent:** Provides a set of named direction vectors and utility extension methods that supplement the `System.Numerics.Vector2` API for game use.
+
+**Use-case:** Use `Up`, `Down`, `Left`, `Right`, and `Center` as direction/anchor constants, and the extension methods for smooth lerping, snapping, and projection math.
+
 ### ⭐ Properties
 #### Center
 ```csharp
 public static Vector2 Center { get; }
 ```
+
+Returns (0.5, 0.5) — useful as a normalized center anchor for sprites.
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -20,12 +28,16 @@ public static Vector2 Center { get; }
 public static Vector2 Down { get; }
 ```
 
+Returns (0, 1) — the downward direction in screen space.
+
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 #### Left
 ```csharp
 public static Vector2 Left { get; }
 ```
+
+Returns (-1, 0) — the leftward direction.
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -34,12 +46,16 @@ public static Vector2 Left { get; }
 public static Vector2 Right { get; }
 ```
 
+Returns (1, 0) — the rightward direction.
+
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 #### Up
 ```csharp
 public static Vector2 Up { get; }
 ```
+
+Returns (0, -1) — the upward direction in screen space.
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -67,6 +83,8 @@ Calculates the internal angle of a triangle.
 ```csharp
 public float Deviation(Vector2 vec1, Vector2 vec2)
 ```
+
+Returns the angular deviation (in radians) between two direction vectors.
 
 **Parameters** \
 `vec1` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \

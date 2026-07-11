@@ -10,6 +10,10 @@ public sealed struct GuidToIdTargetComponent : IComponent
 This is a component used to translate entity instaces guid to an actual entity id.
             Gets translated to [IdTargetComponent](../../Murder/Components/IdTargetComponent.html).
 
+**Intent:** Store a single design-time GUID reference that is resolved to a runtime entity ID when the world is instantiated.
+
+**Use-case:** Assign during level authoring to point one entity at another by GUID; the serialization system automatically replaces it with an `IdTargetComponent` containing the live entity ID.
+
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors

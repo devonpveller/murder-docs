@@ -7,6 +7,12 @@
 public sealed struct Particle
 ```
 
+Data-driven definition of per-particle appearance and behaviour: texture, lifetime, color, scale, velocity, gravity, rotation, and blend state.
+
+**Intent:** Describe how each individual particle in a system looks and moves.
+
+**Use-case:** Configure a `Particle` in a `ParticleSystemAsset` alongside an `Emitter`. Set `LifeTime`, `Colors`, `Scale`, `Alpha`, `StartVelocity`, and `Texture` to craft the desired visual effect.
+
 ### ⭐ Constructors
 ```csharp
 public Particle()
@@ -36,12 +42,16 @@ public Particle(ParticleTexture texture, ImmutableArray<T> colors, ImmutableArra
 public readonly ParticleValueProperty Acceleration;
 ```
 
+Rate at which the particle's velocity changes over its lifetime.
+
 **Returns** \
 [ParticleValueProperty](../../../Murder/Core/Particles/ParticleValueProperty.html) \
 #### Alpha
 ```csharp
 public readonly ParticleValueProperty Alpha;
 ```
+
+Opacity of the particle over its lifetime (0–1).
 
 **Returns** \
 [ParticleValueProperty](../../../Murder/Core/Particles/ParticleValueProperty.html) \
@@ -50,12 +60,16 @@ public readonly ParticleValueProperty Alpha;
 public readonly ImmutableArray<T> Colors;
 ```
 
+Color gradient sampled over the particle's lifetime. Linearly interpolated between entries.
+
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 #### FollowEntityPosition
 ```csharp
 public readonly bool FollowEntityPosition;
 ```
+
+When `true`, the particle's world position tracks the emitter entity's position each frame.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -64,12 +78,16 @@ public readonly bool FollowEntityPosition;
 public readonly ParticleValueProperty Friction;
 ```
 
+Friction coefficient (0–1) applied each frame to slow the particle down.
+
 **Returns** \
 [ParticleValueProperty](../../../Murder/Core/Particles/ParticleValueProperty.html) \
 #### Gravity
 ```csharp
 public readonly ParticleVectorValueProperty Gravity;
 ```
+
+Constant directional velocity applied to every particle each frame (world-space gravity).
 
 **Returns** \
 [ParticleVectorValueProperty](../../../Murder/Core/Particles/ParticleVectorValueProperty.html) \
@@ -78,12 +96,16 @@ public readonly ParticleVectorValueProperty Gravity;
 public readonly ParticleValueProperty LifeTime;
 ```
 
+Duration in seconds that each particle lives.
+
 **Returns** \
 [ParticleValueProperty](../../../Murder/Core/Particles/ParticleValueProperty.html) \
 #### RotateWithVelocity
 ```csharp
 public readonly bool RotateWithVelocity;
 ```
+
+When `true`, the particle's visual rotation aligns with its current velocity direction.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -92,12 +114,16 @@ public readonly bool RotateWithVelocity;
 public readonly ParticleValueProperty Rotation;
 ```
 
+Initial rotation angle (radians) assigned when the particle is spawned.
+
 **Returns** \
 [ParticleValueProperty](../../../Murder/Core/Particles/ParticleValueProperty.html) \
 #### RotationSpeed
 ```csharp
 public readonly ParticleValueProperty RotationSpeed;
 ```
+
+Angular velocity (radians per second) applied to the particle's rotation each frame.
 
 **Returns** \
 [ParticleValueProperty](../../../Murder/Core/Particles/ParticleValueProperty.html) \
@@ -106,12 +132,16 @@ public readonly ParticleValueProperty RotationSpeed;
 public readonly ImmutableArray<T> Scale;
 ```
 
+Scale keyframes sampled over the particle's lifetime. Linearly interpolated between entries.
+
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 #### SortOffset
 ```csharp
 public readonly float SortOffset;
 ```
+
+Additional Y offset applied when sorting this particle relative to other rendered entities.
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -120,6 +150,8 @@ public readonly float SortOffset;
 public readonly int SpriteBatch;
 ```
 
+Index of the sprite batch pass used when rendering particles of this type.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### StartVelocity
@@ -127,12 +159,16 @@ public readonly int SpriteBatch;
 public readonly ParticleValueProperty StartVelocity;
 ```
 
+Initial scalar velocity of the particle, added on top of the emitter's launch speed.
+
 **Returns** \
 [ParticleValueProperty](../../../Murder/Core/Particles/ParticleValueProperty.html) \
 #### Texture
 ```csharp
 public readonly ParticleTexture Texture;
 ```
+
+The texture configuration that defines how each particle is drawn.
 
 **Returns** \
 [ParticleTexture](../../../Murder/Core/Particles/ParticleTexture.html) \
@@ -156,6 +192,8 @@ Calculate the color of a particle in a <paramref name="delta" /> with internal {
 public Particle WithRotation(float rotation)
 ```
 
+Returns a copy of this particle with `Rotation` set to `rotation` (radians).
+
 **Parameters** \
 `rotation` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
@@ -166,6 +204,8 @@ public Particle WithRotation(float rotation)
 ```csharp
 public Particle WithTexture(ParticleTexture texture)
 ```
+
+Returns a copy of this particle with `Texture` replaced by `texture`.
 
 **Parameters** \
 `texture` [ParticleTexture](../../../Murder/Core/Particles/ParticleTexture.html) \

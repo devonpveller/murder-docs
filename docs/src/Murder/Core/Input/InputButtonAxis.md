@@ -7,6 +7,12 @@
 public sealed struct InputButtonAxis
 ```
 
+A set of four directional `InputButton` bindings (up/down/left/right) or a single analog axis that together form a 2D movement axis.
+
+**Intent:** Represent a 2D movement axis built from directional buttons or a gamepad thumbstick.
+
+**Use-case:** Construct an `InputButtonAxis` with WASD keys, D-pad buttons, or a `GamepadAxis` and pass it to `PlayerInput.Register(int axis, ...)` to drive a `VirtualAxis`.
+
 ### ⭐ Constructors
 ```csharp
 public InputButtonAxis(Buttons up, Buttons left, Buttons down, Buttons right)
@@ -51,12 +57,16 @@ public InputButtonAxis(InputButton up, InputButton left, InputButton down, Input
 public readonly InputButton Down;
 ```
 
+The button bound to the downward direction.
+
 **Returns** \
 [InputButton](../../../Murder/Core/Input/InputButton.html) \
 #### Left
 ```csharp
 public readonly InputButton Left;
 ```
+
+The button bound to the leftward direction.
 
 **Returns** \
 [InputButton](../../../Murder/Core/Input/InputButton.html) \
@@ -65,12 +75,16 @@ public readonly InputButton Left;
 public readonly InputButton Right;
 ```
 
+The button bound to the rightward direction.
+
 **Returns** \
 [InputButton](../../../Murder/Core/Input/InputButton.html) \
 #### Single
 ```csharp
 public readonly T? Single;
 ```
+
+When set, this axis uses a single analog `InputButton` (e.g. a thumbstick) instead of four directional buttons.
 
 **Returns** \
 [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
@@ -79,12 +93,16 @@ public readonly T? Single;
 public readonly InputSource Source;
 ```
 
+The device source for this axis (keyboard, gamepad, etc.).
+
 **Returns** \
 [InputSource](../../../Murder/Core/Input/InputSource.html) \
 #### Up
 ```csharp
 public readonly InputButton Up;
 ```
+
+The button bound to the upward direction.
 
 **Returns** \
 [InputButton](../../../Murder/Core/Input/InputButton.html) \
@@ -93,6 +111,8 @@ public readonly InputButton Up;
 ```csharp
 public Vector2 Check(InputState state)
 ```
+
+Returns the current axis vector from this binding given the raw `state`. Uses the analog value when `Single` is set, or a discrete ±1 vector from the four directional buttons.
 
 **Parameters** \
 `state` [InputState](../../../Murder/Core/Input/InputState.html) \
@@ -104,6 +124,8 @@ public Vector2 Check(InputState state)
 ```csharp
 public virtual string ToString()
 ```
+
+Returns a human-readable description of the active bindings in this axis.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \

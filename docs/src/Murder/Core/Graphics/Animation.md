@@ -7,10 +7,16 @@
 public sealed struct Animation
 ```
 
+**Intent:** Represents a single named animation clip — a sequence of atlas-frame indices with per-frame durations, optional frame events, and an optional follow-up animation.
+
+**Use-case:** Stored inside a `SpriteAsset` and evaluated each frame to determine which atlas frame to draw. Access it via the sprite asset's `Animations` dictionary by clip name.
+
 ### ⭐ Constructors
 ```csharp
 public Animation()
 ```
+
+Creates an empty animation with default values.
 
 ```csharp
 public Animation(ImmutableArray<T> frames, ImmutableArray<T> framesDuration, ImmutableDictionary<TKey, TValue> events, float animationDuration, T? sequence)
@@ -47,6 +53,8 @@ The total duration of the animation, in seconds
 ```csharp
 public static Animation Empty;
 ```
+
+A pre-built animation containing a single frame with zero duration; useful as a null-safe default.
 
 **Returns** \
 [Animation](../../../Murder/Core/Graphics/Animation.html) \
@@ -90,6 +98,8 @@ An array of floats representing the duration of each frame in the animation, in 
 ```csharp
 public readonly T? NextAnimation;
 ```
+
+An optional array of `AnimationSequence` entries that define which animation clip(s) should play after this one completes, with weighted random selection.
 
 **Returns** \
 [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \

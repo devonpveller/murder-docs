@@ -7,6 +7,12 @@
 public sealed enum EventMessageAttributeFlags : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 ```
 
+Flags that control how the editor discovers and displays event message callbacks for a component or system.
+
+**Intent:** Flags that control editor discovery and display of event message callbacks.
+
+**Use-case:** Use with `EventMessagesAttribute` to fine-tune whether the editor validates messages via a component method or propagates them to parent entities.
+
 **Implements:** _[Enum](https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0), [IComparable](https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0), [ISpanFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0), [IFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0), [IConvertible](https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0)_
 
 ### ⭐ Properties
@@ -25,12 +31,16 @@ This will check for a method in the component of name: "VerifyEventMessages" bef
 public static const EventMessageAttributeFlags None;
 ```
 
+No special flags; events are displayed unconditionally.
+
 **Returns** \
 [EventMessageAttributeFlags](../../../Murder/Utilities/Attributes/EventMessageAttributeFlags.html) \
 #### PropagateToParent
 ```csharp
 public static const EventMessageAttributeFlags PropagateToParent;
 ```
+
+When set, matching events are also forwarded to the entity's parent.
 
 **Returns** \
 [EventMessageAttributeFlags](../../../Murder/Utilities/Attributes/EventMessageAttributeFlags.html) \

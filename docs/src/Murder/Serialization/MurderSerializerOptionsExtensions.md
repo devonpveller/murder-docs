@@ -9,6 +9,10 @@ public static class MurderSerializerOptionsExtensions
 
 Provides a json serializer that supports all the serializable types in Murder.
 
+**Intent:** Provides pre-configured `JsonSerializerOptions` with all Murder custom converters registered.
+
+**Use-case:** Reference `MurderSerializerOptionsExtensions.Options` wherever you need to serialize or deserialize Murder types with `System.Text.Json`.
+
 ### ⭐ Properties
 #### Options
 ```csharp

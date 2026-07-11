@@ -7,6 +7,12 @@
 public abstract IEntity
 ```
 
+Base contract for anything that can be placed in a world as an entity, whether a standalone `EntityInstance` or a `PrefabEntityInstance` tied to a prefab asset.
+
+**Intent:** Provides a uniform API for reading and modifying entities and their children regardless of whether they are raw instances or prefab-backed instances.
+
+**Use-case:** Used by the editor and serialization layer to work with both `EntityInstance` and `PrefabEntityInstance` through a single interface.
+
 ### ⭐ Properties
 #### Children
 ```csharp
@@ -30,6 +36,7 @@ Returns all the components of the entity asset, followed by all the components o
 ```csharp
 public abstract virtual Guid Guid { get; }
 ```
+Unique identifier for this entity instance.
 
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -37,6 +44,7 @@ public abstract virtual Guid Guid { get; }
 ```csharp
 public abstract virtual string Name { get; }
 ```
+Display name of this entity instance.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -55,6 +63,7 @@ If this has a prefab reference, this will return its name.
 ```csharp
 public abstract bool AddOrReplaceComponentForChild(Guid childGuid, IComponent component)
 ```
+Adds or replaces `component` on the child identified by `childGuid`; returns `true` if the child was found.
 
 **Parameters** \
 `childGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -67,6 +76,7 @@ public abstract bool AddOrReplaceComponentForChild(Guid childGuid, IComponent co
 ```csharp
 public abstract bool CanRemoveChild(Guid instanceGuid)
 ```
+Returns `true` if the child with the given GUID can be removed from this entity.
 
 **Parameters** \
 `instanceGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -78,6 +88,7 @@ public abstract bool CanRemoveChild(Guid instanceGuid)
 ```csharp
 public abstract bool CanRevertComponent(Type type)
 ```
+Returns `true` if the component of the given type can be reverted to the base prefab value.
 
 **Parameters** \
 `type` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
@@ -89,6 +100,7 @@ public abstract bool CanRevertComponent(Type type)
 ```csharp
 public abstract bool HasComponent(Type type)
 ```
+Returns `true` if a component of the given type exists on this entity.
 
 **Parameters** \
 `type` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
@@ -100,6 +112,7 @@ public abstract bool HasComponent(Type type)
 ```csharp
 public abstract bool HasComponentAtChild(Guid childGuid, Type type)
 ```
+Returns `true` if the child identified by `childGuid` has a component of the given type.
 
 **Parameters** \
 `childGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -145,6 +158,7 @@ public abstract bool RevertComponent(Type t)
 ```csharp
 public abstract bool RevertComponentForChild(Guid childGuid, Type t)
 ```
+Reverts the component of type `t` on the child identified by `childGuid` to its base prefab value; returns `true` if reverted.
 
 **Parameters** \
 `childGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -157,6 +171,7 @@ public abstract bool RevertComponentForChild(Guid childGuid, Type t)
 ```csharp
 public abstract bool TryGetChild(Guid guid, EntityInstance& instance)
 ```
+Attempts to find the child entity with the given GUID; returns `true` and populates `instance` if found.
 
 **Parameters** \
 `guid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -169,6 +184,7 @@ public abstract bool TryGetChild(Guid guid, EntityInstance& instance)
 ```csharp
 public abstract IComponent GetComponent(Type componentType)
 ```
+Returns the component of the given type on this entity; throws if not present.
 
 **Parameters** \
 `componentType` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
@@ -180,6 +196,7 @@ public abstract IComponent GetComponent(Type componentType)
 ```csharp
 public abstract IComponent TryGetComponentForChild(Guid guid, Type t)
 ```
+Returns the component of type `t` from the child with GUID `guid`, or `null` if not present.
 
 **Parameters** \
 `guid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -203,6 +220,7 @@ public abstract ImmutableArray<T> FetchChildren()
 ```csharp
 public abstract ImmutableArray<T> GetChildComponents(Guid guid)
 ```
+Returns all components of the child entity identified by `guid`.
 
 **Parameters** \
 `guid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -228,6 +246,7 @@ Create the entity in the world!
 ```csharp
 public abstract void AddChild(EntityInstance asset)
 ```
+Adds `asset` as a child entity of this instance.
 
 **Parameters** \
 `asset` [EntityInstance](../../Murder/Prefabs/EntityInstance.html) \
@@ -236,6 +255,7 @@ public abstract void AddChild(EntityInstance asset)
 ```csharp
 public abstract void AddOrReplaceComponent(IComponent c)
 ```
+Adds or replaces component `c` on this entity.
 
 **Parameters** \
 `c` [IComponent](../../Bang/Components/IComponent.html) \
@@ -244,6 +264,7 @@ public abstract void AddOrReplaceComponent(IComponent c)
 ```csharp
 public abstract void RemoveComponentForChild(Guid childGuid, Type t)
 ```
+Removes the component of type `t` from the child identified by `childGuid`.
 
 **Parameters** \
 `childGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -253,6 +274,7 @@ public abstract void RemoveComponentForChild(Guid childGuid, Type t)
 ```csharp
 public abstract void SetName(string name)
 ```
+Sets the display name of this entity instance.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -261,6 +283,7 @@ public abstract void SetName(string name)
 ```csharp
 public virtual T GetComponent()
 ```
+Returns the component of type `T` on this entity; throws if not present.
 
 **Returns** \
 [T](../../) \

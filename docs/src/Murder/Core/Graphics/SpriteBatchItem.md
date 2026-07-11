@@ -7,6 +7,12 @@
 public class SpriteBatchItem
 ```
 
+A single queued sprite draw call containing the source texture, transformed vertex data, index buffer, and blend state.
+
+**Intent:** Encapsulates all GPU data needed to draw one sprite quad, including rotation, scale, flipping, tint color, and blend mode.
+
+**Use-case:** Created and pooled automatically by `Batch2D`; call `Set()` directly to configure a reused item for custom textured quads, or `SetPolygon()` for arbitrary polygon geometry.
+
 ### ⭐ Constructors
 ```csharp
 public SpriteBatchItem()
@@ -18,12 +24,16 @@ public SpriteBatchItem()
 public Int32[] IndexData;
 ```
 
+Index array defining the two triangles that make up the sprite quad (six indices for four vertices).
+
 **Returns** \
 [int[]](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### Texture
 ```csharp
 public Texture2D Texture;
 ```
+
+The source texture sampled when rendering this sprite; typically a page of a `TextureAtlas`.
 
 **Returns** \
 [Texture2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html) \
@@ -32,12 +42,16 @@ public Texture2D Texture;
 public int VertexCount;
 ```
 
+Number of active vertices in `VertexData`; normally 4 for a quad but can be higher for polygon draws.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### VertexData
 ```csharp
 public VertexInfo[] VertexData;
 ```
+
+Four `VertexInfo` vertices storing the world-space positions, atlas UV coordinates, tint color, and blend selector for each corner of the sprite quad.
 
 **Returns** \
 [VertexInfo[]](../../../Murder/Core/Graphics/VertexInfo.html) \
@@ -77,6 +91,8 @@ Sets a Texture to be drawn to the batch
 ```csharp
 public void SetPolygon(Texture2D texture, ReadOnlySpan<T> vertices, DrawInfo drawInfo)
 ```
+
+Configures this item to draw an arbitrary polygon by uploading the supplied world-space vertex positions and applying the given draw info for color and sort.
 
 **Parameters** \
 `texture` [Texture2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html) \

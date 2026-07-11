@@ -7,11 +7,18 @@
 public static class EffectsServices
 ```
 
+Helpers for spawning visual effects and screen transitions in the game world.
+
+**Intent:** Provides high-level methods for common visual effects such as highlights, fade transitions, and one-shot animations.
+
+**Use-case:** Call `FadeIn`/`FadeOut` to create screen transitions between scenes, `ApplyHighlight` to visually mark an entity, and `PlayAnimationAt` to spawn a one-shot sprite animation at a world position.
+
 ### ⭐ Methods
 #### ApplyHighlight(World, Entity, HighlightSpriteComponent)
 ```csharp
 public void ApplyHighlight(World world, Entity e, HighlightSpriteComponent highlight)
 ```
+Applies a highlight visual effect to the entity by adding or replacing its `HighlightSpriteComponent`.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -49,6 +56,7 @@ Add an entity which will apply a "fade-out" effect. Clearing the screen.
 ```csharp
 public void PlayAnimationAt(World world, Portrait blastAnimation, Vector2 position)
 ```
+Spawns a one-shot animated sprite entity at the given world position.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -59,6 +67,7 @@ public void PlayAnimationAt(World world, Portrait blastAnimation, Vector2 positi
 ```csharp
 public void RemoveHighlight(Entity e)
 ```
+Removes the highlight effect from the entity by stripping its `HighlightSpriteComponent`.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \

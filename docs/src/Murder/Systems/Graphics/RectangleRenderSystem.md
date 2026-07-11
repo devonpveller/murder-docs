@@ -7,6 +7,12 @@
 public class RectangleRenderSystem : IMurderRenderSystem, IRenderSystem, ISystem
 ```
 
+Renders entities with a `DrawRectangleComponent` as solid or outlined rectangles.
+
+**Intent:** Draws filled or outlined rectangles for entities with `DrawRectangleComponent`.
+
+**Use-case:** Use for debug overlays, UI panels, or any entity that needs a simple rectangle drawn at its position.
+
 **Implements:** _[IMurderRenderSystem](../../../Murder/Core/Graphics/IMurderRenderSystem.html), [IRenderSystem](../../../Bang/Systems/IRenderSystem.html), [ISystem](../../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Constructors

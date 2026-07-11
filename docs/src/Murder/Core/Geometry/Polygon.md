@@ -7,6 +7,12 @@
 public sealed struct Polygon
 ```
 
+An immutable convex (or concave) polygon defined by an ordered array of 2D vertices.
+
+**Intent:** Store and query the vertex data for arbitrary 2D collision shapes and geometry operations.
+
+**Use-case:** Create a `Polygon` from a list of `Vector2` vertices and wrap it in a `PolygonShape` to use as a collision shape. Use `Contains()` for point-in-polygon tests and `GetLines()` to iterate over edges.
+
 ### ⭐ Constructors
 ```csharp
 public Polygon()
@@ -33,12 +39,16 @@ public Polygon(IEnumerable<T> vertices)
 public readonly static Polygon DIAMOND;
 ```
 
+A pre-built diamond (rhombus) polygon with vertices at (±10, 0) and (0, ±10).
+
 **Returns** \
 [Polygon](../../../Murder/Core/Geometry/Polygon.html) \
 #### EMPTY
 ```csharp
 public readonly static Polygon EMPTY;
 ```
+
+A polygon with no vertices, used as a default or sentinel value.
 
 **Returns** \
 [Polygon](../../../Murder/Core/Geometry/Polygon.html) \
@@ -47,6 +57,8 @@ public readonly static Polygon EMPTY;
 public readonly ImmutableArray<T> Vertices;
 ```
 
+The ordered list of vertices that define this polygon's shape.
+
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 ### ⭐ Methods
@@ -54,6 +66,8 @@ public readonly ImmutableArray<T> Vertices;
 ```csharp
 public bool Contains(Point point)
 ```
+
+Returns `true` if `point` lies inside this polygon using a ray-casting algorithm.
 
 **Parameters** \
 `point` [Point](../../../Murder/Core/Geometry/Point.html) \
@@ -66,6 +80,8 @@ public bool Contains(Point point)
 public bool Contains(Vector2 vector)
 ```
 
+Returns `true` if `vector` lies inside this polygon.
+
 **Parameters** \
 `vector` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
@@ -76,6 +92,8 @@ public bool Contains(Vector2 vector)
 ```csharp
 public bool IsClockwise(List<T> vertices)
 ```
+
+Returns `true` if the given vertex list is ordered clockwise.
 
 **Parameters** \
 `vertices` [List\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0) \
@@ -88,6 +106,8 @@ public bool IsClockwise(List<T> vertices)
 public bool IsConvex()
 ```
 
+Returns `true` if this polygon is convex (no concave vertices).
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
@@ -95,6 +115,8 @@ public bool IsConvex()
 ```csharp
 public bool IsPointInTriangle(Vector2 point, Vector2 a, Vector2 b, Vector2 c)
 ```
+
+Returns `true` if `point` lies inside the triangle defined by vertices `a`, `b`, and `c`.
 
 **Parameters** \
 `point` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \

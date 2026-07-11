@@ -11,6 +11,10 @@ Static class with useful easer functions that can be used by Tweens.
             This was copied from:
             https://github.com/kylepulver/Otter/blob/master/Otter/Utility/Glide/Ease.cs
 
+**Intent:** Provides a complete library of standard easing functions (quad, cube, bounce, elastic, back, etc.) for use with tweens and animations.
+
+**Use-case:** Call the static methods directly with a normalized time value `t ∈ [0, 1]`, or use `Evaluate(t, EaseKind)` to select a curve by its `EaseKind` enum value.
+
 ### ⭐ Methods
 #### BackIn(double)
 ```csharp

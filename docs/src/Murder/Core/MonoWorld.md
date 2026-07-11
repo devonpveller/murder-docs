@@ -9,6 +9,10 @@ public class MonoWorld : World, IDisposable
 
 World implementation based in MonoGame.
 
+**Intent:** The Murder ECS world that owns all entities, systems, and the camera for a single loaded level.
+
+**Use-case:** Created automatically by `GameScene.LoadContentImpl` from a `WorldAsset`. Use it to add/query entities, toggle systems, or access the camera from within any system.
+
 **Implements:** _[World](../../Bang/World.html), [IDisposable](https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0)_
 
 ### ⭐ Constructors
@@ -27,12 +31,16 @@ public MonoWorld(IList<T> systems, Camera2D camera, Guid worldAssetGuid)
 protected readonly SortedList<TKey, TValue> _cachedRenderSystems;
 ```
 
+Cached sorted list of render-capable systems, keyed by render order, used each frame to drive draw calls without re-querying the system list.
+
 **Returns** \
 [SortedList\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.SortedList-2?view=net-7.0) \
 #### _overallStopwatch
 ```csharp
 protected readonly Stopwatch _overallStopwatch;
 ```
+
+Measures total elapsed time for the world update cycle when diagnostics are enabled.
 
 **Returns** \
 [Stopwatch](https://learn.microsoft.com/en-us/dotnet/api/System.Diagnostics.Stopwatch?view=net-7.0) \
@@ -41,12 +49,16 @@ protected readonly Stopwatch _overallStopwatch;
 protected readonly Stopwatch _stopwatch;
 ```
 
+Measures per-system elapsed time when diagnostics are enabled.
+
 **Returns** \
 [Stopwatch](https://learn.microsoft.com/en-us/dotnet/api/System.Diagnostics.Stopwatch?view=net-7.0) \
 #### Camera
 ```csharp
 public readonly Camera2D Camera;
 ```
+
+The 2D camera associated with this world, used by render systems to determine the visible viewport.
 
 **Returns** \
 [Camera2D](../../Murder/Core/Graphics/Camera2D.html) \
@@ -55,6 +67,8 @@ public readonly Camera2D Camera;
 protected readonly Dictionary<TKey, TValue> Contexts;
 ```
 
+Maps each system context ID to its `IComponentContext`, allowing systems to query the entities relevant to them.
+
 **Returns** \
 [Dictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0) \
 #### EntityCount
@@ -62,12 +76,16 @@ protected readonly Dictionary<TKey, TValue> Contexts;
 public int EntityCount { get; }
 ```
 
+The total number of entities currently alive in this world.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### FixedUpdateCounters
 ```csharp
 public readonly Dictionary<TKey, TValue> FixedUpdateCounters;
 ```
+
+Maps each fixed-update system ID to its timing data (duration in ms per tick). See `World.IdToSystem` to resolve IDs.
 
 **Returns** \
 [Dictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0) \
@@ -86,6 +104,8 @@ This has the duration of each gui render system (id) to its corresponding time (
 public readonly ImmutableDictionary<TKey, TValue> IdToSystem;
 ```
 
+Immutable mapping from system integer ID to the `ISystem` instance, used to look up systems by ID in diagnostics counters.
+
 **Returns** \
 [ImmutableDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0) \
 #### IsExiting
@@ -93,12 +113,16 @@ public readonly ImmutableDictionary<TKey, TValue> IdToSystem;
 public bool IsExiting { get; }
 ```
 
+Whether the world has been requested to exit and is in the process of shutting down.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### IsPaused
 ```csharp
 public bool IsPaused { get; }
 ```
+
+Whether the world is currently paused; when `true`, update systems do not tick.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -117,6 +141,8 @@ This has the duration of each reactive system (id) to its corresponding time (in
 public readonly Dictionary<TKey, TValue> ReactiveCounters;
 ```
 
+Maps each reactive system ID to its timing data (duration in ms per message batch). See `World.IdToSystem` to resolve IDs.
+
 **Returns** \
 [Dictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0) \
 #### RenderCounters
@@ -134,6 +160,8 @@ This has the duration of each render system (id) to its corresponding time (in m
 public readonly Dictionary<TKey, TValue> StartCounters;
 ```
 
+Maps each start system ID to its timing data (duration in ms for its initial start call). See `World.IdToSystem` to resolve IDs.
+
 **Returns** \
 [Dictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0) \
 #### UpdateCounters
@@ -141,12 +169,16 @@ public readonly Dictionary<TKey, TValue> StartCounters;
 public readonly Dictionary<TKey, TValue> UpdateCounters;
 ```
 
+Maps each update system ID to its timing data (duration in ms per frame). See `World.IdToSystem` to resolve IDs.
+
 **Returns** \
 [Dictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0) \
 #### WorldAssetGuid
 ```csharp
 public readonly Guid WorldAssetGuid;
 ```
+
+The GUID of the `WorldAsset` from which this world was instantiated.
 
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -156,6 +188,8 @@ public readonly Guid WorldAssetGuid;
 protected virtual void ClearDiagnosticsCountersForSystem(int id)
 ```
 
+Clears the diagnostics timing counters for the system with the given ID.
+
 **Parameters** \
 `id` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
@@ -163,6 +197,8 @@ protected virtual void ClearDiagnosticsCountersForSystem(int id)
 ```csharp
 protected virtual void InitializeDiagnosticsForSystem(int systemId, ISystem system)
 ```
+
+Registers a system in the diagnostics counters dictionaries so it can be tracked.
 
 **Parameters** \
 `systemId` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -173,10 +209,14 @@ protected virtual void InitializeDiagnosticsForSystem(int systemId, ISystem syst
 protected void InitializeDiagnosticsCounters()
 ```
 
+Initializes all per-system diagnostics counter dictionaries.
+
 #### ActivateSystem()
 ```csharp
 public bool ActivateSystem()
 ```
+
+Activates the system of the generic type parameter in this world.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -185,6 +225,8 @@ public bool ActivateSystem()
 ```csharp
 public bool ActivateSystem(Type t)
 ```
+
+Activates the system of the specified type in this world.
 
 **Parameters** \
 `t` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
@@ -196,6 +238,8 @@ public bool ActivateSystem(Type t)
 ```csharp
 public bool DeactivateSystem(bool immediately)
 ```
+
+Deactivates the system of the generic type parameter. If `immediately` is `true`, the system is disabled before the next update.
 
 **Parameters** \
 `immediately` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -232,6 +276,8 @@ public bool DeactivateSystem(Type t, bool immediately)
 public bool IsSystemActive(Type t)
 ```
 
+Returns `true` when the system of type `t` is currently active in this world.
+
 **Parameters** \
 `t` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
 
@@ -243,6 +289,8 @@ public bool IsSystemActive(Type t)
 public Entity AddEntity()
 ```
 
+Creates a new empty entity in the world and returns it.
+
 **Returns** \
 [Entity](../../Bang/Entities/Entity.html) \
 
@@ -250,6 +298,8 @@ public Entity AddEntity()
 ```csharp
 public Entity AddEntity(IComponent[] components)
 ```
+
+Creates a new entity initialized with the given components.
 
 **Parameters** \
 `components` [IComponent[]](../../Bang/Components/IComponent.html) \
@@ -261,6 +311,8 @@ public Entity AddEntity(IComponent[] components)
 ```csharp
 public Entity AddEntity(T? id, IComponent[] components)
 ```
+
+Creates a new entity with an optional integer ID hint and the given components.
 
 **Parameters** \
 `id` [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
@@ -274,6 +326,8 @@ public Entity AddEntity(T? id, IComponent[] components)
 public Entity GetEntity(int id)
 ```
 
+Retrieves the entity with the given ID. Throws if not found.
+
 **Parameters** \
 `id` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
@@ -285,6 +339,8 @@ public Entity GetEntity(int id)
 public Entity GetUniqueEntity()
 ```
 
+Retrieves the single entity that uniquely holds a component of the generic type. Throws if not found.
+
 **Returns** \
 [Entity](../../Bang/Entities/Entity.html) \
 
@@ -292,6 +348,8 @@ public Entity GetUniqueEntity()
 ```csharp
 public Entity GetUniqueEntity(int index)
 ```
+
+Retrieves the unique entity for the specified context index. Throws if not found.
 
 **Parameters** \
 `index` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -304,6 +362,8 @@ public Entity GetUniqueEntity(int index)
 public Entity TryGetEntity(int id)
 ```
 
+Retrieves the entity with the given ID, or `null` if it does not exist.
+
 **Parameters** \
 `id` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
@@ -315,6 +375,8 @@ public Entity TryGetEntity(int id)
 public Entity TryGetUniqueEntity()
 ```
 
+Returns the unique entity that holds a component of the generic type, or `null` if none exists.
+
 **Returns** \
 [Entity](../../Bang/Entities/Entity.html) \
 
@@ -322,6 +384,8 @@ public Entity TryGetUniqueEntity()
 ```csharp
 public Entity TryGetUniqueEntity(int index)
 ```
+
+Returns the unique entity for the specified context index, or `null` if none exists.
 
 **Parameters** \
 `index` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -334,6 +398,8 @@ public Entity TryGetUniqueEntity(int index)
 public ImmutableArray<T> GetActivatedAndDeactivatedEntitiesWith(Type[] components)
 ```
 
+Returns all entities (both active and deactivated) that possess all of the specified component types.
+
 **Parameters** \
 `components` [Type[]](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
 
@@ -345,6 +411,8 @@ public ImmutableArray<T> GetActivatedAndDeactivatedEntitiesWith(Type[] component
 public ImmutableArray<T> GetAllEntities()
 ```
 
+Returns all active entities in the world.
+
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
@@ -352,6 +420,8 @@ public ImmutableArray<T> GetAllEntities()
 ```csharp
 public ImmutableArray<T> GetEntitiesWith(ContextAccessorFilter filter, Type[] components)
 ```
+
+Returns entities that match the given component filter.
 
 **Parameters** \
 `filter` [ContextAccessorFilter](../../Bang/Contexts/ContextAccessorFilter.html) \
@@ -365,6 +435,8 @@ public ImmutableArray<T> GetEntitiesWith(ContextAccessorFilter filter, Type[] co
 public ImmutableArray<T> GetEntitiesWith(Type[] components)
 ```
 
+Returns all active entities that possess all of the given component types.
+
 **Parameters** \
 `components` [Type[]](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
 
@@ -376,6 +448,8 @@ public ImmutableArray<T> GetEntitiesWith(Type[] components)
 public T GetUnique()
 ```
 
+Returns the unique component of the generic type from its singleton entity. Throws if not found.
+
 **Returns** \
 [T](../../) \
 
@@ -383,6 +457,8 @@ public T GetUnique()
 ```csharp
 public T GetUnique(int index)
 ```
+
+Returns the unique component for the specified context index. Throws if not found.
 
 **Parameters** \
 `index` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -395,6 +471,8 @@ public T GetUnique(int index)
 public T? TryGetUnique()
 ```
 
+Returns the unique component of the generic type, or the default value if no matching singleton entity exists.
+
 **Returns** \
 [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
 
@@ -402,6 +480,8 @@ public T? TryGetUnique()
 ```csharp
 public T? TryGetUnique(int index)
 ```
+
+Returns the unique component for the specified context index, or the default value if not found.
 
 **Parameters** \
 `index` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -414,25 +494,35 @@ public T? TryGetUnique(int index)
 public virtual void Dispose()
 ```
 
+Disposes the world and all of its entities and systems.
+
 #### Pause()
 ```csharp
 public virtual void Pause()
 ```
+
+Pauses the world: stops update ticks and pauses SFX sounds.
 
 #### Resume()
 ```csharp
 public virtual void Resume()
 ```
 
+Resumes the world after a pause.
+
 #### ActivateAllSystems()
 ```csharp
 public void ActivateAllSystems()
 ```
 
+Activates all systems that were previously deactivated.
+
 #### DeactivateAllSystems(Type[])
 ```csharp
 public void DeactivateAllSystems(Type[] skip)
 ```
+
+Deactivates all systems except those whose types appear in the `skip` list.
 
 **Parameters** \
 `skip` [Type[]](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
@@ -442,6 +532,8 @@ public void DeactivateAllSystems(Type[] skip)
 public void Draw(RenderContext render)
 ```
 
+Runs all active render systems for this frame.
+
 **Parameters** \
 `render` [RenderContext](../../Murder/Core/Graphics/RenderContext.html) \
 
@@ -449,6 +541,8 @@ public void Draw(RenderContext render)
 ```csharp
 public void DrawGui(RenderContext render)
 ```
+
+Runs all active GUI render systems for this frame.
 
 **Parameters** \
 `render` [RenderContext](../../Murder/Core/Graphics/RenderContext.html) \
@@ -458,25 +552,35 @@ public void DrawGui(RenderContext render)
 public void Exit()
 ```
 
+Signals the world to exit; sets `IsExiting` to `true`.
+
 #### FixedUpdate()
 ```csharp
 public void FixedUpdate()
 ```
+
+Runs all active fixed-update systems at the fixed timestep.
 
 #### PreDraw()
 ```csharp
 public void PreDraw()
 ```
 
+Runs all active pre-render systems before the main draw pass.
+
 #### Start()
 ```csharp
 public void Start()
 ```
 
+Calls the `Start` callback on all active start systems. Called once after the world is fully loaded.
+
 #### Update()
 ```csharp
 public void Update()
 ```
+
+Runs all active update systems for the current frame.
 
 
 

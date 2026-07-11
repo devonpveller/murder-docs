@@ -7,10 +7,18 @@
 public sealed struct Line
 ```
 
+A single authored line of dialogue, holding the speaker identity, optional portrait key, display text, optional timing delay, and an optional pre-line action.
+
+**Intent:** Represents the smallest displayable unit in a dialogue script: who says what, which portrait to show, and how long to pause before or after it.
+
+**Use-case:** Stored in `Dialog.Lines`; the dialogue system iterates them in order via `CharacterRuntime.NextLine` and passes each to the game's UI layer for display.
+
 ### ⭐ Constructors
 ```csharp
 public Line()
 ```
+
+Creates an empty line with no speaker, text, or delay.
 
 ```csharp
 public Line(LocalizedString text)
@@ -35,6 +43,8 @@ Create a line with a text. That won't be used as a timer.
 public Line(T? speaker, float delay)
 ```
 
+Creates a timer-only line that pauses dialogue for `delay` seconds with no text.
+
 **Parameters** \
 `speaker` [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
 `delay` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -42,6 +52,8 @@ public Line(T? speaker, float delay)
 ```csharp
 public Line(T? speaker, string portrait, T? text, T? delay)
 ```
+
+Full constructor that sets every field; any field may be `null` to use the speaker's defaults.
 
 **Parameters** \
 `speaker` [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
@@ -52,6 +64,8 @@ public Line(T? speaker, string portrait, T? text, T? delay)
 ```csharp
 public Line(T? speaker)
 ```
+
+Creates a line with only a speaker set; text and delay are left unset.
 
 **Parameters** \
 `speaker` [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
@@ -71,6 +85,8 @@ Delay in seconds.
 public bool IsText { get; }
 ```
 
+Returns `true` when `Text` is non-null, indicating this line carries displayable content.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### Portrait
@@ -78,12 +94,16 @@ public bool IsText { get; }
 public readonly string Portrait;
 ```
 
+Optional portrait key overriding the speaker's default; `null` means use the speaker's default portrait.
+
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 #### Speaker
 ```csharp
 public readonly T? Speaker;
 ```
+
+GUID of the `SpeakerAsset` delivering this line; `null` if no speaker is associated.
 
 **Returns** \
 [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
@@ -102,6 +122,8 @@ If the caption has a text, this will be the information.
 public Line WithDelay(float delay)
 ```
 
+Returns a copy of this line with the `Delay` replaced.
+
 **Parameters** \
 `delay` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
@@ -112,6 +134,8 @@ public Line WithDelay(float delay)
 ```csharp
 public Line WithPortrait(string portrait)
 ```
+
+Returns a copy of this line with the `Portrait` replaced.
 
 **Parameters** \
 `portrait` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -124,6 +148,8 @@ public Line WithPortrait(string portrait)
 public Line WithSpeaker(Guid speaker)
 ```
 
+Returns a copy of this line with the `Speaker` replaced.
+
 **Parameters** \
 `speaker` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
 
@@ -134,6 +160,8 @@ public Line WithSpeaker(Guid speaker)
 ```csharp
 public Line WithSpeakerAndPortrait(Guid speaker, string portrait)
 ```
+
+Returns a copy of this line with both `Speaker` and `Portrait` replaced.
 
 **Parameters** \
 `speaker` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -146,6 +174,8 @@ public Line WithSpeakerAndPortrait(Guid speaker, string portrait)
 ```csharp
 public Line WithText(LocalizedString text)
 ```
+
+Returns a copy of this line with the `Text` replaced.
 
 **Parameters** \
 `text` [LocalizedString](../../../Murder/Assets/LocalizedString.html) \

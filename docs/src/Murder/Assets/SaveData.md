@@ -9,6 +9,10 @@ public class SaveData : GameAsset
 
 Tracks a saved game with all the player status.
 
+**Intent:** Persist the entire runtime game state for one save slot: the current world, blackboard variable values, world-persistent entity deletions, and all active dynamic assets.
+
+**Use-case:** Subclass `SaveData` to add game-specific save fields. Call `TryLoadLevel` to obtain a `SavedWorld` snapshot for a given world GUID, use `RecordRemovedEntityFromWorld` to mark persistent entity removals, and access `BlackboardTracker` to read and write global or character-scoped dialogue variables.
+
 **Implements:** _[GameAsset](../../Murder/Assets/GameAsset.html)_
 
 ### ⭐ Constructors
@@ -46,12 +50,16 @@ List of all consumed entities throughout the map.
 public readonly BlackboardTracker BlackboardTracker;
 ```
 
+Tracks all blackboard variables (global and character-scoped) for this save, used by the dialogue system.
+
 **Returns** \
 [BlackboardTracker](../../Murder/Save/BlackboardTracker.html) \
 #### CanBeCreated
 ```csharp
 public virtual bool CanBeCreated { get; }
 ```
+
+Determines if the asset can be created, override to change this capability.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -60,12 +68,16 @@ public virtual bool CanBeCreated { get; }
 public virtual bool CanBeDeleted { get; }
 ```
 
+Determines if the asset can be deleted, override to change this capability.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### CanBeRenamed
 ```csharp
 public virtual bool CanBeRenamed { get; }
 ```
+
+Determines if the asset can be renamed, override to change this capability.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -74,12 +86,16 @@ public virtual bool CanBeRenamed { get; }
 public virtual bool CanBeSaved { get; }
 ```
 
+Determines if the asset can be saved, override to change this capability.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### CurrentWorld
 ```csharp
 public T? CurrentWorld { get; }
 ```
+
+The GUID of the world that was active when this save was last written.
 
 **Returns** \
 [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
@@ -97,12 +113,16 @@ These are all the dynamic assets within the game session.
 public virtual Vector4 EditorColor { get; }
 ```
 
+Gets the default color used in the editor for the asset.
+
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
 #### EditorFolder
 ```csharp
 public virtual string EditorFolder { get; }
 ```
+
+Gets the folder path in the editor where this asset is grouped.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -111,12 +131,16 @@ public virtual string EditorFolder { get; }
 public bool FileChanged { get; public set; }
 ```
 
+Indicates whether the asset has unsaved modifications.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### FilePath
 ```csharp
 public string FilePath { get; public set; }
 ```
+
+Path to this asset file, relative to its base directory.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -125,12 +149,16 @@ public string FilePath { get; public set; }
 public Guid Guid { get; protected set; }
 ```
 
+Unique identifier for this asset, used to reference it from other assets and components.
+
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
 #### Icon
 ```csharp
 public virtual char Icon { get; }
 ```
+
+FontAwesome character icon displayed next to this asset in the editor.
 
 **Returns** \
 [char](https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0) \
@@ -139,12 +167,16 @@ public virtual char Icon { get; }
 public virtual bool IsStoredInSaveData { get; }
 ```
 
+Whether this file is stored relative to the save path.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### Name
 ```csharp
 public string Name { get; public set; }
 ```
+
+Display name of this asset as shown in the editor.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -153,12 +185,16 @@ public string Name { get; public set; }
 public Task PendingOperation { get; }
 ```
 
+The async task representing an in-progress save or world-snapshot operation, if any.
+
 **Returns** \
 [Task](https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0) \
 #### Rename
 ```csharp
 public bool Rename { get; public set; }
 ```
+
+Whether the file should be renamed and the previous name deleted on next save.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -186,6 +222,8 @@ This maps
 ```csharp
 public virtual string SaveLocation { get; }
 ```
+
+The folder path where this asset is saved on disk.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -230,12 +268,16 @@ Game version, used for game save compatibility.
 public virtual bool StoreInDatabase { get; }
 ```
 
+Whether this asset is stored following the database hierarchy.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### TaggedForDeletion
 ```csharp
 public bool TaggedForDeletion;
 ```
+
+Marks this asset for removal on the next save.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -259,6 +301,8 @@ Fetch the collected items at <paramref name="world" />.
 protected T? EntityToGuid(World world, Entity e)
 ```
 
+Attempts to resolve the GUID of a live entity in the given world; returns null if the entity has no GUID.
+
 **Parameters** \
 `world` [World](../../Bang/World.html) \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -270,6 +314,8 @@ protected T? EntityToGuid(World world, Entity e)
 ```csharp
 protected T? EntityToGuid(World world, int id)
 ```
+
+Attempts to resolve the GUID of the entity with the given integer ID in the world; returns null if not found.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -283,6 +329,8 @@ protected T? EntityToGuid(World world, int id)
 protected virtual bool TryGetDynamicAssetImpl(T& value)
 ```
 
+Overridable implementation that attempts to retrieve a typed `DynamicAsset` from the save; returns false if absent.
+
 **Parameters** \
 `value` [T&](../../) \
 
@@ -293,6 +341,8 @@ protected virtual bool TryGetDynamicAssetImpl(T& value)
 ```csharp
 protected virtual string GetDefaultSaveName()
 ```
+
+Returns the default display name for this save slot; override to customise the auto-generated name.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -309,10 +359,14 @@ This will clean all saved worlds.
 protected virtual void OnModified()
 ```
 
+Called by the editor when the asset is modified; override to clear cached derived data.
+
 #### HasFinishedSaveWorld()
 ```csharp
 public bool HasFinishedSaveWorld()
 ```
+
+Returns true when any pending asynchronous world-save operation has completed.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -336,6 +390,8 @@ This records that an entity has been removed from the map.
 public GameAsset Duplicate(string name)
 ```
 
+Creates a deep copy of this asset with the given new name.
+
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
@@ -347,6 +403,8 @@ public GameAsset Duplicate(string name)
 public List<T> AssetsToBeSaved()
 ```
 
+Returns and clears the list of dependent assets queued to be saved alongside this asset.
+
 **Returns** \
 [List\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0) \
 
@@ -354,6 +412,8 @@ public List<T> AssetsToBeSaved()
 ```csharp
 public string GetSimplifiedName()
 ```
+
+Returns the asset name stripped of any editor-folder prefix characters.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -363,6 +423,8 @@ public string GetSimplifiedName()
 public String[] GetSplitNameWithEditorPath()
 ```
 
+Returns the display name split into path segments following the EditorFolder hierarchy.
+
 **Returns** \
 [string[]](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
@@ -370,6 +432,8 @@ public String[] GetSplitNameWithEditorPath()
 ```csharp
 public T TryGetDynamicAsset()
 ```
+
+Retrieves the `DynamicAsset` of type `T` for this save slot; returns a new default instance if absent.
 
 **Returns** \
 [T](../../) \
@@ -393,10 +457,14 @@ Get a world asset to instantiate in the game.
 public virtual void AfterDeserialized()
 ```
 
+Called after deserialization; override to rebuild caches from deserialized data.
+
 #### ChangeSaveName(string)
 ```csharp
 public void ChangeSaveName(string name)
 ```
+
+Sets the player-facing display name of this save slot.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -413,10 +481,14 @@ Called after creating a fresh new save from this.
 public void MakeGuid()
 ```
 
+Generates and assigns a new GUID to this asset.
+
 #### RemoveDynamicAsset(Type)
 ```csharp
 public void RemoveDynamicAsset(Type t)
 ```
+
+Removes the `DynamicAsset` of the given type from this save slot's asset collection.
 
 **Parameters** \
 `t` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
@@ -437,6 +509,8 @@ This saves a world that should be persisted across several runs.
 public void SaveDynamicAsset(Guid guid)
 ```
 
+Marks the `DynamicAsset` with the given GUID as dirty so it will be included in the next save.
+
 **Parameters** \
 `guid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
 
@@ -445,6 +519,8 @@ public void SaveDynamicAsset(Guid guid)
 public void TrackAssetOnSave(Guid g)
 ```
 
+Queues a dependent asset by GUID to be saved whenever this asset is saved.
+
 **Parameters** \
 `g` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
 
@@ -452,6 +528,8 @@ public void TrackAssetOnSave(Guid g)
 ```csharp
 public void TrackCurrentWorld(Guid guid)
 ```
+
+Records the GUID of the world that is currently loaded, updating `CurrentWorld`.
 
 **Parameters** \
 `guid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \

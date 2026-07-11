@@ -7,11 +7,19 @@
 public static class XnaExtensions
 ```
 
+Conversion extension methods between MonoGame/XNA types and the `System.Numerics` types used internally by the engine.
+
+**Intent:** Bridges the two type systems so engine code (System.Numerics) can interoperate with MonoGame rendering APIs (XNA types) without verbose manual conversion.
+
+**Use-case:** Use when passing data between MonoGame API calls and engine math code; prefer these helpers over manual component assignment.
+
 ### ⭐ Methods
 #### ToXnaColor(Vector4)
 ```csharp
 public Color ToXnaColor(Vector4 color)
 ```
+
+Converts a `System.Numerics.Vector4` RGBA value to a MonoGame `Color`.
 
 **Parameters** \
 `color` [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
@@ -23,6 +31,8 @@ public Color ToXnaColor(Vector4 color)
 ```csharp
 public Point Size(Rectangle this)
 ```
+
+Returns the width and height of a MonoGame `Rectangle` as an engine `Point`.
 
 **Parameters** \
 `this` [Rectangle](https://docs.monogame.net/api/Microsoft.Xna.Framework.Rectangle.html) \
@@ -56,6 +66,8 @@ public Point ToPoint(Vector2 vector)
 ```csharp
 public Point ToXnaPoint(Vector2 vector2)
 ```
+
+Converts a `System.Numerics.Vector2` to a MonoGame `Point` by rounding each component to the nearest integer.
 
 **Parameters** \
 `vector2` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \

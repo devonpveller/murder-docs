@@ -10,6 +10,10 @@ public class EntityInstance : IEntity
 Represents an entity as an instance placed on the map.
             This map may be relative to the world or another entity.
 
+**Intent:** Records a single entity placement inside a prefab or world asset, including its component data and GUID.
+
+**Use-case:** Used by the editor and runtime to represent positioned entities in a world or nested inside a prefab; instantiate via `PrefabAsset.CreateInstance`.
+
 **Implements:** _[IEntity](../../Murder/Prefabs/IEntity.html)_
 
 ### ⭐ Constructors
@@ -20,6 +24,7 @@ public EntityInstance()
 ```csharp
 public EntityInstance(string name, Guid guid)
 ```
+Creates a new entity instance with the given display name and GUID.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -28,6 +33,7 @@ public EntityInstance(string name, Guid guid)
 ```csharp
 public EntityInstance(string name, T? guid)
 ```
+Creates a new entity instance with the given display name and optional GUID.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -38,6 +44,7 @@ public EntityInstance(string name, T? guid)
 ```csharp
 protected Dictionary<TKey, TValue> _children;
 ```
+Mutable map from child GUID to child `EntityInstance` definitions.
 
 **Returns** \
 [Dictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0) \
@@ -65,6 +72,7 @@ Whether this instance must have its activation propagated according to the paren
 ```csharp
 public virtual ImmutableArray<T> Children { get; }
 ```
+Immutable list of child `EntityInstance` identifiers for this entity.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -72,6 +80,7 @@ public virtual ImmutableArray<T> Children { get; }
 ```csharp
 public virtual ImmutableArray<T> Components { get; }
 ```
+Immutable list of all components attached to this entity instance.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -79,6 +88,7 @@ public virtual ImmutableArray<T> Components { get; }
 ```csharp
 public virtual Guid Guid { get; }
 ```
+Unique identifier for this entity instance.
 
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -105,6 +115,7 @@ Returns whether the entity is currently deactivated once instantiated in the map
 ```csharp
 public virtual bool IsEmpty { get; }
 ```
+Returns `true` if this instance has no components and no children.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -112,6 +123,7 @@ public virtual bool IsEmpty { get; }
 ```csharp
 public virtual string Name { get; }
 ```
+Display name of this entity instance.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -130,6 +142,7 @@ By default, this is not based on any prefab.
 ```csharp
 public virtual bool AddOrReplaceComponentForChild(Guid childGuid, IComponent component)
 ```
+Adds or replaces `component` on the child identified by `childGuid`; returns `true` if the child was found.
 
 **Parameters** \
 `childGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -142,6 +155,7 @@ public virtual bool AddOrReplaceComponentForChild(Guid childGuid, IComponent com
 ```csharp
 public virtual bool CanRemoveChild(Guid instanceGuid)
 ```
+Returns `true` if the child with the given GUID can be removed from this instance.
 
 **Parameters** \
 `instanceGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -153,6 +167,7 @@ public virtual bool CanRemoveChild(Guid instanceGuid)
 ```csharp
 public virtual bool CanRevertComponent(Type t)
 ```
+Returns `true` if the component of the given type can be reverted to its base value.
 
 **Parameters** \
 `t` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
@@ -177,6 +192,7 @@ Returns whether an instance of <paramref name="type" /> exists in the list of co
 ```csharp
 public virtual bool HasComponentAtChild(Guid childGuid, Type type)
 ```
+Returns `true` if the child identified by `childGuid` has a component of the given type.
 
 **Parameters** \
 `childGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -202,6 +218,7 @@ Returns whether a component is present in the entity asset.
 ```csharp
 public virtual bool RemoveAllComponents()
 ```
+Removes all components from this entity instance; returns `true` if any were removed.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -210,6 +227,7 @@ public virtual bool RemoveAllComponents()
 ```csharp
 public virtual bool RemoveChild(Guid instanceGuid)
 ```
+Removes the child entity with the given GUID from this instance; returns `true` if it was found and removed.
 
 **Parameters** \
 `instanceGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -221,6 +239,7 @@ public virtual bool RemoveChild(Guid instanceGuid)
 ```csharp
 public virtual bool RemoveComponent(Type t)
 ```
+Removes the component of the given type from this instance; returns `true` if it was present.
 
 **Parameters** \
 `t` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
@@ -232,6 +251,7 @@ public virtual bool RemoveComponent(Type t)
 ```csharp
 public virtual bool RevertComponent(Type t)
 ```
+Reverts the component of the given type to its base value; returns `true` if the revert succeeded.
 
 **Parameters** \
 `t` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
@@ -243,6 +263,7 @@ public virtual bool RevertComponent(Type t)
 ```csharp
 public virtual bool RevertComponentForChild(Guid childGuid, Type t)
 ```
+Reverts the component of type `t` on the child identified by `childGuid`; returns `true` if reverted.
 
 **Parameters** \
 `childGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -255,6 +276,7 @@ public virtual bool RevertComponentForChild(Guid childGuid, Type t)
 ```csharp
 public virtual bool TryGetChild(Guid guid, EntityInstance& instance)
 ```
+Attempts to find the child with the given GUID; returns `true` and populates `instance` if found.
 
 **Parameters** \
 `guid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -267,6 +289,7 @@ public virtual bool TryGetChild(Guid guid, EntityInstance& instance)
 ```csharp
 public virtual EntityInstance GetChild(Guid instanceGuid)
 ```
+Returns the child entity instance with the given GUID; throws if not found.
 
 **Parameters** \
 `instanceGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -278,6 +301,7 @@ public virtual EntityInstance GetChild(Guid instanceGuid)
 ```csharp
 public virtual IComponent GetComponent(Type componentType)
 ```
+Returns the component of the given type; throws if not present.
 
 **Parameters** \
 `componentType` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
@@ -289,6 +313,7 @@ public virtual IComponent GetComponent(Type componentType)
 ```csharp
 public virtual IComponent TryGetComponentForChild(Guid guid, Type t)
 ```
+Returns the component of type `t` from the child with GUID `guid`, or `null` if not present.
 
 **Parameters** \
 `guid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -301,6 +326,7 @@ public virtual IComponent TryGetComponentForChild(Guid guid, Type t)
 ```csharp
 public virtual ImmutableArray<T> FetchChildren()
 ```
+Returns all child `EntityInstance` objects as an immutable array.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -355,6 +381,7 @@ Create the instance entity in the world.
 ```csharp
 public virtual void AddChild(EntityInstance asset)
 ```
+Adds `asset` as a child of this entity instance.
 
 **Parameters** \
 `asset` [EntityInstance](../../Murder/Prefabs/EntityInstance.html) \
@@ -363,6 +390,7 @@ public virtual void AddChild(EntityInstance asset)
 ```csharp
 public virtual void AddOrReplaceComponent(IComponent c)
 ```
+Adds or replaces component `c` on this entity instance.
 
 **Parameters** \
 `c` [IComponent](../../Bang/Components/IComponent.html) \
@@ -371,6 +399,7 @@ public virtual void AddOrReplaceComponent(IComponent c)
 ```csharp
 public virtual void RemoveComponentForChild(Guid childGuid, Type t)
 ```
+Removes the component of type `t` from the child identified by `childGuid`.
 
 **Parameters** \
 `childGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -390,6 +419,7 @@ Set the name of the entity instance.
 ```csharp
 public void UpdateGuid(Guid newGuid)
 ```
+Replaces the GUID of this entity instance with `newGuid`.
 
 **Parameters** \
 `newGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \

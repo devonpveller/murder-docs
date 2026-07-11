@@ -7,11 +7,19 @@
 public static class GridHelper
 ```
 
+Utility methods for enumerating tile-grid cell positions, snapping coordinates to the grid, and building cell rectangles.
+
+**Intent:** Provides geometry and iteration helpers for working with the tile grid used by map and pathfinding systems.
+
+**Use-case:** Call from map systems and AI code to enumerate cells in circular or linear areas, snap positions to the grid, or convert between world-space and grid-cell coordinates.
+
 ### ⭐ Methods
 #### Circle(int, int, int)
 ```csharp
 public IEnumerable<T> Circle(int cx, int cy, int radius)
 ```
+
+Returns all grid cell positions within a circular radius of the given center cell `(cx, cy)`.
 
 **Parameters** \
 `cx` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -26,6 +34,8 @@ public IEnumerable<T> Circle(int cx, int cy, int radius)
 public IEnumerable<T> Line(Point start, Point end)
 ```
 
+Returns all grid cell positions along the straight line from `start` to `end` using a Bresenham-style traversal.
+
 **Parameters** \
 `start` [Point](../../Murder/Core/Geometry/Point.html) \
 `end` [Point](../../Murder/Core/Geometry/Point.html) \
@@ -37,6 +47,8 @@ public IEnumerable<T> Line(Point start, Point end)
 ```csharp
 public ImmutableDictionary<TKey, TValue> Reverse(IDictionary<TKey, TValue> input, Point initial, Point target)
 ```
+
+Reverses a route dictionary (target-to-source) into source-to-target order between `initial` and `target`.
 
 **Parameters** \
 `input` [IDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IDictionary-2?view=net-7.0) \
@@ -50,6 +62,8 @@ public ImmutableDictionary<TKey, TValue> Reverse(IDictionary<TKey, TValue> input
 ```csharp
 public IMurderTransformComponent SnapToGridDelta(IMurderTransformComponent transform)
 ```
+
+Snaps the transform's position to the nearest grid cell center, returning the adjusted transform.
 
 **Parameters** \
 `transform` [IMurderTransformComponent](../../Murder/Components/IMurderTransformComponent.html) \
@@ -75,6 +89,8 @@ Creates a rectangle from <paramref name="p1" /> to <paramref name="p2" />.
 ```csharp
 public IntRectangle GetBoundingBox(Rectangle rect)
 ```
+
+Returns the smallest integer-cell rectangle that fully contains the given world-space `rect`.
 
 **Parameters** \
 `rect` [Rectangle](../../Murder/Core/Geometry/Rectangle.html) \

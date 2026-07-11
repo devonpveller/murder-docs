@@ -9,6 +9,10 @@ public static class Calculator
 
 Calculator helper class.
 
+**Intent:** A static utility class providing common math helpers, array operations, and geometry conversions used throughout the engine.
+
+**Use-case:** Use in game systems and components for clamping, lerping, rounding, grid conversions, and other frequently needed math operations.
+
 ### ⭐ Properties
 #### LayersCount
 ```csharp
@@ -25,12 +29,16 @@ Default layers count.
 public static const float TO_DEG;
 ```
 
+Conversion factor from radians to degrees (180 ÷ π).
+
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 #### TO_RAD
 ```csharp
 public static const float TO_RAD;
 ```
+
+Conversion factor from degrees to radians (π ÷ 180).
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -39,6 +47,8 @@ public static const float TO_RAD;
 ```csharp
 public bool AlmostEqual(float num1, float num2)
 ```
+
+Returns `true` if `num1` and `num2` are within a small epsilon of each other.
 
 **Parameters** \
 `num1` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -52,6 +62,8 @@ public bool AlmostEqual(float num1, float num2)
 public bool Blink(float speed, bool scaled)
 ```
 
+Returns a boolean that alternates at the given `speed`; if `scaled` is `true`, uses the game's time scale.
+
 **Parameters** \
 `speed` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 `scaled` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -64,6 +76,8 @@ public bool Blink(float speed, bool scaled)
 public bool IsInteger(float value)
 ```
 
+Returns `true` if the float value has no fractional part.
+
 **Parameters** \
 `value` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
@@ -74,6 +88,8 @@ public bool IsInteger(float value)
 ```csharp
 public bool IsInteger(Vector2 value)
 ```
+
+Returns `true` if both components of the vector have no fractional part.
 
 **Parameters** \
 `value` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -86,6 +102,8 @@ public bool IsInteger(Vector2 value)
 public bool SameSign(float num1, float num2)
 ```
 
+Returns `true` if both values have the same sign (both positive or both negative).
+
 **Parameters** \
 `num1` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 `num2` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -97,6 +115,8 @@ public bool SameSign(float num1, float num2)
 ```csharp
 public bool SameSignOrSimilar(float num1, float num2)
 ```
+
+Returns `true` if both values have the same sign or are close enough to zero to be treated as the same.
 
 **Parameters** \
 `num1` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -127,6 +147,8 @@ Returns the result of multiplying two unsigned 8-bit values.
 public double LerpSnap(float origin, float target, double factor, float threshold)
 ```
 
+Interpolates from `origin` to `target` by `factor`; snaps to `target` when the distance is less than `threshold`.
+
 **Parameters** \
 `origin` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 `target` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -141,6 +163,8 @@ public double LerpSnap(float origin, float target, double factor, float threshol
 public float Approach(float from, float target, float amount)
 ```
 
+Moves `from` toward `target` by at most `amount`, never overshooting.
+
 **Parameters** \
 `from` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 `target` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -153,6 +177,8 @@ public float Approach(float from, float target, float amount)
 ```csharp
 public float CatmullRom(float p0, float p1, float p2, float p3, float t)
 ```
+
+Evaluates a Catmull-Rom spline at parameter `t` using the four control points `p0`–`p3`.
 
 **Parameters** \
 `p0` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -169,6 +195,8 @@ public float CatmullRom(float p0, float p1, float p2, float p3, float t)
 public float Clamp01(float v)
 ```
 
+Clamps `v` to the range [0, 1].
+
 **Parameters** \
 `v` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
@@ -180,6 +208,8 @@ public float Clamp01(float v)
 public float Clamp01(int v)
 ```
 
+Clamps integer `v` to the range [0, 1] and returns a float.
+
 **Parameters** \
 `v` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
@@ -190,6 +220,8 @@ public float Clamp01(int v)
 ```csharp
 public float ClampNearZero(float value, float minimum)
 ```
+
+If `value` is closer to zero than `minimum`, snaps it to zero; otherwise returns `value`.
 
 **Parameters** \
 `value` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \

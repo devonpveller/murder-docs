@@ -7,6 +7,12 @@
 public sealed struct InteractOnRuleMatchComponent : IComponent
 ```
 
+Defines a set of blackboard criterion rules that, when matched, trigger the entity's interactive components.
+
+**Intent:** Fire an interaction automatically whenever a specific combination of blackboard/game-state conditions becomes true.
+
+**Use-case:** Add to a story entity with a list of `Requirements` (criterion nodes); the `InteractOnRuleMatchSystem` evaluates these each frame and calls the interaction when all criteria pass.
+
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
@@ -45,12 +51,16 @@ public InteractOnRuleMatchComponent(CriterionNode[] criteria)
 public readonly AfterInteractRule AfterInteraction;
 ```
 
+Defines what happens to this component after the interaction triggers (e.g. remove it, keep it, or allow re-triggering).
+
 **Returns** \
 [AfterInteractRule](../../Murder/Components/AfterInteractRule.html) \
 #### InteractOn
 ```csharp
 public readonly InteractOn InteractOn;
 ```
+
+Specifies whether the rule evaluates on the first set of a blackboard value, on subsequent modifications, or both.
 
 **Returns** \
 [InteractOn](../../Murder/Components/InteractOn.html) \
@@ -78,6 +88,10 @@ This will only be triggered once the component has been interacted with.
 ```csharp
 public InteractOnRuleMatchComponent Disable()
 ```
+
+Returns a copy of this component with `Triggered` set to `true`, effectively disabling re-triggering for rules that use `AfterInteractRule.InteractOnReload`.
+
+**Returns** \
 
 **Returns** \
 [InteractOnRuleMatchComponent](../../Murder/Components/InteractOnRuleMatchComponent.html) \

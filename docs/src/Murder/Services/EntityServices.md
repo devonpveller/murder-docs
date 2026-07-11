@@ -7,11 +7,18 @@
 public static class EntityServices
 ```
 
+General-purpose ECS entity utilities for animation playback, hierarchy traversal, spawning, and component helpers.
+
+**Intent:** Provides convenience methods that operate on entities but don't belong to a more specific service domain.
+
+**Use-case:** Use to play sprite animations, rotate entity positions, spawn prefab clusters, subscribe to animation events, or look up entity metadata without writing boilerplate component queries.
+
 ### ⭐ Methods
 #### AnimationAvailable(Entity, string)
 ```csharp
 public bool AnimationAvailable(Entity entity, string id)
 ```
+Returns `true` if the entity's sprite asset contains an animation with the given identifier.
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
@@ -24,6 +31,7 @@ public bool AnimationAvailable(Entity entity, string id)
 ```csharp
 public bool IsChildOf(World world, Entity parent, Entity child)
 ```
+Returns `true` if `child` is a direct child of `parent`.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -37,6 +45,7 @@ public bool IsChildOf(World world, Entity parent, Entity child)
 ```csharp
 public bool IsInCamera(Entity e, World world)
 ```
+Returns `true` if the entity's position falls within the current camera viewport.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -49,6 +58,7 @@ public bool IsInCamera(Entity e, World world)
 ```csharp
 public Entity FindRootEntity(Entity e)
 ```
+Traverses the parent chain and returns the topmost ancestor entity (the root).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -105,6 +115,7 @@ Return all targets of entity that start with <paramref name="prefix" />.
 ```csharp
 public SpriteAsset TryActiveSpriteAsset(Entity entity)
 ```
+Returns the `SpriteAsset` referenced by the entity's sprite component, or `null` if it has none.
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
@@ -116,6 +127,7 @@ public SpriteAsset TryActiveSpriteAsset(Entity entity)
 ```csharp
 public string TryGetEntityName(Entity entity)
 ```
+Returns the debug or designer name assigned to the entity, or `null` if none is set.
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
@@ -127,6 +139,7 @@ public string TryGetEntityName(Entity entity)
 ```csharp
 public T? PlayAsepriteAnimationNext(Entity entity, string animationName)
 ```
+Queues the named animation to play immediately after the current one finishes.
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
@@ -190,6 +203,7 @@ Plays an animation or animation sequence. Do not loop.
 ```csharp
 public T? TryPlayAsepriteAnimationNext(Entity entity, string animationName)
 ```
+Attempts to queue the named animation after the current one; returns `null` if the entity has no sprite or the animation is unavailable.
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
@@ -202,6 +216,7 @@ public T? TryPlayAsepriteAnimationNext(Entity entity, string animationName)
 ```csharp
 public T? TryPlaySpriteAnimation(Entity entity, ImmutableArray<T> nextAnimations)
 ```
+Attempts to play an animation sequence; returns `null` silently if the entity has no sprite component.
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
@@ -214,6 +229,7 @@ public T? TryPlaySpriteAnimation(Entity entity, ImmutableArray<T> nextAnimations
 ```csharp
 public T? TryPlaySpriteAnimation(Entity entity, String[] nextAnimations)
 ```
+Attempts to play an animation sequence from a string array; returns `null` silently if the entity has no sprite component.
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
@@ -226,6 +242,7 @@ public T? TryPlaySpriteAnimation(Entity entity, String[] nextAnimations)
 ```csharp
 public void RemoveSpeedMultiplier(Entity entity, int slot)
 ```
+Removes the speed multiplier occupying the given slot from the entity's `AgentSpeedMultiplierComponent`.
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
@@ -235,6 +252,7 @@ public void RemoveSpeedMultiplier(Entity entity, int slot)
 ```csharp
 public void RotateChildPositions(World world, Entity entity, float angle)
 ```
+Rotates the world positions of all child entities around the parent entity's position by `angle` radians.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -245,6 +263,7 @@ public void RotateChildPositions(World world, Entity entity, float angle)
 ```csharp
 public void RotatePosition(Entity entity, float angle)
 ```
+Rotates the entity's position by `angle` radians around the origin.
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
@@ -254,6 +273,7 @@ public void RotatePosition(Entity entity, float angle)
 ```csharp
 public void RotatePositionAround(Entity entity, Vector2 center, float angle)
 ```
+Rotates the entity's world position by `angle` radians around `center`.
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
@@ -264,6 +284,7 @@ public void RotatePositionAround(Entity entity, Vector2 center, float angle)
 ```csharp
 public void SetAgentSpeedMultiplier(Entity entity, int slot, float speedMultiplier)
 ```
+Sets a speed multiplier for the agent in the given slot, used to additively adjust movement speed.
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
@@ -274,6 +295,7 @@ public void SetAgentSpeedMultiplier(Entity entity, int slot, float speedMultipli
 ```csharp
 public void Spawn(World world, Vector2 spawnerPosition, Guid entityToSpawn, int count, float radius, IComponent[] addComponents)
 ```
+Spawns `count` copies of the given prefab scattered within `radius` of `spawnerPosition`, each with optional extra components.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -287,6 +309,7 @@ public void Spawn(World world, Vector2 spawnerPosition, Guid entityToSpawn, int 
 ```csharp
 public void SubscribeToAnimationEvents(Entity listener, Entity broadcaster)
 ```
+Merges the animation event listeners of `broadcaster` into `listener` so that `listener` receives `broadcaster`'s animation events.
 
 **Parameters** \
 `listener` [Entity](../../Bang/Entities/Entity.html) \

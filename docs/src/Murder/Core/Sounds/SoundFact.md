@@ -7,6 +7,12 @@
 public sealed struct SoundFact : IComparable<T>, IEquatable<T>
 ```
 
+A named blackboard fact used as a key in the adaptive audio rule system.
+
+**Intent:** Identify a variable in the sound blackboard that can be read or written to drive audio rule logic.
+
+**Use-case:** Create `SoundFact` entries in a sound rules asset to define conditions (e.g. "player_health < 30"). Reference the same fact in `SoundRuleAction` to set its value at gameplay events.
+
 **Implements:** _[IComparable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.IComparable-1?view=net-7.0), [IEquatable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0)_
 
 ### ⭐ Constructors
@@ -36,6 +42,8 @@ If null, grab the default blackboard.
 ```csharp
 public readonly string Name;
 ```
+
+The name of the fact within its blackboard.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \

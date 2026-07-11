@@ -7,10 +7,18 @@
 public class Quadtree
 ```
 
+Top-level spatial index that maintains three separate `QTNode<T>` trees for collision, push-away, and static rendering queries.
+
+**Intent:** The engine's primary broad-phase spatial acceleration structure for fast overlap and proximity queries.
+
+**Use-case:** Retrieved via `Quadtree.GetOrCreateUnique(world)` in physics systems; add entities with `AddToCollisionQuadTree` and query with `GetCollisionEntitiesAt` to find potential collision candidates.
+
 ### ⭐ Constructors
 ```csharp
 public Quadtree(Rectangle mapBounds)
 ```
+
+Creates a `Quadtree` that covers the given world-space `mapBounds` rectangle.
 
 **Parameters** \
 `mapBounds` [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
@@ -21,12 +29,16 @@ public Quadtree(Rectangle mapBounds)
 public readonly QTNode<T> Collision;
 ```
 
+The quadtree partition containing all entities registered for collision queries.
+
 **Returns** \
 [QTNode\<T\>](../../../Murder/Core/Physics/QTNode-1.html) \
 #### PushAway
 ```csharp
 public readonly QTNode<T> PushAway;
 ```
+
+The quadtree partition containing entities that push other actors away (solid body separation).
 
 **Returns** \
 [QTNode\<T\>](../../../Murder/Core/Physics/QTNode-1.html) \
@@ -35,6 +47,8 @@ public readonly QTNode<T> PushAway;
 public readonly QTNode<T> StaticRender;
 ```
 
+The quadtree partition containing static entities used for render-culling queries.
+
 **Returns** \
 [QTNode\<T\>](../../../Murder/Core/Physics/QTNode-1.html) \
 ### ⭐ Methods
@@ -42,6 +56,8 @@ public readonly QTNode<T> StaticRender;
 ```csharp
 public Quadtree GetOrCreateUnique(World world)
 ```
+
+Retrieves the singleton `Quadtree` stored in the world, creating it if it does not exist.
 
 **Parameters** \
 `world` [World](../../../Bang/World.html) \
@@ -54,6 +70,8 @@ public Quadtree GetOrCreateUnique(World world)
 public void AddToCollisionQuadTree(IEnumerable<T> entities)
 ```
 
+Inserts the given entities into the collision quadtree partition.
+
 **Parameters** \
 `entities` [IEnumerable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0) \
 
@@ -62,6 +80,8 @@ public void AddToCollisionQuadTree(IEnumerable<T> entities)
 public void AddToStaticRenderQuadTree(IEnumerable<T> entities)
 ```
 
+Inserts the given entities into the static render quadtree partition.
+
 **Parameters** \
 `entities` [IEnumerable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0) \
 
@@ -69,6 +89,8 @@ public void AddToStaticRenderQuadTree(IEnumerable<T> entities)
 ```csharp
 public void GetCollisionEntitiesAt(Rectangle boundingBox, List<T> list)
 ```
+
+Populates `list` with all entities in the collision partition whose bounding box overlaps `boundingBox`.
 
 **Parameters** \
 `boundingBox` [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
@@ -79,6 +101,8 @@ public void GetCollisionEntitiesAt(Rectangle boundingBox, List<T> list)
 public void RemoveFromCollisionQuadTree(IEnumerable<T> entities)
 ```
 
+Removes the given entities from the collision quadtree partition.
+
 **Parameters** \
 `entities` [IEnumerable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0) \
 
@@ -86,6 +110,8 @@ public void RemoveFromCollisionQuadTree(IEnumerable<T> entities)
 ```csharp
 public void RemoveFromStaticRenderQuadTree(IEnumerable<T> entities)
 ```
+
+Removes the given entities from the static render quadtree partition.
 
 **Parameters** \
 `entities` [IEnumerable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0) \

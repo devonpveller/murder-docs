@@ -7,6 +7,12 @@
 public sealed struct LocalizedString
 ```
 
+A lightweight string key that is resolved to localized text at runtime via the active `LocalizationAsset`.
+
+**Intent:** Decouple content strings from their translations by storing only a GUID reference (or an optional inline override), so the same dialogue and UI data works across all supported languages.
+
+**Use-case:** Use a `LocalizedString` anywhere a displayed string is needed. Assign its `Id` in the editor to point at an entry in the localization asset, or set `OverrideText` to bypass translation for dynamically generated strings. Cast the struct to `string` to resolve it against the active locale at runtime.
+
 ### ⭐ Constructors
 ```csharp
 public LocalizedString()
@@ -31,6 +37,8 @@ public LocalizedString(string overrideText)
 ```csharp
 public readonly Guid Id;
 ```
+
+The GUID key used to look up the translated string in the active `LocalizationAsset`.
 
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \

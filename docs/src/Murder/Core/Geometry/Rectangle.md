@@ -7,6 +7,12 @@
 public sealed struct Rectangle : IEquatable<T>
 ```
 
+A floating-point axis-aligned rectangle (X, Y, Width, Height). The primary rectangle type in Murder.
+
+**Intent:** Store and manipulate rectangular regions with sub-pixel precision for rendering, collision, and layout.
+
+**Use-case:** Use `Rectangle` for world-space bounds, camera viewports, sprite source rectangles, and overlap tests. Convert to `IntRectangle` when integer coordinates are required.
+
 **Implements:** _[IEquatable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0)_
 
 ### ⭐ Constructors
@@ -237,6 +243,8 @@ public int YRound { get; }
 public bool Contains(Point point)
 ```
 
+Returns `true` if `point` is inside this rectangle.
+
 **Parameters** \
 `point` [Point](../../../Murder/Core/Geometry/Point.html) \
 
@@ -247,6 +255,8 @@ public bool Contains(Point point)
 ```csharp
 public bool Contains(float X, float Y)
 ```
+
+Returns `true` if the floating-point coordinate `(X, Y)` is inside this rectangle.
 
 **Parameters** \
 `X` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -260,6 +270,8 @@ public bool Contains(float X, float Y)
 public bool Contains(int X, int Y)
 ```
 
+Returns `true` if the integer coordinate `(X, Y)` is inside this rectangle.
+
 **Parameters** \
 `X` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 `Y` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -271,6 +283,8 @@ public bool Contains(int X, int Y)
 ```csharp
 public bool Contains(Vector2 vector)
 ```
+
+Returns `true` if `vector` lies inside this rectangle.
 
 **Parameters** \
 `vector` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -329,6 +343,8 @@ Whether an object within bounds intersects with this rectangle.
 public IEnumerable<T> SubtractRectangles(Rectangle main, Rectangle subtract)
 ```
 
+Returns up to four sub-rectangles that represent `main` minus the area covered by `subtract`.
+
 **Parameters** \
 `main` [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
 `subtract` [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
@@ -340,6 +356,8 @@ public IEnumerable<T> SubtractRectangles(Rectangle main, Rectangle subtract)
 ```csharp
 public Rectangle AddPadding(float left, float top, float right, float bottom)
 ```
+
+Returns a new rectangle expanded outward by the specified padding amounts on each side.
 
 **Parameters** \
 `left` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -355,6 +373,8 @@ public Rectangle AddPadding(float left, float top, float right, float bottom)
 public Rectangle AddPosition(Point position)
 ```
 
+Returns a new rectangle translated by the given `Point`.
+
 **Parameters** \
 `position` [Point](../../../Murder/Core/Geometry/Point.html) \
 
@@ -366,6 +386,8 @@ public Rectangle AddPosition(Point position)
 public Rectangle AddPosition(Vector2 position)
 ```
 
+Returns a new rectangle translated by the given `Vector2`.
+
 **Parameters** \
 `position` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
@@ -376,6 +398,8 @@ public Rectangle AddPosition(Vector2 position)
 ```csharp
 public Rectangle CenterRectangle(Point center, int width, int height)
 ```
+
+Creates a `width`×`height` rectangle centred at `center`.
 
 **Parameters** \
 `center` [Point](../../../Murder/Core/Geometry/Point.html) \
@@ -390,6 +414,8 @@ public Rectangle CenterRectangle(Point center, int width, int height)
 public Rectangle CenterRectangle(float x, float y)
 ```
 
+Returns this rectangle moved so its centre is at `(x, y)`.
+
 **Parameters** \
 `x` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 `y` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -401,6 +427,8 @@ public Rectangle CenterRectangle(float x, float y)
 ```csharp
 public Rectangle CenterRectangle(Vector2 center, float width, float height)
 ```
+
+Creates a `width`×`height` rectangle centred at `center`.
 
 **Parameters** \
 `center` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -415,6 +443,8 @@ public Rectangle CenterRectangle(Vector2 center, float width, float height)
 public Rectangle CenterRectangle(Vector2 size)
 ```
 
+Returns a rectangle of the given `size` centred at this rectangle's centre point.
+
 **Parameters** \
 `size` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
@@ -426,6 +456,8 @@ public Rectangle CenterRectangle(Vector2 size)
 public Rectangle Expand(float value)
 ```
 
+Returns a new rectangle expanded symmetrically by `value` on all sides.
+
 **Parameters** \
 `value` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
@@ -436,6 +468,8 @@ public Rectangle Expand(float value)
 ```csharp
 public Rectangle Expand(int value)
 ```
+
+Returns a new rectangle expanded symmetrically by `value` pixels on all sides.
 
 **Parameters** \
 `value` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -478,6 +512,8 @@ Constructor for a rectangle from a set of coordinates.
 public Rectangle Intersection(Rectangle a, Rectangle b)
 ```
 
+Returns the overlapping region of two rectangles, or an empty rectangle if they do not intersect.
+
 **Parameters** \
 `a` [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
 `b` [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
@@ -489,6 +525,8 @@ public Rectangle Intersection(Rectangle a, Rectangle b)
 ```csharp
 public Rectangle Lerp(Rectangle a, Rectangle b, float v)
 ```
+
+Linearly interpolates between rectangles `a` and `b` by factor `v`.
 
 **Parameters** \
 `a` [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
@@ -502,6 +540,8 @@ public Rectangle Lerp(Rectangle a, Rectangle b, float v)
 ```csharp
 public Rectangle SetPosition(Vector2 position)
 ```
+
+Returns a new rectangle with `X` and `Y` set to `position`, preserving size.
 
 **Parameters** \
 `position` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \

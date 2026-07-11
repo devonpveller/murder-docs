@@ -7,6 +7,12 @@
 public sealed struct ParallaxComponent : IComponent
 ```
 
+Controls how much an entity's rendered position is offset relative to the camera, creating a depth-based parallax scrolling effect.
+
+**Intent:** Give background and foreground layers a sense of depth by making them move at a different rate than world-space entities.
+
+**Use-case:** Add to background sprite entities and set `Factor` below 1 (e.g. 0.5) for distant layers that move slowly, or above 1 for foreground layers that move faster than the camera.
+
 **Implements:** _[IComponent](../../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors

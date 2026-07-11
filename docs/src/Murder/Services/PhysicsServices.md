@@ -7,6 +7,12 @@
 public static class PhysicsServices
 ```
 
+Provides collision detection, raycasting, overlap queries, and physics utility methods for the Murder ECS world.
+
+**Intent:** Centralises all physics and spatial query operations so game systems can test collisions and find entities in the world without manual component iteration.
+
+**Use-case:** Use `Raycast` for projectile line-of-sight checks, `GetAllCollisionsAt` for overlap detection, `FilterPositionAndColliderEntities` to query collidable entities by layer, and `FindNextAvailablePosition` to safely place entities without overlapping obstacles.
+
 ### ⭐ Methods
 #### CanSeeEntity(World, Vector2, Vector2, int, int)
 ```csharp
@@ -30,6 +36,7 @@ Returns whether <paramref name="from" /> an see an entity <paramref name="target
 ```csharp
 public bool CollidesAt(Map& map, int ignoreId, ColliderComponent collider, Vector2 position, ImmutableArray<T> others, int mask, Int32& hitId)
 ```
+Tests whether `collider` at `position` overlaps any entity in `others` (excluding `ignoreId`) with the given layer `mask`, and outputs the first hit entity ID.
 
 **Parameters** \
 `map` [Map&](../../Murder/Core/Map.html) \
@@ -47,6 +54,7 @@ public bool CollidesAt(Map& map, int ignoreId, ColliderComponent collider, Vecto
 ```csharp
 public bool CollidesAtTile(Map& map, ColliderComponent collider, Vector2 position, int mask)
 ```
+Returns `true` if `collider` at `position` overlaps a tile with the given collision layer `mask`.
 
 **Parameters** \
 `map` [Map&](../../Murder/Core/Map.html) \
@@ -61,6 +69,7 @@ public bool CollidesAtTile(Map& map, ColliderComponent collider, Vector2 positio
 ```csharp
 public bool CollidesWith(Entity entityA, Entity entityB, Vector2 positionA)
 ```
+Returns `true` if `entityA` (tested at `positionA`) overlaps `entityB` using their collider shapes.
 
 **Parameters** \
 `entityA` [Entity](../../Bang/Entities/Entity.html) \
@@ -74,6 +83,7 @@ public bool CollidesWith(Entity entityA, Entity entityB, Vector2 positionA)
 ```csharp
 public bool CollidesWith(Entity entityA, Entity entityB)
 ```
+Returns `true` if `entityA` and `entityB` currently overlap using their world-position collider shapes.
 
 **Parameters** \
 `entityA` [Entity](../../Bang/Entities/Entity.html) \
@@ -86,6 +96,7 @@ public bool CollidesWith(Entity entityA, Entity entityB)
 ```csharp
 public bool CollidesWith(IShape shape1, Point position1, IShape shape2, Point position2)
 ```
+Returns `true` if two arbitrary shapes overlap when placed at their respective positions.
 
 **Parameters** \
 `shape1` [IShape](../../Murder/Core/Geometry/IShape.html) \
@@ -100,6 +111,7 @@ public bool CollidesWith(IShape shape1, Point position1, IShape shape2, Point po
 ```csharp
 public bool ContainsPoint(Entity entity, Point point)
 ```
+Returns `true` if `point` falls inside any of the entity's collider shapes.
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
@@ -112,6 +124,7 @@ public bool ContainsPoint(Entity entity, Point point)
 ```csharp
 public bool FindClosestEntityOnRange(World world, Vector2 fromPosition, float range, int collisionLayer, HashSet<T> excludeEntities, Entity& target, Nullable`1& location)
 ```
+Searches for the nearest entity within `range` on the given collision layer, skipping any in `excludeEntities`; populates `target` and `location` on success.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -129,6 +142,7 @@ public bool FindClosestEntityOnRange(World world, Vector2 fromPosition, float ra
 ```csharp
 public bool GetFirstMtvAt(Map& map, HashSet<T> ignoreIds, ColliderComponent collider, Vector2 position, ImmutableArray<T> others, int mask, Int32& hitId, Int32& layer, Vector2& mtv)
 ```
+Finds the first overlap and computes the minimum translation vector (MTV) needed to resolve it, outputting the hit entity ID, its layer, and the MTV.
 
 **Parameters** \
 `map` [Map&](../../Murder/Core/Map.html) \
@@ -164,6 +178,7 @@ Check if a trigger is colliding with an actor via the TriggerCollisionSystem.
 ```csharp
 public bool HasLineOfSight(World world, Entity from, Entity to)
 ```
+Returns `true` if no tile or solid entity blocks the straight line between `from` and `to`.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -177,6 +192,7 @@ public bool HasLineOfSight(World world, Entity from, Entity to)
 ```csharp
 public bool HasLineOfSight(World world, Vector2 from, Vector2 to)
 ```
+Returns `true` if no tile or solid entity blocks the straight line between the two world positions.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -190,6 +206,7 @@ public bool HasLineOfSight(World world, Vector2 from, Vector2 to)
 ```csharp
 public bool Raycast(World world, Vector2 startPosition, Vector2 endPosition, int layerMask, IEnumerable<T> ignoreEntities, RaycastHit& hit)
 ```
+Casts a ray from `startPosition` to `endPosition`, testing against entities with the given layer mask; populates `hit` with the first intersection found.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -256,6 +273,7 @@ Checks for collisions in a cone.
 ```csharp
 public IEnumerable<T> GetAllCollisionsAt(World world, Point position, ColliderComponent collider, int ignoreId, int mask)
 ```
+Returns all entities whose colliders overlap `collider` placed at `position`, filtered by layer `mask` and excluding `ignoreId`.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -287,6 +305,7 @@ Get all the neighbours of a position within the world.
 ```csharp
 public ImmutableArray<T> FilterEntities(World world, int layerMask)
 ```
+Returns all entities in the world that have colliders matching `layerMask`.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -299,6 +318,7 @@ public ImmutableArray<T> FilterEntities(World world, int layerMask)
 ```csharp
 public ImmutableArray<T> FilterPositionAndColliderEntities(World world, Func<T, TResult> filter)
 ```
+Returns all entities that have both a position and a collider component and satisfy the custom `filter` predicate.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -311,6 +331,7 @@ public ImmutableArray<T> FilterPositionAndColliderEntities(World world, Func<T, 
 ```csharp
 public ImmutableArray<T> FilterPositionAndColliderEntities(World world, int layerMask, Type[] requireComponents)
 ```
+Returns all entities matching `layerMask` that also possess all of the additional required component types.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -324,6 +345,7 @@ public ImmutableArray<T> FilterPositionAndColliderEntities(World world, int laye
 ```csharp
 public ImmutableArray<T> FilterPositionAndColliderEntities(World world, int layerMask)
 ```
+Returns all entities in the world that have both a position component and a collider matching `layerMask`.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -336,6 +358,7 @@ public ImmutableArray<T> FilterPositionAndColliderEntities(World world, int laye
 ```csharp
 public ImmutableArray<T> FilterPositionAndColliderEntities(IEnumerable<T> entities, int layerMask)
 ```
+Filters an existing entity collection, returning only those with a collider matching `layerMask`.
 
 **Parameters** \
 `entities` [IEnumerable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0) \
@@ -348,6 +371,7 @@ public ImmutableArray<T> FilterPositionAndColliderEntities(IEnumerable<T> entiti
 ```csharp
 public IntRectangle GetCarveBoundingBox(ColliderComponent collider, Vector2 position)
 ```
+Returns the bounding rectangle used when this collider carves into the tilemap.
 
 **Parameters** \
 `collider` [ColliderComponent](../../Murder/Components/ColliderComponent.html) \
@@ -374,6 +398,7 @@ Get bounding box of an entity that contains both [ColliderComponent](../../Murde
 ```csharp
 public IntRectangle[] GetCollidersBoundingBox(ColliderComponent collider, Point position, bool gridCoordinates)
 ```
+Returns per-shape bounding rectangles for all shapes in `collider` at `position`, optionally converted to grid coordinates.
 
 **Parameters** \
 `collider` [ColliderComponent](../../Murder/Components/ColliderComponent.html) \
@@ -387,6 +412,7 @@ public IntRectangle[] GetCollidersBoundingBox(ColliderComponent collider, Point 
 ```csharp
 public List<T> GetMtvAt(Map& map, int ignoreId, ColliderComponent collider, Vector2 position, IEnumerable<T> others, int mask, Int32& hitId)
 ```
+Returns a list of all minimum translation vectors for each overlapping entity found.
 
 **Parameters** \
 `map` [Map&](../../Murder/Core/Map.html) \
@@ -404,6 +430,7 @@ public List<T> GetMtvAt(Map& map, int ignoreId, ColliderComponent collider, Vect
 ```csharp
 public Rectangle GetBoundingBox(ColliderComponent collider, Vector2 position)
 ```
+Returns the combined float bounding rectangle of all shapes in `collider` at `position`.
 
 **Parameters** \
 `collider` [ColliderComponent](../../Murder/Components/ColliderComponent.html) \
@@ -416,6 +443,7 @@ public Rectangle GetBoundingBox(ColliderComponent collider, Vector2 position)
 ```csharp
 public T? FindNextAvailablePosition(World world, Entity e, Vector2 center, Vector2 target, int layerMask, NextAvailablePositionFlags flags)
 ```
+Finds the nearest unoccupied position around `target` that is valid for entity `e`, using the search strategy specified by `flags`.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -432,6 +460,7 @@ public T? FindNextAvailablePosition(World world, Entity e, Vector2 center, Vecto
 ```csharp
 public void AddToCollisionCache(Entity entity, int entityId)
 ```
+Adds `entityId` to the entity's `IsColliding` cache, indicating an active collision with that entity.
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
@@ -441,6 +470,7 @@ public void AddToCollisionCache(Entity entity, int entityId)
 ```csharp
 public void AddVelocity(Entity entity, Vector2 addVelocity)
 ```
+Adds `addVelocity` to the entity's current velocity component.
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
@@ -450,6 +480,7 @@ public void AddVelocity(Entity entity, Vector2 addVelocity)
 ```csharp
 public void GetAllCollisionsAtGrid(World world, Point grid, List`1& output)
 ```
+Populates `output` with all entities whose colliders touch the given grid cell.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \

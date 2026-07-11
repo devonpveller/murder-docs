@@ -7,10 +7,18 @@
 public sealed struct NineSliceInfo
 ```
 
+Defines a nine-slice sprite by referencing a `SpriteAsset` and the central stretchable rectangle within it.
+
+**Intent:** Stores the asset GUID and core rectangle needed to render a nine-slice panel, decoupling the data definition from the cached geometry.
+
+**Use-case:** Set on UI components (e.g., button backgrounds, dialog boxes) via the editor; call `Draw()` at runtime to render the panel stretched to any target size, or call `Cache()` for repeated draws without repeated asset lookups.
+
 ### ⭐ Constructors
 ```csharp
 public NineSliceInfo()
 ```
+
+Creates an empty `NineSliceInfo` with no asset or core rectangle.
 
 ```csharp
 public NineSliceInfo(Rectangle core, Guid image)
@@ -33,6 +41,8 @@ public NineSliceInfo(Guid image)
 public readonly Rectangle Core;
 ```
 
+The central rectangle (in sprite-local pixels) that defines the stretchable region; outer slices are drawn un-stretched at the corners and edges.
+
 **Returns** \
 [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
 #### Empty
@@ -40,12 +50,16 @@ public readonly Rectangle Core;
 public static NineSliceInfo Empty { get; }
 ```
 
+A default-initialised `NineSliceInfo` with an empty GUID and no core rectangle; safe to use as a null-equivalent sentinel.
+
 **Returns** \
 [NineSliceInfo](../../../Murder/Core/Graphics/NineSliceInfo.html) \
 #### Image
 ```csharp
 public readonly Guid Image;
 ```
+
+GUID of the `SpriteAsset` used as the source image for nine-slice rendering.
 
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -55,6 +69,8 @@ public readonly Guid Image;
 public CachedNineSlice Cache()
 ```
 
+Resolves the asset GUID and returns a `CachedNineSlice` that holds a direct reference to the loaded `SpriteAsset`, avoiding repeated lookups on subsequent draws.
+
 **Returns** \
 [CachedNineSlice](../../../Murder/Core/Graphics/CachedNineSlice.html) \
 
@@ -62,6 +78,8 @@ public CachedNineSlice Cache()
 ```csharp
 public void Draw(Batch2D batch, Rectangle target, DrawInfo info, AnimationInfo animationInfo)
 ```
+
+Draws the nine-slice stretched to `target`, selecting the animation frame specified by `animationInfo`.
 
 **Parameters** \
 `batch` [Batch2D](../../../Murder/Core/Graphics/Batch2D.html) \
@@ -73,6 +91,8 @@ public void Draw(Batch2D batch, Rectangle target, DrawInfo info, AnimationInfo a
 ```csharp
 public void Draw(Batch2D batch, Rectangle target, string animation, Color color, float sort)
 ```
+
+Draws the nine-slice stretched to `target` using the named `animation` clip and the given tint color and sort depth.
 
 **Parameters** \
 `batch` [Batch2D](../../../Murder/Core/Graphics/Batch2D.html) \

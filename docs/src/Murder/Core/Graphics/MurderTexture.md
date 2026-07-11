@@ -7,10 +7,18 @@
 public sealed struct MurderTexture
 ```
 
+A unified texture handle that can represent either an `AtlasCoordinates` sprite frame or a standalone `Texture2D` loaded by file path.
+
+**Intent:** Provides a single value type that works with both atlas-packed sprites and raw textures, so rendering code does not need to branch on the source type.
+
+**Use-case:** Construct with an `AtlasCoordinates` for atlas sprites or with a string path for standalone textures; call `Draw()` to render and `Preload()` to warm the texture cache before first use.
+
 ### ⭐ Constructors
 ```csharp
 public MurderTexture(AtlasCoordinates AtlasCoordinates)
 ```
+
+Creates a `MurderTexture` backed by an atlas-packed sprite frame.
 
 **Parameters** \
 `AtlasCoordinates` [AtlasCoordinates](../../../Murder/Core/Graphics/AtlasCoordinates.html) \
@@ -18,6 +26,8 @@ public MurderTexture(AtlasCoordinates AtlasCoordinates)
 ```csharp
 public MurderTexture(string texture)
 ```
+
+Creates a `MurderTexture` backed by a standalone texture loaded from the given file path.
 
 **Parameters** \
 `texture` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -44,6 +54,8 @@ Draws a texture with a clipping area.
 ```csharp
 public void Preload()
 ```
+
+Ensures the underlying standalone texture is loaded into memory; no-op for atlas-backed textures. Call this during a loading screen to avoid hitches on first render.
 
 
 

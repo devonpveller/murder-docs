@@ -7,6 +7,12 @@
 public class WorldAsset : GameAsset, IWorldAsset
 ```
 
+Represents a complete game level/world, storing all entity instances and their initial component data, plus the ECS systems and feature flags active in that level.
+
+**Intent:** Act as the design-time serialized form of a full game scene: entities with their component values, grouped into editor folders, plus the system and feature configuration that governs gameplay for that world.
+
+**Use-case:** Create one `WorldAsset` per level. Populate it in the editor with entities and features. At runtime the engine instantiates all entities and activates the configured systems; retrieve a `WorldAsset` by GUID from `Game.Data` and use `TryGetInstance` to inspect individual entity data.
+
 **Implements:** _[GameAsset](../../Murder/Assets/GameAsset.html), [IWorldAsset](../../Murder/Assets/IWorldAsset.html)_
 
 ### ⭐ Constructors
@@ -20,12 +26,16 @@ public WorldAsset()
 public virtual bool CanBeCreated { get; }
 ```
 
+Determines if the asset can be created, override to change this capability.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### CanBeDeleted
 ```csharp
 public virtual bool CanBeDeleted { get; }
 ```
+
+Determines if the asset can be deleted, override to change this capability.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -34,12 +44,16 @@ public virtual bool CanBeDeleted { get; }
 public virtual bool CanBeRenamed { get; }
 ```
 
+Determines if the asset can be renamed, override to change this capability.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### CanBeSaved
 ```csharp
 public virtual bool CanBeSaved { get; }
 ```
+
+Determines if the asset can be saved, override to change this capability.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -48,12 +62,16 @@ public virtual bool CanBeSaved { get; }
 public virtual Vector4 EditorColor { get; }
 ```
 
+Gets the default color used in the editor for the asset.
+
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
 #### EditorFolder
 ```csharp
 public virtual string EditorFolder { get; }
 ```
+
+Gets the folder path in the editor where this asset is grouped.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -62,12 +80,16 @@ public virtual string EditorFolder { get; }
 public ImmutableArray<T> Features { get; }
 ```
 
+The feature asset references (with active flags) assigned to this world.
+
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 #### FileChanged
 ```csharp
 public bool FileChanged { get; public set; }
 ```
+
+Indicates whether the asset has unsaved modifications.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -76,12 +98,16 @@ public bool FileChanged { get; public set; }
 public string FilePath { get; public set; }
 ```
 
+Path to this asset file, relative to its base directory.
+
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 #### Guid
 ```csharp
 public Guid Guid { get; protected set; }
 ```
+
+Unique identifier for this asset, used to reference it from other assets and components.
 
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -90,12 +116,16 @@ public Guid Guid { get; protected set; }
 public bool HasSystems { get; }
 ```
 
+Returns true if this world has at least one active ECS system configured.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### Icon
 ```csharp
 public virtual char Icon { get; }
 ```
+
+FontAwesome character icon displayed next to this asset in the editor.
 
 **Returns** \
 [char](https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0) \
@@ -104,6 +134,8 @@ public virtual char Icon { get; }
 public virtual ImmutableArray<T> Instances { get; }
 ```
 
+Ordered list of all entity instances defined in this world.
+
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 #### IsStoredInSaveData
@@ -111,12 +143,16 @@ public virtual ImmutableArray<T> Instances { get; }
 public virtual bool IsStoredInSaveData { get; }
 ```
 
+Whether this file is stored relative to the save path.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### Name
 ```csharp
 public string Name { get; public set; }
 ```
+
+Display name of this asset as shown in the editor.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -134,12 +170,16 @@ This is the order in which this world will be displayed in game (when selecting 
 public bool Rename { get; public set; }
 ```
 
+Whether the file should be renamed and the previous name deleted on next save.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### SaveLocation
 ```csharp
 public virtual string SaveLocation { get; }
 ```
+
+The folder path where this asset is saved on disk.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -148,12 +188,16 @@ public virtual string SaveLocation { get; }
 public virtual bool StoreInDatabase { get; }
 ```
 
+Whether this asset is stored following the database hierarchy.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### Systems
 ```csharp
 public ImmutableArray<T> Systems { get; }
 ```
+
+The raw ECS system type entries (with active flags) directly assigned to this world.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -162,12 +206,16 @@ public ImmutableArray<T> Systems { get; }
 public bool TaggedForDeletion;
 ```
 
+Marks this asset for removal on the next save.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### WorldGuid
 ```csharp
 public virtual Guid WorldGuid { get; }
 ```
+
+The GUID that uniquely identifies this world (same as `Guid` for `WorldAsset`).
 
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -185,6 +233,8 @@ This is the world name used when fetching this world within the game.
 ```csharp
 protected virtual void OnModified()
 ```
+
+Called by the editor when the asset is modified; clears the cached instances list.
 
 #### PostProcessEntities(World, Dictionary<TKey, TValue>)
 ```csharp
@@ -270,6 +320,8 @@ Delete a new folder to group entities.
 public bool HasGroup(string name)
 ```
 
+Returns true if a folder group with the given name already exists in this world.
+
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
@@ -281,6 +333,8 @@ public bool HasGroup(string name)
 public bool IsOnFilter(Guid g)
 ```
 
+Returns true if the entity with the given GUID is in any active filter.
+
 **Parameters** \
 `g` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
 
@@ -291,6 +345,8 @@ public bool IsOnFilter(Guid g)
 ```csharp
 public bool MoveToGroup(string targetGroup, Guid instance, int targetPosition)
 ```
+
+Moves an entity instance to the specified folder group at the given position.
 
 **Parameters** \
 `targetGroup` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -304,6 +360,8 @@ public bool MoveToGroup(string targetGroup, Guid instance, int targetPosition)
 ```csharp
 public GameAsset Duplicate(string name)
 ```
+
+Creates a deep copy of this asset with the given new name.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -326,6 +384,8 @@ This is for editor purposes, return all the available folder names as an[IEnumer
 public ImmutableArray<T> FetchAllSystems()
 ```
 
+Returns all systems for this world, expanding nested feature assets recursively.
+
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
@@ -333,6 +393,8 @@ public ImmutableArray<T> FetchAllSystems()
 ```csharp
 public ImmutableArray<T> FetchEntitiesGuidInFilter(string targetFilter)
 ```
+
+Returns the GUIDs of all entities assigned to the specified filter.
 
 **Parameters** \
 `targetFilter` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -344,6 +406,8 @@ public ImmutableArray<T> FetchEntitiesGuidInFilter(string targetFilter)
 ```csharp
 public ImmutableArray<T> FetchEntitiesOfGroup(string name)
 ```
+
+Returns the GUIDs of all entities assigned to the specified folder group.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -378,6 +442,8 @@ This is for editor purposes, we group all entities in "folders" when visualizing
 public int GroupsCount()
 ```
 
+Returns the total number of folder groups defined in this world.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
@@ -386,6 +452,8 @@ public int GroupsCount()
 public List<T> AssetsToBeSaved()
 ```
 
+Returns and clears the list of dependent assets queued to be saved alongside this asset.
+
 **Returns** \
 [List\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0) \
 
@@ -393,6 +461,8 @@ public List<T> AssetsToBeSaved()
 ```csharp
 public List<T> FetchEntitiesInFilter(string targetFilter)
 ```
+
+Returns the `EntityInstance` objects of all entities assigned to the specified filter.
 
 **Parameters** \
 `targetFilter` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -405,6 +475,8 @@ public List<T> FetchEntitiesInFilter(string targetFilter)
 public MonoWorld CreateInstance(Camera2D camera, ImmutableArray<T> startingSystems)
 ```
 
+Instantiates a new `MonoWorld` from this asset with the given camera and supplementary startup systems.
+
 **Parameters** \
 `camera` [Camera2D](../../Murder/Core/Graphics/Camera2D.html) \
 `startingSystems` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -416,6 +488,8 @@ public MonoWorld CreateInstance(Camera2D camera, ImmutableArray<T> startingSyste
 ```csharp
 public MonoWorld CreateInstanceFromSave(SavedWorld savedInstance, Camera2D camera, ImmutableArray<T> startingSystems)
 ```
+
+Instantiates a `MonoWorld` from this asset, restoring entity state from the given `SavedWorld` snapshot.
 
 **Parameters** \
 `savedInstance` [SavedWorld](../../Murder/Assets/SavedWorld.html) \
@@ -443,6 +517,8 @@ Returns the group that an entity belongs.
 public string GetSimplifiedName()
 ```
 
+Returns the asset name stripped of any editor-folder prefix characters.
+
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
@@ -451,6 +527,8 @@ public string GetSimplifiedName()
 public String[] GetSplitNameWithEditorPath()
 ```
 
+Returns the display name split into path segments following the EditorFolder hierarchy.
+
 **Returns** \
 [string[]](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
@@ -458,6 +536,8 @@ public String[] GetSplitNameWithEditorPath()
 ```csharp
 public virtual EntityInstance TryGetInstance(Guid instanceGuid)
 ```
+
+Retrieves the `EntityInstance` with the given GUID from this world; returns null if not found.
 
 **Parameters** \
 `instanceGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -470,10 +550,14 @@ public virtual EntityInstance TryGetInstance(Guid instanceGuid)
 public virtual void AfterDeserialized()
 ```
 
+Called after deserialization; rebuilds internal entity instance caches.
+
 #### AddInstance(EntityInstance)
 ```csharp
 public void AddInstance(EntityInstance e)
 ```
+
+Adds a new entity instance to this world.
 
 **Parameters** \
 `e` [EntityInstance](../../Murder/Prefabs/EntityInstance.html) \
@@ -483,10 +567,14 @@ public void AddInstance(EntityInstance e)
 public void MakeGuid()
 ```
 
+Generates and assigns a new GUID to this asset.
+
 #### MoveToFilter(string, Guid, int)
 ```csharp
 public void MoveToFilter(string targetFilter, Guid instance, int targetPosition)
 ```
+
+Moves an entity instance into the specified filter at the given position.
 
 **Parameters** \
 `targetFilter` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -498,6 +586,8 @@ public void MoveToFilter(string targetFilter, Guid instance, int targetPosition)
 public void RemoveInstance(Guid instanceGuid)
 ```
 
+Removes the entity instance with the given GUID from this world.
+
 **Parameters** \
 `instanceGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
 
@@ -505,6 +595,8 @@ public void RemoveInstance(Guid instanceGuid)
 ```csharp
 public void TrackAssetOnSave(Guid g)
 ```
+
+Queues a dependent asset by GUID to be saved whenever this asset is saved.
 
 **Parameters** \
 `g` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -514,6 +606,8 @@ public void TrackAssetOnSave(Guid g)
 public void UpdateFeatures(ImmutableArray<T> features)
 ```
 
+Replaces the world's feature list with the provided array.
+
 **Parameters** \
 `features` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
@@ -521,6 +615,8 @@ public void UpdateFeatures(ImmutableArray<T> features)
 ```csharp
 public void UpdateSystems(ImmutableArray<T> systems)
 ```
+
+Replaces the world's direct system list with the provided array.
 
 **Parameters** \
 `systems` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \

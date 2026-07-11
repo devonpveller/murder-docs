@@ -7,6 +7,12 @@
 public sealed struct CircleShape : IShape
 ```
 
+An `IShape` implementation that wraps a `Circle` for use as a circular collision shape in a `ColliderComponent`.
+
+**Intent:** Provide a circle-shaped collider attachable to an entity's collision component.
+
+**Use-case:** Add a `CircleShape` to a `ColliderComponent` when an entity needs a round hitbox. Set `Radius` to the desired collision radius and `Offset` to shift the circle relative to the entity's origin.
+
 **Implements:** _[IShape](../../../Murder/Core/Geometry/IShape.html)_
 
 ### ⭐ Constructors
@@ -24,6 +30,8 @@ public CircleShape(float radius, Point offset)
 public Circle Circle { get; }
 ```
 
+Returns a `Circle` at this shape's offset position with the configured radius.
+
 **Returns** \
 [Circle](../../../Murder/Core/Geometry/Circle.html) \
 #### Offset
@@ -31,12 +39,16 @@ public Circle Circle { get; }
 public readonly Point Offset;
 ```
 
+Pixel offset of the circle centre relative to the entity's world position.
+
 **Returns** \
 [Point](../../../Murder/Core/Geometry/Point.html) \
 #### Radius
 ```csharp
 public readonly float Radius;
 ```
+
+Radius of the circle in pixels.
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -46,6 +58,8 @@ public readonly float Radius;
 public virtual PolygonShape GetPolygon()
 ```
 
+Approximates this circle as a polygon. Result is cached after the first call.
+
 **Returns** \
 [PolygonShape](../../../Murder/Core/Geometry/PolygonShape.html) \
 
@@ -53,6 +67,8 @@ public virtual PolygonShape GetPolygon()
 ```csharp
 public virtual Rectangle GetBoundingBox()
 ```
+
+Returns the axis-aligned bounding rectangle that fully encloses this circle.
 
 **Returns** \
 [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \

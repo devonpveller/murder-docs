@@ -7,11 +7,19 @@
 public static class RandomExtensions
 ```
 
+Extension methods on `System.Random` for common randomization operations used in gameplay and procedural content.
+
+**Intent:** Provides ergonomic helpers for game-code randomization, including coin flips, probability gates, and typed random ranges.
+
+**Use-case:** Use `FlipACoin` for 50/50 decisions, `TryWithChanceOf` for probability gates, and `NextFloat` for random float values in a range.
+
 ### ⭐ Methods
 #### FlipACoin(Random)
 ```csharp
 public bool FlipACoin(Random random)
 ```
+
+Returns `true` with 50% probability.
 
 **Parameters** \
 `random` [Random](https://learn.microsoft.com/en-us/dotnet/api/System.Random?view=net-7.0) \
@@ -56,6 +64,8 @@ Flag a switch with a chance of <paramref name="chance" />%.
 public float NextFloat(Random r, float max)
 ```
 
+Returns a random float in the range [0, max).
+
 **Parameters** \
 `r` [Random](https://learn.microsoft.com/en-us/dotnet/api/System.Random?view=net-7.0) \
 `max` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -67,6 +77,8 @@ public float NextFloat(Random r, float max)
 ```csharp
 public float NextFloat(Random r, float min, float max)
 ```
+
+Returns a random float in the range [min, max).
 
 **Parameters** \
 `r` [Random](https://learn.microsoft.com/en-us/dotnet/api/System.Random?view=net-7.0) \

@@ -7,10 +7,18 @@
 public class QTNode<T>
 ```
 
+A single node in a spatial quadtree, holding entity bounding-box data and up to four child sub-nodes that subdivide its rectangular bounds.
+
+**Intent:** Internal quadtree node that stores entities whose bounding boxes overlap its `Bounds` rectangle, splitting into child nodes when capacity is exceeded.
+
+**Use-case:** Not used directly; interact with the quadtree through `Quadtree` methods such as `GetCollisionEntitiesAt` and `AddToCollisionQuadTree`.
+
 ### ⭐ Constructors
 ```csharp
 public QTNode<T>(int level, Rectangle bounds)
 ```
+
+Creates a quadtree node at the given subdivision `level` covering the specified `bounds` rectangle.
 
 **Parameters** \
 `level` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -21,6 +29,8 @@ public QTNode<T>(int level, Rectangle bounds)
 ```csharp
 public readonly Rectangle Bounds;
 ```
+
+The world-space rectangle this node covers.
 
 **Returns** \
 [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
@@ -38,12 +48,16 @@ Entities are indexed by their entity ID number
 public readonly int Level;
 ```
 
+The subdivision depth of this node; 0 is the root.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### Nodes
 ```csharp
 public ImmutableArray<T> Nodes;
 ```
+
+The four child sub-nodes created when this node is subdivided. Empty until subdivision occurs.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -74,6 +88,8 @@ Recursively clears all entities of the node, but keeps the structure
 ```csharp
 public void DrawDebug(Batch2D spriteBatch)
 ```
+
+Draws the node's bounding rectangle and entity outlines to `spriteBatch` for debugging purposes.
 
 **Parameters** \
 `spriteBatch` [Batch2D](../../../Murder/Core/Graphics/Batch2D.html) \

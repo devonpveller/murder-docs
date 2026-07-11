@@ -7,10 +7,18 @@
 public sealed struct Viewport
 ```
 
+Describes the camera viewport: the game's native resolution, the actual window size, the scale factor applied, and the output rectangle on screen.
+
+**Intent:** Immutable snapshot of how the game's render output maps onto the display window, accounting for letterboxing and scaling.
+
+**Use-case:** Queried by the render context and camera systems to determine where to draw the game's output rectangle and how to map screen-space coordinates to world space.
+
 ### ⭐ Constructors
 ```csharp
 public Viewport(Point viewportSize, Point nativeResolution, ViewportResizeStyle resizeStyle)
 ```
+
+Creates a viewport that maps `nativeResolution` onto a window of `viewportSize` using the specified resize style.
 
 **Parameters** \
 `viewportSize` [Point](../../Murder/Core/Geometry/Point.html) \
@@ -22,6 +30,8 @@ public Viewport(Point viewportSize, Point nativeResolution, ViewportResizeStyle 
 ```csharp
 public readonly Vector2 Center;
 ```
+
+The center of the output rectangle in screen-space pixels.
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -66,6 +76,8 @@ The size of the viewport (tipically the game's window)
 ```csharp
 public bool HasChanges(Point size, Vector2 scale)
 ```
+
+Returns `true` when `size` or `scale` differ from the current viewport values, indicating the viewport needs to be rebuilt.
 
 **Parameters** \
 `size` [Point](../../Murder/Core/Geometry/Point.html) \

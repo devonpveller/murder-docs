@@ -7,6 +7,12 @@
 public class SpriteNineSliceRenderSystem : IMurderRenderSystem, IRenderSystem, ISystem
 ```
 
+Renders entities with a `NineSliceComponent` using nine-slice scaling.
+
+**Intent:** Draws nine-slice scaled sprites for entities with `NineSliceComponent`.
+
+**Use-case:** Use for UI panels, dialogue boxes, and other resizable elements that must scale without distorting corners.
+
 **Implements:** _[IMurderRenderSystem](../../../Murder/Core/Graphics/IMurderRenderSystem.html), [IRenderSystem](../../../Bang/Systems/IRenderSystem.html), [ISystem](../../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Constructors

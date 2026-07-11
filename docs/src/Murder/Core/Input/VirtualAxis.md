@@ -7,6 +7,12 @@
 public class VirtualAxis : IVirtualInput
 ```
 
+Runtime state container for a 2D input axis — tracks value, direction, pressed/down state, and tick-repeat behaviour.
+
+**Intent:** Maintain the per-frame state of a logical 2D axis mapped to one or more `InputButtonAxis` bindings.
+
+**Use-case:** Access via `PlayerInput.GetAxis(int)`. Check `Value` or `IntValue` for the current direction, `Pressed` for the first-frame press, and `Tick`/`TickX`/`TickY` for key-repeat navigation in menus.
+
 **Implements:** _[IVirtualInput](../../../Murder/Core/Input/IVirtualInput.html)_
 
 ### ⭐ Constructors
@@ -130,6 +136,8 @@ public Vector2 Value { get; private set; }
 public event Action<T> OnPress;
 ```
 
+Fired every frame the axis transitions to a non-zero state.
+
 **Returns** \
 [Action\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Action-1?view=net-7.0) \
 ### ⭐ Methods
@@ -138,6 +146,8 @@ public event Action<T> OnPress;
 public IEnumerable<T> GetActiveButtonDescriptions()
 ```
 
+Enumerates human-readable descriptions of the currently active button bindings for this axis.
+
 **Returns** \
 [IEnumerable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0) \
 
@@ -145,6 +155,8 @@ public IEnumerable<T> GetActiveButtonDescriptions()
 ```csharp
 public InputButtonAxis LastPressedAxes(bool keyboard)
 ```
+
+Returns the last `InputButtonAxis` that was pressed, from keyboard/mouse (`keyboard=true`) or gamepad (`keyboard=false`).
 
 **Parameters** \
 `keyboard` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \

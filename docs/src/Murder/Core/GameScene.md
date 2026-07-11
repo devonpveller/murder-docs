@@ -7,6 +7,12 @@
 public class GameScene : Scene, IDisposable
 ```
 
+A concrete `Scene` implementation that loads and hosts a `MonoWorld` identified by a `WorldAsset` GUID. It handles loading the atlas textures referenced by the world, running the ECS simulation, and unloading resources on exit.
+
+**Intent:** The standard scene type that wraps a serialized world asset for gameplay.
+
+**Use-case:** Instantiate with a world asset GUID and pass to the `SceneLoader` to transition into a new game level.
+
 **Implements:** _[Scene](../../Murder/Core/Scene.html), [IDisposable](https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0)_
 
 ### ⭐ Constructors
@@ -23,12 +29,16 @@ public GameScene(Guid guid)
 protected bool _calledStart;
 ```
 
+Tracks whether `Start()` has already been called on this scene to prevent double-initialization.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### Loaded
 ```csharp
 public bool Loaded { get; }
 ```
+
+Whether this scene's content has been fully loaded and is ready to update and render.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -37,6 +47,8 @@ public bool Loaded { get; }
 public RenderContext RenderContext { get; }
 ```
 
+The rendering context associated with this scene, used to draw batches to the screen.
+
 **Returns** \
 [RenderContext](../../Murder/Core/Graphics/RenderContext.html) \
 #### World
@@ -44,12 +56,16 @@ public RenderContext RenderContext { get; }
 public virtual MonoWorld World { get; }
 ```
 
+The active ECS world for this scene. May be `null` before content is loaded or after the scene is unloaded.
+
 **Returns** \
 [MonoWorld](../../Murder/Core/MonoWorld.html) \
 #### WorldGuid
 ```csharp
 public Guid WorldGuid { get; }
 ```
+
+The GUID of the `WorldAsset` this scene was created from.
 
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -72,6 +88,8 @@ Replace world and return the previous one, which should be disposed.
 ```csharp
 public virtual Task UnloadAsyncImpl()
 ```
+
+Asynchronously disposes the current world and unloads atlas textures that were loaded for this scene.
 
 **Returns** \
 [Task](https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0) \

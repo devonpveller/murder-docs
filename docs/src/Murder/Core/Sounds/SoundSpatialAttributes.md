@@ -9,6 +9,10 @@ public sealed struct SoundSpatialAttributes
 
 Properties
 
+**Intent:** Carry 3D spatial audio data (position, facing, velocity) for a sound emitter or listener.
+
+**Use-case:** Pass a `SoundSpatialAttributes` to `ISoundPlayer.UpdateListener()` each frame with the player/camera position so the audio middleware can apply panning, attenuation, and Doppler effects correctly.
+
 ### ⭐ Properties
 #### Direction
 ```csharp

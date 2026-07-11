@@ -9,6 +9,10 @@ public class SliderAttribute : Attribute
 
 A slider attribute used when setting values in the editor.
 
+**Intent:** Render a numeric field as a bounded slider widget in the editor inspector.
+
+**Use-case:** Apply to float or int fields that represent values within a known range, such as volume (0–1), movement speed (0–10), or opacity (0–255), to give designers an intuitive drag-based input instead of a raw number box.
+
 **Implements:** _[Attribute](https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0)_
 
 ### ⭐ Constructors
@@ -47,6 +51,8 @@ Minimum value.
 ```csharp
 public virtual Object TypeId { get; }
 ```
+
+Unique type identifier for this attribute, inherited from `System.Attribute`.
 
 **Returns** \
 [Object](https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0) \

@@ -7,6 +7,12 @@
 public sealed struct SpriteOffsetComponent : IComponent
 ```
 
+Applies a world-space pixel offset to the entity's sprite rendering position, decoupling the visual position from the logical entity position.
+
+**Intent:** Nudge the rendered sprite relative to the entity's transform without moving the entity itself.
+
+**Use-case:** Attach when a sprite's pivot or visual center doesn't align with the entity's logical origin, or for animation-driven positional offsets.
+
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
@@ -30,6 +36,8 @@ public SpriteOffsetComponent(Vector2 offset)
 ```csharp
 public readonly Vector2 Offset;
 ```
+
+Pixel offset in world space added to the entity's position before rendering the sprite.
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \

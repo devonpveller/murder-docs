@@ -11,6 +11,10 @@ Component used by the camera for tracking its target position.
 
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
+**Intent:** Marks an entity as the camera's follow target and configures how the camera interpolates toward it.
+
+**Use-case:** Attach to the player entity (or a dedicated camera target entity) so `CameraFollowSystem` knows which entity to track and with which `CameraStyle`.
+
 ### ⭐ Constructors
 ```csharp
 public CameraFollowComponent()
@@ -52,12 +56,16 @@ public CameraFollowComponent(bool enabled)
 public readonly bool Enabled;
 ```
 
+Whether camera following is currently active for this entity.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### SecondaryTarget
 ```csharp
 public readonly Entity SecondaryTarget;
 ```
+
+Optional secondary entity whose position is blended with the primary target to produce the final camera position.
 
 **Returns** \
 [Entity](../../Bang/Entities/Entity.html) \
@@ -74,6 +82,8 @@ Force to centralize the camera without a dead zone.
 ```csharp
 public readonly T? TargetPosition;
 ```
+
+Optional fixed world-space position the camera should move toward; overrides entity tracking when set.
 
 **Returns** \
 [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \

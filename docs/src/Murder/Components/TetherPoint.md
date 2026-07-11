@@ -9,6 +9,10 @@ public sealed struct TetherPoint
 
 Represents a single tether point for an entity.
 
+**Intent:** Describe one tether constraint: which entity to follow, the desired separation distance, and angular limits.
+
+**Use-case:** Construct one per tether target and add to the `TetherPoints` array of a [TetheredComponent](../../Murder/Components/TetheredComponent.html).
+
 ### ⭐ Constructors
 ```csharp
 public TetherPoint(int target, float distance, float maxAngleDeviation, float snapDistance)

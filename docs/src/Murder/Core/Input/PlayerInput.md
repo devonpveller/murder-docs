@@ -7,6 +7,12 @@
 public class PlayerInput
 ```
 
+The central input manager that tracks button and axis state for keyboard, mouse, and gamepad each frame.
+
+**Intent:** Provide a single, game-accessible object for registering bindings and querying input state.
+
+**Use-case:** Access `Game.Input` (a `PlayerInput` instance) in any system or service. Call `Register()` at startup to bind keys/buttons to logical IDs, then call `Pressed()`, `Down()`, `GetAxis()`, and `VerticalMenu()` each frame to drive gameplay and UI.
+
 ### ⭐ Constructors
 ```csharp
 public PlayerInput()
@@ -18,12 +24,16 @@ public PlayerInput()
 public Int32[] AllAxis { get; }
 ```
 
+All registered axis IDs (debug only).
+
 **Returns** \
 [int[]](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### AllButtons
 ```csharp
 public Int32[] AllButtons { get; }
 ```
+
+All registered button IDs (debug only).
 
 **Returns** \
 [int[]](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -49,6 +59,8 @@ Keyboard ignored because the player is probably typing something on ImGui
 ```csharp
 public bool MouseConsumed;
 ```
+
+When `true`, mouse input is suppressed for this frame (e.g., the ImGui window has focus).
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -76,6 +88,8 @@ If true player is using the keyboard, false means the player is using a game con
 public bool Down(Keys key)
 ```
 
+Returns `true` if `key` is currently held.
+
 **Parameters** \
 `key` [Keys](https://docs.monogame.net/api/Microsoft.Xna.Framework.Input.Keys.html) \
 
@@ -86,6 +100,8 @@ public bool Down(Keys key)
 ```csharp
 public bool Down(int button, bool raw)
 ```
+
+Returns `true` if the virtual button `button` is currently held. When `raw` is `true`, ignores the consumed flag.
 
 **Parameters** \
 `button` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -98,6 +114,8 @@ public bool Down(int button, bool raw)
 ```csharp
 public bool GridMenu(GenericMenuInfo`1& currentInfo, int width, int size, GridMenuFlags gridMenuFlags)
 ```
+
+Advances a typed grid menu by one frame and returns `true` if the submit button was pressed.
 
 **Parameters** \
 `currentInfo` [GenericMenuInfo\<T\>&](../../../Murder/Core/Input/GenericMenuInfo-1.html) \
@@ -112,6 +130,8 @@ public bool GridMenu(GenericMenuInfo`1& currentInfo, int width, int size, GridMe
 ```csharp
 public bool GridMenu(MenuInfo& currentInfo, int width, int _, int size, GridMenuFlags gridMenuFlags)
 ```
+
+Advances a `MenuInfo` grid menu by one frame and returns `true` if the submit button was pressed.
 
 **Parameters** \
 `currentInfo` [MenuInfo&](../../../Murder/Core/Input/MenuInfo.html) \
@@ -128,6 +148,8 @@ public bool GridMenu(MenuInfo& currentInfo, int width, int _, int size, GridMenu
 public bool HorizontalMenu(MenuInfo& currentInfo)
 ```
 
+Advances a horizontal `MenuInfo` by one frame and returns `true` if the submit button was pressed.
+
 **Parameters** \
 `currentInfo` [MenuInfo&](../../../Murder/Core/Input/MenuInfo.html) \
 
@@ -138,6 +160,8 @@ public bool HorizontalMenu(MenuInfo& currentInfo)
 ```csharp
 public bool HorizontalMenu(Int32& selectedOption, int length)
 ```
+
+Navigates a simple horizontal list of `length` items and returns `true` if submit was pressed.
 
 **Parameters** \
 `selectedOption` [int&](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -151,6 +175,8 @@ public bool HorizontalMenu(Int32& selectedOption, int length)
 public bool Pressed(Keys enter)
 ```
 
+Returns `true` if `enter` was just pressed this frame.
+
 **Parameters** \
 `enter` [Keys](https://docs.monogame.net/api/Microsoft.Xna.Framework.Input.Keys.html) \
 
@@ -161,6 +187,8 @@ public bool Pressed(Keys enter)
 ```csharp
 public bool Pressed(int button, bool raw)
 ```
+
+Returns `true` if the virtual button `button` was just pressed this frame. When `raw` is `true`, ignores the consumed flag.
 
 **Parameters** \
 `button` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -174,6 +202,8 @@ public bool Pressed(int button, bool raw)
 public bool PressedAndConsume(int button)
 ```
 
+Returns `true` if `button` was just pressed, and immediately consumes it so subsequent reads return `false`.
+
 **Parameters** \
 `button` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
@@ -185,6 +215,8 @@ public bool PressedAndConsume(int button)
 public bool Released(int button)
 ```
 
+Returns `true` if `button` was released this frame.
+
 **Parameters** \
 `button` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
@@ -195,6 +227,8 @@ public bool Released(int button)
 ```csharp
 public bool Shortcut(Keys key, Keys[] modifiers)
 ```
+
+Returns `true` if `key` was just pressed while all `modifiers` are held.
 
 **Parameters** \
 `key` [Keys](https://docs.monogame.net/api/Microsoft.Xna.Framework.Input.Keys.html) \
@@ -208,6 +242,8 @@ public bool Shortcut(Keys key, Keys[] modifiers)
 public bool Shortcut(Chord chord)
 ```
 
+Returns `true` if `chord` (key + modifiers) was just activated this frame.
+
 **Parameters** \
 `chord` [Chord](../../../Murder/Core/Input/Chord.html) \
 
@@ -218,6 +254,8 @@ public bool Shortcut(Chord chord)
 ```csharp
 public bool SimpleVerticalMenu(Int32& selectedOption, int length)
 ```
+
+Navigates a simple vertical list of `length` items and returns `true` if submit was pressed.
 
 **Parameters** \
 `selectedOption` [int&](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -231,6 +269,8 @@ public bool SimpleVerticalMenu(Int32& selectedOption, int length)
 public bool VerticalMenu(GenericMenuInfo`1& currentInfo)
 ```
 
+Advances a typed vertical menu by one frame and returns `true` if the submit button was pressed.
+
 **Parameters** \
 `currentInfo` [GenericMenuInfo\<T\>&](../../../Murder/Core/Input/GenericMenuInfo-1.html) \
 
@@ -241,6 +281,8 @@ public bool VerticalMenu(GenericMenuInfo`1& currentInfo)
 ```csharp
 public bool VerticalMenu(MenuInfo& currentInfo)
 ```
+
+Advances a vertical `MenuInfo` by one frame and returns `true` if the submit button was pressed.
 
 **Parameters** \
 `currentInfo` [MenuInfo&](../../../Murder/Core/Input/MenuInfo.html) \
@@ -253,6 +295,8 @@ public bool VerticalMenu(MenuInfo& currentInfo)
 public string GetAxisDescriptor(int axis)
 ```
 
+Returns a human-readable description of the bindings registered for axis `axis`.
+
 **Parameters** \
 `axis` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
@@ -263,6 +307,8 @@ public string GetAxisDescriptor(int axis)
 ```csharp
 public string GetButtonDescriptor(int button)
 ```
+
+Returns a human-readable description of the bindings registered for button `button`.
 
 **Parameters** \
 `button` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -275,6 +321,8 @@ public string GetButtonDescriptor(int button)
 public string GetKeyboardInput()
 ```
 
+Returns the accumulated typed text from keyboard input since the last frame.
+
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
@@ -282,6 +330,8 @@ public string GetKeyboardInput()
 ```csharp
 public VirtualAxis GetAxis(int axis)
 ```
+
+Returns the `VirtualAxis` registered under `axis`. Throws if not found.
 
 **Parameters** \
 `axis` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -294,6 +344,8 @@ public VirtualAxis GetAxis(int axis)
 public VirtualAxis GetOrCreateAxis(int axis)
 ```
 
+Returns an existing `VirtualAxis` for `axis`, or creates and registers a new one.
+
 **Parameters** \
 `axis` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
@@ -304,6 +356,8 @@ public VirtualAxis GetOrCreateAxis(int axis)
 ```csharp
 public VirtualButton GetOrCreateButton(int button)
 ```
+
+Returns an existing `VirtualButton` for `button`, or creates and registers a new one.
 
 **Parameters** \
 `button` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -316,6 +370,8 @@ public VirtualButton GetOrCreateButton(int button)
 public void Bind(int button, Action<T> action)
 ```
 
+Registers `action` to be called every time `button` is pressed.
+
 **Parameters** \
 `button` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 `action` [Action\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Action-1?view=net-7.0) \
@@ -324,6 +380,8 @@ public void Bind(int button, Action<T> action)
 ```csharp
 public void ClampText(int size)
 ```
+
+Truncates the current keyboard text buffer to `size` characters.
 
 **Parameters** \
 `size` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -354,10 +412,14 @@ Consumes all buttons that have anything in common with this
 public void ConsumeAll()
 ```
 
+Marks all registered buttons and axes as consumed for the current frame.
+
 #### ListenToKeyboardInput(bool, int)
 ```csharp
 public void ListenToKeyboardInput(bool enable, int maxCharacters)
 ```
+
+Enables or disables raw keyboard text capture, limiting input to `maxCharacters`.
 
 **Parameters** \
 `enable` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -401,6 +463,8 @@ Registers a keyboard key as a button
 public void Register(int button, MouseButtons[] buttons)
 ```
 
+Registers mouse buttons as bindings for virtual button `button`.
+
 **Parameters** \
 `button` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 `buttons` [MouseButtons[]](../../../Murder/Core/Input/MouseButtons.html) \
@@ -431,6 +495,8 @@ Registers a gamepad axis as a button
 ```csharp
 public void Update()
 ```
+
+Pulls new device state each frame and updates all registered buttons and axes.
 
 
 

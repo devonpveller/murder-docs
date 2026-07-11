@@ -7,6 +7,12 @@
 public class PrefabAsset : GameAsset, IEntity
 ```
 
+A reusable entity template that can be instantiated multiple times in a world or used as a child of another prefab.
+
+**Intent:** Define a self-contained, editor-authored entity layout (components + children) that can be stamped into any world by reference, enabling consistent reuse of complex entity setups.
+
+**Use-case:** Create a `PrefabAsset` for repeated game objects (crates, NPCs, traps). Place it in levels via the editor, or call `CreateAndFetch` at runtime to spawn a live entity. Use `ToInstance` to create an `EntityInstance` from the prefab for placement in a `WorldAsset`.
+
 **Implements:** _[GameAsset](../../Murder/Assets/GameAsset.html), [IEntity](../../Murder/Prefabs/IEntity.html)_
 
 ### ⭐ Constructors
@@ -27,12 +33,16 @@ public PrefabAsset(EntityInstance instance)
 public virtual bool CanBeCreated { get; }
 ```
 
+Determines if the asset can be created, override to change this capability.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### CanBeDeleted
 ```csharp
 public virtual bool CanBeDeleted { get; }
 ```
+
+Determines if the asset can be deleted, override to change this capability.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -41,12 +51,16 @@ public virtual bool CanBeDeleted { get; }
 public virtual bool CanBeRenamed { get; }
 ```
 
+Determines if the asset can be renamed, override to change this capability.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### CanBeSaved
 ```csharp
 public virtual bool CanBeSaved { get; }
 ```
+
+Determines if the asset can be saved, override to change this capability.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -55,12 +69,16 @@ public virtual bool CanBeSaved { get; }
 public virtual ImmutableArray<T> Children { get; }
 ```
 
+Ordered list of child `EntityInstance` objects nested beneath this prefab's root entity.
+
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 #### Components
 ```csharp
 public virtual ImmutableArray<T> Components { get; }
 ```
+
+Ordered list of ECS components attached to the root entity of this prefab.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -78,12 +96,16 @@ Dimensions of the prefab. Used when drawing it on the map or the editor.
 public virtual Vector4 EditorColor { get; }
 ```
 
+Gets the default color used in the editor for the asset.
+
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
 #### EditorFolder
 ```csharp
 public virtual string EditorFolder { get; }
 ```
+
+Gets the folder path in the editor where this asset is grouped.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -92,12 +114,16 @@ public virtual string EditorFolder { get; }
 public bool FileChanged { get; public set; }
 ```
 
+Indicates whether the asset has unsaved modifications.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### FilePath
 ```csharp
 public string FilePath { get; public set; }
 ```
+
+Path to this asset file, relative to its base directory.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -106,12 +132,16 @@ public string FilePath { get; public set; }
 public Guid Guid { get; protected set; }
 ```
 
+Unique identifier for this asset, used to reference it from other assets and components.
+
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
 #### Icon
 ```csharp
 public virtual char Icon { get; }
 ```
+
+FontAwesome character icon displayed next to this asset in the editor.
 
 **Returns** \
 [char](https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0) \
@@ -120,12 +150,16 @@ public virtual char Icon { get; }
 public virtual bool IsStoredInSaveData { get; }
 ```
 
+Whether this file is stored relative to the save path.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### Name
 ```csharp
 public string Name { get; public set; }
 ```
+
+Display name of this asset as shown in the editor.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -134,6 +168,8 @@ public string Name { get; public set; }
 public virtual string PrefabRefName { get; }
 ```
 
+The display name used when this prefab is shown as a reference option in the editor.
+
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 #### Rename
@@ -141,12 +177,16 @@ public virtual string PrefabRefName { get; }
 public bool Rename { get; public set; }
 ```
 
+Whether the file should be renamed and the previous name deleted on next save.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### SaveLocation
 ```csharp
 public virtual string SaveLocation { get; }
 ```
+
+The folder path where this asset is saved on disk.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -164,12 +204,16 @@ Whether this should show in the editor selector.
 public virtual bool StoreInDatabase { get; }
 ```
 
+Whether this asset is stored following the database hierarchy.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### TaggedForDeletion
 ```csharp
 public bool TaggedForDeletion;
 ```
+
+Marks this asset for removal on the next save.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -179,10 +223,14 @@ public bool TaggedForDeletion;
 protected virtual void OnModified()
 ```
 
+Called by the editor when the asset is modified; override to clear cached derived data.
+
 #### HasComponent(IComponent)
 ```csharp
 public bool HasComponent(IComponent c)
 ```
+
+Returns true if the root entity of this prefab has a component matching the type of `c`.
 
 **Parameters** \
 `c` [IComponent](../../Bang/Components/IComponent.html) \
@@ -194,6 +242,8 @@ public bool HasComponent(IComponent c)
 ```csharp
 public Entity CreateAndFetch(World world)
 ```
+
+Spawns this prefab into the given world and returns the resulting `Entity`.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -219,6 +269,8 @@ Creates a new instance entity from the current asset.
 public GameAsset Duplicate(string name)
 ```
 
+Creates a deep copy of this asset with the given new name.
+
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
@@ -230,6 +282,8 @@ public GameAsset Duplicate(string name)
 public List<T> AssetsToBeSaved()
 ```
 
+Returns and clears the list of dependent assets queued to be saved alongside this asset.
+
 **Returns** \
 [List\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0) \
 
@@ -237,6 +291,8 @@ public List<T> AssetsToBeSaved()
 ```csharp
 public PrefabAsset ToInstanceAsAsset(string name)
 ```
+
+Creates a new `PrefabAsset` whose root entity data is derived from this prefab, using the given display name.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -249,6 +305,8 @@ public PrefabAsset ToInstanceAsAsset(string name)
 public string GetSimplifiedName()
 ```
 
+Returns the asset name stripped of any editor-folder prefix characters.
+
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
@@ -257,6 +315,8 @@ public string GetSimplifiedName()
 public String[] GetSplitNameWithEditorPath()
 ```
 
+Returns the display name split into path segments following the EditorFolder hierarchy.
+
 **Returns** \
 [string[]](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
@@ -264,6 +324,8 @@ public String[] GetSplitNameWithEditorPath()
 ```csharp
 public virtual bool AddOrReplaceComponentForChild(Guid childGuid, IComponent component)
 ```
+
+Adds or replaces the specified component on the child entity identified by `childGuid`.
 
 **Parameters** \
 `childGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -277,6 +339,8 @@ public virtual bool AddOrReplaceComponentForChild(Guid childGuid, IComponent com
 public virtual bool CanRemoveChild(Guid instanceGuid)
 ```
 
+Returns true if the child entity with the given GUID can be safely removed from this prefab.
+
 **Parameters** \
 `instanceGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
 
@@ -287,6 +351,8 @@ public virtual bool CanRemoveChild(Guid instanceGuid)
 ```csharp
 public virtual bool CanRevertComponent(Type t)
 ```
+
+Returns true if the component of type `t` has been overridden and can be reverted to its prefab-default value.
 
 **Parameters** \
 `t` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
@@ -299,6 +365,8 @@ public virtual bool CanRevertComponent(Type t)
 public virtual bool HasComponent(Type type)
 ```
 
+Returns true if the root entity of this prefab has a component of the specified type.
+
 **Parameters** \
 `type` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
 
@@ -309,6 +377,8 @@ public virtual bool HasComponent(Type type)
 ```csharp
 public virtual bool HasComponentAtChild(Guid childGuid, Type type)
 ```
+
+Returns true if the child entity with the given GUID has a component of the specified type.
 
 **Parameters** \
 `childGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -336,6 +406,8 @@ Add an entity asset as a children of the current asset.
 public virtual bool RemoveComponent(Type t)
 ```
 
+Removes the component of type `t` from the root entity of this prefab; returns true if it was present.
+
 **Parameters** \
 `t` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
 
@@ -347,6 +419,8 @@ public virtual bool RemoveComponent(Type t)
 public virtual bool RevertComponent(Type t)
 ```
 
+Reverts a component override of type `t` on the root entity back to its inherited prefab default.
+
 **Parameters** \
 `t` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
 
@@ -357,6 +431,8 @@ public virtual bool RevertComponent(Type t)
 ```csharp
 public virtual bool RevertComponentForChild(Guid childGuid, Type t)
 ```
+
+Reverts a component override of type `t` on the specified child entity back to its inherited default.
 
 **Parameters** \
 `childGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -370,6 +446,8 @@ public virtual bool RevertComponentForChild(Guid childGuid, Type t)
 public virtual bool TryGetChild(Guid guid, EntityInstance& instance)
 ```
 
+Attempts to retrieve the child `EntityInstance` with the given GUID; returns false if not found.
+
 **Parameters** \
 `guid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
 `instance` [EntityInstance&](../../Murder/Prefabs/EntityInstance.html) \
@@ -382,6 +460,8 @@ public virtual bool TryGetChild(Guid guid, EntityInstance& instance)
 public virtual IComponent GetComponent(Type type)
 ```
 
+Retrieves the component of the specified type from the root entity of this prefab.
+
 **Parameters** \
 `type` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
 
@@ -392,6 +472,8 @@ public virtual IComponent GetComponent(Type type)
 ```csharp
 public virtual IComponent TryGetComponentForChild(Guid guid, Type t)
 ```
+
+Attempts to retrieve the component of type `t` from the specified child entity; returns null if absent.
 
 **Parameters** \
 `guid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -405,6 +487,8 @@ public virtual IComponent TryGetComponentForChild(Guid guid, Type t)
 public virtual ImmutableArray<T> FetchChildren()
 ```
 
+Returns all child `EntityInstance` objects nested within this prefab.
+
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
@@ -412,6 +496,8 @@ public virtual ImmutableArray<T> FetchChildren()
 ```csharp
 public virtual ImmutableArray<T> GetChildComponents(Guid childGuid)
 ```
+
+Returns all components attached to the child entity with the given GUID.
 
 **Parameters** \
 `childGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -437,8 +523,7 @@ Create an instance of the entity and all of its children.
 public virtual void AddChild(EntityInstance asset)
 ```
 
-Add an entity asset as a children of the current asset.
-            Each of the children will be an instance of the current asset.
+Adds the given `EntityInstance` as a nested child of this prefab's root entity.
 
 **Parameters** \
 `asset` [EntityInstance](../../Murder/Prefabs/EntityInstance.html) \
@@ -448,6 +533,8 @@ Add an entity asset as a children of the current asset.
 public virtual void AddOrReplaceComponent(IComponent c)
 ```
 
+Adds or replaces a component on the root entity of this prefab.
+
 **Parameters** \
 `c` [IComponent](../../Bang/Components/IComponent.html) \
 
@@ -456,10 +543,14 @@ public virtual void AddOrReplaceComponent(IComponent c)
 public virtual void AfterDeserialized()
 ```
 
+Called after deserialization; override to rebuild caches from deserialized data.
+
 #### RemoveComponentForChild(Guid, Type)
 ```csharp
 public virtual void RemoveComponentForChild(Guid childGuid, Type t)
 ```
+
+Removes the component of type `t` from the specified child entity.
 
 **Parameters** \
 `childGuid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -469,6 +560,8 @@ public virtual void RemoveComponentForChild(Guid childGuid, Type t)
 ```csharp
 public void MakeGuid()
 ```
+
+Generates and assigns a new GUID to this asset.
 
 #### Replace(World, Entity, IComponent[])
 ```csharp
@@ -502,6 +595,8 @@ This will replace an existing entity in the world.
 ```csharp
 public void TrackAssetOnSave(Guid g)
 ```
+
+Queues a dependent asset by GUID to be saved whenever this asset is saved.
 
 **Parameters** \
 `g` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \

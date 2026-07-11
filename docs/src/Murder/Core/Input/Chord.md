@@ -9,6 +9,10 @@ public sealed class Chord
 
 Represents a sequence of Key with optional modifiers.
 
+**Intent:** Describe a keyboard shortcut that requires one primary key and optionally one or more modifier keys held simultaneously.
+
+**Use-case:** Pass a `Chord` to `PlayerInput.Shortcut()` to detect editor hotkeys (e.g. `Ctrl+Z` for undo). Implicitly converts from a single `Keys` value for convenience.
+
 ### ⭐ Constructors
 ```csharp
 public Chord(Keys key, Keys[] modifiers)
@@ -46,6 +50,8 @@ A list of optional modifiers that need to be pressed along with [Chord.Key](../.
 public static Chord None;
 ```
 
+A chord that triggers no key (`Keys.None`), used as a safe empty default.
+
 **Returns** \
 [Chord](../../../Murder/Core/Input/Chord.html) \
 ### ⭐ Methods
@@ -53,6 +59,8 @@ public static Chord None;
 ```csharp
 public virtual string ToString()
 ```
+
+Returns a human-readable representation of this chord (e.g. `"Ctrl+Z"`).
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \

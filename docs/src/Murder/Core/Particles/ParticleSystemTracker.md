@@ -7,6 +7,12 @@
 public sealed struct ParticleSystemTracker
 ```
 
+Manages the runtime lifecycle of all live particles for a single particle system instance — spawning, stepping, and pooling.
+
+**Intent:** Act as the per-entity particle simulation engine.
+
+**Use-case:** `ParticleSystemTracker` is created from an `Emitter` and `Particle` definition (usually via a `ParticleSystemAsset`). Call `Step()` each frame to advance the simulation and read `Particles` for rendering.
+
 ### ⭐ Constructors
 ```csharp
 public ParticleSystemTracker(Emitter emitter, Particle particle, int seed)
@@ -79,6 +85,8 @@ Makes a "step" throughout the particle system.
 ```csharp
 public void Start(Vector2 emitterPosition, int id)
 ```
+
+Initialises the random seed and resets the timer, preparing the system to spawn particles.
 
 **Parameters** \
 `emitterPosition` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \

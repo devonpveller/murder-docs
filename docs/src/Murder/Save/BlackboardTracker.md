@@ -9,16 +9,22 @@ public class BlackboardTracker
 
 Track variables that contain the state of the world.
 
+**Intent:** Provides the runtime read/write layer over all registered `IBlackboard` instances, enabling dialogue systems and game logic to query and modify named variables by string.
+
+**Use-case:** Access via `Game.Save.BlackboardTracker` to get or set blackboard fields by name, check dialogue play counts, or evaluate `Criterion` conditions for branching dialogue.
+
 ### ⭐ Constructors
 ```csharp
 public BlackboardTracker()
 ```
+Creates a new empty tracker with no registered blackboards.
 
 ### ⭐ Methods
 #### SetValue(BlackboardInfo, string, T, bool)
 ```csharp
 protected bool SetValue(BlackboardInfo info, string fieldName, T value, bool isRevertingTrigger)
 ```
+Sets the value of the named field on the blackboard described by `info`; returns `true` if the field was changed.
 
 **Parameters** \
 `info` [BlackboardInfo](../../Murder/Data/BlackboardInfo.html) \
@@ -33,6 +39,7 @@ protected bool SetValue(BlackboardInfo info, string fieldName, T value, bool isR
 ```csharp
 protected virtual void OnFieldModified(BlackboardInfo info, FieldInfo fieldInfo, string fieldName, T value)
 ```
+Called after any field modification; override to react to value changes (e.g. trigger events).
 
 **Parameters** \
 `info` [BlackboardInfo](../../Murder/Data/BlackboardInfo.html) \
@@ -44,6 +51,7 @@ protected virtual void OnFieldModified(BlackboardInfo info, FieldInfo fieldInfo,
 ```csharp
 public bool GetBool(string name, string fieldName, T? character)
 ```
+Returns the boolean value of the named field on the blackboard with the given name.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -86,6 +94,7 @@ Return whether a <paramref name="fieldName" /> exists on <paramref name="blackbo
 ```csharp
 public bool Matches(Criterion criterion, T? character, World world, T? entityId, Int32& weight)
 ```
+Evaluates a dialogue `Criterion` against the current blackboard state; returns `true` if the criterion is satisfied and writes the match weight to `weight`.
 
 **Parameters** \
 `criterion` [Criterion](../../Murder/Core/Dialogs/Criterion.html) \
@@ -101,6 +110,7 @@ public bool Matches(Criterion criterion, T? character, World world, T? entityId,
 ```csharp
 public bool SetValueForAllCharacterBlackboards(string blackboardName, string fieldName, T value)
 ```
+Sets `fieldName` to `value` on every character blackboard that matches `blackboardName`; returns `true` if at least one was modified.
 
 **Parameters** \
 `blackboardName` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -114,6 +124,7 @@ public bool SetValueForAllCharacterBlackboards(string blackboardName, string fie
 ```csharp
 public float GetFloat(string name, string fieldName, T? character)
 ```
+Returns the float value of the named field on the blackboard with the given name.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -127,6 +138,7 @@ public float GetFloat(string name, string fieldName, T? character)
 ```csharp
 public int GetInt(string name, string fieldName, T? character)
 ```
+Returns the integer value of the named field on the blackboard with the given name.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -155,6 +167,7 @@ Returns whether how many times a dialog has been executed.
 ```csharp
 public string GetString(string name, string fieldName, T? character)
 ```
+Returns the string value of the named field on the blackboard with the given name.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -196,6 +209,7 @@ Fetch a cached character out of [BlackboardTracker._characterCache](../../Murder
 ```csharp
 public virtual BlackboardInfo FindBlackboard(string name, T? guid)
 ```
+Locates and returns the `BlackboardInfo` for the blackboard with the given name, optionally scoped to a character GUID.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -208,6 +222,7 @@ public virtual BlackboardInfo FindBlackboard(string name, T? guid)
 ```csharp
 public virtual ImmutableDictionary<TKey, TValue> FetchBlackboards()
 ```
+Returns an immutable map of all registered blackboard names to their `BlackboardInfo` descriptors.
 
 **Returns** \
 [ImmutableDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0) \
@@ -256,6 +271,7 @@ This will reset all watchers of trackers.
 ```csharp
 public void SetBool(string name, string fieldName, BlackboardActionKind kind, bool value, T? character)
 ```
+Sets the boolean `fieldName` on the named blackboard using the specified `BlackboardActionKind` operation.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -268,6 +284,7 @@ public void SetBool(string name, string fieldName, BlackboardActionKind kind, bo
 ```csharp
 public void SetFloat(string name, string fieldName, BlackboardActionKind kind, float value, T? character)
 ```
+Sets the float `fieldName` on the named blackboard using the specified `BlackboardActionKind` operation.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -280,6 +297,7 @@ public void SetFloat(string name, string fieldName, BlackboardActionKind kind, f
 ```csharp
 public void SetInt(string name, string fieldName, BlackboardActionKind kind, int value, T? character)
 ```
+Sets the integer `fieldName` on the named blackboard using the specified `BlackboardActionKind` operation.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \

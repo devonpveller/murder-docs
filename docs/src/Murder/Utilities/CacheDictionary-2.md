@@ -9,12 +9,18 @@ public sealed class CacheDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ID
 
 A dictionary that has a maximum amount of entries and discards old entries as new ones are added
 
+**Intent:** A bounded LRU-like dictionary that automatically evicts the oldest entry when the maximum capacity is reached.
+
+**Use-case:** Use to cache computed results (e.g., formatted strings, resolved assets) when unbounded dictionary growth would be a memory concern.
+
 **Implements:** _[Dictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0), [IDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IDictionary-2?view=net-7.0), [ICollection\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.ICollection-1?view=net-7.0), [IEnumerable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0), [IEnumerable](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.IEnumerable?view=net-7.0), [IDictionary](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.IDictionary?view=net-7.0), [ICollection](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.ICollection?view=net-7.0), [IReadOnlyDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IReadOnlyDictionary-2?view=net-7.0), [IReadOnlyCollection\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IReadOnlyCollection-1?view=net-7.0), [ISerializable](https://learn.microsoft.com/en-us/dotnet/api/System.Runtime.Serialization.ISerializable?view=net-7.0), [IDeserializationCallback](https://learn.microsoft.com/en-us/dotnet/api/System.Runtime.Serialization.IDeserializationCallback?view=net-7.0), [IDisposable](https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0)_
 
 ### ⭐ Constructors
 ```csharp
 public CacheDictionary<TKey, TValue>(int size)
 ```
+
+Creates a new `CacheDictionary<TKey, TValue>` that holds at most `size` entries before evicting the oldest.
 
 **Parameters** \
 `size` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -25,12 +31,16 @@ public CacheDictionary<TKey, TValue>(int size)
 public IEqualityComparer<T> Comparer { get; }
 ```
 
+The equality comparer used to compare keys in this dictionary.
+
 **Returns** \
 [IEqualityComparer\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEqualityComparer-1?view=net-7.0) \
 #### Count
 ```csharp
 public virtual int Count { get; }
 ```
+
+The number of entries currently stored in the dictionary.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -39,12 +49,16 @@ public virtual int Count { get; }
 public TValue Item { get; public set; }
 ```
 
+Gets or sets the value for the specified key; setting a value evicts the oldest entry if the cache is at capacity.
+
 **Returns** \
 [TValue](../../) \
 #### Keys
 ```csharp
 public KeyCollection<TKey, TValue> Keys { get; }
 ```
+
+The collection of keys currently in the dictionary.
 
 **Returns** \
 [KeyCollection\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.KeyCollection-KeyCollection?view=net-7.0) \
@@ -53,6 +67,8 @@ public KeyCollection<TKey, TValue> Keys { get; }
 public ValueCollection<TKey, TValue> Values { get; }
 ```
 
+The collection of values currently in the dictionary.
+
 **Returns** \
 [ValueCollection\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.ValueCollection-ValueCollection?view=net-7.0) \
 ### ⭐ Methods
@@ -60,6 +76,8 @@ public ValueCollection<TKey, TValue> Values { get; }
 ```csharp
 public bool ContainsValue(TValue value)
 ```
+
+Returns `true` if the dictionary contains any entry with the given value.
 
 **Parameters** \
 `value` [TValue](../../) \
@@ -71,6 +89,8 @@ public bool ContainsValue(TValue value)
 ```csharp
 public bool Remove(TKey key, TValue& value)
 ```
+
+Removes the entry with the specified key, outputs its value, and returns `true` if it was found.
 
 **Parameters** \
 `key` [TKey](../../) \

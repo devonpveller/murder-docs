@@ -7,11 +7,19 @@
 public static class StringHelper
 ```
 
+String utility methods for fuzzy matching, edit distance, capitalization, and whitespace normalization.
+
+**Intent:** Provides text-processing helpers used by the editor search, dialogue formatting, and display-name generation.
+
+**Use-case:** Use `FuzzyMatch` for search-box filtering, `LevenshteinDistance` for spell-checking, `CapitalizeFirstLetter` for display formatting, and `Cleanup` to normalize line breaks in imported text.
+
 ### ⭐ Methods
 #### FuzzyMatch(string, string)
 ```csharp
 public bool FuzzyMatch(string searchTerm, string target)
 ```
+
+Returns `true` if all characters of `searchTerm` appear in `target` in order (case-insensitive fuzzy search).
 
 **Parameters** \
 `searchTerm` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -25,6 +33,8 @@ public bool FuzzyMatch(string searchTerm, string target)
 public int LevenshteinDistance(string s, string t)
 ```
 
+Returns the minimum number of single-character edits (insertions, deletions, substitutions) needed to transform `s` into `t`.
+
 **Parameters** \
 `s` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 `t` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -36,6 +46,8 @@ public int LevenshteinDistance(string s, string t)
 ```csharp
 public string CapitalizeFirstLetter(string input)
 ```
+
+Returns a copy of `input` with the first character converted to upper-case.
 
 **Parameters** \
 `input` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \

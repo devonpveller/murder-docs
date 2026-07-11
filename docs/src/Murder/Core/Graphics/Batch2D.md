@@ -7,12 +7,20 @@
 public class Batch2D : IDisposable
 ```
 
+A sprite batch that collects 2D draw calls for a single render layer and submits them to the GPU in as few draw calls as possible.
+
+**Intent:** Provides the low-level sprite-batching infrastructure used by every `IMurderRenderSystem`; analogous to MonoGame's `SpriteBatch` but with depth-sorting and custom shader support.
+
+**Use-case:** Obtain the relevant `Batch2D` from `RenderContext` or `Batches2D`, call `Begin`, issue `Draw` calls, then call `End`. The `BatchMode` controls whether sprites are sorted by depth or drawn in submission order.
+
 **Implements:** _[IDisposable](https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0)_
 
 ### ⭐ Constructors
 ```csharp
 public Batch2D(string name, GraphicsDevice graphicsDevice, Effect effect, BatchMode batchMode, BlendState blendState, SamplerState samplerState, DepthStencilState depthStencilState, RasterizerState rasterizerState, bool autoHandleAlphaBlendedSprites)
 ```
+
+Creates a `Batch2D` that applies the active camera transform automatically.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -28,6 +36,8 @@ public Batch2D(string name, GraphicsDevice graphicsDevice, Effect effect, BatchM
 ```csharp
 public Batch2D(string name, GraphicsDevice graphicsDevice, bool followCamera, Effect effect, BatchMode batchMode, BlendState blendState, SamplerState samplerState, DepthStencilState depthStencilState, RasterizerState rasterizerState, bool autoHandleAlphaBlendedSprites)
 ```
+
+Creates a `Batch2D` with explicit control over whether the batch follows the camera transform.
 
 **Parameters** \
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -47,6 +57,8 @@ public Batch2D(string name, GraphicsDevice graphicsDevice, bool followCamera, Ef
 public bool AllowIBasicShaderEffectParameterClone { get; public set; }
 ```
 
+When `true`, allows shader effect parameters to be cloned from the base `IBasicShaderEffect` when drawing; used to propagate shared shader state across batches.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### AutoHandleAlphaBlendedSprites
@@ -64,12 +76,16 @@ Auto handle any non-opaque (i.e. with some transparency; Opacity &lt; 1.0f) spri
 public readonly BatchMode BatchMode;
 ```
 
+The sorting and batching strategy used when `End()` submits draw calls to the GPU.
+
 **Returns** \
 [BatchMode](../../../Murder/Core/Graphics/BatchMode.html) \
 #### BlendState
 ```csharp
 public readonly BlendState BlendState;
 ```
+
+The MonoGame blend state applied when this batch is rendered (e.g., alpha blend, additive).
 
 **Returns** \
 [BlendState](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.BlendState.html) \
@@ -78,12 +94,16 @@ public readonly BlendState BlendState;
 public readonly DepthStencilState DepthStencilState;
 ```
 
+The MonoGame depth/stencil state applied during rendering; controls depth writes and reads for this batch.
+
 **Returns** \
 [DepthStencilState](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.DepthStencilState.html) \
 #### Effect
 ```csharp
 public Effect Effect { get; public set; }
 ```
+
+The shader effect applied to all sprites in this batch. Can be swapped between frames to change the visual appearance of the entire layer.
 
 **Returns** \
 [Effect](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html) \
@@ -92,12 +112,16 @@ public Effect Effect { get; public set; }
 public GraphicsDevice GraphicsDevice { get; public set; }
 ```
 
+The MonoGame graphics device used to create GPU resources and submit draw calls.
+
 **Returns** \
 [GraphicsDevice](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.GraphicsDevice.html) \
 #### IsBatching
 ```csharp
 public bool IsBatching { get; private set; }
 ```
+
+`true` after `Begin()` has been called and before `End()` is called; indicates that draw calls may be queued.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -106,12 +130,16 @@ public bool IsBatching { get; private set; }
 public bool IsDisposed { get; private set; }
 ```
 
+`true` once `Dispose()` has been called; further draw calls on a disposed batch will throw.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### Name
 ```csharp
 public string Name;
 ```
+
+A human-readable label for this batch, used in diagnostics and the editor's batch-preview dropdown.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -120,12 +148,16 @@ public string Name;
 public readonly RasterizerState RasterizerState;
 ```
 
+The MonoGame rasterizer state (e.g., culling mode, fill mode) applied when this batch is rendered.
+
 **Returns** \
 [RasterizerState](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RasterizerState.html) \
 #### SamplerState
 ```csharp
 public readonly SamplerState SamplerState;
 ```
+
+The texture sampling mode (e.g., point, linear, anisotropic) applied when drawing atlas textures in this batch.
 
 **Returns** \
 [SamplerState](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.SamplerState.html) \
@@ -143,6 +175,8 @@ Sprite count at current buffer.
 public static const int StartBatchItemsCount;
 ```
 
+Initial capacity of the internal sprite-item buffer (128). The buffer grows automatically when more items are queued.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### TotalDrawCalls
@@ -159,6 +193,8 @@ Track number of draw calls.
 public int TotalItemCount { get; }
 ```
 
+Total number of sprite items currently allocated in the internal buffer (including empty slots).
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### TotalTransparentItemCount
@@ -166,12 +202,16 @@ public int TotalItemCount { get; }
 public int TotalTransparentItemCount { get; }
 ```
 
+Number of queued items that have transparency and are rendered in the second (depth-read-only) pass when `AutoHandleAlphaBlendedSprites` is enabled.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### Transform
 ```csharp
 public Matrix Transform { get; private set; }
 ```
+
+The current camera-to-screen transform matrix applied to all sprites submitted since `Begin()` was last called.
 
 **Returns** \
 [Matrix](https://docs.monogame.net/api/Microsoft.Xna.Framework.Matrix.html) \
@@ -187,6 +227,8 @@ Immediately releases the unmanaged resources used by this object.
 ```csharp
 public void Begin(Matrix cameraMatrix)
 ```
+
+Opens the batch for draw calls, setting the camera transform matrix that will be applied to every subsequent sprite.
 
 **Parameters** \
 `cameraMatrix` [Matrix](https://docs.monogame.net/api/Microsoft.Xna.Framework.Matrix.html) \
@@ -230,6 +272,8 @@ Draw a sprite to this sprite batch.
 public void DrawPolygon(Texture2D texture, ImmutableArray<T> vertices, DrawInfo drawInfo)
 ```
 
+Draws a textured convex polygon defined by the supplied vertex array.
+
 **Parameters** \
 `texture` [Texture2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html) \
 `vertices` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -239,6 +283,8 @@ public void DrawPolygon(Texture2D texture, ImmutableArray<T> vertices, DrawInfo 
 ```csharp
 public void DrawPolygon(Texture2D texture, Vector2[] vertices, DrawInfo drawInfo)
 ```
+
+Draws a textured convex polygon defined by the supplied vertex array (mutable overload).
 
 **Parameters** \
 `texture` [Texture2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html) \

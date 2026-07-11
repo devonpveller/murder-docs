@@ -7,7 +7,13 @@
 public sealed struct FacingComponent : IComponent
 ```
 
+Stores the direction and angle an entity is currently facing.
+
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
+
+**Intent:** Provides a single source of truth for an entity's facing direction so animation, physics, and AI systems all read the same value.
+
+**Use-case:** Attach to any entity that has directional sprite animations or directional behavior; systems such as `AgentSpriteSystem` read `Direction` to select the appropriate animation suffix.
 
 ### ⭐ Constructors
 ```csharp
@@ -23,6 +29,8 @@ Creates a FacingComponent using a Direction as a base.
 ```csharp
 public FacingComponent(float angle)
 ```
+
+Creates a FacingComponent from an angle in radians, deriving the nearest cardinal or diagonal direction automatically.
 
 **Parameters** \
 `angle` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \

@@ -10,6 +10,10 @@ public abstract class GameAsset
 The GameAsset is the core functionality on how Murder Engine serializes and persists data of the game. Its design is made so most of its data structures should be immutable while the game is running and any field modification is left to the editor project.
             You can override its fields and methods to specify where how it will be displayed in the editor, e.g.EditorFolder and EditorIcon.
 
+**Intent:** Define the base contract for all engine data assets: a unique GUID, a display name, editor metadata, and serialization/save hooks.
+
+**Use-case:** Subclass `GameAsset` to create custom data containers (levels, characters, configurations). Reference an asset by its `Guid` from ECS components using `AssetRef<T>` or `GameAssetId`. Use `GameData` to look up assets at runtime, and override `EditorFolder`, `EditorColor`, and `Icon` to control how the asset appears in the editor browser.
+
 ### ⭐ Constructors
 ```csharp
 public GameAsset()
@@ -75,6 +79,8 @@ Gets the default folder path in the editor for the asset, override to specify a 
 public bool FileChanged { get; public set; }
 ```
 
+Indicates whether the asset has unsaved modifications that require writing to disk.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### FilePath
@@ -90,6 +96,8 @@ Path to this asset file, relative to its base directory where this asset is stor
 ```csharp
 public Guid Guid { get; protected set; }
 ```
+
+Unique identifier for this asset, used to reference it from other assets and components.
 
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
@@ -116,6 +124,8 @@ Whether this file is saved relative do the save path.
 public string Name { get; public set; }
 ```
 
+Display name of the asset shown in the editor asset browser.
+
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 #### Rename
@@ -132,12 +142,16 @@ Whether it should rename the file and delete the previous name.
 public virtual string SaveLocation { get; }
 ```
 
+The folder path where this asset is saved on disk; override to change the default save location.
+
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 #### SkipDirectoryIconCharacter
 ```csharp
 public static const char SkipDirectoryIconCharacter;
 ```
+
+Special character that, when prefixed to an `EditorFolder` segment, suppresses the folder icon in the editor tree.
 
 **Returns** \
 [char](https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0) \
@@ -155,6 +169,8 @@ Whether this file should be stored following a database hierarchy of the files.
 ```csharp
 public bool TaggedForDeletion;
 ```
+
+Marks this asset for removal on the next save operation.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -196,6 +212,8 @@ Return the assets which will be saved with this ([GameAsset._saveAssetsOnSave](.
 public string GetSimplifiedName()
 ```
 
+Returns the asset name with any editor-folder prefix characters stripped.
+
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
@@ -203,6 +221,8 @@ public string GetSimplifiedName()
 ```csharp
 public String[] GetSplitNameWithEditorPath()
 ```
+
+Returns the display name split into path segments following the EditorFolder hierarchy.
 
 **Returns** \
 [string[]](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \

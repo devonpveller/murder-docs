@@ -7,6 +7,12 @@
 public sealed struct RouteComponent : IComponent
 ```
 
+Holds the computed A* pathfinding route for an agent, represented as a dictionary of grid-cell waypoints.
+
+**Intent:** Store the result of a pathfinding calculation so movement systems can follow the route step by step.
+
+**Use-case:** Added by `CalculatePathfindSystem` when an agent needs to reach a target; movement systems read `Nodes`, `Initial`, and `Target` each frame to advance the agent along the path.
+
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors

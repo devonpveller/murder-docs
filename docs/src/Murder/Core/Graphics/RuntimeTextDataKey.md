@@ -7,6 +7,12 @@
 public sealed struct RuntimeTextDataKey : IEquatable<T>
 ```
 
+Cache key identifying a unique combination of text content, font index, and maximum display width.
+
+**Intent:** Allows `TextDataServices` to store and retrieve pre-parsed `RuntimeTextData` layouts without re-processing identical text configurations.
+
+**Use-case:** Created automatically inside `TextDataServices.GetOrCreateText()`; developers rarely construct this directly.
+
 **Implements:** _[IEquatable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0)_
 
 ### ⭐ Constructors
@@ -25,12 +31,16 @@ public RuntimeTextDataKey(string Text, int Font, int Width)
 public int Font { get; public set; }
 ```
 
+Index of the font used to lay out this text, as registered in the game's font list.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### Text
 ```csharp
 public string Text { get; public set; }
 ```
+
+The raw text string that was parsed to produce the cached `RuntimeTextData`.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -39,6 +49,8 @@ public string Text { get; public set; }
 public int Width { get; public set; }
 ```
 
+Maximum line width in pixels that was applied during word-wrap layout, or -1 if no width limit was used.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 ### ⭐ Methods
@@ -46,6 +58,8 @@ public int Width { get; public set; }
 ```csharp
 public virtual bool Equals(RuntimeTextDataKey other)
 ```
+
+Returns true if `other` has the same text, font index, and wrap width as this key.
 
 **Parameters** \
 `other` [RuntimeTextDataKey](../../../Murder/Core/Graphics/RuntimeTextDataKey.html) \
@@ -57,6 +71,8 @@ public virtual bool Equals(RuntimeTextDataKey other)
 ```csharp
 public virtual bool Equals(Object obj)
 ```
+
+Returns true if `obj` is a `RuntimeTextDataKey` with matching text, font, and width values.
 
 **Parameters** \
 `obj` [Object](https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0) \

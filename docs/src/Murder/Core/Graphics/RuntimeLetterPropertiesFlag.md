@@ -9,6 +9,12 @@ public sealed enum RuntimeLetterPropertiesFlag : Enum, IComparable, ISpanFormatt
 
 **Implements:** _[Enum](https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0), [IComparable](https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0), [ISpanFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0), [IFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0), [IConvertible](https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0)_
 
+Bitfield flags that modify how individual characters are displayed during text animation and dialogue typewriter playback.
+
+**Intent:** Provides fine-grained per-character formatting control for the text rendering system, encoding animations and reset markers in a single int.
+
+**Use-case:** Set the appropriate flags on `RuntimeLetterProperties.Properties` to make specific characters wave, shake, glitch, or pause the typewriter reveal.
+
 ### ⭐ Properties
 #### DoNotSkipLineEnding
 ```csharp

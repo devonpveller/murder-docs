@@ -7,6 +7,12 @@
 public static class GeometryServices
 ```
 
+Math and geometry utilities for overlap tests, distance calculations, polygon analysis, and shape generation.
+
+**Intent:** Centralises pure geometry helpers that do not depend on ECS state.
+
+**Use-case:** Use for point-in-rectangle tests, circle/polygon generation for rendering, distance calculations between game objects, and line-of-sight segment math without needing to query the world.
+
 ### ⭐ Methods
 #### CheckOverlap(float, float, float, float)
 ```csharp
@@ -103,6 +109,7 @@ Check for a point in a rectangle.
 ```csharp
 public bool IntersectsCircle(Rectangle rectangle, Vector2 circleCenter, float circleRadiusSquared)
 ```
+Returns `true` if the rectangle overlaps with the circle defined by its center and squared radius.
 
 **Parameters** \
 `rectangle` [Rectangle](../../Murder/Core/Geometry/Rectangle.html) \
@@ -149,6 +156,7 @@ Checks whether <paramref name="endPosition" />, with <paramref name="size" />,
 ```csharp
 public float Decimals(float x)
 ```
+Returns the fractional (decimal) part of `x`.
 
 **Parameters** \
 `x` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -231,6 +239,7 @@ Find the distance between a point and a rectangle.
 ```csharp
 public float RoundedDecimals(float x)
 ```
+Returns the fractional part of `x` rounded to a fixed number of decimal places.
 
 **Parameters** \
 `x` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -273,6 +282,7 @@ Returns the area of <paramref name="b" /> that does not interlap with <paramref 
 ```csharp
 public Rectangle Shrink(Rectangle rectangle, int amount)
 ```
+Returns a new rectangle inset by `amount` pixels on all sides.
 
 **Parameters** \
 `rectangle` [Rectangle](../../Murder/Core/Geometry/Rectangle.html) \
@@ -285,6 +295,7 @@ public Rectangle Shrink(Rectangle rectangle, int amount)
 ```csharp
 public Vector2 PointInCircleEdge(float percent)
 ```
+Returns a unit-circle point at the angle corresponding to `percent` (0–1 maps to 0–360 degrees).
 
 **Parameters** \
 `percent` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -327,6 +338,7 @@ Gets or creates a list of vectors that represents a circle using a rectangle as 
 ```csharp
 public Vector2[] CreateOrGetFlattenedCircle(float radius, float scaleY, int sides)
 ```
+Returns (or creates and caches) a point array for an ellipse scaled by `scaleY` on the Y axis.
 
 **Parameters** \
 `radius` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \

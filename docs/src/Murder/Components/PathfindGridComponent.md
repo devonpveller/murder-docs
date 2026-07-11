@@ -7,6 +7,12 @@
 public sealed struct PathfindGridComponent : IComponent
 ```
 
+Stores per-cell pathfinding overrides (weights and collision masks) that the pathfinding system layers on top of the default tile map.
+
+**Intent:** Allow level designers to fine-tune pathfinding cost and passability for specific grid cells without modifying the tile asset.
+
+**Use-case:** Add to the world entity (`[Unique]`) and populate `Cells` via the editor to mark heavy or impassable areas; the pathfinding system reads these properties when building traversal costs.
+
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors

@@ -10,6 +10,10 @@ public sealed struct Point : IEquatable<T>
 Represents a single point with coordinates [Point.Y](../../../Murder/Core/Geometry/Point.html#y).
             Points are also often used to store sizes, with X marking the right of an object and Y marking its bottom.
 
+**Intent:** Murder's integer 2D point type, serving as the primary coordinate type for grid and tile operations.
+
+**Use-case:** Use for tile positions, grid indices, and any integer-coordinate math; arithmetic operators and conversion helpers to `Vector2` are provided.
+
 **Implements:** _[IEquatable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0)_
 
 ### ⭐ Constructors

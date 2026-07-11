@@ -7,6 +7,12 @@
 public sealed struct ParticleRuntime
 ```
 
+Runtime state of a single live particle: current position, velocity, rotation, alpha, and lifetime progress.
+
+**Intent:** Store the mutable per-frame state for one active particle instance.
+
+**Use-case:** `ParticleRuntime` instances are managed internally by `ParticleSystemTracker`. Read the `Particles` span on a tracker to iterate over all live particles for custom rendering or post-processing.
+
 ### ⭐ Constructors
 ```csharp
 public ParticleRuntime(float startTime, float lifetime, Vector2 position, Vector2 fromPosition, Vector2 gravity, float startAlpha, float startVelocity, float startRotation, float startAcceleration, float startFriction, float startRotationSpeed, float fromAlpha)
@@ -32,12 +38,16 @@ public ParticleRuntime(float startTime, float lifetime, Vector2 position, Vector
 public float Acceleration;
 ```
 
+Current acceleration applied to the particle's velocity each frame.
+
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 #### Alpha
 ```csharp
 public float Alpha;
 ```
+
+Current opacity of this particle (0–1), blended with the system-level alpha.
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -55,12 +65,16 @@ This is the lifetime of the particle over 0 to 1.
 public float Friction;
 ```
 
+Friction coefficient applied to velocity each frame.
+
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 #### Gravity
 ```csharp
 public Vector2 Gravity;
 ```
+
+Constant directional force added to velocity each frame.
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -69,12 +83,16 @@ public Vector2 Gravity;
 public readonly float Lifetime;
 ```
 
+Total duration (in seconds) this particle will live.
+
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 #### Position
 ```csharp
 public Vector2 Position { get; }
 ```
+
+Current world-space position (`_fromPosition + _localPosition`).
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -83,12 +101,16 @@ public Vector2 Position { get; }
 public float Rotation;
 ```
 
+Current rotation angle in radians.
+
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 #### RotationSpeed
 ```csharp
 public float RotationSpeed;
 ```
+
+Angular velocity in radians per second.
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -97,12 +119,16 @@ public float RotationSpeed;
 public float StartRotation;
 ```
 
+The initial rotation angle assigned at spawn time.
+
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 #### Velocity
 ```csharp
 public float Velocity;
 ```
+
+Current scalar speed of this particle along its direction of travel.
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -111,6 +137,8 @@ public float Velocity;
 ```csharp
 public void Step(Particle& particle, float currentTime, float dt)
 ```
+
+Advances the particle simulation by one time step `dt`, updating position, velocity, rotation, and delta.
 
 **Parameters** \
 `particle` [Particle&](../../../Murder/Core/Particles/Particle.html) \
@@ -122,6 +150,8 @@ public void Step(Particle& particle, float currentTime, float dt)
 public void UpdateAlpha(float alpha)
 ```
 
+Multiplies the particle's alpha by the system-level `alpha` value.
+
 **Parameters** \
 `alpha` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
@@ -129,6 +159,8 @@ public void UpdateAlpha(float alpha)
 ```csharp
 public void UpdateFromPosition(Vector2 from)
 ```
+
+Updates the emitter origin used when `Particle.FollowEntityPosition` is `true`.
 
 **Parameters** \
 `from` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \

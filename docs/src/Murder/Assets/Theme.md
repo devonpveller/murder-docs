@@ -7,6 +7,12 @@
 public class Theme
 ```
 
+Defines the color palette used by the Murder editor UI and in-game UI systems.
+
+**Intent:** Provide a single, serializable set of named RGBA color slots that the editor and UI renderer read from, allowing visual themes to be swapped or customised without code changes.
+
+**Use-case:** Reference `Game.Profile.Theme` to obtain any named color (e.g. `Theme.Accent`, `Theme.Red`) when drawing custom editor windows or in-game UI elements. Override the default `Theme` instance in `GameProfile` to ship a branded color scheme.
+
 ### ⭐ Constructors
 ```csharp
 public Theme()
@@ -18,12 +24,16 @@ public Theme()
 public Vector4 Accent;
 ```
 
+Primary accent color used for highlighted or interactive UI elements.
+
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
 #### Bg
 ```csharp
 public Vector4 Bg;
 ```
+
+Base background color for panels and windows.
 
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
@@ -32,12 +42,16 @@ public Vector4 Bg;
 public Vector4 BgFaded;
 ```
 
+Slightly lighter background color used for secondary panels or alternating rows.
+
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
 #### Faded
 ```csharp
 public Vector4 Faded;
 ```
+
+Muted foreground color used for disabled or less important text and icons.
 
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
@@ -46,12 +60,16 @@ public Vector4 Faded;
 public Vector4 Foreground;
 ```
 
+Primary foreground color used for standard text and icons.
+
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
 #### GenericAsset
 ```csharp
 public Vector4 GenericAsset;
 ```
+
+Color used to tint generic asset entries in the editor asset browser.
 
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
@@ -60,12 +78,16 @@ public Vector4 GenericAsset;
 public Vector4 Green;
 ```
 
+Green semantic color used for success states, positive values, or additive indicators.
+
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
 #### HighAccent
 ```csharp
 public Vector4 HighAccent;
 ```
+
+High-contrast accent color for strongly highlighted or selected UI elements.
 
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
@@ -74,12 +96,16 @@ public Vector4 HighAccent;
 public Vector4 Red;
 ```
 
+Red semantic color used for error states, destructive actions, or negative values.
+
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
 #### RedFaded
 ```csharp
 public Vector4 RedFaded;
 ```
+
+Muted red color used for subdued error or warning backgrounds.
 
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
@@ -88,6 +114,8 @@ public Vector4 RedFaded;
 public Vector4 Warning;
 ```
 
+Orange/amber color used to draw attention to non-critical warnings or cautions.
+
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
 #### White
@@ -95,12 +123,16 @@ public Vector4 Warning;
 public Vector4 White;
 ```
 
+Near-white color used for primary highlighted text or maximum-brightness UI elements.
+
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \
 #### Yellow
 ```csharp
 public Vector4 Yellow;
 ```
+
+Yellow color used for informational labels, special indicators, or gold-tier values.
 
 **Returns** \
 [Vector4](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0) \

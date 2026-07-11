@@ -7,6 +7,12 @@
 public sealed struct IntRectangle : IEquatable<T>
 ```
 
+An integer-precision axis-aligned rectangle (X, Y, Width, Height). The integer counterpart of `Rectangle`.
+
+**Intent:** Store and manipulate tile-aligned or pixel-aligned rectangular regions using integer coordinates.
+
+**Use-case:** Use `IntRectangle` when working with grid coordinates, sprite source rectangles, or any region that must stay on integer boundaries. Implicitly converts to/from `Rectangle` and MonoGame's `Rectangle`.
+
 **Implements:** _[IEquatable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0)_
 
 ### ⭐ Constructors
@@ -53,12 +59,16 @@ public IntRectangle(int x, int y, int width, int height)
 public int Bottom { get; }
 ```
 
+The Y coordinate of the bottom edge (`Y + Height`).
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### BottomLeft
 ```csharp
 public Point BottomLeft { get; }
 ```
+
+The bottom-left corner of the rectangle.
 
 **Returns** \
 [Point](../../../Murder/Core/Geometry/Point.html) \
@@ -67,12 +77,16 @@ public Point BottomLeft { get; }
 public Point BottomRight { get; }
 ```
 
+The bottom-right corner of the rectangle.
+
 **Returns** \
 [Point](../../../Murder/Core/Geometry/Point.html) \
 #### Center
 ```csharp
 public Vector2 Center { get; }
 ```
+
+The centre of the rectangle as a floating-point vector.
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -81,12 +95,16 @@ public Vector2 Center { get; }
 public Point CenterPoint { get; }
 ```
 
+The centre of the rectangle rounded to an integer point.
+
 **Returns** \
 [Point](../../../Murder/Core/Geometry/Point.html) \
 #### Empty
 ```csharp
 public static IntRectangle Empty { get; }
 ```
+
+A zero-sized rectangle at the origin.
 
 **Returns** \
 [IntRectangle](../../../Murder/Core/Geometry/IntRectangle.html) \
@@ -95,12 +113,16 @@ public static IntRectangle Empty { get; }
 public int Height;
 ```
 
+The height of the rectangle in pixels.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### Left
 ```csharp
 public int Left { get; }
 ```
+
+The X coordinate of the left edge (equal to `X`).
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -109,12 +131,16 @@ public int Left { get; }
 public static IntRectangle One { get; }
 ```
 
+A 1×1 rectangle at the origin.
+
 **Returns** \
 [IntRectangle](../../../Murder/Core/Geometry/IntRectangle.html) \
 #### Right
 ```csharp
 public int Right { get; }
 ```
+
+The X coordinate of the right edge (`X + Width`).
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -123,12 +149,16 @@ public int Right { get; }
 public Point Size { get; public set; }
 ```
 
+The width and height as a `Point`. Setting this updates `Width` and `Height`.
+
 **Returns** \
 [Point](../../../Murder/Core/Geometry/Point.html) \
 #### Top
 ```csharp
 public int Top { get; }
 ```
+
+The Y coordinate of the top edge (equal to `Y`).
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -137,12 +167,16 @@ public int Top { get; }
 public Point TopLeft { get; }
 ```
 
+The top-left corner of the rectangle.
+
 **Returns** \
 [Point](../../../Murder/Core/Geometry/Point.html) \
 #### TopRight
 ```csharp
 public Point TopRight { get; }
 ```
+
+The top-right corner of the rectangle.
 
 **Returns** \
 [Point](../../../Murder/Core/Geometry/Point.html) \
@@ -151,12 +185,16 @@ public Point TopRight { get; }
 public int Width;
 ```
 
+The width of the rectangle in pixels.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### X
 ```csharp
 public int X;
 ```
+
+The X coordinate of the rectangle's top-left corner.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -165,6 +203,8 @@ public int X;
 public int Y;
 ```
 
+The Y coordinate of the rectangle's top-left corner.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 ### ⭐ Methods
@@ -172,6 +212,8 @@ public int Y;
 ```csharp
 public bool Contains(Point point)
 ```
+
+Returns `true` if `point` is inside this rectangle.
 
 **Parameters** \
 `point` [Point](../../../Murder/Core/Geometry/Point.html) \
@@ -184,6 +226,8 @@ public bool Contains(Point point)
 public bool Contains(Rectangle other)
 ```
 
+Returns `true` if `other` is fully contained within this rectangle.
+
 **Parameters** \
 `other` [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
 
@@ -194,6 +238,8 @@ public bool Contains(Rectangle other)
 ```csharp
 public bool Contains(float X, float Y)
 ```
+
+Returns `true` if the floating-point coordinate `(X, Y)` is inside this rectangle.
 
 **Parameters** \
 `X` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -206,6 +252,8 @@ public bool Contains(float X, float Y)
 ```csharp
 public bool Contains(int X, int Y)
 ```
+
+Returns `true` if the integer coordinate `(X, Y)` is inside this rectangle.
 
 **Parameters** \
 `X` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -249,6 +297,8 @@ Gets whether or not the other [Rectangle](../../../Murder/Core/Geometry/Rectangl
 public IntRectangle AddPosition(Point position)
 ```
 
+Returns a new rectangle translated by the given `Point`.
+
 **Parameters** \
 `position` [Point](../../../Murder/Core/Geometry/Point.html) \
 
@@ -260,6 +310,8 @@ public IntRectangle AddPosition(Point position)
 public IntRectangle AddPosition(Vector2 position)
 ```
 
+Returns a new rectangle translated by the given `Vector2` (rounded to integers).
+
 **Parameters** \
 `position` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
@@ -270,6 +322,8 @@ public IntRectangle AddPosition(Vector2 position)
 ```csharp
 public IntRectangle CenterRectangle(Vector2 center, float width, float height)
 ```
+
+Creates a rectangle of `width`×`height` centred at `center`.
 
 **Parameters** \
 `center` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -284,6 +338,8 @@ public IntRectangle CenterRectangle(Vector2 center, float width, float height)
 public IntRectangle Expand(float value)
 ```
 
+Returns a new rectangle expanded symmetrically by `value` on all sides.
+
 **Parameters** \
 `value` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
@@ -295,6 +351,8 @@ public IntRectangle Expand(float value)
 public IntRectangle Expand(int value)
 ```
 
+Returns a new rectangle expanded symmetrically by `value` pixels on all sides.
+
 **Parameters** \
 `value` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
@@ -305,6 +363,8 @@ public IntRectangle Expand(int value)
 ```csharp
 public IntRectangle Expand(int x, int y)
 ```
+
+Returns a new rectangle expanded by `x` pixels horizontally and `y` pixels vertically on each side.
 
 **Parameters** \
 `x` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -318,6 +378,8 @@ public IntRectangle Expand(int x, int y)
 public IntRectangle FromCoordinates(Point topLeft, Point bottomRight)
 ```
 
+Creates a rectangle from explicit top-left and bottom-right corner points.
+
 **Parameters** \
 `topLeft` [Point](../../../Murder/Core/Geometry/Point.html) \
 `bottomRight` [Point](../../../Murder/Core/Geometry/Point.html) \
@@ -329,6 +391,8 @@ public IntRectangle FromCoordinates(Point topLeft, Point bottomRight)
 ```csharp
 public IntRectangle FromCoordinates(int top, int bottom, int left, int right)
 ```
+
+Creates a rectangle from explicit edge coordinates.
 
 **Parameters** \
 `top` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -344,6 +408,8 @@ public IntRectangle FromCoordinates(int top, int bottom, int left, int right)
 public Point ClampPosition(IntRectangle innerRect)
 ```
 
+Clamps `innerRect`'s position so it stays fully within this rectangle.
+
 **Parameters** \
 `innerRect` [IntRectangle](../../../Murder/Core/Geometry/IntRectangle.html) \
 
@@ -354,6 +420,8 @@ public Point ClampPosition(IntRectangle innerRect)
 ```csharp
 public Vector2 Clamp(Vector2 point)
 ```
+
+Clamps `point` so it lies within this rectangle.
 
 **Parameters** \
 `point` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \

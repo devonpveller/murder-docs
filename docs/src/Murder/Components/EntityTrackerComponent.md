@@ -12,6 +12,10 @@ This is a component used to track other entities within the world.
 
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
+**Intent:** Stores a reference to another entity by ID so this entity's systems can locate and interact with it each frame.
+
+**Use-case:** Attach to a projectile, follower, or targeting entity and point `Target` at the entity it should track; AI or movement systems read this to resolve the target entity from the world.
+
 ### ⭐ Constructors
 ```csharp
 public EntityTrackerComponent(int target)

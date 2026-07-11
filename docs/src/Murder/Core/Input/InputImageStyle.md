@@ -7,6 +7,12 @@
 public sealed enum InputImageStyle : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 ```
 
+Specifies which icon image to display for an input button in the UI.
+
+**Intent:** Select the correct controller glyph or keyboard-key image for a given physical input.
+
+**Use-case:** Call `InputButton.GetInputImageStyle()` to get the style for a binding, then look up the corresponding sprite in your UI atlas to render contextual button prompts.
+
 **Implements:** _[Enum](https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0), [IComparable](https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0), [ISpanFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0), [IFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0), [IConvertible](https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0)_
 
 ### ⭐ Properties

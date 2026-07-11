@@ -7,6 +7,12 @@
 public class GameLogger
 ```
 
+Singleton debug console and logging system for the Murder engine.
+
+**Intent:** Provides the central interface for emitting log messages, performance data, and rendering an in-game debug console that can parse and dispatch `CommandServices` commands.
+
+**Use-case:** Call `GameLogger.Log`, `GameLogger.Warning`, or `GameLogger.Error` to emit messages; call `DrawConsole` each frame (in debug mode) to render the interactive console overlay.
+
 ### ⭐ Constructors
 ```csharp
 protected GameLogger()
@@ -19,6 +25,7 @@ This is a singleton.
 ```csharp
 protected static GameLogger _instance;
 ```
+The singleton instance; created lazily via `GetOrCreateInstance()`.
 
 **Returns** \
 [GameLogger](../../Murder/Diagnostics/GameLogger.html) \
@@ -26,6 +33,7 @@ protected static GameLogger _instance;
 ```csharp
 protected int _lastInputIndex;
 ```
+Current index into `_lastInputs` for navigating command history with the up/down arrows.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -42,6 +50,7 @@ These are for supporting ^ functionality in console. Fancyy....
 ```csharp
 protected readonly List<T> _log;
 ```
+In-memory list of all `LogLine` entries accumulated during the session.
 
 **Returns** \
 [List\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0) \
@@ -49,6 +58,7 @@ protected readonly List<T> _log;
 ```csharp
 protected bool _resetInputFocus;
 ```
+When `true`, the console input field will be re-focused on the next draw frame.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -56,6 +66,7 @@ protected bool _resetInputFocus;
 ```csharp
 protected int _scrollToBottom;
 ```
+Counter used to force the console output to scroll to the most recent entry for the next N frames.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -63,6 +74,7 @@ protected int _scrollToBottom;
 ```csharp
 protected bool _showDebug;
 ```
+Whether the debug console overlay is currently visible.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -70,6 +82,7 @@ protected bool _showDebug;
 ```csharp
 protected static const int _traceCount;
 ```
+Number of stack frames included when logging exception traces.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -77,6 +90,7 @@ protected static const int _traceCount;
 ```csharp
 public static bool IsShowing { get; }
 ```
+Returns `true` if the debug console overlay is currently open and visible.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -105,6 +119,7 @@ Log text in the console display. Called when a console is displayed.
 ```csharp
 protected virtual void TopBar(Boolean& copy)
 ```
+Renders the top toolbar of the console window; override to customize toolbar content.
 
 **Parameters** \
 `copy` [bool&](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -113,11 +128,13 @@ protected virtual void TopBar(Boolean& copy)
 ```csharp
 protected void ClearLog()
 ```
+Clears all entries from the in-memory log list.
 
 #### LogCommand(string)
 ```csharp
 protected void LogCommand(string msg)
 ```
+Appends `msg` to the log with the command-input styling.
 
 **Parameters** \
 `msg` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -126,6 +143,7 @@ protected void LogCommand(string msg)
 ```csharp
 protected void LogCommandOutput(string msg)
 ```
+Appends `msg` to the log with the command-output styling.
 
 **Parameters** \
 `msg` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -148,6 +166,7 @@ Used to filter exceptions once a crash is yet to happen.
 ```csharp
 public GameLogger GetOrCreateInstance()
 ```
+Returns the existing singleton instance or creates a new one if none exists.
 
 **Returns** \
 [GameLogger](../../Murder/Diagnostics/GameLogger.html) \
@@ -156,6 +175,7 @@ public GameLogger GetOrCreateInstance()
 ```csharp
 public ImmutableArray<T> FetchLogs()
 ```
+Returns an immutable snapshot of all log message strings accumulated so far.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -164,6 +184,7 @@ public ImmutableArray<T> FetchLogs()
 ```csharp
 public string GetCurrentLog()
 ```
+Returns all log entries concatenated into a single newline-delimited string.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -182,6 +203,7 @@ Draws the console of the game.
 ```csharp
 public virtual void TrackImpl(string variableName, Object value)
 ```
+Records a named variable value for live display in the debug overlay.
 
 **Parameters** \
 `variableName` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -191,11 +213,13 @@ public virtual void TrackImpl(string variableName, Object value)
 ```csharp
 public void ClearAllGraphs()
 ```
+Removes all tracked graph data from all registered graph loggers.
 
 #### ClearGraph(string)
 ```csharp
 public void ClearGraph(string callerFilePath)
 ```
+Clears the graph data for the file identified by `callerFilePath`.
 
 **Parameters** \
 `callerFilePath` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -204,6 +228,7 @@ public void ClearGraph(string callerFilePath)
 ```csharp
 public void Error(string msg, string memberName, int lineNumber)
 ```
+Emits an error message tagged with the caller's member name and line number.
 
 **Parameters** \
 `msg` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -224,6 +249,7 @@ This will fail a given message and paste it in the log.
 ```csharp
 public void Initialize(bool diagnostic)
 ```
+Sets up the logger; when `diagnostic` is `true`, hooks into `AppDomain.FirstChanceException` to log unhandled exceptions.
 
 **Parameters** \
 `diagnostic` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -232,6 +258,7 @@ public void Initialize(bool diagnostic)
 ```csharp
 public void Log(string v, Vector4 color)
 ```
+Emits a log message with the given RGBA color tint.
 
 **Parameters** \
 `v` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -241,6 +268,7 @@ public void Log(string v, Vector4 color)
 ```csharp
 public void Log(string v, T? color)
 ```
+Emits a log message with an optional color tint.
 
 **Parameters** \
 `v` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -250,6 +278,7 @@ public void Log(string v, T? color)
 ```csharp
 public void LogPerf(string v, T? color)
 ```
+Emits a performance-timing message, displayed with a distinct styling in the console.
 
 **Parameters** \
 `v` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -259,6 +288,7 @@ public void LogPerf(string v, T? color)
 ```csharp
 public void PlotGraph(float point, int max, string callerFilePath)
 ```
+Forwards a data point with an explicit maximum to the registered `GraphLogger` for the calling file.
 
 **Parameters** \
 `point` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -269,6 +299,7 @@ public void PlotGraph(float point, int max, string callerFilePath)
 ```csharp
 public void PlotGraph(float point, string callerFilePath)
 ```
+Forwards a data point to the registered `GraphLogger` for the calling file.
 
 **Parameters** \
 `point` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -278,6 +309,7 @@ public void PlotGraph(float point, string callerFilePath)
 ```csharp
 public void Toggle(bool value)
 ```
+Shows or hides the debug console overlay.
 
 **Parameters** \
 `value` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -286,11 +318,13 @@ public void Toggle(bool value)
 ```csharp
 public void ToggleDebugWindow()
 ```
+Flips the visibility of the debug console overlay and resets focus when opening.
 
 #### Track(string, Object)
 ```csharp
 public void Track(string variableName, Object value)
 ```
+Records a named variable for live display in the debug overlay; delegates to `TrackImpl`.
 
 **Parameters** \
 `variableName` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -321,6 +355,7 @@ This will verify a condition. If false, this will paste in the log.
 ```csharp
 public void Warning(string msg, string memberName, int lineNumber)
 ```
+Emits a warning message tagged with the caller's member name and line number.
 
 **Parameters** \
 `msg` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \

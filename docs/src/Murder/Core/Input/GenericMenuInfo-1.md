@@ -7,6 +7,12 @@
 public sealed struct GenericMenuInfo<T>
 ```
 
+State container for a typed menu with keyboard/gamepad navigation — tracks selection, scroll, overflow, and cancel state.
+
+**Intent:** Drive strongly-typed menu navigation with `PlayerInput.VerticalMenu<T>()`.
+
+**Use-case:** Declare a `GenericMenuInfo<MyOption>` field in your UI state. Pass it by reference to `PlayerInput.VerticalMenu<T>()` or `GridMenu<T>()` each frame to receive selection updates and pressed/canceled flags.
+
 ### ⭐ Constructors
 ```csharp
 public GenericMenuInfo<T>(T[] options)
@@ -65,12 +71,16 @@ Number of options in this menu
 public T[] Options;
 ```
 
+The array of options available in this menu.
+
 **Returns** \
 [T[]](../../../) \
 #### Overflow
 ```csharp
 public int Overflow;
 ```
+
+Direction the cursor tried to move beyond the menu's bounds (−1, 0, or +1).
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -79,12 +89,16 @@ public int Overflow;
 public int PreviousSelection;
 ```
 
+The index that was selected before the most recent navigation.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### Scroll
 ```csharp
 public int Scroll;
 ```
+
+The index of the first visible option when the list is taller than `VisibleItems`.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -93,12 +107,16 @@ public int Scroll;
 public int Selection { get; private set; }
 ```
 
+The currently highlighted option index.
+
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### Sounds
 ```csharp
 public MenuSounds Sounds;
 ```
+
+Sound events played on selection change, submit, and cancel.
 
 **Returns** \
 [MenuSounds](../../../Murder/Core/Sounds/MenuSounds.html) \
@@ -117,6 +135,8 @@ Number of visible options on the screen, 8 is the default.
 public int NextAvailableOption(int option, int direction)
 ```
 
+Returns the next selectable option index starting from `option` and moving in `direction` (+1 or −1), wrapping around.
+
 **Parameters** \
 `option` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 \
@@ -132,6 +152,8 @@ public int NextAvailableOption(int option, int direction)
 public void Select(int index, float now)
 ```
 
+Moves the selection to `index`, plays the selection-change sound if the index changed, and records the move timestamp.
+
 **Parameters** \
 `index` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 `now` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -140,6 +162,8 @@ public void Select(int index, float now)
 ```csharp
 public void Select(int index)
 ```
+
+Moves the selection to `index`.
 
 **Parameters** \
 `index` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \

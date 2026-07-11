@@ -7,6 +7,12 @@
 public class SpriteThreeSliceRenderSystem : IMurderRenderSystem, IRenderSystem, ISystem
 ```
 
+Renders entities with a `ThreeSliceComponent` using three-slice horizontal or vertical scaling.
+
+**Intent:** Draws three-slice scaled sprites for entities with `ThreeSliceComponent`.
+
+**Use-case:** Use for health bars, progress bars, and other one-axis-resizable UI or game elements.
+
 **Implements:** _[IMurderRenderSystem](../../../Murder/Core/Graphics/IMurderRenderSystem.html), [IRenderSystem](../../../Bang/Systems/IRenderSystem.html), [ISystem](../../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Constructors

@@ -7,6 +7,12 @@
 public class QuestTrackerSystem : IReactiveSystem, ISystem
 ```
 
+Reacts to quest-related component changes and updates quest state based on blackboard conditions.
+
+**Intent:** Updates quest progress when quest-tracker components are added or modified.
+
+**Use-case:** Include in worlds that use Murder's quest and blackboard system to automatically progress quests when conditions are met.
+
 **Implements:** _[IReactiveSystem](../../../Bang/Systems/IReactiveSystem.html), [ISystem](../../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Constructors

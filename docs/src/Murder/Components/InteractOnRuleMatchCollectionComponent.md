@@ -7,6 +7,12 @@
 public sealed struct InteractOnRuleMatchCollectionComponent : IComponent
 ```
 
+Holds an ordered list of `InteractOnRuleMatchComponent` rules; when blackboard conditions are met, the matching rules trigger their interactions in sequence.
+
+**Intent:** Support multiple independent rule-based interactions on a single entity, each with its own criteria and trigger condition.
+
+**Use-case:** Add to a story entity with multiple conditional outcomes (e.g. different dialogue branches depending on quest state); each entry in `Requirements` is evaluated independently by the rule-match system.
+
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors

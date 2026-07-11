@@ -10,10 +10,16 @@ public class QuadRenderer
 Renders a simple quad to the screen. Uncomment the Vertex / Index buffers to make it a static fullscreen quad. 
             The performance effect is barely measurable though and you need to dispose of the buffers when finished!
 
+**Intent:** Provides a minimal GPU path for drawing a single screen-space quad, typically used as a full-screen blit for post-processing passes.
+
+**Use-case:** Instantiate once per render context and call `RenderQuad()` each frame to push a shader-driven quad through the GPU without the overhead of a sprite batch.
+
 ### ⭐ Constructors
 ```csharp
 public QuadRenderer(GraphicsDevice _)
 ```
+
+Initializes the vertex and index buffers for a screen-space quad. The `GraphicsDevice` parameter is accepted for API compatibility but not stored.
 
 **Parameters** \
 `_` [GraphicsDevice](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.GraphicsDevice.html) \
@@ -23,6 +29,8 @@ public QuadRenderer(GraphicsDevice _)
 ```csharp
 public void RenderQuad(GraphicsDevice graphicsDevice, Vector2 v1, Vector2 v2)
 ```
+
+Draws a single quad from corner `v1` to corner `v2` using the provided graphics device and the current shader state.
 
 **Parameters** \
 `graphicsDevice` [GraphicsDevice](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.GraphicsDevice.html) \

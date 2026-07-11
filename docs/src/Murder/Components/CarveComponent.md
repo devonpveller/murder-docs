@@ -13,6 +13,10 @@ This is used for carve components within the map (that will not move a lot and
 
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
+**Intent:** Marks a stationary entity as a pathfinding obstacle (or path-opener) so the map cache knows to update the navigation grid around it.
+
+**Use-case:** Attach to walls, furniture, or bridge entities that do not move every frame; the pathfinding system bakes their influence into the navigation grid rather than re-computing it live.
+
 ### ⭐ Constructors
 ```csharp
 public CarveComponent()
@@ -33,6 +37,8 @@ public CarveComponent(bool blockVision, bool obstacle, bool clearPath, int weigh
 ```csharp
 public readonly bool BlockVision;
 ```
+
+When `true`, this entity blocks line-of-sight checks in addition to blocking movement.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -58,6 +64,8 @@ Whether this carve component will add a path if there was previously a collision
 public readonly bool Obstacle;
 ```
 
+When `true`, this entity is treated as an impassable obstacle on the navigation grid.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### Weight
@@ -75,6 +83,8 @@ Weight of the component, if not an obstacle.
 ```csharp
 public CarveComponent WithClearPath(bool clearPath)
 ```
+
+Returns a copy of this component with `ClearPath` set to `clearPath`.
 
 **Parameters** \
 `clearPath` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \

@@ -7,6 +7,12 @@
 public class TriggerPhysicsSystem : IReactiveSystem, ISystem
 ```
 
+Processes trigger collider overlaps and sends `OnCollisionMessage` to affected entities.
+
+**Intent:** Detects trigger-collider overlaps and dispatches collision messages to entities.
+
+**Use-case:** Add to worlds that need to react when entities enter or exit trigger zones (e.g., area events, pick-ups).
+
 **Implements:** _[IReactiveSystem](../../../Bang/Systems/IReactiveSystem.html), [ISystem](../../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Constructors

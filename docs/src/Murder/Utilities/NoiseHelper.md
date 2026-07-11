@@ -7,6 +7,12 @@
 public sealed class NoiseHelper
 ```
 
+Provides multiple simplex and value noise algorithm implementations accessible from a single instance.
+
+**Intent:** Collects Carmody and Gustavson simplex noise implementations in one place so callers can compare or swap algorithms without changing call sites.
+
+**Use-case:** Instantiate once and call the noise functions with coordinate inputs to generate smooth pseudo-random values for procedural effects, animations, or world generation.
+
 ### ⭐ Constructors
 ```csharp
 public NoiseHelper()

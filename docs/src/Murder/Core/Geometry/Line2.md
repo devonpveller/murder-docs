@@ -7,8 +7,9 @@
 public sealed struct Line2
 ```
 
-Class for a simple line with two points.
-            This is based on a Otter2d class: https://github.com/kylepulver/Otter/blob/master/Otter/Utility/Line2.cs
+**Intent:** Represent a 2D line segment for geometry queries and collision checks.
+
+**Use-case:** Use `Line2` to perform line-intersection tests or to query the boundaries of a `LineShape`. Construct it from two points or four individual coordinates.
 
 ### ⭐ Constructors
 ```csharp
@@ -62,6 +63,8 @@ The second point of a line as a vector2.
 ```csharp
 public float Height { get; }
 ```
+
+The vertical span of the line (absolute difference between the two Y coordinates).
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \

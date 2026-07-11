@@ -9,6 +9,10 @@ public sealed struct RuntimeLetterProperties : IEquatable<T>
 
 Properties of a letter when printing it.
 
+**Intent:** Holds all per-character rendering overrides (color, effects, timing) applied by the typewriter text system when displaying a dialogue line.
+
+**Use-case:** Retrieved through `RuntimeTextData.TryGetLetterProperty()` at render time to apply per-character animations, pauses, and color changes without modifying the source string.
+
 **Implements:** _[IEquatable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0)_
 
 ### ⭐ Properties
@@ -16,6 +20,8 @@ Properties of a letter when printing it.
 ```csharp
 public T? Color { get; public set; }
 ```
+
+Optional tint color override applied to this character when it is rendered; null preserves the default text color.
 
 **Returns** \
 [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
@@ -41,6 +47,8 @@ Amount of pause after this letter is printed.
 ```csharp
 public RuntimeLetterPropertiesFlag Properties { get; public set; }
 ```
+
+Bitfield of `RuntimeLetterPropertiesFlag` values controlling animations and formatting applied to this character (e.g. wave, fear, color reset).
 
 **Returns** \
 [RuntimeLetterPropertiesFlag](../../../Murder/Core/Graphics/RuntimeLetterPropertiesFlag.html) \
@@ -76,6 +84,8 @@ Override the text speed from this letter on.
 ```csharp
 public RuntimeLetterProperties CombineWith(RuntimeLetterProperties other)
 ```
+
+Merges this set of letter properties with `other`, keeping non-default values from `this` and falling back to `other`'s values where `this` has defaults.
 
 **Parameters** \
 `other` [RuntimeLetterProperties](../../../Murder/Core/Graphics/RuntimeLetterProperties.html) \

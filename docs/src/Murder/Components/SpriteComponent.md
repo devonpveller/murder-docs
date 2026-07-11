@@ -7,6 +7,12 @@
 public sealed struct SpriteComponent : IComponent
 ```
 
+Primary rendering component for Aseprite-based sprites. Stores the animation asset reference, current animation queue, render offset, Y-sort value, and related display options.
+
+**Intent:** Drive sprite rendering and animation playback for any entity that displays an Aseprite sprite.
+
+**Use-case:** Attach to any game-world entity that should render a sprite; set `AnimationGuid` to the target `SpriteAsset`, populate `NextAnimations` with the desired animation sequence, and let the rendering system handle the rest.
+
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
@@ -67,6 +73,8 @@ Current playing animation id.
 public readonly bool FlipWithFacing;
 ```
 
+When true, the sprite is horizontally flipped to match the entity's facing direction.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### HighlightStyle
@@ -74,12 +82,16 @@ public readonly bool FlipWithFacing;
 public OutlineStyle HighlightStyle { get; public set; }
 ```
 
+Outline style drawn around the sprite when it is highlighted.
+
 **Returns** \
 [OutlineStyle](../../Murder/Core/Graphics/OutlineStyle.html) \
 #### NextAnimations
 ```csharp
 public ImmutableArray<T> NextAnimations { get; public set; }
 ```
+
+Ordered queue of animation names to play; the first entry is the current animation, subsequent entries play after it completes.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -97,12 +109,16 @@ public readonly Vector2 Offset;
 public readonly bool RotateWithFacing;
 ```
 
+When true, the sprite rotates to match the entity's facing angle instead of flipping.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### TargetSpriteBatch
 ```csharp
 public readonly int TargetSpriteBatch;
 ```
+
+Sprite batch layer this sprite is rendered into.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -111,12 +127,16 @@ public readonly int TargetSpriteBatch;
 public readonly bool UseUnscaledTime;
 ```
 
+When true, animation advances using unscaled (real-world) time, ignoring game time-scale.
+
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 #### YSortOffset
 ```csharp
 public int YSortOffset { get; public set; }
 ```
+
+Pixel offset applied to the entity's Y position when calculating draw order for Y-sorting.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -125,6 +145,8 @@ public int YSortOffset { get; public set; }
 ```csharp
 public bool HasAnimation(string animationName)
 ```
+
+Checks whether the referenced sprite asset contains an animation with the given name.
 
 **Parameters** \
 `animationName` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -137,6 +159,8 @@ public bool HasAnimation(string animationName)
 public bool IsPlaying(ImmutableArray<T> animations)
 ```
 
+Returns true if the current animation queue exactly matches the provided sequence.
+
 **Parameters** \
 `animations` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
@@ -147,6 +171,8 @@ public bool IsPlaying(ImmutableArray<T> animations)
 ```csharp
 public SpriteComponent Play(ImmutableArray<T> id)
 ```
+
+Returns a new component with `NextAnimations` set to the provided animation list.
 
 **Parameters** \
 `id` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -159,6 +185,8 @@ public SpriteComponent Play(ImmutableArray<T> id)
 public SpriteComponent Play(String[] id)
 ```
 
+Returns a new component playing the specified animations in sequence.
+
 **Parameters** \
 `id` [string[]](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
@@ -169,6 +197,8 @@ public SpriteComponent Play(String[] id)
 ```csharp
 public SpriteComponent PlayAfter(string id)
 ```
+
+Returns a new component that queues the specified animation to play after the current one finishes.
 
 **Parameters** \
 `id` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -181,6 +211,8 @@ public SpriteComponent PlayAfter(string id)
 public SpriteComponent SetBatch(int batch)
 ```
 
+Returns a new component with `TargetSpriteBatch` set to the given batch ID.
+
 **Parameters** \
 `batch` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
@@ -192,6 +224,8 @@ public SpriteComponent SetBatch(int batch)
 public SpriteComponent WithPortrait(Portrait portrait)
 ```
 
+Returns a new component configured to display the given portrait.
+
 **Parameters** \
 `portrait` [Portrait](../../Murder/Core/Portrait.html) \
 
@@ -202,6 +236,8 @@ public SpriteComponent WithPortrait(Portrait portrait)
 ```csharp
 public SpriteComponent WithSort(int sort)
 ```
+
+Returns a new component with `YSortOffset` set to the given value.
 
 **Parameters** \
 `sort` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \

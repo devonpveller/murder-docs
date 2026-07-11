@@ -7,6 +7,12 @@
 public static class PathfindServices
 ```
 
+Static utility methods for running pathfinding queries against the current map and managing cached pathfind state.
+
+**Intent:** Central API for requesting navigation paths and refreshing the cached pathfind graph when the map changes.
+
+**Use-case:** Call `FindPath` from AI systems to get a route between two grid points, and `UpdatePathfind` whenever map geometry changes to keep the HAAstar graph consistent.
+
 ### ⭐ Methods
 #### FindPath(Map, World, Point, Point, PathfindAlgorithmKind, int)
 ```csharp

@@ -9,6 +9,10 @@ public sealed struct IdTargetCollectionComponent : IComponent
 
 This is a component with a collection of entities tracked in the world.
 
+**Intent:** Store a named set of runtime entity ID references so that systems can look up multiple target entities by string key.
+
+**Use-case:** Attached by the serialization system after resolving `GuidToIdTargetCollectionComponent`; read `Targets` to find the live entity IDs associated with each named reference.
+
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors

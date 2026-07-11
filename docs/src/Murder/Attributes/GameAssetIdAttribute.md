@@ -9,6 +9,10 @@ public class GameAssetIdAttribute : Attribute
 
 This is an attribute used for a field guid that point to a game asset id.
 
+**Intent:** Mark a `Guid` field as a reference to a specific `GameAsset` subtype so the editor renders an asset-type-filtered picker widget.
+
+**Use-case:** Apply to `Guid` fields in components and assets that hold references to game content such as sprites, sounds, or dialogue assets. Set `allowInheritance: true` to allow the picker to include derived asset types.
+
 **Implements:** _[Attribute](https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0)_
 
 ### ⭐ Constructors
@@ -47,6 +51,8 @@ The type of the game asset.
 ```csharp
 public virtual Object TypeId { get; }
 ```
+
+Unique type identifier for this attribute, inherited from `System.Attribute`.
 
 **Returns** \
 [Object](https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0) \

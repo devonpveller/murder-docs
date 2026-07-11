@@ -7,6 +7,12 @@
 public sealed struct GridConfiguration
 ```
 
+Defines the dimensions of the game's tile grid, including cell size and derived half-size values.
+
+**Intent:** Central configuration for the tile grid that drives world-to-grid coordinate conversions.
+
+**Use-case:** Set once via `Game.Grid` at startup; all coordinate helpers read from this configuration when snapping world positions to tile cells.
+
 ### ⭐ Constructors
 ```csharp
 public GridConfiguration(int cellSize)
