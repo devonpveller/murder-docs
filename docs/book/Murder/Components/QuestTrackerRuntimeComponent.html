@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct QuestTrackerRuntimeComponent : IComponent
 </code></pre>
+<p>Runtime counterpart of <a href="../../Murder/Components/QuestTrackerComponent.html">QuestTrackerComponent</a> that holds the live evaluation state for each quest stage during a play session.</p>
+<p><strong>Intent:</strong> Track which quest stages have been completed and which are still pending at runtime.</p>
+<p><strong>Use-case:</strong> Read or modify this component in systems that need to respond to quest progression events; it is created automatically from <a href="../../Murder/Components/QuestTrackerComponent.html">QuestTrackerComponent</a> at world load.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public QuestTrackerRuntimeComponent()
@@ -161,6 +164,7 @@
 <h4 id="queststages"><a class="header" href="#queststages">QuestStages</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; QuestStages;
 </code></pre>
+<p>Current runtime state of every stage in the quest.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <p>⚡</p>

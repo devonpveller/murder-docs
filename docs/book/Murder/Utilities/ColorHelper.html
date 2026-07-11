@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class ColorHelper
 </code></pre>
+<p>Extension methods for converting between color representations and generating colors from HSV or hex values.</p>
+<p><strong>Intent:</strong> Provides color conversion and generation utilities used by the editor and gameplay code.</p>
+<p><strong>Use-case:</strong> Use <code>ToVector4Color</code> to parse hex colors from editor inputs, <code>MultiplyAlpha</code> for premultiplied-alpha rendering, and <code>ColorFromIndex</code>/<code>ColorFromHSV</code> to generate visually distinct debug or palette colors.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="multiplyalphacolor"><a class="header" href="#multiplyalphacolor">MultiplyAlpha(Color)</a></h4>
 <pre><code class="language-csharp">public Color MultiplyAlpha(Color color)
 </code></pre>
+<p>Multiplies the RGB channels by the alpha channel to produce a premultiplied-alpha color suitable for direct alpha-blended rendering.</p>
 <p><strong>Parameters</strong> <br />
 <code>color</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Color.html">Color</a> </p>
 <p><strong>Returns</strong> <br />

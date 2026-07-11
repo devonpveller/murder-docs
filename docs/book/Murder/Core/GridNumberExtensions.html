@@ -150,10 +150,13 @@
 <pre><code class="language-csharp">public static class GridNumberExtensions
 </code></pre>
 <p>Numeric extensions that are grid related.</p>
+<p><strong>Intent:</strong> Extension methods for integer values used in grid/bitmask operations.</p>
+<p><strong>Use-case:</strong> Call <code>HasFlag</code> to test whether a tile's collision mask includes a specific layer, or <code>ToMask</code> to convert a layer index to its bitmask equivalent.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="hasflagint-int"><a class="header" href="#hasflagint-int">HasFlag(int, int)</a></h4>
 <pre><code class="language-csharp">public bool HasFlag(int value, int mask)
 </code></pre>
+<p>Returns <code>true</code> when all bits in <code>mask</code> are set in <code>value</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>mask</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -162,6 +165,7 @@
 <h4 id="tomaskint"><a class="header" href="#tomaskint">ToMask(int)</a></h4>
 <pre><code class="language-csharp">public int ToMask(int value)
 </code></pre>
+<p>Converts a zero-based layer index to its corresponding power-of-two bitmask (<code>1 &lt;&lt; value</code>).</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />

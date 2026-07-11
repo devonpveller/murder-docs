@@ -149,16 +149,21 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class CommandServices
 </code></pre>
+<p>Discovery and dispatch hub for all in-game debug console commands.</p>
+<p><strong>Intent:</strong> Collects all static methods decorated with <code>[Command]</code> from types that implement <code>ICommands</code>, and parses console input to invoke the matching method.</p>
+<p><strong>Use-case:</strong> Call <code>CommandServices.Parse(world, input)</code> from the debug console UI to execute the command the player typed.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="allcommands"><a class="header" href="#allcommands">AllCommands</a></h4>
 <pre><code class="language-csharp">public static ImmutableDictionary&lt;TKey, TValue&gt; AllCommands { get; }
 </code></pre>
+<p>Lazy-initialized dictionary mapping command names to their <code>Command</code> metadata, built once from reflection.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0">ImmutableDictionary&lt;TKey, TValue&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="parseworld-string"><a class="header" href="#parseworld-string">Parse(World, string)</a></h4>
 <pre><code class="language-csharp">public string Parse(World world, string input)
 </code></pre>
+<p>Parses the console input string and dispatches the matching command, returning its output or an error message.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>input</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>

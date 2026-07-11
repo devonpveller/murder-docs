@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class GameScene : Scene, IDisposable
 </code></pre>
+<p>A concrete <code>Scene</code> implementation that loads and hosts a <code>MonoWorld</code> identified by a <code>WorldAsset</code> GUID. It handles loading the atlas textures referenced by the world, running the ECS simulation, and unloading resources on exit.</p>
+<p><strong>Intent:</strong> The standard scene type that wraps a serialized world asset for gameplay.</p>
+<p><strong>Use-case:</strong> Instantiate with a world asset GUID and pass to the <code>SceneLoader</code> to transition into a new game level.</p>
 <p><strong>Implements:</strong> <em><a href="../../Murder/Core/Scene.html">Scene</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0">IDisposable</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public GameScene(Guid guid)
@@ -159,26 +162,31 @@
 <h4 id="_calledstart"><a class="header" href="#_calledstart">_calledStart</a></h4>
 <pre><code class="language-csharp">protected bool _calledStart;
 </code></pre>
+<p>Tracks whether <code>Start()</code> has already been called on this scene to prevent double-initialization.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="loaded"><a class="header" href="#loaded">Loaded</a></h4>
 <pre><code class="language-csharp">public bool Loaded { get; }
 </code></pre>
+<p>Whether this scene's content has been fully loaded and is ready to update and render.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="rendercontext"><a class="header" href="#rendercontext">RenderContext</a></h4>
 <pre><code class="language-csharp">public RenderContext RenderContext { get; }
 </code></pre>
+<p>The rendering context associated with this scene, used to draw batches to the screen.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/RenderContext.html">RenderContext</a> </p>
 <h4 id="world"><a class="header" href="#world">World</a></h4>
 <pre><code class="language-csharp">public virtual MonoWorld World { get; }
 </code></pre>
+<p>The active ECS world for this scene. May be <code>null</code> before content is loaded or after the scene is unloaded.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/MonoWorld.html">MonoWorld</a> </p>
 <h4 id="worldguid"><a class="header" href="#worldguid">WorldGuid</a></h4>
 <pre><code class="language-csharp">public Guid WorldGuid { get; }
 </code></pre>
+<p>The GUID of the <code>WorldAsset</code> this scene was created from.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
@@ -194,6 +202,7 @@
 <h4 id="unloadasyncimpl"><a class="header" href="#unloadasyncimpl">UnloadAsyncImpl()</a></h4>
 <pre><code class="language-csharp">public virtual Task UnloadAsyncImpl()
 </code></pre>
+<p>Asynchronously disposes the current world and unloads atlas textures that were loaded for this scene.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0">Task</a> </p>
 <h4 id="dispose"><a class="header" href="#dispose">Dispose()</a></h4>

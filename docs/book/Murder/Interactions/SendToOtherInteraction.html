@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SendToOtherInteraction : IInteraction
 </code></pre>
+<p>Sends a Bang <code>IMessage</code> to one or more entities referenced by name in the interacted entity's target collection.</p>
+<p><strong>Intent:</strong> Dispatches a message to explicitly named target entities rather than the direct interactor or parent.</p>
+<p><strong>Use-case:</strong> Use to trigger behaviour on distant or unrelated entities from a single interaction point, such as opening a gate elsewhere in the level when a lever is pulled.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SendToOtherInteraction()
@@ -163,12 +166,14 @@
 <h4 id="message"><a class="header" href="#message">Message</a></h4>
 <pre><code class="language-csharp">public readonly IMessage Message;
 </code></pre>
+<p>The message to send to each resolved target entity.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Bang/Components/IMessage.html">IMessage</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Resolves each target entity by name, then sends <code>Message</code> to each one found.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

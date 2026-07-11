@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct CustomTargetSpriteBatchComponent : IComponent
 </code></pre>
+<p>Overrides the sprite batch that an entity's sprite is rendered into.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Redirects an entity's sprite to a specific <code>Batch2D</code> layer so it can be rendered at a different depth or with different post-processing than the default gameplay batch.</p>
+<p><strong>Use-case:</strong> Attach to a sprite entity that should render into a UI or foreground batch rather than the default gameplay batch; set <code>TargetBatch</code> to the desired <code>Batches2D</code> index.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public CustomTargetSpriteBatchComponent(int targetBatch)
 </code></pre>
@@ -159,6 +162,7 @@
 <h4 id="targetbatch"><a class="header" href="#targetbatch">TargetBatch</a></h4>
 <pre><code class="language-csharp">public readonly int TargetBatch;
 </code></pre>
+<p>Index of the <code>Batch2D</code> that this entity's sprite should be submitted to during rendering.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

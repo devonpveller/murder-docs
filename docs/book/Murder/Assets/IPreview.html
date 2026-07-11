@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public abstract IPreview
 </code></pre>
 <p>This is an interface implemented by assets which has a preview in the editor.</p>
+<p><strong>Intent:</strong> Mark an asset as previewable so the editor can call <code>GetPreviewId</code> to render a thumbnail without knowing the concrete type.</p>
+<p><strong>Use-case:</strong> Implement <code>IPreview</code> on a <code>GameAsset</code> subclass (e.g. <code>SpriteAsset</code>) to enable editor thumbnail previews. The editor detects the interface and calls <code>GetPreviewId</code> to obtain the atlas/sprite pair needed to render the preview image.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getpreviewid"><a class="header" href="#getpreviewid">GetPreviewId()</a></h4>
 <pre><code class="language-csharp">public abstract ValueTuple&lt;T1, T2&gt; GetPreviewId()

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct TimeScaleComponent : IComponent
 </code></pre>
+<p>Applies a per-entity time scale multiplier that systems can use to speed up or slow down entity-specific logic independently of the global time scale.</p>
+<p><strong>Intent:</strong> Scale time locally for a single entity without affecting the rest of the world.</p>
+<p><strong>Use-case:</strong> Attach to an entity that should operate in slow-motion or fast-forward relative to other entities; systems that respect this component multiply their delta time by <code>Value</code> for that entity.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TimeScaleComponent(float scale)
@@ -159,6 +162,7 @@
 <h4 id="value"><a class="header" href="#value">Value</a></h4>
 <pre><code class="language-csharp">public readonly float Value;
 </code></pre>
+<p>Time scale multiplier; 1.0 is normal speed, values below 1 slow the entity down, values above 1 speed it up.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

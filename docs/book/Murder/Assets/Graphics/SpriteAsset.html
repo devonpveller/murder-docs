@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class SpriteAsset : GameAsset, IPreview
 </code></pre>
+<p>Stores the complete animation data for a sprite, including atlas coordinates for every frame, named animation sequences, and optional nine-slice rectangle.</p>
+<p><strong>Intent:</strong> Serve as the authoritative data record for a sprite: which frames exist, how they are grouped into named animations, where the sprite origin sits, and which texture atlas they live in.</p>
+<p><strong>Use-case:</strong> Reference a <code>SpriteAsset</code> GUID from a <code>SpriteComponent</code> to render an animated sprite. Call <code>GetFrame(int)</code> to get atlas coordinates for a given frame index, and inspect <code>Animations</code> to retrieve an <code>Animation</code> by name when playing a specific sequence.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Murder/Assets/GameAsset.html">GameAsset</a>, <a href="../../../Murder/Assets/IPreview.html">IPreview</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SpriteAsset()
@@ -179,125 +182,150 @@
 <h4 id="animations"><a class="header" href="#animations">Animations</a></h4>
 <pre><code class="language-csharp">public ImmutableDictionary&lt;TKey, TValue&gt; Animations { get; private set; }
 </code></pre>
+<p>Named animation sequences, each mapping an animation name to its <code>Animation</code> definition (frame list, events, speed).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0">ImmutableDictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="asepritefileinfo"><a class="header" href="#asepritefileinfo">AsepriteFileInfo</a></h4>
 <pre><code class="language-csharp">public T? AsepriteFileInfo;
 </code></pre>
+<p>Optional metadata from the source Aseprite file, retained for round-trip editing in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="atlas"><a class="header" href="#atlas">Atlas</a></h4>
 <pre><code class="language-csharp">public readonly AtlasId Atlas;
 </code></pre>
+<p>Identifier of the texture atlas that contains this sprite's frames.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Data/AtlasId.html">AtlasId</a> </p>
 <h4 id="canbecreated"><a class="header" href="#canbecreated">CanBeCreated</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeCreated { get; }
 </code></pre>
+<p>Determines if the asset can be created, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canbedeleted"><a class="header" href="#canbedeleted">CanBeDeleted</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeDeleted { get; }
 </code></pre>
+<p>Determines if the asset can be deleted, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canberenamed"><a class="header" href="#canberenamed">CanBeRenamed</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeRenamed { get; }
 </code></pre>
+<p>Determines if the asset can be renamed, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canbesaved"><a class="header" href="#canbesaved">CanBeSaved</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeSaved { get; }
 </code></pre>
+<p>Determines if the asset can be saved, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="editorcolor"><a class="header" href="#editorcolor">EditorColor</a></h4>
 <pre><code class="language-csharp">public virtual Vector4 EditorColor { get; }
 </code></pre>
+<p>Gets the default color used in the editor for the asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="editorfolder"><a class="header" href="#editorfolder">EditorFolder</a></h4>
 <pre><code class="language-csharp">public virtual string EditorFolder { get; }
 </code></pre>
+<p>Gets the folder path in the editor where this asset is grouped.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="filechanged"><a class="header" href="#filechanged">FileChanged</a></h4>
 <pre><code class="language-csharp">public bool FileChanged { get; public set; }
 </code></pre>
+<p>Indicates whether the asset has unsaved modifications.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="filepath"><a class="header" href="#filepath">FilePath</a></h4>
 <pre><code class="language-csharp">public string FilePath { get; public set; }
 </code></pre>
+<p>Path to this asset file, relative to its base directory.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="frames"><a class="header" href="#frames">Frames</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Frames;
 </code></pre>
+<p>Ordered list of atlas coordinates for each frame of this sprite.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="guid"><a class="header" href="#guid">Guid</a></h4>
 <pre><code class="language-csharp">public Guid Guid { get; protected set; }
 </code></pre>
+<p>Unique identifier for this asset, used to reference it from other assets and components.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="icon"><a class="header" href="#icon">Icon</a></h4>
 <pre><code class="language-csharp">public virtual char Icon { get; }
 </code></pre>
+<p>FontAwesome character icon displayed next to this asset in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0">char</a> </p>
 <h4 id="isstoredinsavedata"><a class="header" href="#isstoredinsavedata">IsStoredInSaveData</a></h4>
 <pre><code class="language-csharp">public virtual bool IsStoredInSaveData { get; }
 </code></pre>
+<p>Whether this file is stored relative to the save path.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public string Name { get; public set; }
 </code></pre>
+<p>Display name of this asset as shown in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="nineslice"><a class="header" href="#nineslice">NineSlice</a></h4>
 <pre><code class="language-csharp">public readonly Rectangle NineSlice;
 </code></pre>
+<p>Rectangle defining the nine-slice border insets for stretching this sprite without distorting its corners.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <h4 id="origin"><a class="header" href="#origin">Origin</a></h4>
 <pre><code class="language-csharp">public readonly Point Origin;
 </code></pre>
+<p>Pixel offset of the sprite's pivot point from the top-left corner of its bounding box.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="rename"><a class="header" href="#rename">Rename</a></h4>
 <pre><code class="language-csharp">public bool Rename { get; public set; }
 </code></pre>
+<p>Whether the file should be renamed and the previous name deleted on next save.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="savelocation"><a class="header" href="#savelocation">SaveLocation</a></h4>
 <pre><code class="language-csharp">public virtual string SaveLocation { get; }
 </code></pre>
+<p>The folder path where this asset is saved on disk.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="size"><a class="header" href="#size">Size</a></h4>
 <pre><code class="language-csharp">public readonly Point Size;
 </code></pre>
+<p>Dimensions in pixels of the sprite's bounding box.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="storeindatabase"><a class="header" href="#storeindatabase">StoreInDatabase</a></h4>
 <pre><code class="language-csharp">public virtual bool StoreInDatabase { get; }
 </code></pre>
+<p>Whether this asset is stored following the database hierarchy.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="taggedfordeletion"><a class="header" href="#taggedfordeletion">TaggedForDeletion</a></h4>
 <pre><code class="language-csharp">public bool TaggedForDeletion;
 </code></pre>
+<p>Marks this asset for removal on the next save.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="onmodified"><a class="header" href="#onmodified">OnModified()</a></h4>
 <pre><code class="language-csharp">protected virtual void OnModified()
 </code></pre>
+<p>Called by the editor when the asset is modified; clears the animation cache.</p>
 <h4 id="getframeint"><a class="header" href="#getframeint">GetFrame(int)</a></h4>
 <pre><code class="language-csharp">public AtlasCoordinates GetFrame(int frame)
 </code></pre>
+<p>Returns the atlas texture coordinates for the given frame index.</p>
 <p><strong>Parameters</strong> <br />
 <code>frame</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -305,6 +333,7 @@
 <h4 id="addmessagetoanimationframestring-int-string"><a class="header" href="#addmessagetoanimationframestring-int-string">AddMessageToAnimationFrame(string, int, string)</a></h4>
 <pre><code class="language-csharp">public bool AddMessageToAnimationFrame(string animationName, int frame, string message)
 </code></pre>
+<p>Attaches an event message string to a specific frame of the named animation; returns true if successful.</p>
 <p><strong>Parameters</strong> <br />
 <code>animationName</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>frame</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -314,6 +343,7 @@
 <h4 id="removemessagefromanimationframestring-int"><a class="header" href="#removemessagefromanimationframestring-int">RemoveMessageFromAnimationFrame(string, int)</a></h4>
 <pre><code class="language-csharp">public bool RemoveMessageFromAnimationFrame(string animationName, int frame)
 </code></pre>
+<p>Removes the event message from the specified frame of the named animation; returns true if a message was present.</p>
 <p><strong>Parameters</strong> <br />
 <code>animationName</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>frame</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -322,6 +352,7 @@
 <h4 id="duplicatestring"><a class="header" href="#duplicatestring">Duplicate(string)</a></h4>
 <pre><code class="language-csharp">public GameAsset Duplicate(string name)
 </code></pre>
+<p>Creates a deep copy of this asset with the given new name.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -329,26 +360,31 @@
 <h4 id="assetstobesaved"><a class="header" href="#assetstobesaved">AssetsToBeSaved()</a></h4>
 <pre><code class="language-csharp">public List&lt;T&gt; AssetsToBeSaved()
 </code></pre>
+<p>Returns and clears the list of dependent assets queued to be saved alongside this asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <h4 id="getsimplifiedname"><a class="header" href="#getsimplifiedname">GetSimplifiedName()</a></h4>
 <pre><code class="language-csharp">public string GetSimplifiedName()
 </code></pre>
+<p>Returns the asset name stripped of any editor-folder prefix characters.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="getsplitnamewitheditorpath"><a class="header" href="#getsplitnamewitheditorpath">GetSplitNameWithEditorPath()</a></h4>
 <pre><code class="language-csharp">public String[] GetSplitNameWithEditorPath()
 </code></pre>
+<p>Returns the display name split into path segments following the EditorFolder hierarchy.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string[]</a> </p>
 <h4 id="getpreviewid"><a class="header" href="#getpreviewid">GetPreviewId()</a></h4>
 <pre><code class="language-csharp">public virtual ValueTuple&lt;T1, T2&gt; GetPreviewId()
 </code></pre>
+<p>Returns the atlas ID and sprite name pair used to generate a preview thumbnail in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ValueTuple-2?view=net-7.0">ValueTuple&lt;T1, T2&gt;</a> </p>
 <h4 id="afterdeserialized"><a class="header" href="#afterdeserialized">AfterDeserialized()</a></h4>
 <pre><code class="language-csharp">public virtual void AfterDeserialized()
 </code></pre>
+<p>Called after deserialization; override to rebuild caches from deserialized data.</p>
 <h4 id="appendeditorpathstring"><a class="header" href="#appendeditorpathstring">AppendEditorPath(string)</a></h4>
 <pre><code class="language-csharp">public void AppendEditorPath(string prefix)
 </code></pre>
@@ -358,9 +394,11 @@
 <h4 id="makeguid"><a class="header" href="#makeguid">MakeGuid()</a></h4>
 <pre><code class="language-csharp">public void MakeGuid()
 </code></pre>
+<p>Generates and assigns a new GUID to this asset.</p>
 <h4 id="trackassetonsaveguid"><a class="header" href="#trackassetonsaveguid">TrackAssetOnSave(Guid)</a></h4>
 <pre><code class="language-csharp">public void TrackAssetOnSave(Guid g)
 </code></pre>
+<p>Queues a dependent asset by GUID to be saved whenever this asset is saved.</p>
 <p><strong>Parameters</strong> <br />
 <code>g</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p>⚡</p>

@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct FatalDamageMessage : IMessage
 </code></pre>
 <p>A message signaling that this entity should be killed</p>
+<p><strong>Intent:</strong> Signal to all listening systems that an entity has taken fatal damage and must be destroyed.</p>
+<p><strong>Use-case:</strong> Send this message from a damage system the moment an entity's health reaches zero. Receiving systems can then handle cleanup, loot drops, death animations, or any other on-death behavior.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IMessage.html">IMessage</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FatalDamageMessage(Vector2 fromPosition, int damageAmount)
@@ -161,11 +163,13 @@
 <h4 id="amount"><a class="header" href="#amount">Amount</a></h4>
 <pre><code class="language-csharp">public readonly int Amount;
 </code></pre>
+<p>The amount of damage delivered by this fatal hit.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="fromposition"><a class="header" href="#fromposition">FromPosition</a></h4>
 <pre><code class="language-csharp">public readonly Vector2 FromPosition;
 </code></pre>
+<p>World-space position from which the fatal damage originated, used to calculate knockback or death direction.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p>⚡</p>

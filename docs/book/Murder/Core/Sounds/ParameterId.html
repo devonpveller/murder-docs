@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct ParameterId : IEqualityComparer&lt;T&gt;, IEquatable&lt;T&gt;
 </code></pre>
+<p>Identifies an audio parameter by its binary GUID data and optional human-readable name, compatible with FMOD parameter IDs.</p>
+<p><strong>Intent:</strong> Reference a specific audio parameter for setting or querying via the sound system.</p>
+<p><strong>Use-case:</strong> Obtain a <code>ParameterId</code> from your audio tooling (e.g. FMOD) and pass it to <code>ISoundPlayer.SetParameter()</code> or <code>SetGlobalParameter()</code> to adjust adaptive audio parameters at runtime.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEqualityComparer-1?view=net-7.0">IEqualityComparer&lt;T&gt;</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0">IEquatable&lt;T&gt;</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ParameterId()
@@ -157,42 +160,50 @@
 <h4 id="data1"><a class="header" href="#data1">Data1</a></h4>
 <pre><code class="language-csharp">public uint Data1 { get; public set; }
 </code></pre>
+<p>First 32-bit component of the FMOD parameter GUID.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.UInt32?view=net-7.0">uint</a> </p>
 <h4 id="data2"><a class="header" href="#data2">Data2</a></h4>
 <pre><code class="language-csharp">public uint Data2 { get; public set; }
 </code></pre>
+<p>Second 32-bit component of the FMOD parameter GUID.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.UInt32?view=net-7.0">uint</a> </p>
 <h4 id="editorname"><a class="header" href="#editorname">EditorName</a></h4>
 <pre><code class="language-csharp">public string EditorName { get; }
 </code></pre>
+<p>Human-readable display name shown in the editor; appends &quot;(local)&quot; for non-global parameters.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="isglobal"><a class="header" href="#isglobal">IsGlobal</a></h4>
 <pre><code class="language-csharp">public bool IsGlobal { get; public set; }
 </code></pre>
+<p><code>true</code> if this parameter is a global FMOD parameter; <code>false</code> if it is scoped to a specific event instance.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="isguidempty"><a class="header" href="#isguidempty">IsGuidEmpty</a></h4>
 <pre><code class="language-csharp">public bool IsGuidEmpty { get; }
 </code></pre>
+<p>Returns <code>true</code> when both <code>Data1</code> and <code>Data2</code> are zero (no parameter assigned).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public string Name { get; public set; }
 </code></pre>
+<p>Optional string name of the parameter as defined in the audio project.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="owner"><a class="header" href="#owner">Owner</a></h4>
 <pre><code class="language-csharp">public T? Owner { get; public set; }
 </code></pre>
+<p>The <code>SoundEventId</code> that owns this parameter when it is a local (non-global) parameter.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="withpathstring"><a class="header" href="#withpathstring">WithPath(string)</a></h4>
 <pre><code class="language-csharp">public ParameterId WithPath(string path)
 </code></pre>
+<p>Returns a copy of this <code>ParameterId</code> with <code>Name</code> set to <code>path</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />

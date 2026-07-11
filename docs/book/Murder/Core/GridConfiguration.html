@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct GridConfiguration
 </code></pre>
+<p>Defines the dimensions of the game's tile grid, including cell size and derived half-size values.</p>
+<p><strong>Intent:</strong> Central configuration for the tile grid that drives world-to-grid coordinate conversions.</p>
+<p><strong>Use-case:</strong> Set once via <code>Game.Grid</code> at startup; all coordinate helpers read from this configuration when snapping world positions to tile cells.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public GridConfiguration(int cellSize)
 </code></pre>

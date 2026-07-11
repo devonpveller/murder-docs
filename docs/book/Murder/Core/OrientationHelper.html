@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class OrientationHelper
 </code></pre>
+<p>Static helper methods for working with <code>Orientation</code> values and 2D movement vectors.</p>
+<p><strong>Intent:</strong> Utility class that extracts or determines the dominant orientation from a <code>Vector2</code>.</p>
+<p><strong>Use-case:</strong> Call <code>GetDominantOrientation</code> to snap an agent's movement vector to its primary axis, or <code>GetOrientationAmount</code> to read the component of a vector along a specific axis.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getorientationamountvector2-orientation"><a class="header" href="#getorientationamountvector2-orientation">GetOrientationAmount(Vector2, Orientation)</a></h4>
 <pre><code class="language-csharp">public float GetOrientationAmount(Vector2 vector, Orientation orientation)
 </code></pre>
+<p>Returns the component of <code>vector</code> along the given <code>orientation</code> axis (X for Horizontal, Y for Vertical).</p>
 <p><strong>Parameters</strong> <br />
 <code>vector</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
 <code>orientation</code> <a href="../../Murder/Core/Orientation.html">Orientation</a> </p>
@@ -161,6 +165,7 @@
 <h4 id="getdominantorientationvector2"><a class="header" href="#getdominantorientationvector2">GetDominantOrientation(Vector2)</a></h4>
 <pre><code class="language-csharp">public Orientation GetDominantOrientation(Vector2 vector)
 </code></pre>
+<p>Returns the <code>Orientation</code> of the axis with the greater absolute component in <code>vector</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>vector</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />

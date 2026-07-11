@@ -150,15 +150,19 @@
 <pre><code class="language-csharp">public class EditorLabelAttribute : Attribute
 </code></pre>
 <p>Label that will show up for this field in the editor.</p>
+<p><strong>Intent:</strong> Override the auto-generated field label displayed next to a widget in the editor inspector.</p>
+<p><strong>Use-case:</strong> Apply to component fields whose C# identifier is not self-explanatory in a design context. For tuple or pair fields, provide two labels to annotate each element separately, such as labeling a <code>(float, float)</code> pair as &quot;Min&quot; and &quot;Max&quot;.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public EditorLabelAttribute(string label1, string label2)
 </code></pre>
+<p>Creates a new instance with two labels for annotating both elements of a pair or tuple field.</p>
 <p><strong>Parameters</strong> <br />
 <code>label1</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>label2</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <pre><code class="language-csharp">public EditorLabelAttribute(string label1)
 </code></pre>
+<p>Creates a new instance with a single label for the decorated field.</p>
 <p><strong>Parameters</strong> <br />
 <code>label1</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
@@ -177,6 +181,7 @@
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

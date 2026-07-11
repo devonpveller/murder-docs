@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Particle
 </code></pre>
+<p>Data-driven definition of per-particle appearance and behaviour: texture, lifetime, color, scale, velocity, gravity, rotation, and blend state.</p>
+<p><strong>Intent:</strong> Describe how each individual particle in a system looks and moves.</p>
+<p><strong>Use-case:</strong> Configure a <code>Particle</code> in a <code>ParticleSystemAsset</code> alongside an <code>Emitter</code>. Set <code>LifeTime</code>, <code>Colors</code>, <code>Scale</code>, <code>Alpha</code>, <code>StartVelocity</code>, and <code>Texture</code> to craft the desired visual effect.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Particle()
 </code></pre>
@@ -171,76 +174,91 @@
 <h4 id="acceleration"><a class="header" href="#acceleration">Acceleration</a></h4>
 <pre><code class="language-csharp">public readonly ParticleValueProperty Acceleration;
 </code></pre>
+<p>Rate at which the particle's velocity changes over its lifetime.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/ParticleValueProperty.html">ParticleValueProperty</a> </p>
 <h4 id="alpha"><a class="header" href="#alpha">Alpha</a></h4>
 <pre><code class="language-csharp">public readonly ParticleValueProperty Alpha;
 </code></pre>
+<p>Opacity of the particle over its lifetime (0–1).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/ParticleValueProperty.html">ParticleValueProperty</a> </p>
 <h4 id="colors"><a class="header" href="#colors">Colors</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Colors;
 </code></pre>
+<p>Color gradient sampled over the particle's lifetime. Linearly interpolated between entries.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="followentityposition"><a class="header" href="#followentityposition">FollowEntityPosition</a></h4>
 <pre><code class="language-csharp">public readonly bool FollowEntityPosition;
 </code></pre>
+<p>When <code>true</code>, the particle's world position tracks the emitter entity's position each frame.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="friction"><a class="header" href="#friction">Friction</a></h4>
 <pre><code class="language-csharp">public readonly ParticleValueProperty Friction;
 </code></pre>
+<p>Friction coefficient (0–1) applied each frame to slow the particle down.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/ParticleValueProperty.html">ParticleValueProperty</a> </p>
 <h4 id="gravity"><a class="header" href="#gravity">Gravity</a></h4>
 <pre><code class="language-csharp">public readonly ParticleVectorValueProperty Gravity;
 </code></pre>
+<p>Constant directional velocity applied to every particle each frame (world-space gravity).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/ParticleVectorValueProperty.html">ParticleVectorValueProperty</a> </p>
 <h4 id="lifetime"><a class="header" href="#lifetime">LifeTime</a></h4>
 <pre><code class="language-csharp">public readonly ParticleValueProperty LifeTime;
 </code></pre>
+<p>Duration in seconds that each particle lives.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/ParticleValueProperty.html">ParticleValueProperty</a> </p>
 <h4 id="rotatewithvelocity"><a class="header" href="#rotatewithvelocity">RotateWithVelocity</a></h4>
 <pre><code class="language-csharp">public readonly bool RotateWithVelocity;
 </code></pre>
+<p>When <code>true</code>, the particle's visual rotation aligns with its current velocity direction.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="rotation"><a class="header" href="#rotation">Rotation</a></h4>
 <pre><code class="language-csharp">public readonly ParticleValueProperty Rotation;
 </code></pre>
+<p>Initial rotation angle (radians) assigned when the particle is spawned.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/ParticleValueProperty.html">ParticleValueProperty</a> </p>
 <h4 id="rotationspeed"><a class="header" href="#rotationspeed">RotationSpeed</a></h4>
 <pre><code class="language-csharp">public readonly ParticleValueProperty RotationSpeed;
 </code></pre>
+<p>Angular velocity (radians per second) applied to the particle's rotation each frame.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/ParticleValueProperty.html">ParticleValueProperty</a> </p>
 <h4 id="scale"><a class="header" href="#scale">Scale</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Scale;
 </code></pre>
+<p>Scale keyframes sampled over the particle's lifetime. Linearly interpolated between entries.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="sortoffset"><a class="header" href="#sortoffset">SortOffset</a></h4>
 <pre><code class="language-csharp">public readonly float SortOffset;
 </code></pre>
+<p>Additional Y offset applied when sorting this particle relative to other rendered entities.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="spritebatch"><a class="header" href="#spritebatch">SpriteBatch</a></h4>
 <pre><code class="language-csharp">public readonly int SpriteBatch;
 </code></pre>
+<p>Index of the sprite batch pass used when rendering particles of this type.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="startvelocity"><a class="header" href="#startvelocity">StartVelocity</a></h4>
 <pre><code class="language-csharp">public readonly ParticleValueProperty StartVelocity;
 </code></pre>
+<p>Initial scalar velocity of the particle, added on top of the emitter's launch speed.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/ParticleValueProperty.html">ParticleValueProperty</a> </p>
 <h4 id="texture"><a class="header" href="#texture">Texture</a></h4>
 <pre><code class="language-csharp">public readonly ParticleTexture Texture;
 </code></pre>
+<p>The texture configuration that defines how each particle is drawn.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/ParticleTexture.html">ParticleTexture</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
@@ -256,6 +274,7 @@
 <h4 id="withrotationfloat"><a class="header" href="#withrotationfloat">WithRotation(float)</a></h4>
 <pre><code class="language-csharp">public Particle WithRotation(float rotation)
 </code></pre>
+<p>Returns a copy of this particle with <code>Rotation</code> set to <code>rotation</code> (radians).</p>
 <p><strong>Parameters</strong> <br />
 <code>rotation</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -263,6 +282,7 @@
 <h4 id="withtextureparticletexture"><a class="header" href="#withtextureparticletexture">WithTexture(ParticleTexture)</a></h4>
 <pre><code class="language-csharp">public Particle WithTexture(ParticleTexture texture)
 </code></pre>
+<p>Returns a copy of this particle with <code>Texture</code> replaced by <code>texture</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>texture</code> <a href="../../../Murder/Core/Particles/ParticleTexture.html">ParticleTexture</a> </p>
 <p><strong>Returns</strong> <br />

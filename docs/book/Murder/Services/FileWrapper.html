@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">sealed struct FileWrapper
 </code></pre>
+<p>A lightweight container pairing raw file bytes with a filename, used for attaching files to feedback submissions.</p>
+<p><strong>Intent:</strong> Bundles binary file content with its name for transmission over HTTP.</p>
+<p><strong>Use-case:</strong> Populate and pass to <code>FeedbackServices.SendFeedbackAsync</code> when attaching a save archive, screenshot, or log file to a feedback report.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FileWrapper(Byte[] bytes, string name)
 </code></pre>
@@ -159,11 +162,13 @@
 <h4 id="bytes"><a class="header" href="#bytes">Bytes</a></h4>
 <pre><code class="language-csharp">public readonly Byte[] Bytes;
 </code></pre>
+<p>The raw binary content of the file.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Byte?view=net-7.0">byte[]</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public readonly string Name;
 </code></pre>
+<p>The filename (with extension) used when submitting this file as an attachment.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

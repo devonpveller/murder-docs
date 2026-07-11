@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct IdTargetCollectionComponent : IComponent
 </code></pre>
 <p>This is a component with a collection of entities tracked in the world.</p>
+<p><strong>Intent:</strong> Store a named set of runtime entity ID references so that systems can look up multiple target entities by string key.</p>
+<p><strong>Use-case:</strong> Attached by the serialization system after resolving <code>GuidToIdTargetCollectionComponent</code>; read <code>Targets</code> to find the live entity IDs associated with each named reference.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public IdTargetCollectionComponent(ImmutableDictionary&lt;TKey, TValue&gt; targets)

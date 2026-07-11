@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct IntRectangle : IEquatable&lt;T&gt;
 </code></pre>
+<p>An integer-precision axis-aligned rectangle (X, Y, Width, Height). The integer counterpart of <code>Rectangle</code>.</p>
+<p><strong>Intent:</strong> Store and manipulate tile-aligned or pixel-aligned rectangular regions using integer coordinates.</p>
+<p><strong>Use-case:</strong> Use <code>IntRectangle</code> when working with grid coordinates, sprite source rectangles, or any region that must stay on integer boundaries. Implicitly converts to/from <code>Rectangle</code> and MonoGame's <code>Rectangle</code>.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0">IEquatable&lt;T&gt;</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public IntRectangle(Point p, int width, int height)
@@ -180,92 +183,110 @@
 <h4 id="bottom"><a class="header" href="#bottom">Bottom</a></h4>
 <pre><code class="language-csharp">public int Bottom { get; }
 </code></pre>
+<p>The Y coordinate of the bottom edge (<code>Y + Height</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="bottomleft"><a class="header" href="#bottomleft">BottomLeft</a></h4>
 <pre><code class="language-csharp">public Point BottomLeft { get; }
 </code></pre>
+<p>The bottom-left corner of the rectangle.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="bottomright"><a class="header" href="#bottomright">BottomRight</a></h4>
 <pre><code class="language-csharp">public Point BottomRight { get; }
 </code></pre>
+<p>The bottom-right corner of the rectangle.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="center"><a class="header" href="#center">Center</a></h4>
 <pre><code class="language-csharp">public Vector2 Center { get; }
 </code></pre>
+<p>The centre of the rectangle as a floating-point vector.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="centerpoint"><a class="header" href="#centerpoint">CenterPoint</a></h4>
 <pre><code class="language-csharp">public Point CenterPoint { get; }
 </code></pre>
+<p>The centre of the rectangle rounded to an integer point.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="empty"><a class="header" href="#empty">Empty</a></h4>
 <pre><code class="language-csharp">public static IntRectangle Empty { get; }
 </code></pre>
+<p>A zero-sized rectangle at the origin.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/IntRectangle.html">IntRectangle</a> </p>
 <h4 id="height"><a class="header" href="#height">Height</a></h4>
 <pre><code class="language-csharp">public int Height;
 </code></pre>
+<p>The height of the rectangle in pixels.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="left"><a class="header" href="#left">Left</a></h4>
 <pre><code class="language-csharp">public int Left { get; }
 </code></pre>
+<p>The X coordinate of the left edge (equal to <code>X</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="one"><a class="header" href="#one">One</a></h4>
 <pre><code class="language-csharp">public static IntRectangle One { get; }
 </code></pre>
+<p>A 1×1 rectangle at the origin.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/IntRectangle.html">IntRectangle</a> </p>
 <h4 id="right"><a class="header" href="#right">Right</a></h4>
 <pre><code class="language-csharp">public int Right { get; }
 </code></pre>
+<p>The X coordinate of the right edge (<code>X + Width</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="size"><a class="header" href="#size">Size</a></h4>
 <pre><code class="language-csharp">public Point Size { get; public set; }
 </code></pre>
+<p>The width and height as a <code>Point</code>. Setting this updates <code>Width</code> and <code>Height</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="top"><a class="header" href="#top">Top</a></h4>
 <pre><code class="language-csharp">public int Top { get; }
 </code></pre>
+<p>The Y coordinate of the top edge (equal to <code>Y</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="topleft"><a class="header" href="#topleft">TopLeft</a></h4>
 <pre><code class="language-csharp">public Point TopLeft { get; }
 </code></pre>
+<p>The top-left corner of the rectangle.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="topright"><a class="header" href="#topright">TopRight</a></h4>
 <pre><code class="language-csharp">public Point TopRight { get; }
 </code></pre>
+<p>The top-right corner of the rectangle.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="width"><a class="header" href="#width">Width</a></h4>
 <pre><code class="language-csharp">public int Width;
 </code></pre>
+<p>The width of the rectangle in pixels.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="x"><a class="header" href="#x">X</a></h4>
 <pre><code class="language-csharp">public int X;
 </code></pre>
+<p>The X coordinate of the rectangle's top-left corner.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="y"><a class="header" href="#y">Y</a></h4>
 <pre><code class="language-csharp">public int Y;
 </code></pre>
+<p>The Y coordinate of the rectangle's top-left corner.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="containspoint"><a class="header" href="#containspoint">Contains(Point)</a></h4>
 <pre><code class="language-csharp">public bool Contains(Point point)
 </code></pre>
+<p>Returns <code>true</code> if <code>point</code> is inside this rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>point</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />
@@ -273,6 +294,7 @@
 <h4 id="containsrectangle"><a class="header" href="#containsrectangle">Contains(Rectangle)</a></h4>
 <pre><code class="language-csharp">public bool Contains(Rectangle other)
 </code></pre>
+<p>Returns <code>true</code> if <code>other</code> is fully contained within this rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>other</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <p><strong>Returns</strong> <br />
@@ -280,6 +302,7 @@
 <h4 id="containsfloat-float"><a class="header" href="#containsfloat-float">Contains(float, float)</a></h4>
 <pre><code class="language-csharp">public bool Contains(float X, float Y)
 </code></pre>
+<p>Returns <code>true</code> if the floating-point coordinate <code>(X, Y)</code> is inside this rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>X</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>Y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
@@ -288,6 +311,7 @@
 <h4 id="containsint-int"><a class="header" href="#containsint-int">Contains(int, int)</a></h4>
 <pre><code class="language-csharp">public bool Contains(int X, int Y)
 </code></pre>
+<p>Returns <code>true</code> if the integer coordinate <code>(X, Y)</code> is inside this rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>X</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>Y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -316,6 +340,7 @@
 <h4 id="addpositionpoint"><a class="header" href="#addpositionpoint">AddPosition(Point)</a></h4>
 <pre><code class="language-csharp">public IntRectangle AddPosition(Point position)
 </code></pre>
+<p>Returns a new rectangle translated by the given <code>Point</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />
@@ -323,6 +348,7 @@
 <h4 id="addpositionvector2"><a class="header" href="#addpositionvector2">AddPosition(Vector2)</a></h4>
 <pre><code class="language-csharp">public IntRectangle AddPosition(Vector2 position)
 </code></pre>
+<p>Returns a new rectangle translated by the given <code>Vector2</code> (rounded to integers).</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -330,6 +356,7 @@
 <h4 id="centerrectanglevector2-float-float"><a class="header" href="#centerrectanglevector2-float-float">CenterRectangle(Vector2, float, float)</a></h4>
 <pre><code class="language-csharp">public IntRectangle CenterRectangle(Vector2 center, float width, float height)
 </code></pre>
+<p>Creates a rectangle of <code>width</code>×<code>height</code> centred at <code>center</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>center</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
 <code>width</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
@@ -339,6 +366,7 @@
 <h4 id="expandfloat"><a class="header" href="#expandfloat">Expand(float)</a></h4>
 <pre><code class="language-csharp">public IntRectangle Expand(float value)
 </code></pre>
+<p>Returns a new rectangle expanded symmetrically by <code>value</code> on all sides.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -346,6 +374,7 @@
 <h4 id="expandint"><a class="header" href="#expandint">Expand(int)</a></h4>
 <pre><code class="language-csharp">public IntRectangle Expand(int value)
 </code></pre>
+<p>Returns a new rectangle expanded symmetrically by <code>value</code> pixels on all sides.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -353,6 +382,7 @@
 <h4 id="expandint-int"><a class="header" href="#expandint-int">Expand(int, int)</a></h4>
 <pre><code class="language-csharp">public IntRectangle Expand(int x, int y)
 </code></pre>
+<p>Returns a new rectangle expanded by <code>x</code> pixels horizontally and <code>y</code> pixels vertically on each side.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -361,6 +391,7 @@
 <h4 id="fromcoordinatespoint-point"><a class="header" href="#fromcoordinatespoint-point">FromCoordinates(Point, Point)</a></h4>
 <pre><code class="language-csharp">public IntRectangle FromCoordinates(Point topLeft, Point bottomRight)
 </code></pre>
+<p>Creates a rectangle from explicit top-left and bottom-right corner points.</p>
 <p><strong>Parameters</strong> <br />
 <code>topLeft</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> <br />
 <code>bottomRight</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
@@ -369,6 +400,7 @@
 <h4 id="fromcoordinatesint-int-int-int"><a class="header" href="#fromcoordinatesint-int-int-int">FromCoordinates(int, int, int, int)</a></h4>
 <pre><code class="language-csharp">public IntRectangle FromCoordinates(int top, int bottom, int left, int right)
 </code></pre>
+<p>Creates a rectangle from explicit edge coordinates.</p>
 <p><strong>Parameters</strong> <br />
 <code>top</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>bottom</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -379,6 +411,7 @@
 <h4 id="clamppositionintrectangle"><a class="header" href="#clamppositionintrectangle">ClampPosition(IntRectangle)</a></h4>
 <pre><code class="language-csharp">public Point ClampPosition(IntRectangle innerRect)
 </code></pre>
+<p>Clamps <code>innerRect</code>'s position so it stays fully within this rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>innerRect</code> <a href="../../../Murder/Core/Geometry/IntRectangle.html">IntRectangle</a> </p>
 <p><strong>Returns</strong> <br />
@@ -386,6 +419,7 @@
 <h4 id="clampvector2"><a class="header" href="#clampvector2">Clamp(Vector2)</a></h4>
 <pre><code class="language-csharp">public Vector2 Clamp(Vector2 point)
 </code></pre>
+<p>Clamps <code>point</code> so it lies within this rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>point</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />

@@ -149,13 +149,18 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct MurderTexture
 </code></pre>
+<p>A unified texture handle that can represent either an <code>AtlasCoordinates</code> sprite frame or a standalone <code>Texture2D</code> loaded by file path.</p>
+<p><strong>Intent:</strong> Provides a single value type that works with both atlas-packed sprites and raw textures, so rendering code does not need to branch on the source type.</p>
+<p><strong>Use-case:</strong> Construct with an <code>AtlasCoordinates</code> for atlas sprites or with a string path for standalone textures; call <code>Draw()</code> to render and <code>Preload()</code> to warm the texture cache before first use.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MurderTexture(AtlasCoordinates AtlasCoordinates)
 </code></pre>
+<p>Creates a <code>MurderTexture</code> backed by an atlas-packed sprite frame.</p>
 <p><strong>Parameters</strong> <br />
 <code>AtlasCoordinates</code> <a href="../../../Murder/Core/Graphics/AtlasCoordinates.html">AtlasCoordinates</a> </p>
 <pre><code class="language-csharp">public MurderTexture(string texture)
 </code></pre>
+<p>Creates a <code>MurderTexture</code> backed by a standalone texture loaded from the given file path.</p>
 <p><strong>Parameters</strong> <br />
 <code>texture</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
@@ -175,6 +180,7 @@
 <h4 id="preload"><a class="header" href="#preload">Preload()</a></h4>
 <pre><code class="language-csharp">public void Preload()
 </code></pre>
+<p>Ensures the underlying standalone texture is loaded into memory; no-op for atlas-backed textures. Call this during a loading screen to avoid hitches on first render.</p>
 <p>⚡</p>
 
                     </main>

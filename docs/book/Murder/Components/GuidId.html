@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct GuidId
 </code></pre>
+<p>A named GUID pair used to associate a string identifier with a target entity's instance GUID.</p>
+<p><strong>Intent:</strong> Store a human-readable name alongside an entity GUID so that serialized references can be looked up by name at runtime.</p>
+<p><strong>Use-case:</strong> Used as entries in <code>GuidToIdTargetCollectionComponent</code> to map named targets (e.g. <code>&quot;door&quot;</code>, <code>&quot;enemy_spawn&quot;</code>) to their corresponding entity GUIDs.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public GuidId()
 </code></pre>
@@ -161,11 +164,13 @@
 <h4 id="id"><a class="header" href="#id">Id</a></h4>
 <pre><code class="language-csharp">public readonly string Id;
 </code></pre>
+<p>Human-readable string identifier used to look up this entry by name.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="target"><a class="header" href="#target">Target</a></h4>
 <pre><code class="language-csharp">public readonly Guid Target;
 </code></pre>
+<p>The instance GUID of the entity this entry references.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p>⚡</p>

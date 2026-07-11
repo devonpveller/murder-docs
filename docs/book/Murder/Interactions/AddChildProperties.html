@@ -149,16 +149,21 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed enum AddChildProperties : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Flags that control the behaviour of <a href="../../Murder/Interactions/AddChildOnInteraction.html">AddChildOnInteraction</a> when a child entity is spawned.</p>
+<p><strong>Intent:</strong> Configures optional side-effects when attaching a new child entity to an interacted entity.</p>
+<p><strong>Use-case:</strong> Pass <code>SendEventComponentToParent</code> to ensure that animation events registered on the spawned child are also handled by the parent entity, allowing centralized event processing.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="none"><a class="header" href="#none">None</a></h4>
 <pre><code class="language-csharp">public static const AddChildProperties None;
 </code></pre>
+<p>No additional behaviour; the child is simply added without any extra side-effects.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Interactions/AddChildProperties.html">AddChildProperties</a> </p>
 <h4 id="sendeventcomponenttoparent"><a class="header" href="#sendeventcomponenttoparent">SendEventComponentToParent</a></h4>
 <pre><code class="language-csharp">public static const AddChildProperties SendEventComponentToParent;
 </code></pre>
+<p>Copies the child's <code>EventListenerComponent</code> to the parent so the parent receives the child's animation events.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Interactions/AddChildProperties.html">AddChildProperties</a> </p>
 <p>⚡</p>

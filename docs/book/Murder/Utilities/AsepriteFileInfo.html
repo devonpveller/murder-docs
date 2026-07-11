@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AsepriteFileInfo
 </code></pre>
+<p>Stores metadata for a single frame region within an Aseprite sprite sheet, including the source file path, layer index, slice index, and bake status.</p>
+<p><strong>Intent:</strong> Identifies a specific slice within an Aseprite source file so the asset pipeline can locate and pack the correct frame data.</p>
+<p><strong>Use-case:</strong> Populated automatically during asset import; read by the sprite pipeline to build atlases and resolve animation frames.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AsepriteFileInfo()
 </code></pre>
@@ -156,21 +159,25 @@
 <h4 id="baked"><a class="header" href="#baked">Baked</a></h4>
 <pre><code class="language-csharp">public bool Baked;
 </code></pre>
+<p>Whether this entry has been processed and written into the packed sprite atlas.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="layer"><a class="header" href="#layer">Layer</a></h4>
 <pre><code class="language-csharp">public int Layer;
 </code></pre>
+<p>The Aseprite layer index this entry belongs to.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="sliceindex"><a class="header" href="#sliceindex">SliceIndex</a></h4>
 <pre><code class="language-csharp">public int SliceIndex;
 </code></pre>
+<p>The slice index within the Aseprite file that this entry represents.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="source"><a class="header" href="#source">Source</a></h4>
 <pre><code class="language-csharp">public string Source;
 </code></pre>
+<p>The relative path to the source Aseprite (<code>.ase</code> or <code>.aseprite</code>) file.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct MenuOption
 </code></pre>
+<p>Represents a single selectable item in a rendered vertical menu.</p>
+<p><strong>Intent:</strong> Holds the display text and interaction state for one row in a menu drawn by <code>RenderServices.DrawVerticalMenu</code>.</p>
+<p><strong>Use-case:</strong> Build an array of <code>MenuOption</code> values and pass it inside a <code>MenuInfo</code> to the draw helpers to render an interactive menu list with correct enabled/faded/sound states.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MenuOption()
 </code></pre>
@@ -165,11 +168,13 @@
 <h4 id="enabled"><a class="header" href="#enabled">Enabled</a></h4>
 <pre><code class="language-csharp">public bool Enabled { get; public set; }
 </code></pre>
+<p>When <code>true</code>, the item can be selected by the player; <code>false</code> renders it as disabled.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="faded"><a class="header" href="#faded">Faded</a></h4>
 <pre><code class="language-csharp">public bool Faded { get; public set; }
 </code></pre>
+<p>When <code>true</code>, the item is drawn at reduced opacity to indicate it is inactive or unavailable.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="length"><a class="header" href="#length">Length</a></h4>
@@ -181,11 +186,13 @@
 <h4 id="soundonclick"><a class="header" href="#soundonclick">SoundOnClick</a></h4>
 <pre><code class="language-csharp">public bool SoundOnClick;
 </code></pre>
+<p>When <code>true</code>, a click sound is played when this item is selected.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="text"><a class="header" href="#text">Text</a></h4>
 <pre><code class="language-csharp">public readonly string Text;
 </code></pre>
+<p>The display label shown for this menu item.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

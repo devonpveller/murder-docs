@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class PackedSaveData
 </code></pre>
+<p>Wrapper that packages a <code>SaveData</code> instance for serialization to a single compressed save file.</p>
+<p><strong>Intent:</strong> Encapsulate the main <code>SaveData</code> object so it can be written atomically to <code>saved.gz</code> and loaded back without extra ceremony.</p>
+<p><strong>Use-case:</strong> The save system creates a <code>PackedSaveData</code> from the active <code>SaveData</code> and writes it to disk. Use <code>SaveDataInfo.GetFullPackedSavePath</code> to find the file for a given slot and then deserialize <code>PackedSaveData.Data</code> to restore game state.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PackedSaveData(SaveData data)
 </code></pre>
@@ -158,11 +161,13 @@
 <h4 id="data"><a class="header" href="#data">Data</a></h4>
 <pre><code class="language-csharp">public readonly SaveData Data;
 </code></pre>
+<p>The deserialized <code>SaveData</code> payload for this save slot.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Assets/SaveData.html">SaveData</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public static const string Name;
 </code></pre>
+<p>Filename used when writing this container to disk (<code>saved.gz</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

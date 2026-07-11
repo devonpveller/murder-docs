@@ -149,25 +149,32 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct PickChoiceMessage : IMessage
 </code></pre>
+<p>Carries the player's selection (or cancellation) from a dialogue choice prompt.</p>
+<p><strong>Intent:</strong> Communicate the result of a player-facing dialogue choice menu back to the dialogue system.</p>
+<p><strong>Use-case:</strong> Send this from the UI system when the player selects an option or presses cancel in a dialogue choice menu. The dialogue state machine receives it to branch the conversation or close the dialogue if cancelled.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IMessage.html">IMessage</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PickChoiceMessage(bool cancel)
 </code></pre>
+<p>Creates a message indicating the choice prompt was cancelled without selecting an option.</p>
 <p><strong>Parameters</strong> <br />
 <code>cancel</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <pre><code class="language-csharp">public PickChoiceMessage(int choice)
 </code></pre>
+<p>Creates a message with the zero-based index of the option the player selected.</p>
 <p><strong>Parameters</strong> <br />
 <code>choice</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="choice"><a class="header" href="#choice">Choice</a></h4>
 <pre><code class="language-csharp">public readonly int Choice;
 </code></pre>
+<p>Zero-based index of the dialogue option selected by the player.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="iscancel"><a class="header" href="#iscancel">IsCancel</a></h4>
 <pre><code class="language-csharp">public readonly bool IsCancel;
 </code></pre>
+<p>Whether the player cancelled the choice prompt without making a selection.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <p>⚡</p>

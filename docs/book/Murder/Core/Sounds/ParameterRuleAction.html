@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct ParameterRuleAction
 </code></pre>
 <p>This is a generic blackboard action with a command.</p>
+<p><strong>Intent:</strong> Represent an adaptive audio rule that modifies a <code>ParameterId</code> value when triggered.</p>
+<p><strong>Use-case:</strong> Use <code>ParameterRuleAction</code> in dialogue or world event rules to set or increment an FMOD parameter at specific moments, enabling adaptive music and sound responses.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ParameterRuleAction()
 </code></pre>
@@ -163,16 +165,19 @@
 <h4 id="kind"><a class="header" href="#kind">Kind</a></h4>
 <pre><code class="language-csharp">public readonly BlackboardActionKind Kind;
 </code></pre>
+<p>The operation to apply to the parameter (Set, Add, etc.).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardActionKind.html">BlackboardActionKind</a> </p>
 <h4 id="parameter"><a class="header" href="#parameter">Parameter</a></h4>
 <pre><code class="language-csharp">public readonly ParameterId Parameter;
 </code></pre>
+<p>The audio parameter this action targets.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Sounds/ParameterId.html">ParameterId</a> </p>
 <h4 id="value"><a class="header" href="#value">Value</a></h4>
 <pre><code class="language-csharp">public readonly float Value;
 </code></pre>
+<p>The value applied to the parameter according to <code>Kind</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

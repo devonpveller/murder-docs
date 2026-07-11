@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct DebugInteraction : IInteraction
 </code></pre>
+<p>Logs a message to the game console when the interaction fires.</p>
+<p><strong>Intent:</strong> Provides a simple diagnostic interaction for printing a custom log message during gameplay.</p>
+<p><strong>Use-case:</strong> Attach to an entity during development to verify that an interaction is being triggered, or to trace the sequence of events in a chain of interactions.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DebugInteraction(string log)
@@ -159,12 +162,14 @@
 <h4 id="log"><a class="header" href="#log">Log</a></h4>
 <pre><code class="language-csharp">public readonly string Log;
 </code></pre>
+<p>The message that will be printed to the game console when this interaction fires.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Prints <code>Log</code> to the game console via <code>GameLogger</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

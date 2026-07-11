@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct OnEnterOnExitComponent : IComponent
 </code></pre>
+<p>Triggers interaction callbacks when an entity enters or exits this entity's collision area.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Implements an area-trigger pattern by running <code>OnEnter</code> and <code>OnExit</code> interaction actions when a matching entity crosses the boundary.</p>
+<p><strong>Use-case:</strong> Attach to a trigger zone entity and configure <code>OnEnter</code>/<code>OnExit</code> with the desired <code>IInteractiveComponent</code> actions; the physics system fires these when the target entity type enters or leaves the collider.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public OnEnterOnExitComponent()
 </code></pre>
@@ -162,16 +165,19 @@
 <h4 id="onenter"><a class="header" href="#onenter">OnEnter</a></h4>
 <pre><code class="language-csharp">public readonly IInteractiveComponent OnEnter;
 </code></pre>
+<p>Interaction to execute when a qualifying entity enters the trigger area.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Bang/Interactions/IInteractiveComponent.html">IInteractiveComponent</a> </p>
 <h4 id="onexit"><a class="header" href="#onexit">OnExit</a></h4>
 <pre><code class="language-csharp">public readonly IInteractiveComponent OnExit;
 </code></pre>
+<p>Interaction to execute when a qualifying entity leaves the trigger area.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Bang/Interactions/IInteractiveComponent.html">IInteractiveComponent</a> </p>
 <h4 id="target"><a class="header" href="#target">Target</a></h4>
 <pre><code class="language-csharp">public readonly TargetEntity Target;
 </code></pre>
+<p>Specifies which entity (interactor, parent, etc.) the interactions are applied to when triggered.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Utilities/TargetEntity.html">TargetEntity</a> </p>
 <p>⚡</p>

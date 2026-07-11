@@ -150,16 +150,20 @@
 <pre><code class="language-csharp">public sealed struct StateWatcherComponent : IModifiableComponent, IComponent
 </code></pre>
 <p>This will watch for rule changes based on the blackboard system.</p>
+<p><strong>Intent:</strong> Receive callbacks whenever the state-machine (State) blackboard variables change.</p>
+<p><strong>Use-case:</strong> Added once per world to let systems that depend on state-machine output invalidate cached data the moment any state variable is written.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IModifiableComponent.html">IModifiableComponent</a>, <a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="subscribeaction"><a class="header" href="#subscribeaction">Subscribe(Action)</a></h4>
 <pre><code class="language-csharp">public virtual void Subscribe(Action notification)
 </code></pre>
+<p>Registers a callback that fires whenever the state blackboard values change.</p>
 <p><strong>Parameters</strong> <br />
 <code>notification</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0">Action</a> </p>
 <h4 id="unsubscribeaction"><a class="header" href="#unsubscribeaction">Unsubscribe(Action)</a></h4>
 <pre><code class="language-csharp">public virtual void Unsubscribe(Action notification)
 </code></pre>
+<p>Removes a previously registered state-blackboard-change callback.</p>
 <p><strong>Parameters</strong> <br />
 <code>notification</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0">Action</a> </p>
 <p>⚡</p>

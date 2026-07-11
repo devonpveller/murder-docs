@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SaveDataTracker
 </code></pre>
+<p>Top-level registry that tracks all available save slots with their version and display-name metadata.</p>
+<p><strong>Intent:</strong> Provide a single serialized index of every save slot so the game can enumerate them quickly without loading the full <code>PackedSaveData</code> for each slot.</p>
+<p><strong>Use-case:</strong> Serialize a <code>SaveDataTracker</code> to <code>save_data.gz</code> at the root of the save directory. At startup read <code>Info</code> to populate the save-select screen; use <code>SaveDataInfo</code> values to verify versions and show slot names before loading a full <code>PackedSaveData</code>.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SaveDataTracker(Dictionary&lt;TKey, TValue&gt; info)
 </code></pre>
@@ -158,11 +161,13 @@
 <h4 id="info"><a class="header" href="#info">Info</a></h4>
 <pre><code class="language-csharp">public readonly Dictionary&lt;TKey, TValue&gt; Info;
 </code></pre>
+<p>Dictionary mapping save slot indices to their <code>SaveDataInfo</code> metadata records.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0">Dictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public static const string Name;
 </code></pre>
+<p>Filename used when writing the tracker to disk (<code>save_data.gz</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

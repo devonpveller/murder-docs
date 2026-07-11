@@ -149,31 +149,38 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed enum EmitterShapeKind : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Specifies the geometric shape from which an emitter spawns particles.</p>
+<p><strong>Intent:</strong> Select the particle-origin geometry for an <code>EmitterShape</code>.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="circle"><a class="header" href="#circle">Circle</a></h4>
 <pre><code class="language-csharp">public static const EmitterShapeKind Circle;
 </code></pre>
+<p>Particles spawn from random points inside the circle area.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/EmitterShapeKind.html">EmitterShapeKind</a> </p>
 <h4 id="circleoutline"><a class="header" href="#circleoutline">CircleOutline</a></h4>
 <pre><code class="language-csharp">public static const EmitterShapeKind CircleOutline;
 </code></pre>
+<p>Particles spawn from random points on the circle's perimeter.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/EmitterShapeKind.html">EmitterShapeKind</a> </p>
 <h4 id="line"><a class="header" href="#line">Line</a></h4>
 <pre><code class="language-csharp">public static const EmitterShapeKind Line;
 </code></pre>
+<p>Particles spawn at random positions along a line segment.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/EmitterShapeKind.html">EmitterShapeKind</a> </p>
 <h4 id="point"><a class="header" href="#point">Point</a></h4>
 <pre><code class="language-csharp">public static const EmitterShapeKind Point;
 </code></pre>
+<p>All particles spawn from a single central point.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/EmitterShapeKind.html">EmitterShapeKind</a> </p>
 <h4 id="rectangle"><a class="header" href="#rectangle">Rectangle</a></h4>
 <pre><code class="language-csharp">public static const EmitterShapeKind Rectangle;
 </code></pre>
+<p>Particles spawn from random points within a rectangular area.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/EmitterShapeKind.html">EmitterShapeKind</a> </p>
 <p>⚡</p>

@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct AtlasCoordinates
 </code></pre>
 <p>An image coordinate inside an atlas</p>
+<p><strong>Intent:</strong> Describes a single sprite frame — its pixel rectangle within a packed texture atlas, its original (pre-trim) size, and UV coordinates ready for the GPU.</p>
+<p><strong>Use-case:</strong> Obtained from <code>Game.Data.FetchAtlas()</code> or from a <code>SpriteAsset</code> frame lookup; passed directly to <code>Batch2D.Draw</code> or <code>AtlasCoordinates.Draw</code> to render the frame.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AtlasCoordinates(string name, AtlasId atlasId, IntRectangle atlasRectangle, IntRectangle trimArea, Point size, int atlasIndex, int atlasWidth, int atlasHeight)
 </code></pre>
@@ -166,36 +168,43 @@
 <h4 id="atlas"><a class="header" href="#atlas">Atlas</a></h4>
 <pre><code class="language-csharp">public Texture2D Atlas { get; }
 </code></pre>
+<p>The GPU texture object for the atlas page that contains this coordinate.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a> </p>
 <h4 id="atlasid"><a class="header" href="#atlasid">AtlasId</a></h4>
 <pre><code class="language-csharp">public readonly AtlasId AtlasId;
 </code></pre>
+<p>Identifier of the atlas that owns this coordinate, used to retrieve the correct <code>Texture2D</code> page.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Data/AtlasId.html">AtlasId</a> </p>
 <h4 id="atlasindex"><a class="header" href="#atlasindex">AtlasIndex</a></h4>
 <pre><code class="language-csharp">public readonly int AtlasIndex;
 </code></pre>
+<p>Zero-based index of the atlas texture page that stores this image, for multi-page atlases.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="atlassize"><a class="header" href="#atlassize">AtlasSize</a></h4>
 <pre><code class="language-csharp">public Point AtlasSize { get; }
 </code></pre>
+<p>The pixel dimensions of the atlas texture page (width × height), used for UV normalisation.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="empty"><a class="header" href="#empty">Empty</a></h4>
 <pre><code class="language-csharp">public static AtlasCoordinates Empty;
 </code></pre>
+<p>A default-initialised <code>AtlasCoordinates</code> with no atlas or rectangle data; safe to use as a null-equivalent sentinel.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/AtlasCoordinates.html">AtlasCoordinates</a> </p>
 <h4 id="height"><a class="header" href="#height">Height</a></h4>
 <pre><code class="language-csharp">public int Height { get; }
 </code></pre>
+<p>Pixel height of the source rectangle within the atlas (the visible trimmed area).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public readonly string Name;
 </code></pre>
+<p>The asset name of the sprite as packed in the atlas (matches the key used to fetch it).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="size"><a class="header" href="#size">Size</a></h4>
@@ -207,21 +216,25 @@
 <h4 id="sourcerectangle"><a class="header" href="#sourcerectangle">SourceRectangle</a></h4>
 <pre><code class="language-csharp">public readonly IntRectangle SourceRectangle;
 </code></pre>
+<p>Pixel rectangle within the atlas texture that contains this image's visible pixels (after trimming transparent borders).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/IntRectangle.html">IntRectangle</a> </p>
 <h4 id="trimarea"><a class="header" href="#trimarea">TrimArea</a></h4>
 <pre><code class="language-csharp">public readonly IntRectangle TrimArea;
 </code></pre>
+<p>The pixel offset of the trimmed bounding box within the original (un-trimmed) image, used to restore correct positioning when rendering.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/IntRectangle.html">IntRectangle</a> </p>
 <h4 id="uv"><a class="header" href="#uv">UV</a></h4>
 <pre><code class="language-csharp">public readonly Rectangle UV;
 </code></pre>
+<p>Normalized (0–1) UV rectangle mapping <code>SourceRectangle</code> into the atlas texture, ready to pass to the GPU shader.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <h4 id="width"><a class="header" href="#width">Width</a></h4>
 <pre><code class="language-csharp">public int Width { get; }
 </code></pre>
+<p>Pixel width of the source rectangle within the atlas (the visible trimmed area).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>

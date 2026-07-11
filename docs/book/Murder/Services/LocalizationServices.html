@@ -149,15 +149,20 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class LocalizationServices
 </code></pre>
+<p>Provides methods for retrieving the current localization asset and translating <code>LocalizedString</code> values.</p>
+<p><strong>Intent:</strong> Abstracts locale-aware string resolution so game code always receives the correct translated text.</p>
+<p><strong>Use-case:</strong> Call <code>GetLocalizedString</code> anywhere you need to display player-facing text, and <code>GetCurrentLocalization</code> when you need access to the full localization data for the active language.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getcurrentlocalization"><a class="header" href="#getcurrentlocalization">GetCurrentLocalization()</a></h4>
 <pre><code class="language-csharp">public LocalizationAsset GetCurrentLocalization()
 </code></pre>
+<p>Returns the <code>LocalizationAsset</code> for the currently selected language.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Assets/Localization/LocalizationAsset.html">LocalizationAsset</a> </p>
 <h4 id="getlocalizedstringlocalizedstring"><a class="header" href="#getlocalizedstringlocalizedstring">GetLocalizedString(LocalizedString)</a></h4>
 <pre><code class="language-csharp">public string GetLocalizedString(LocalizedString localized)
 </code></pre>
+<p>Returns the translated text for the given <code>LocalizedString</code> in the active language.</p>
 <p><strong>Parameters</strong> <br />
 <code>localized</code> <a href="../../Murder/Assets/LocalizedString.html">LocalizedString</a> </p>
 <p><strong>Returns</strong> <br />
@@ -165,6 +170,7 @@
 <h4 id="trygetlocalizedstringt"><a class="header" href="#trygetlocalizedstringt">TryGetLocalizedString(T?)</a></h4>
 <pre><code class="language-csharp">public string TryGetLocalizedString(T? localized)
 </code></pre>
+<p>Safely returns the translated text for a nullable <code>LocalizedString</code>, or an empty string if it is <code>null</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>localized</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <p><strong>Returns</strong> <br />

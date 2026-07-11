@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct PathfindComponent : IComponent
 </code></pre>
+<p>Requests that the pathfinding system calculate a route from the entity's current position to <code>Target</code> using the specified algorithm.</p>
+<p><strong>Intent:</strong> Initiate pathfinding for an agent by specifying the destination and the algorithm to use (e.g. A* or HA*).</p>
+<p><strong>Use-case:</strong> Add to an agent entity with the desired <code>Target</code> world-space position and <code>Algorithm</code>; the <code>CalculatePathfindSystem</code> processes this component and replaces it with a waypoint route component once a path is found.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PathfindComponent(Vector2&amp; target, PathfindAlgorithmKind algorithm)
@@ -160,11 +163,13 @@
 <h4 id="algorithm"><a class="header" href="#algorithm">Algorithm</a></h4>
 <pre><code class="language-csharp">public readonly PathfindAlgorithmKind Algorithm;
 </code></pre>
+<p>Pathfinding algorithm to use when computing the route to <code>Target</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Ai/PathfindAlgorithmKind.html">PathfindAlgorithmKind</a> </p>
 <h4 id="target"><a class="header" href="#target">Target</a></h4>
 <pre><code class="language-csharp">public readonly Vector2 Target;
 </code></pre>
+<p>World-space destination position the pathfinding algorithm should find a route to.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p>⚡</p>

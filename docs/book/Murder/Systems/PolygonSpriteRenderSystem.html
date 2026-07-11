@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class PolygonSpriteRenderSystem : IMurderRenderSystem, IRenderSystem, ISystem
 </code></pre>
+<p>Renders polygon-shaped sprites (currently circles) defined in a <code>PolygonSpriteComponent</code> to the scene's sprite batch with y-sorting.</p>
+<p><strong>Intent:</strong> Draws procedural filled shapes at an entity's world position as an alternative to texture-based sprites.</p>
+<p><strong>Use-case:</strong> Attach <code>PolygonSpriteComponent</code> to entities that need simple filled shapes; available in editor by default.</p>
 <p><strong>Implements:</strong> <em><a href="../../Murder/Core/Graphics/IMurderRenderSystem.html">IMurderRenderSystem</a>, <a href="../../Bang/Systems/IRenderSystem.html">IRenderSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PolygonSpriteRenderSystem()
@@ -157,6 +160,7 @@
 <h4 id="drawrendercontext-context"><a class="header" href="#drawrendercontext-context">Draw(RenderContext, Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Draw(RenderContext render, Context context)
 </code></pre>
+<p>Iterates entities with <code>PolygonSpriteComponent</code> and draws each declared shape (circle, etc.) at the entity's world position with color and y-sort offset applied.</p>
 <p><strong>Parameters</strong> <br />
 <code>render</code> <a href="../../Murder/Core/Graphics/RenderContext.html">RenderContext</a> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>

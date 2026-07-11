@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class PathfindServices
 </code></pre>
+<p>Static utility methods for running pathfinding queries against the current map and managing cached pathfind state.</p>
+<p><strong>Intent:</strong> Central API for requesting navigation paths and refreshing the cached pathfind graph when the map changes.</p>
+<p><strong>Use-case:</strong> Call <code>FindPath</code> from AI systems to get a route between two grid points, and <code>UpdatePathfind</code> whenever map geometry changes to keep the HAAstar graph consistent.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="findpathmap-world-point-point-pathfindalgorithmkind-int"><a class="header" href="#findpathmap-world-point-point-pathfindalgorithmkind-int">FindPath(Map, World, Point, Point, PathfindAlgorithmKind, int)</a></h4>
 <pre><code class="language-csharp">public ImmutableDictionary&lt;TKey, TValue&gt; FindPath(Map map, World world, Point initial, Point target, PathfindAlgorithmKind kind, int collisionMask)

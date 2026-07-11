@@ -149,36 +149,45 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed enum CriterionKind : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Specifies the comparison operator used in a <code>Criterion</code> to test a blackboard fact against a value.</p>
+<p><strong>Intent:</strong> Enumerates the full set of relational operators — equality, inequality, and numeric ordering — that can be applied when evaluating dialogue conditions.</p>
+<p><strong>Use-case:</strong> Set <code>Criterion.Kind</code> to the desired operator when authoring dialogue conditions; at runtime the engine compares the live fact value to the criterion's stored value using this operator.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="bigger"><a class="header" href="#bigger">Bigger</a></h4>
 <pre><code class="language-csharp">public static const CriterionKind Bigger;
 </code></pre>
+<p>Passes when the fact's value is strictly greater than the criterion value (<code>fact &gt; value</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/CriterionKind.html">CriterionKind</a> </p>
 <h4 id="biggerorequal"><a class="header" href="#biggerorequal">BiggerOrEqual</a></h4>
 <pre><code class="language-csharp">public static const CriterionKind BiggerOrEqual;
 </code></pre>
+<p>Passes when the fact's value is greater than or equal to the criterion value (<code>fact &gt;= value</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/CriterionKind.html">CriterionKind</a> </p>
 <h4 id="different"><a class="header" href="#different">Different</a></h4>
 <pre><code class="language-csharp">public static const CriterionKind Different;
 </code></pre>
+<p>Passes when the fact's value does not equal the criterion value (<code>fact != value</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/CriterionKind.html">CriterionKind</a> </p>
 <h4 id="is"><a class="header" href="#is">Is</a></h4>
 <pre><code class="language-csharp">public static const CriterionKind Is;
 </code></pre>
+<p>Passes when the fact's value equals the criterion value (<code>fact == value</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/CriterionKind.html">CriterionKind</a> </p>
 <h4 id="less"><a class="header" href="#less">Less</a></h4>
 <pre><code class="language-csharp">public static const CriterionKind Less;
 </code></pre>
+<p>Passes when the fact's value is strictly less than the criterion value (<code>fact &lt; value</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/CriterionKind.html">CriterionKind</a> </p>
 <h4 id="lessorequal"><a class="header" href="#lessorequal">LessOrEqual</a></h4>
 <pre><code class="language-csharp">public static const CriterionKind LessOrEqual;
 </code></pre>
+<p>Passes when the fact's value is less than or equal to the criterion value (<code>fact &lt;= value</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/CriterionKind.html">CriterionKind</a> </p>
 <p>⚡</p>

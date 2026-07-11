@@ -151,6 +151,8 @@
 </code></pre>
 <p>Base class for input button constants, numbers from 100 to 120 are reserved for the engine.
 We recomend that if you need to create new constants for more gameplay buttons, start at 0.</p>
+<p><strong>Intent:</strong> Defines the built-in logical input button action IDs reserved by the engine.</p>
+<p><strong>Use-case:</strong> Refer to these constants when registering physical input bindings with <code>PlayerInput</code>; reserve IDs below 100 for game-specific buttons.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MurderInputButtons()
 </code></pre>
@@ -158,66 +160,79 @@ We recomend that if you need to create new constants for more gameplay buttons, 
 <h4 id="cancel"><a class="header" href="#cancel">Cancel</a></h4>
 <pre><code class="language-csharp">public static const int Cancel;
 </code></pre>
+<p>Button ID for the cancel/back action.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="ctrl"><a class="header" href="#ctrl">Ctrl</a></h4>
 <pre><code class="language-csharp">public static const int Ctrl;
 </code></pre>
+<p>Button ID for the Ctrl modifier key.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="debug"><a class="header" href="#debug">Debug</a></h4>
 <pre><code class="language-csharp">public static const int Debug;
 </code></pre>
+<p>Button ID used for debug-mode actions.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="delete"><a class="header" href="#delete">Delete</a></h4>
 <pre><code class="language-csharp">public static const int Delete;
 </code></pre>
+<p>Button ID for the Delete key.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="esc"><a class="header" href="#esc">Esc</a></h4>
 <pre><code class="language-csharp">public static const int Esc;
 </code></pre>
+<p>Button ID for the Escape key.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="leftclick"><a class="header" href="#leftclick">LeftClick</a></h4>
 <pre><code class="language-csharp">public static const int LeftClick;
 </code></pre>
+<p>Button ID for the left mouse button.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="middleclick"><a class="header" href="#middleclick">MiddleClick</a></h4>
 <pre><code class="language-csharp">public static const int MiddleClick;
 </code></pre>
+<p>Button ID for the middle mouse button.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="pause"><a class="header" href="#pause">Pause</a></h4>
 <pre><code class="language-csharp">public static const int Pause;
 </code></pre>
+<p>Button ID for the pause action.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="playgame"><a class="header" href="#playgame">PlayGame</a></h4>
 <pre><code class="language-csharp">public static const int PlayGame;
 </code></pre>
+<p>Button ID for starting or resuming gameplay.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="rightclick"><a class="header" href="#rightclick">RightClick</a></h4>
 <pre><code class="language-csharp">public static const int RightClick;
 </code></pre>
+<p>Button ID for the right mouse button.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="shift"><a class="header" href="#shift">Shift</a></h4>
 <pre><code class="language-csharp">public static const int Shift;
 </code></pre>
+<p>Button ID for the Shift modifier key.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="space"><a class="header" href="#space">Space</a></h4>
 <pre><code class="language-csharp">public static const int Space;
 </code></pre>
+<p>Button ID for the Spacebar / Backspace key.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="submit"><a class="header" href="#submit">Submit</a></h4>
 <pre><code class="language-csharp">public static const int Submit;
 </code></pre>
+<p>Button ID for the confirm/submit action (e.g. Enter, A button).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

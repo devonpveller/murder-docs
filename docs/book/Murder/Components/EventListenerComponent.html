@@ -149,24 +149,30 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct EventListenerComponent : IComponent
 </code></pre>
+<p>Maps animation event IDs to <code>SpriteEventInfo</code> descriptors that specify what sounds and interactions fire when the animation reaches that event frame.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Wires animation frame events (authored in Aseprite tags) to runtime actions such as sound playback or interaction chains.</p>
+<p><strong>Use-case:</strong> Added automatically from <code>EventListenerEditorComponent</code> when the world loads; <code>EventListenerSystem</code> reads <code>Events</code> each frame and executes the mapped sounds and interactions.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public EventListenerComponent()
 </code></pre>
 <pre><code class="language-csharp">public EventListenerComponent(ImmutableDictionary&lt;TKey, TValue&gt; events)
 </code></pre>
+<p>Creates a component with the given event-to-info mapping.</p>
 <p><strong>Parameters</strong> <br />
 <code>events</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0">ImmutableDictionary&lt;TKey, TValue&gt;</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="events"><a class="header" href="#events">Events</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableDictionary&lt;TKey, TValue&gt; Events;
 </code></pre>
+<p>Map of animation event ID string to its <code>SpriteEventInfo</code> (sound and interactions).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0">ImmutableDictionary&lt;TKey, TValue&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="mergeimmutabledictionarytkey-tvalue"><a class="header" href="#mergeimmutabledictionarytkey-tvalue">Merge(ImmutableDictionary&lt;TKey, TValue&gt;)</a></h4>
 <pre><code class="language-csharp">public EventListenerComponent Merge(ImmutableDictionary&lt;TKey, TValue&gt; events)
 </code></pre>
+<p>Returns a new component with the given <code>events</code> merged into the existing map, overwriting any duplicate keys.</p>
 <p><strong>Parameters</strong> <br />
 <code>events</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0">ImmutableDictionary&lt;TKey, TValue&gt;</a> </p>
 <p><strong>Returns</strong> <br />

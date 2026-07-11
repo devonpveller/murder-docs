@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class DynamicInCameraSystem : IMonoPreRenderSystem, IRenderSystem, ISystem
 </code></pre>
+<p>Runs before the render pass to compute each dynamic (non-static) entity's bounding box and adds or removes <code>InCameraComponent</code> based on whether the entity falls within the camera viewport.</p>
+<p><strong>Intent:</strong> Performs per-frame camera culling for dynamic entities so that only visible sprites are processed by render systems.</p>
+<p><strong>Use-case:</strong> Required in any world with moving sprites; pair with the static camera system for complete camera-culling coverage.</p>
 <p><strong>Implements:</strong> <em><a href="../../Murder/Core/Graphics/IMonoPreRenderSystem.html">IMonoPreRenderSystem</a>, <a href="../../Bang/Systems/IRenderSystem.html">IRenderSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DynamicInCameraSystem()
@@ -157,6 +160,7 @@
 <h4 id="calculateboundsvector2-vector2-point-vector2"><a class="header" href="#calculateboundsvector2-vector2-point-vector2">CalculateBounds(Vector2, Vector2, Point, Vector2)</a></h4>
 <pre><code class="language-csharp">public Rectangle CalculateBounds(Vector2 position, Vector2 origin, Point size, Vector2 scale)
 </code></pre>
+<p>Returns a conservative axis-aligned bounding box that fully contains the sprite after scale, flip, and origin offset; used internally to determine whether a sprite is visible to the camera.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
 <code>origin</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
@@ -167,6 +171,7 @@
 <h4 id="beforedrawcontext"><a class="header" href="#beforedrawcontext">BeforeDraw(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void BeforeDraw(Context context)
 </code></pre>
+<p>Iterates all dynamic entities and adds or removes <code>InCameraComponent</code> based on whether their computed bounding box overlaps the current camera viewport.</p>
 <p><strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <p>⚡</p>

@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed class Chord
 </code></pre>
 <p>Represents a sequence of Key with optional modifiers.</p>
+<p><strong>Intent:</strong> Describe a keyboard shortcut that requires one primary key and optionally one or more modifier keys held simultaneously.</p>
+<p><strong>Use-case:</strong> Pass a <code>Chord</code> to <code>PlayerInput.Shortcut()</code> to detect editor hotkeys (e.g. <code>Ctrl+Z</code> for undo). Implicitly converts from a single <code>Keys</code> value for convenience.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Chord(Keys key, Keys[] modifiers)
 </code></pre>
@@ -175,12 +177,14 @@
 <h4 id="none"><a class="header" href="#none">None</a></h4>
 <pre><code class="language-csharp">public static Chord None;
 </code></pre>
+<p>A chord that triggers no key (<code>Keys.None</code>), used as a safe empty default.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Input/Chord.html">Chord</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="tostring"><a class="header" href="#tostring">ToString()</a></h4>
 <pre><code class="language-csharp">public virtual string ToString()
 </code></pre>
+<p>Returns a human-readable representation of this chord (e.g. <code>&quot;Ctrl+Z&quot;</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

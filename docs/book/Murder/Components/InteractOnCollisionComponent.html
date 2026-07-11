@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct InteractOnCollisionComponent : IComponent
 </code></pre>
+<p>Triggers the entity's interactive components when another entity enters (and optionally exits) its collision bounds.</p>
+<p><strong>Intent:</strong> Enable proximity-based interactions, such as opening a door, starting a dialogue, or activating a trap, driven by physical collision overlap.</p>
+<p><strong>Use-case:</strong> Add to a trigger zone entity; configure <code>PlayerOnly</code> to restrict activation to the player, <code>OnlyOnce</code> to fire only the first time, and <code>SendMessageOnExit</code> to also fire when the collider leaves.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public InteractOnCollisionComponent()
@@ -166,31 +169,37 @@
 <h4 id="customentermessages"><a class="header" href="#customentermessages">CustomEnterMessages</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; CustomEnterMessages;
 </code></pre>
+<p>Additional interactive components whose interactions are triggered when an actor enters the collision area, in addition to any interactions on this entity.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="customexitmessages"><a class="header" href="#customexitmessages">CustomExitMessages</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; CustomExitMessages;
 </code></pre>
+<p>Additional interactive components whose interactions are triggered when an actor exits the collision area.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="onlyonce"><a class="header" href="#onlyonce">OnlyOnce</a></h4>
 <pre><code class="language-csharp">public readonly bool OnlyOnce;
 </code></pre>
+<p>When <code>true</code>, the collision interaction fires only the first time an actor enters; subsequent entries are ignored.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="playeronly"><a class="header" href="#playeronly">PlayerOnly</a></h4>
 <pre><code class="language-csharp">public readonly bool PlayerOnly;
 </code></pre>
+<p>When <code>true</code>, only collisions with the player entity trigger the interaction; other actors are ignored.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="sendmessageonexit"><a class="header" href="#sendmessageonexit">SendMessageOnExit</a></h4>
 <pre><code class="language-csharp">public readonly bool SendMessageOnExit;
 </code></pre>
+<p>When <code>true</code>, the interaction is also triggered when the colliding actor exits the collision area.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="sendmessageonstay"><a class="header" href="#sendmessageonstay">SendMessageOnStay</a></h4>
 <pre><code class="language-csharp">public readonly bool SendMessageOnStay;
 </code></pre>
+<p>When <code>true</code>, the interaction is repeatedly triggered while the colliding actor remains inside the collision area.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <p>⚡</p>

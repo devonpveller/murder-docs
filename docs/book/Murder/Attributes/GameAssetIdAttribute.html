@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class GameAssetIdAttribute : Attribute
 </code></pre>
 <p>This is an attribute used for a field guid that point to a game asset id.</p>
+<p><strong>Intent:</strong> Mark a <code>Guid</code> field as a reference to a specific <code>GameAsset</code> subtype so the editor renders an asset-type-filtered picker widget.</p>
+<p><strong>Use-case:</strong> Apply to <code>Guid</code> fields in components and assets that hold references to game content such as sprites, sounds, or dialogue assets. Set <code>allowInheritance: true</code> to allow the picker to include derived asset types.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public GameAssetIdAttribute(Type type, bool allowInheritance)
@@ -176,6 +178,7 @@
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

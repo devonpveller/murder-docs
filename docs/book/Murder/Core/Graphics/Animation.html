@@ -149,9 +149,12 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Animation
 </code></pre>
+<p><strong>Intent:</strong> Represents a single named animation clip — a sequence of atlas-frame indices with per-frame durations, optional frame events, and an optional follow-up animation.</p>
+<p><strong>Use-case:</strong> Stored inside a <code>SpriteAsset</code> and evaluated each frame to determine which atlas frame to draw. Access it via the sprite asset's <code>Animations</code> dictionary by clip name.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Animation()
 </code></pre>
+<p>Creates an empty animation with default values.</p>
 <pre><code class="language-csharp">public Animation(ImmutableArray&lt;T&gt; frames, ImmutableArray&lt;T&gt; framesDuration, ImmutableDictionary&lt;TKey, TValue&gt; events, float animationDuration, T? sequence)
 </code></pre>
 <p><strong>Parameters</strong> <br />
@@ -177,6 +180,7 @@
 <h4 id="empty"><a class="header" href="#empty">Empty</a></h4>
 <pre><code class="language-csharp">public static Animation Empty;
 </code></pre>
+<p>A pre-built animation containing a single frame with zero duration; useful as a null-safe default.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/Animation.html">Animation</a> </p>
 <h4 id="events"><a class="header" href="#events">Events</a></h4>
@@ -206,6 +210,7 @@
 <h4 id="nextanimation"><a class="header" href="#nextanimation">NextAnimation</a></h4>
 <pre><code class="language-csharp">public readonly T? NextAnimation;
 </code></pre>
+<p>An optional array of <code>AnimationSequence</code> entries that define which animation clip(s) should play after this one completes, with weighted random selection.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>

@@ -149,12 +149,16 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AgentSpeedOverride : IComponent
 </code></pre>
+<p>Temporarily overrides an agent's maximum speed and acceleration for the current frame or until removed.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Allows runtime systems to impose a hard cap on agent movement parameters, ignoring the base <code>AgentComponent</code> values.</p>
+<p><strong>Use-case:</strong> Attach to an entity to slow it down during a scripted event (e.g., wading through mud), then remove it when the condition ends.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AgentSpeedOverride()
 </code></pre>
 <pre><code class="language-csharp">public AgentSpeedOverride(float maxSpeed, float acceleration)
 </code></pre>
+<p>Creates an override with the specified speed cap and acceleration.</p>
 <p><strong>Parameters</strong> <br />
 <code>maxSpeed</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>acceleration</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
@@ -162,11 +166,13 @@
 <h4 id="acceleration"><a class="header" href="#acceleration">Acceleration</a></h4>
 <pre><code class="language-csharp">public readonly float Acceleration;
 </code></pre>
+<p>Overriding acceleration value to apply instead of the agent's default.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="maxspeed"><a class="header" href="#maxspeed">MaxSpeed</a></h4>
 <pre><code class="language-csharp">public readonly float MaxSpeed;
 </code></pre>
+<p>The maximum speed cap that replaces the agent's base <code>Speed</code> value while this component is present.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

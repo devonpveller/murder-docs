@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct DialogEdge
 </code></pre>
+<p>A directed edge in the dialogue graph that maps a source <code>Dialog</code> node to one or more candidate successor nodes, together with the selection strategy.</p>
+<p><strong>Intent:</strong> Encodes the outgoing transitions from a dialog node, listing the eligible successors and how to pick among them (sequentially, randomly, by score, or as a choice).</p>
+<p><strong>Use-case:</strong> Stored in <code>Situation.Edges</code> keyed by source dialog id; <code>CharacterRuntime</code> reads the edge after completing a node's lines to determine which dialog to visit next.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DialogEdge(MatchKind kind, ImmutableArray&lt;T&gt; dialogs)
 </code></pre>
+<p>Creates an edge with the given selection strategy and list of candidate dialog ids.</p>
 <p><strong>Parameters</strong> <br />
 <code>kind</code> <a href="../../../Murder/Core/Dialogs/MatchKind.html">MatchKind</a> <br />
 <code>dialogs</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
@@ -159,17 +163,20 @@
 <h4 id="dialogs"><a class="header" href="#dialogs">Dialogs</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Dialogs;
 </code></pre>
+<p>Ordered list of dialog IDs that are candidates for the next step; which one is chosen depends on <code>Kind</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="kind"><a class="header" href="#kind">Kind</a></h4>
 <pre><code class="language-csharp">public readonly MatchKind Kind;
 </code></pre>
+<p>The strategy used to select the next dialog from <code>Dialogs</code> (e.g. <code>Next</code>, <code>Random</code>, <code>HighestScore</code>, <code>Choice</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/MatchKind.html">MatchKind</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="debuggerdisplay"><a class="header" href="#debuggerdisplay">DebuggerDisplay()</a></h4>
 <pre><code class="language-csharp">public string DebuggerDisplay()
 </code></pre>
+<p>Returns a compact debug string showing the edge's <code>Kind</code> and the set of target dialog ids.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

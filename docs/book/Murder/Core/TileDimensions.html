@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct TileDimensions
 </code></pre>
+<p>Describes the pixel origin and tile-size of a single tile for use during rendering and placement calculations.</p>
+<p><strong>Intent:</strong> Bundles the pixel-space origin offset and the tile dimensions needed when drawing a tile sprite at a grid position.</p>
+<p><strong>Use-case:</strong> Returned from tile asset queries so rendering systems know exactly where to place and how large each tile's sprite should be.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TileDimensions(Vector2 origin, Point size)
 </code></pre>
+<p>Creates a <code>TileDimensions</code> with the specified pixel origin and tile size.</p>
 <p><strong>Parameters</strong> <br />
 <code>origin</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
 <code>size</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
@@ -159,11 +163,13 @@
 <h4 id="origin"><a class="header" href="#origin">Origin</a></h4>
 <pre><code class="language-csharp">public Vector2 Origin;
 </code></pre>
+<p>The pixel-space offset from the top-left of the grid cell to where this tile's sprite should be drawn.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="size"><a class="header" href="#size">Size</a></h4>
 <pre><code class="language-csharp">public Point Size;
 </code></pre>
+<p>The width and height of this tile in pixels.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p>⚡</p>

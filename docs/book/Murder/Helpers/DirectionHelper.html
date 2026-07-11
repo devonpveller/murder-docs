@@ -149,31 +149,39 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class DirectionHelper
 </code></pre>
+<p>Utility methods for converting between <code>Direction</code> enum values, angles, vectors, and sprite flip flags.</p>
+<p><strong>Intent:</strong> Centralizes all direction math so game code can convert freely between angle radians, <code>Vector2</code> velocities, and the eight-direction enum.</p>
+<p><strong>Use-case:</strong> Use <code>FromVector</code> to derive a character's facing direction from its velocity, <code>ToAngle</code> to rotate a projectile sprite, and <code>Flipped</code>/<code>GetFlipped</code> to determine whether a sprite should be horizontally mirrored.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="cardinal4"><a class="header" href="#cardinal4">Cardinal4</a></h4>
 <pre><code class="language-csharp">public static ImmutableArray&lt;T&gt; Cardinal4;
 </code></pre>
+<p>The four axis-aligned directions: Right, Down, Left, Up.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="cardinal4flipped"><a class="header" href="#cardinal4flipped">Cardinal4Flipped</a></h4>
 <pre><code class="language-csharp">public static ImmutableArray&lt;T&gt; Cardinal4Flipped;
 </code></pre>
+<p>The four axis-aligned directions in reverse (Up, Left, Down, Right).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="cardinal8"><a class="header" href="#cardinal8">Cardinal8</a></h4>
 <pre><code class="language-csharp">public static ImmutableArray&lt;T&gt; Cardinal8;
 </code></pre>
+<p>All eight compass directions in clockwise order starting from Right.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="cardinal8flipped"><a class="header" href="#cardinal8flipped">Cardinal8Flipped</a></h4>
 <pre><code class="language-csharp">public static ImmutableArray&lt;T&gt; Cardinal8Flipped;
 </code></pre>
+<p>All eight compass directions in counter-clockwise order.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="flippeddirection"><a class="header" href="#flippeddirection">Flipped(Direction)</a></h4>
 <pre><code class="language-csharp">public bool Flipped(Direction direction)
 </code></pre>
+<p>Returns <code>true</code> if the given direction requires the sprite to be horizontally flipped.</p>
 <p><strong>Parameters</strong> <br />
 <code>direction</code> <a href="../../Murder/Helpers/Direction.html">Direction</a> </p>
 <p><strong>Returns</strong> <br />
@@ -191,6 +199,7 @@
 <h4 id="fromvectorvector2"><a class="header" href="#fromvectorvector2">FromVector(Vector2)</a></h4>
 <pre><code class="language-csharp">public Direction FromVector(Vector2 vector)
 </code></pre>
+<p>Converts a <code>Vector2</code> velocity or offset to the closest of the eight <code>Direction</code> values.</p>
 <p><strong>Parameters</strong> <br />
 <code>vector</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -198,6 +207,7 @@
 <h4 id="fromvectorwith4directionsvector2"><a class="header" href="#fromvectorwith4directionsvector2">FromVectorWith4Directions(Vector2)</a></h4>
 <pre><code class="language-csharp">public Direction FromVectorWith4Directions(Vector2 vector)
 </code></pre>
+<p>Converts a <code>Vector2</code> to the closest of the four cardinal <code>Direction</code> values (no diagonals).</p>
 <p><strong>Parameters</strong> <br />
 <code>vector</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -205,6 +215,7 @@
 <h4 id="invertdirection"><a class="header" href="#invertdirection">Invert(Direction)</a></h4>
 <pre><code class="language-csharp">public Direction Invert(Direction direction)
 </code></pre>
+<p>Returns the opposite of the given direction (e.g. Up → Down, UpLeft → DownRight).</p>
 <p><strong>Parameters</strong> <br />
 <code>direction</code> <a href="../../Murder/Helpers/Direction.html">Direction</a> </p>
 <p><strong>Returns</strong> <br />
@@ -212,6 +223,7 @@
 <h4 id="lookatentityentity-entity"><a class="header" href="#lookatentityentity-entity">LookAtEntity(Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public Direction LookAtEntity(Entity e, Entity target)
 </code></pre>
+<p>Returns the direction from entity <code>e</code> toward entity <code>target</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>target</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
@@ -220,6 +232,7 @@
 <h4 id="lookatpositionentity-vector2"><a class="header" href="#lookatpositionentity-vector2">LookAtPosition(Entity, Vector2)</a></h4>
 <pre><code class="language-csharp">public Direction LookAtPosition(Entity e, Vector2 target)
 </code></pre>
+<p>Returns the direction from entity <code>e</code> toward world position <code>target</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>target</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
@@ -228,16 +241,19 @@
 <h4 id="random"><a class="header" href="#random">Random()</a></h4>
 <pre><code class="language-csharp">public Direction Random()
 </code></pre>
+<p>Returns a random one of the eight compass directions.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Helpers/Direction.html">Direction</a> </p>
 <h4 id="randomcardinal"><a class="header" href="#randomcardinal">RandomCardinal()</a></h4>
 <pre><code class="language-csharp">public Direction RandomCardinal()
 </code></pre>
+<p>Returns a random one of the four cardinal directions (no diagonals).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Helpers/Direction.html">Direction</a> </p>
 <h4 id="reversedirection"><a class="header" href="#reversedirection">Reverse(Direction)</a></h4>
 <pre><code class="language-csharp">public Direction Reverse(Direction direction)
 </code></pre>
+<p>Returns the opposite of the given direction; alias for <code>Invert</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>direction</code> <a href="../../Murder/Helpers/Direction.html">Direction</a> </p>
 <p><strong>Returns</strong> <br />
@@ -245,6 +261,7 @@
 <h4 id="roundto4directionsdirection-orientation"><a class="header" href="#roundto4directionsdirection-orientation">RoundTo4Directions(Direction, Orientation)</a></h4>
 <pre><code class="language-csharp">public Direction RoundTo4Directions(Direction direction, Orientation bias)
 </code></pre>
+<p>Rounds a diagonal direction to the nearest cardinal direction, using <code>bias</code> to break ties.</p>
 <p><strong>Parameters</strong> <br />
 <code>direction</code> <a href="../../Murder/Helpers/Direction.html">Direction</a> <br />
 <code>bias</code> <a href="../../Murder/Core/Orientation.html">Orientation</a> </p>
@@ -263,6 +280,7 @@
 <h4 id="getflippeddirection"><a class="header" href="#getflippeddirection">GetFlipped(Direction)</a></h4>
 <pre><code class="language-csharp">public ImageFlip GetFlipped(Direction direction)
 </code></pre>
+<p>Returns the <code>ImageFlip</code> flags needed to orient a sprite for the given direction.</p>
 <p><strong>Parameters</strong> <br />
 <code>direction</code> <a href="../../Murder/Helpers/Direction.html">Direction</a> </p>
 <p><strong>Returns</strong> <br />
@@ -270,6 +288,7 @@
 <h4 id="getflippedhorizontaldirection"><a class="header" href="#getflippedhorizontaldirection">GetFlippedHorizontal(Direction)</a></h4>
 <pre><code class="language-csharp">public ImageFlip GetFlippedHorizontal(Direction direction)
 </code></pre>
+<p>Returns only the horizontal component of <code>ImageFlip</code> for the given direction.</p>
 <p><strong>Parameters</strong> <br />
 <code>direction</code> <a href="../../Murder/Helpers/Direction.html">Direction</a> </p>
 <p><strong>Returns</strong> <br />
@@ -277,6 +296,7 @@
 <h4 id="tocardinaldirection-string-string-string-string"><a class="header" href="#tocardinaldirection-string-string-string-string">ToCardinal(Direction, string, string, string, string)</a></h4>
 <pre><code class="language-csharp">public string ToCardinal(Direction direction, string n, string e, string s, string w)
 </code></pre>
+<p>Maps a direction to one of the four provided cardinal label strings (N/E/S/W).</p>
 <p><strong>Parameters</strong> <br />
 <code>direction</code> <a href="../../Murder/Helpers/Direction.html">Direction</a> <br />
 <code>n</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -288,6 +308,7 @@
 <h4 id="tocardinaldirection"><a class="header" href="#tocardinaldirection">ToCardinal(Direction)</a></h4>
 <pre><code class="language-csharp">public string ToCardinal(Direction direction)
 </code></pre>
+<p>Returns the short compass string for the direction (e.g. <code>&quot;N&quot;</code>, <code>&quot;SE&quot;</code>).</p>
 <p><strong>Parameters</strong> <br />
 <code>direction</code> <a href="../../Murder/Helpers/Direction.html">Direction</a> </p>
 <p><strong>Returns</strong> <br />
@@ -295,6 +316,7 @@
 <h4 id="tocardinal4direction-string-string-string-bool"><a class="header" href="#tocardinal4direction-string-string-string-bool">ToCardinal4(Direction, string, string, string, bool)</a></h4>
 <pre><code class="language-csharp">public string ToCardinal4(Direction direction, string n, string e, string s, bool verticalPriority)
 </code></pre>
+<p>Maps a direction to one of three cardinal label strings using four-direction snapping; <code>verticalPriority</code> determines tie-breaking for diagonal inputs.</p>
 <p><strong>Parameters</strong> <br />
 <code>direction</code> <a href="../../Murder/Helpers/Direction.html">Direction</a> <br />
 <code>n</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -306,6 +328,7 @@
 <h4 id="getnameint-int-bool"><a class="header" href="#getnameint-int-bool">GetName(int, int, bool)</a></h4>
 <pre><code class="language-csharp">public ValueTuple&lt;T1, T2&gt; GetName(int i, int totalDirections, bool flipWest)
 </code></pre>
+<p>Returns the animation suffix name and flip flag for direction index <code>i</code> out of <code>totalDirections</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>i</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>totalDirections</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -325,6 +348,7 @@
 <h4 id="tocardinalflippeddirection-string-string-string"><a class="header" href="#tocardinalflippeddirection-string-string-string">ToCardinalFlipped(Direction, string, string, string)</a></h4>
 <pre><code class="language-csharp">public ValueTuple&lt;T1, T2&gt; ToCardinalFlipped(Direction direction, string n, string e, string s)
 </code></pre>
+<p>Returns the animation suffix name and horizontal flip flag for the given direction using three cardinal label strings.</p>
 <p><strong>Parameters</strong> <br />
 <code>direction</code> <a href="../../Murder/Helpers/Direction.html">Direction</a> <br />
 <code>n</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />

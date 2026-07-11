@@ -149,25 +149,32 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">sealed struct Command
 </code></pre>
+<p>Represents a parsed in-game console command, pairing the method to invoke with its name, help text, and expected arguments.</p>
+<p><strong>Intent:</strong> Stores all metadata needed to dispatch a console command at runtime.</p>
+<p><strong>Use-case:</strong> Populated automatically by <code>CommandServices</code> through reflection; accessed when the player types a command in the debug console.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="arguments"><a class="header" href="#arguments">Arguments</a></h4>
 <pre><code class="language-csharp">public ValueTuple`2[] Arguments { get; public set; }
 </code></pre>
+<p>Ordered list of <code>(type, name)</code> pairs describing the parameters the command expects.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ValueTuple-2?view=net-7.0">ValueTuple&lt;T1, T2&gt;[]</a> </p>
 <h4 id="help"><a class="header" href="#help">Help</a></h4>
 <pre><code class="language-csharp">public string Help { get; public set; }
 </code></pre>
+<p>Human-readable description shown in the console when the user types <code>help</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="method"><a class="header" href="#method">Method</a></h4>
 <pre><code class="language-csharp">public MethodInfo Method { get; public set; }
 </code></pre>
+<p>The reflected static method that will be invoked when this command is executed.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Reflection.MethodInfo?view=net-7.0">MethodInfo</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public string Name { get; }
 </code></pre>
+<p>The command keyword as it appears in the console (taken from the method name, lowercased).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

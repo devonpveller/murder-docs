@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct ChoiceLine
 </code></pre>
+<p>A displayable dialogue line that presents the player with a set of selectable options.</p>
+<p><strong>Intent:</strong> Carries all the information needed to render a choice prompt — the speaking character, portrait, a title or question text, and the ordered list of choice labels.</p>
+<p><strong>Use-case:</strong> Returned by <code>CharacterRuntime.NextLine</code> (wrapped in a <code>DialogLine</code>) when the active dialog node is a choice block; read <code>Choices</code> to populate your UI option list and call <code>CharacterRuntime.DoChoice</code> with the player's index.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ChoiceLine(Guid speaker, string portrait, string title, ImmutableArray&lt;T&gt; choices)
 </code></pre>
+<p>Creates a choice line with the given speaker, portrait, title text, and list of option labels.</p>
 <p><strong>Parameters</strong> <br />
 <code>speaker</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>portrait</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -167,11 +171,13 @@
 <h4 id="portrait"><a class="header" href="#portrait">Portrait</a></h4>
 <pre><code class="language-csharp">public readonly string Portrait;
 </code></pre>
+<p>Optional portrait key for the speaking character to display alongside the choice prompt; <code>null</code> means use the speaker's default portrait.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="speaker"><a class="header" href="#speaker">Speaker</a></h4>
 <pre><code class="language-csharp">public readonly T? Speaker;
 </code></pre>
+<p>GUID of the <code>SpeakerAsset</code> presenting this choice; <code>null</code> when no speaker is associated.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="title"><a class="header" href="#title">Title</a></h4>

@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class PositionExtensions
 </code></pre>
+<p>Extension methods for <code>IMurderTransformComponent</code> and related types for grid-coordinate conversion, global transform queries, and cell comparison.</p>
+<p><strong>Intent:</strong> Provides the coordinate-space conversions that game systems need when working with the tile grid and entity positions.</p>
+<p><strong>Use-case:</strong> Use in any system that needs to convert world-space positions to tile-grid cells, compare entity occupancy, or retrieve an entity's world-space position including parent transforms.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="issamecellimurdertransformcomponent-imurdertransformcomponent"><a class="header" href="#issamecellimurdertransformcomponent-imurdertransformcomponent">IsSameCell(IMurderTransformComponent, IMurderTransformComponent)</a></h4>
 <pre><code class="language-csharp">public bool IsSameCell(IMurderTransformComponent this, IMurderTransformComponent other)
 </code></pre>
+<p>Returns <code>true</code> if both transforms occupy the same tile-grid cell.</p>
 <p><strong>Parameters</strong> <br />
 <code>this</code> <a href="../../Murder/Components/IMurderTransformComponent.html">IMurderTransformComponent</a> <br />
 <code>other</code> <a href="../../Murder/Components/IMurderTransformComponent.html">IMurderTransformComponent</a> </p>
@@ -161,6 +165,7 @@
 <h4 id="getglobaltransformentity"><a class="header" href="#getglobaltransformentity">GetGlobalTransform(Entity)</a></h4>
 <pre><code class="language-csharp">public IMurderTransformComponent GetGlobalTransform(Entity entity)
 </code></pre>
+<p>Returns the entity's transform in world space, composing all parent transforms up the hierarchy.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <p><strong>Returns</strong> <br />
@@ -168,6 +173,7 @@
 <h4 id="cellpointimurdertransformcomponent"><a class="header" href="#cellpointimurdertransformcomponent">CellPoint(IMurderTransformComponent)</a></h4>
 <pre><code class="language-csharp">public Point CellPoint(IMurderTransformComponent this)
 </code></pre>
+<p>Returns the tile-grid cell coordinate of the transform as a <code>Point</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>this</code> <a href="../../Murder/Components/IMurderTransformComponent.html">IMurderTransformComponent</a> </p>
 <p><strong>Returns</strong> <br />
@@ -175,6 +181,7 @@
 <h4 id="fromcelltopointpositionpoint"><a class="header" href="#fromcelltopointpositionpoint">FromCellToPointPosition(Point&amp;)</a></h4>
 <pre><code class="language-csharp">public Point FromCellToPointPosition(Point&amp; point)
 </code></pre>
+<p>Converts a tile-grid cell coordinate to its world-space pixel position (top-left of the cell).</p>
 <p><strong>Parameters</strong> <br />
 <code>point</code> <a href="../../Murder/Core/Geometry/Point.html">Point&amp;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -182,6 +189,7 @@
 <h4 id="fromworldtolowerboundgridpositionpoint"><a class="header" href="#fromworldtolowerboundgridpositionpoint">FromWorldToLowerBoundGridPosition(Point&amp;)</a></h4>
 <pre><code class="language-csharp">public Point FromWorldToLowerBoundGridPosition(Point&amp; point)
 </code></pre>
+<p>Snaps a world-space pixel position down to the lower-left corner of its enclosing grid cell.</p>
 <p><strong>Parameters</strong> <br />
 <code>point</code> <a href="../../Murder/Core/Geometry/Point.html">Point&amp;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -189,6 +197,7 @@
 <h4 id="tocellpointimurdertransformcomponent"><a class="header" href="#tocellpointimurdertransformcomponent">ToCellPoint(IMurderTransformComponent)</a></h4>
 <pre><code class="language-csharp">public Point ToCellPoint(IMurderTransformComponent position)
 </code></pre>
+<p>Converts the given world-space transform to its tile-grid cell coordinate.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="../../Murder/Components/IMurderTransformComponent.html">IMurderTransformComponent</a> </p>
 <p><strong>Returns</strong> <br />
@@ -196,60 +205,61 @@
 <h4 id="topointpositioncomponent"><a class="header" href="#topointpositioncomponent">ToPoint(PositionComponent)</a></h4>
 <pre><code class="language-csharp">public Point ToPoint(PositionComponent position)
 </code></pre>
+<p>Returns the position component's coordinates as an integer <code>Point</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="../../Murder/Components/PositionComponent.html">PositionComponent</a> </p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
-<h4 id="addpositioncomponent-point"><a class="header" href="#addpositioncomponent-point">Add(PositionComponent, Point)</a></h4>
 <pre><code class="language-csharp">public PositionComponent Add(PositionComponent position, Point delta)
 </code></pre>
+<p>Returns a new <code>PositionComponent</code> offset from <code>position</code> by the integer <code>delta</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="../../Murder/Components/PositionComponent.html">PositionComponent</a> <br />
 <code>delta</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/PositionComponent.html">PositionComponent</a> </p>
-<h4 id="addpositioncomponent-float-float"><a class="header" href="#addpositioncomponent-float-float">Add(PositionComponent, float, float)</a></h4>
 <pre><code class="language-csharp">public PositionComponent Add(PositionComponent position, float dx, float dy)
 </code></pre>
+<p>Returns a new <code>PositionComponent</code> offset from <code>position</code> by the given float deltas.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="../../Murder/Components/PositionComponent.html">PositionComponent</a> <br />
 <code>dx</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>dy</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/PositionComponent.html">PositionComponent</a> </p>
-<h4 id="addpositioncomponent-vector2"><a class="header" href="#addpositioncomponent-vector2">Add(PositionComponent, Vector2)</a></h4>
 <pre><code class="language-csharp">public PositionComponent Add(PositionComponent position, Vector2 delta)
 </code></pre>
+<p>Returns a new <code>PositionComponent</code> offset from <code>position</code> by the given <code>Vector2</code> delta.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="../../Murder/Components/PositionComponent.html">PositionComponent</a> <br />
 <code>delta</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/PositionComponent.html">PositionComponent</a> </p>
-<h4 id="topositionpoint"><a class="header" href="#topositionpoint">ToPosition(Point&amp;)</a></h4>
 <pre><code class="language-csharp">public PositionComponent ToPosition(Point&amp; position)
 </code></pre>
+<p>Converts an integer <code>Point</code> to a <code>PositionComponent</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="../../Murder/Core/Geometry/Point.html">Point&amp;</a> </p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/PositionComponent.html">PositionComponent</a> </p>
-<h4 id="topositionvector2"><a class="header" href="#topositionvector2">ToPosition(Vector2&amp;)</a></h4>
 <pre><code class="language-csharp">public PositionComponent ToPosition(Vector2&amp; position)
 </code></pre>
+<p>Converts a <code>Vector2</code> to a <code>PositionComponent</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2&amp;</a> </p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/PositionComponent.html">PositionComponent</a> </p>
-<h4 id="addtovector2imurdertransformcomponent-vector2"><a class="header" href="#addtovector2imurdertransformcomponent-vector2">AddToVector2(IMurderTransformComponent, Vector2)</a></h4>
 <pre><code class="language-csharp">public Vector2 AddToVector2(IMurderTransformComponent position, Vector2 delta)
 </code></pre>
+<p>Returns the transform's position as a <code>Vector2</code> offset by <code>delta</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="../../Murder/Components/IMurderTransformComponent.html">IMurderTransformComponent</a> <br />
 <code>delta</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
-<h4 id="addtovector2positioncomponent-float-float"><a class="header" href="#addtovector2positioncomponent-float-float">AddToVector2(PositionComponent, float, float)</a></h4>
 <pre><code class="language-csharp">public Vector2 AddToVector2(PositionComponent position, float dx, float dy)
 </code></pre>
+<p>Returns the position component as a <code>Vector2</code> offset by the given float deltas.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="../../Murder/Components/PositionComponent.html">PositionComponent</a> <br />
 <code>dx</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
@@ -259,6 +269,7 @@
 <h4 id="fromcelltovector2centerpositionpoint"><a class="header" href="#fromcelltovector2centerpositionpoint">FromCellToVector2CenterPosition(Point&amp;)</a></h4>
 <pre><code class="language-csharp">public Vector2 FromCellToVector2CenterPosition(Point&amp; point)
 </code></pre>
+<p>Converts a tile-grid cell coordinate to the world-space <code>Vector2</code> position at the center of that cell.</p>
 <p><strong>Parameters</strong> <br />
 <code>point</code> <a href="../../Murder/Core/Geometry/Point.html">Point&amp;</a> </p>
 <p><strong>Returns</strong> <br />

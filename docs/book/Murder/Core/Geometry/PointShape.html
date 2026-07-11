@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct PointShape : IShape
 </code></pre>
+<p>An <code>IShape</code> implementation that represents a single point as a degenerate collision shape.</p>
+<p><strong>Intent:</strong> Mark a precise world-space point as a collision or trigger location.</p>
+<p><strong>Use-case:</strong> Use <code>PointShape</code> in a <code>ColliderComponent</code> for pixel-accurate hit detection, such as a cursor, a bullet impact point, or a single-tile trigger.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Murder/Core/Geometry/IShape.html">IShape</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PointShape(Point point)
@@ -159,17 +162,20 @@
 <h4 id="point"><a class="header" href="#point">Point</a></h4>
 <pre><code class="language-csharp">public readonly Point Point;
 </code></pre>
+<p>The single point that defines this shape's position.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getpolygon"><a class="header" href="#getpolygon">GetPolygon()</a></h4>
 <pre><code class="language-csharp">public virtual PolygonShape GetPolygon()
 </code></pre>
+<p>Returns a minimal degenerate triangle polygon centred on this point. Result is cached.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/PolygonShape.html">PolygonShape</a> </p>
 <h4 id="getboundingbox"><a class="header" href="#getboundingbox">GetBoundingBox()</a></h4>
 <pre><code class="language-csharp">public virtual Rectangle GetBoundingBox()
 </code></pre>
+<p>Returns a 1×1 bounding rectangle at this point's position.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <p>⚡</p>

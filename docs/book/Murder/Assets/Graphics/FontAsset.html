@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class FontAsset : GameAsset
 </code></pre>
+<p>Stores all metrics and glyph data required to render a bitmap font, including character rectangles, kerning pairs, line height, and the path to the font texture.</p>
+<p><strong>Intent:</strong> Provide the engine's text renderer with all necessary font metrics so glyphs can be looked up and positioned correctly when drawing strings.</p>
+<p><strong>Use-case:</strong> <code>FontAsset</code> instances are loaded from disk at startup and referenced by ID when rendering text. Access <code>FontAsset.Characters</code> to look up individual glyph metrics and <code>FontAsset.Kernings</code> to apply per-pair spacing adjustments.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Murder/Assets/GameAsset.html">GameAsset</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FontAsset()
@@ -167,125 +170,150 @@
 <h4 id="baseline"><a class="header" href="#baseline">Baseline</a></h4>
 <pre><code class="language-csharp">public float Baseline;
 </code></pre>
+<p>Vertical offset in pixels from the top of the line to the text baseline.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="canbecreated"><a class="header" href="#canbecreated">CanBeCreated</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeCreated { get; }
 </code></pre>
+<p>Determines if the asset can be created, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canbedeleted"><a class="header" href="#canbedeleted">CanBeDeleted</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeDeleted { get; }
 </code></pre>
+<p>Determines if the asset can be deleted, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canberenamed"><a class="header" href="#canberenamed">CanBeRenamed</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeRenamed { get; }
 </code></pre>
+<p>Determines if the asset can be renamed, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canbesaved"><a class="header" href="#canbesaved">CanBeSaved</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeSaved { get; }
 </code></pre>
+<p>Determines if the asset can be saved, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="characters"><a class="header" href="#characters">Characters</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableDictionary&lt;TKey, TValue&gt; Characters;
 </code></pre>
+<p>Dictionary mapping Unicode code-points to their glyph metrics (position in the texture atlas, advance width, etc.).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0">ImmutableDictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="editorcolor"><a class="header" href="#editorcolor">EditorColor</a></h4>
 <pre><code class="language-csharp">public virtual Vector4 EditorColor { get; }
 </code></pre>
+<p>Gets the default color used in the editor for the asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="editorfolder"><a class="header" href="#editorfolder">EditorFolder</a></h4>
 <pre><code class="language-csharp">public virtual string EditorFolder { get; }
 </code></pre>
+<p>Gets the folder path in the editor where this asset is grouped.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="filechanged"><a class="header" href="#filechanged">FileChanged</a></h4>
 <pre><code class="language-csharp">public bool FileChanged { get; public set; }
 </code></pre>
+<p>Indicates whether the asset has unsaved modifications.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="filepath"><a class="header" href="#filepath">FilePath</a></h4>
 <pre><code class="language-csharp">public string FilePath { get; public set; }
 </code></pre>
+<p>Path to this asset file, relative to its base directory.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="guid"><a class="header" href="#guid">Guid</a></h4>
 <pre><code class="language-csharp">public Guid Guid { get; protected set; }
 </code></pre>
+<p>Unique identifier for this asset, used to reference it from other assets and components.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="icon"><a class="header" href="#icon">Icon</a></h4>
 <pre><code class="language-csharp">public virtual char Icon { get; }
 </code></pre>
+<p>FontAwesome character icon displayed next to this asset in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0">char</a> </p>
 <h4 id="index"><a class="header" href="#index">Index</a></h4>
 <pre><code class="language-csharp">public int Index;
 </code></pre>
+<p>Numeric index used to identify this font in the engine's font registry.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="isstoredinsavedata"><a class="header" href="#isstoredinsavedata">IsStoredInSaveData</a></h4>
 <pre><code class="language-csharp">public virtual bool IsStoredInSaveData { get; }
 </code></pre>
+<p>Whether this file is stored relative to the save path.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="kernings"><a class="header" href="#kernings">Kernings</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Kernings;
 </code></pre>
+<p>List of kerning pairs that adjust horizontal spacing between specific character combinations.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="lineheight"><a class="header" href="#lineheight">LineHeight</a></h4>
 <pre><code class="language-csharp">public int LineHeight;
 </code></pre>
+<p>Vertical distance in pixels between consecutive lines of text.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public string Name { get; public set; }
 </code></pre>
+<p>Display name of this asset as shown in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="offset"><a class="header" href="#offset">Offset</a></h4>
 <pre><code class="language-csharp">public Point Offset;
 </code></pre>
+<p>Pixel offset applied to the rendered position of every glyph in this font.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="rename"><a class="header" href="#rename">Rename</a></h4>
 <pre><code class="language-csharp">public bool Rename { get; public set; }
 </code></pre>
+<p>Whether the file should be renamed and the previous name deleted on next save.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="savelocation"><a class="header" href="#savelocation">SaveLocation</a></h4>
 <pre><code class="language-csharp">public virtual string SaveLocation { get; }
 </code></pre>
+<p>The folder path where this asset is saved on disk.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="storeindatabase"><a class="header" href="#storeindatabase">StoreInDatabase</a></h4>
 <pre><code class="language-csharp">public virtual bool StoreInDatabase { get; }
 </code></pre>
+<p>Whether this asset is stored following the database hierarchy.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="taggedfordeletion"><a class="header" href="#taggedfordeletion">TaggedForDeletion</a></h4>
 <pre><code class="language-csharp">public bool TaggedForDeletion;
 </code></pre>
+<p>Marks this asset for removal on the next save.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="texturepath"><a class="header" href="#texturepath">TexturePath</a></h4>
 <pre><code class="language-csharp">public string TexturePath;
 </code></pre>
+<p>Relative path to the bitmap font texture file used for rendering glyphs.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="onmodified"><a class="header" href="#onmodified">OnModified()</a></h4>
 <pre><code class="language-csharp">protected virtual void OnModified()
 </code></pre>
+<p>Called by the editor when the asset is modified; override to clear cached derived data.</p>
 <h4 id="duplicatestring"><a class="header" href="#duplicatestring">Duplicate(string)</a></h4>
 <pre><code class="language-csharp">public GameAsset Duplicate(string name)
 </code></pre>
+<p>Creates a deep copy of this asset with the given new name.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -293,27 +321,33 @@
 <h4 id="assetstobesaved"><a class="header" href="#assetstobesaved">AssetsToBeSaved()</a></h4>
 <pre><code class="language-csharp">public List&lt;T&gt; AssetsToBeSaved()
 </code></pre>
+<p>Returns and clears the list of dependent assets queued to be saved alongside this asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <h4 id="getsimplifiedname"><a class="header" href="#getsimplifiedname">GetSimplifiedName()</a></h4>
 <pre><code class="language-csharp">public string GetSimplifiedName()
 </code></pre>
+<p>Returns the asset name stripped of any editor-folder prefix characters.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="getsplitnamewitheditorpath"><a class="header" href="#getsplitnamewitheditorpath">GetSplitNameWithEditorPath()</a></h4>
 <pre><code class="language-csharp">public String[] GetSplitNameWithEditorPath()
 </code></pre>
+<p>Returns the display name split into path segments following the EditorFolder hierarchy.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string[]</a> </p>
 <h4 id="afterdeserialized"><a class="header" href="#afterdeserialized">AfterDeserialized()</a></h4>
 <pre><code class="language-csharp">public virtual void AfterDeserialized()
 </code></pre>
+<p>Called after deserialization; override to rebuild caches from deserialized data.</p>
 <h4 id="makeguid"><a class="header" href="#makeguid">MakeGuid()</a></h4>
 <pre><code class="language-csharp">public void MakeGuid()
 </code></pre>
+<p>Generates and assigns a new GUID to this asset.</p>
 <h4 id="trackassetonsaveguid"><a class="header" href="#trackassetonsaveguid">TrackAssetOnSave(Guid)</a></h4>
 <pre><code class="language-csharp">public void TrackAssetOnSave(Guid g)
 </code></pre>
+<p>Queues a dependent asset by GUID to be saved whenever this asset is saved.</p>
 <p><strong>Parameters</strong> <br />
 <code>g</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p>⚡</p>

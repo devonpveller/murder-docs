@@ -150,40 +150,49 @@
 <pre><code class="language-csharp">public sealed enum AtlasId : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
+<p><strong>Intent:</strong> Identifies which texture atlas a sprite or asset belongs to.</p>
+<p><strong>Use-case:</strong> Use <code>AtlasId</code> values when loading or referencing a <code>TextureAtlas</code> so the engine fetches sprites from the correct packed atlas file. The <code>Description</code> attribute on each value maps to the actual atlas filename used at build time.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="cutscenes"><a class="header" href="#cutscenes">Cutscenes</a></h4>
 <pre><code class="language-csharp">public static const AtlasId Cutscenes;
 </code></pre>
+<p>Atlas containing sprites used exclusively during cutscene playback.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Data/AtlasId.html">AtlasId</a> </p>
 <h4 id="editor"><a class="header" href="#editor">Editor</a></h4>
 <pre><code class="language-csharp">public static const AtlasId Editor;
 </code></pre>
+<p>Atlas containing editor-only UI icons and sprites; not shipped with the release build.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Data/AtlasId.html">AtlasId</a> </p>
 <h4 id="gameplay"><a class="header" href="#gameplay">Gameplay</a></h4>
 <pre><code class="language-csharp">public static const AtlasId Gameplay;
 </code></pre>
+<p>Main atlas packed with all gameplay sprites; loaded when entering a game scene.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Data/AtlasId.html">AtlasId</a> </p>
 <h4 id="none"><a class="header" href="#none">None</a></h4>
 <pre><code class="language-csharp">public static const AtlasId None;
 </code></pre>
+<p>Sentinel value indicating no atlas is assigned.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Data/AtlasId.html">AtlasId</a> </p>
 <h4 id="preload"><a class="header" href="#preload">Preload</a></h4>
 <pre><code class="language-csharp">public static const AtlasId Preload;
 </code></pre>
+<p>Atlas loaded during the initial preload phase before the main game loop begins.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Data/AtlasId.html">AtlasId</a> </p>
 <h4 id="static"><a class="header" href="#static">Static</a></h4>
 <pre><code class="language-csharp">public static const AtlasId Static;
 </code></pre>
+<p>Atlas for sprites that remain loaded across scenes and are never unloaded automatically.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Data/AtlasId.html">AtlasId</a> </p>
 <h4 id="temporary"><a class="header" href="#temporary">Temporary</a></h4>
 <pre><code class="language-csharp">public static const AtlasId Temporary;
 </code></pre>
+<p>Transient atlas that may be discarded between scenes or on demand.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Data/AtlasId.html">AtlasId</a> </p>
 <p>⚡</p>

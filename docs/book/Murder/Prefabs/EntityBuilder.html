@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class EntityBuilder
 </code></pre>
+<p>Factory and utility methods for constructing and replacing ECS entities from prefab assets at runtime.</p>
+<p><strong>Intent:</strong> Centralizes the logic for instantiating and hot-swapping entities in the world from <code>PrefabAsset</code> definitions.</p>
+<p><strong>Use-case:</strong> Used internally by the engine when placing prefab entities in a world; call <code>CreateInstance</code> to build an <code>EntityInstance</code> descriptor from a GUID and name without yet spawning it into a world.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="createinstanceguid-string-t"><a class="header" href="#createinstanceguid-string-t">CreateInstance(Guid, string, T?)</a></h4>
 <pre><code class="language-csharp">public EntityInstance CreateInstance(Guid assetGuid, string name, T? instanceGuid)
 </code></pre>
+<p>Creates an <code>EntityInstance</code> descriptor referencing the prefab at <code>assetGuid</code>, with the given display name and optional pre-assigned GUID.</p>
 <p><strong>Parameters</strong> <br />
 <code>assetGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />

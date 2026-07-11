@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class SceneLoader
 </code></pre>
+<p>Orchestrates scene transitions and drives the active scene's lifecycle (initialize, load content, update, switch). Typically owned by the <code>Game</code> instance.</p>
+<p><strong>Intent:</strong> Central coordinator that manages which <code>Scene</code> is active and handles switching between scenes safely.</p>
+<p><strong>Use-case:</strong> Call <code>SwitchScene</code> to transition to a different level or menu, and <code>LoadContent</code>/<code>Initialize</code> during startup to bootstrap the initial scene.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SceneLoader(GraphicsDeviceManager graphics, GameProfile settings, Scene scene, bool isDiagnosticEnabled)
 </code></pre>
+<p>Creates a new <code>SceneLoader</code> with the given graphics device, game profile, initial scene, and diagnostics flag.</p>
 <p><strong>Parameters</strong> <br />
 <code>graphics</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.GraphicsDeviceManager.html">GraphicsDeviceManager</a> <br />
 <code>settings</code> <a href="../../Murder/Assets/GameProfile.html">GameProfile</a> <br />
@@ -161,16 +165,19 @@
 <h4 id="_graphics"><a class="header" href="#_graphics">_graphics</a></h4>
 <pre><code class="language-csharp">protected readonly GraphicsDeviceManager _graphics;
 </code></pre>
+<p>The MonoGame graphics device manager used to create and resize the render context.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.GraphicsDeviceManager.html">GraphicsDeviceManager</a> </p>
 <h4 id="_settings"><a class="header" href="#_settings">_settings</a></h4>
 <pre><code class="language-csharp">protected readonly GameProfile _settings;
 </code></pre>
+<p>The game profile settings (resolution, target FPS, etc.) applied when initializing scenes.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Assets/GameProfile.html">GameProfile</a> </p>
 <h4 id="activescene"><a class="header" href="#activescene">ActiveScene</a></h4>
 <pre><code class="language-csharp">public Scene ActiveScene { get; }
 </code></pre>
+<p>The scene currently being updated and rendered.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Scene.html">Scene</a> </p>
 <h4 id="isdiagnosticenabled"><a class="header" href="#isdiagnosticenabled">IsDiagnosticEnabled</a></h4>
@@ -184,6 +191,7 @@ features enabled (which also implies in more processing overhead).</p>
 <h4 id="replaceworldoncurrentscenemonoworld-bool"><a class="header" href="#replaceworldoncurrentscenemonoworld-bool">ReplaceWorldOnCurrentScene(MonoWorld, bool)</a></h4>
 <pre><code class="language-csharp">public bool ReplaceWorldOnCurrentScene(MonoWorld world, bool disposeWorld)
 </code></pre>
+<p>Replaces the world in the currently active scene with the given world.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Murder/Core/MonoWorld.html">MonoWorld</a> <br />
 <code>disposeWorld</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
@@ -210,6 +218,7 @@ features enabled (which also implies in more processing overhead).</p>
 <h4 id="switchsceneguid"><a class="header" href="#switchsceneguid">SwitchScene(Guid)</a></h4>
 <pre><code class="language-csharp">public void SwitchScene(Guid worldGuid)
 </code></pre>
+<p>Switches to a <code>GameScene</code> backed by the <code>WorldAsset</code> identified by <code>worldGuid</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>worldGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p>⚡</p>

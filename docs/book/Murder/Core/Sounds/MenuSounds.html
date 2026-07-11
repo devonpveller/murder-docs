@@ -149,30 +149,38 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct MenuSounds
 </code></pre>
+<p>A collection of named sound events for standard menu interactions.</p>
+<p><strong>Intent:</strong> Provide a convenient bundle of UI sound events.</p>
+<p><strong>Use-case:</strong> Store a <code>MenuSounds</code> instance on a <code>MenuInfo</code> or <code>GenericMenuInfo&lt;T&gt;</code> so that navigation, submission, and cancellation all play the appropriate sounds automatically.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="cancel"><a class="header" href="#cancel">Cancel</a></h4>
 <pre><code class="language-csharp">public readonly SoundEventId Cancel;
 </code></pre>
+<p>Sound event played when the player cancels or backs out of a menu.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Sounds/SoundEventId.html">SoundEventId</a> </p>
 <h4 id="menusubmit"><a class="header" href="#menusubmit">MenuSubmit</a></h4>
 <pre><code class="language-csharp">public readonly SoundEventId MenuSubmit;
 </code></pre>
+<p>Sound event played when the player confirms a menu selection.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Sounds/SoundEventId.html">SoundEventId</a> </p>
 <h4 id="onerror"><a class="header" href="#onerror">OnError</a></h4>
 <pre><code class="language-csharp">public readonly SoundEventId OnError;
 </code></pre>
+<p>Sound event played when the player attempts an invalid or unavailable action.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Sounds/SoundEventId.html">SoundEventId</a> </p>
 <h4 id="selectionchange"><a class="header" href="#selectionchange">SelectionChange</a></h4>
 <pre><code class="language-csharp">public readonly SoundEventId SelectionChange;
 </code></pre>
+<p>Sound event played each time the highlighted menu item changes.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Sounds/SoundEventId.html">SoundEventId</a> </p>
 <h4 id="tabswitchchange"><a class="header" href="#tabswitchchange">TabSwitchChange</a></h4>
 <pre><code class="language-csharp">public readonly SoundEventId TabSwitchChange;
 </code></pre>
+<p>Sound event played when switching between tabs or pages in a tabbed menu.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Sounds/SoundEventId.html">SoundEventId</a> </p>
 <p>⚡</p>

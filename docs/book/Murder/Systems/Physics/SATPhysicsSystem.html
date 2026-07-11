@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class SATPhysicsSystem : IFixedUpdateSystem, ISystem
 </code></pre>
+<p>Runs SAT (Separating Axis Theorem) collision detection and applies collision response to solid physics entities.</p>
+<p><strong>Intent:</strong> Detects and resolves solid-body collisions using the Separating Axis Theorem.</p>
+<p><strong>Use-case:</strong> Add to any world that requires solid physics resolution between entities with collision shapes.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Systems/IFixedUpdateSystem.html">IFixedUpdateSystem</a>, <a href="../../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SATPhysicsSystem()

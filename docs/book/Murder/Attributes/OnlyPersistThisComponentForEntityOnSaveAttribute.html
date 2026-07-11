@@ -152,14 +152,18 @@
 <p>This gets rather complicated, but this will persist only one component for the entity in the save.
 These are for cases that we want to persist an entity id for an entity with a specific property,
 e.g. the player.</p>
+<p><strong>Intent:</strong> Limit save-game serialization for an entity to only the component that carries this attribute, discarding all others for that entity.</p>
+<p><strong>Use-case:</strong> Apply to a special cross-reference component (such as a “player reference” component) that uniquely identifies an entity across scenes. The save system writes only this component, keeping the save file minimal while preserving the entity reference.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public OnlyPersistThisComponentForEntityOnSaveAttribute()
 </code></pre>
+<p>Creates a new instance of <code>OnlyPersistThisComponentForEntityOnSaveAttribute</code>.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

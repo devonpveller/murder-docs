@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct CutsceneAnchorsEditorComponent : IComponent
 </code></pre>
+<p>Holds the collection of named anchor points for a cutscene entity, allowing script authors to reference positions by name rather than raw coordinates.</p>
+<p><strong>Intent:</strong> Store all named world-space marks that a cutscene references in one place on the entity.</p>
+<p><strong>Use-case:</strong> Add to an entity that acts as a cutscene container; populate <code>Anchors</code> with one <a href="../../../Murder/Components/Serialization/AnchorId.html">AnchorId</a> per named mark, then reference those names in cutscene scripts or the cutscene editor.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public CutsceneAnchorsEditorComponent()
@@ -161,12 +164,14 @@
 <h4 id="anchors"><a class="header" href="#anchors">Anchors</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Anchors;
 </code></pre>
+<p>All named anchor points defined for this cutscene entity.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="findanchorstring"><a class="header" href="#findanchorstring">FindAnchor(string)</a></h4>
 <pre><code class="language-csharp">public Anchor FindAnchor(string name)
 </code></pre>
+<p>Returns the anchor with the given name, or a default anchor if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -174,6 +179,7 @@
 <h4 id="addanchoratvector2"><a class="header" href="#addanchoratvector2">AddAnchorAt(Vector2)</a></h4>
 <pre><code class="language-csharp">public CutsceneAnchorsEditorComponent AddAnchorAt(Vector2 newPosition)
 </code></pre>
+<p>Creates and appends a new anchor at the given world-space position.</p>
 <p><strong>Parameters</strong> <br />
 <code>newPosition</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -181,6 +187,7 @@
 <h4 id="withanchoratstring-vector2"><a class="header" href="#withanchoratstring-vector2">WithAnchorAt(string, Vector2)</a></h4>
 <pre><code class="language-csharp">public CutsceneAnchorsEditorComponent WithAnchorAt(string name, Vector2 newPosition)
 </code></pre>
+<p>Returns a new component with the named anchor moved to <code>newPosition</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>newPosition</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
@@ -189,6 +196,7 @@
 <h4 id="withoutanchoratstring"><a class="header" href="#withoutanchoratstring">WithoutAnchorAt(string)</a></h4>
 <pre><code class="language-csharp">public CutsceneAnchorsEditorComponent WithoutAnchorAt(string name)
 </code></pre>
+<p>Returns a new component with the named anchor removed from the list.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />

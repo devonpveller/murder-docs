@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct NodeInfo&lt;T&gt;
 </code></pre>
+<p>Pairs an entity payload <code>T</code> with its axis-aligned bounding box, used as the leaf data stored in <code>QTNode&lt;T&gt;</code> entries.</p>
+<p><strong>Intent:</strong> Wraps the bounding box alongside the entity data so the quadtree can perform spatial overlap tests without accessing the entity itself.</p>
+<p><strong>Use-case:</strong> Created automatically when inserting entities into a <code>Quadtree</code>; retrieved during overlap queries to identify which entities intersect a region.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public NodeInfo&lt;T&gt;(T info, Rectangle boundingBox)
 </code></pre>
+<p>Creates a <code>NodeInfo</code> pairing the entity data <code>info</code> with its spatial bounding box.</p>
 <p><strong>Parameters</strong> <br />
 <code>info</code> <a href="../../../">T</a> <br />
 <code>boundingBox</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
@@ -159,11 +163,13 @@
 <h4 id="boundingbox"><a class="header" href="#boundingbox">BoundingBox</a></h4>
 <pre><code class="language-csharp">public readonly Rectangle BoundingBox;
 </code></pre>
+<p>The axis-aligned bounding box of the entity, used for spatial overlap tests in the quadtree.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <h4 id="entityinfo"><a class="header" href="#entityinfo">EntityInfo</a></h4>
 <pre><code class="language-csharp">public readonly T EntityInfo;
 </code></pre>
+<p>The entity payload (e.g., an entity ID or component snapshot) associated with this node entry.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../">T</a> </p>
 <p>⚡</p>

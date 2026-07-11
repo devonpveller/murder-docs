@@ -149,11 +149,16 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct ViewportResizeStyle
 </code></pre>
+<p>Composite settings that fully describe how the game viewport should be scaled to fit the window.</p>
+<p><strong>Intent:</strong> Bundles a <code>ViewportResizeMode</code> with tolerance parameters (snap-to-integer, aspect-ratio allowance, rounding mode, and optional fixed scale) into a single value.</p>
+<p><strong>Use-case:</strong> Construct a <code>ViewportResizeStyle</code> with the desired mode and tolerances and pass it to <code>RenderContext.RefreshWindow()</code> at startup or on window resize.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ViewportResizeStyle()
 </code></pre>
+<p>Creates a default style with <code>ViewportResizeMode.None</code> and no tolerances.</p>
 <pre><code class="language-csharp">public ViewportResizeStyle(ViewportResizeMode resizeMode, float snapToInteger, RoundingMode roundingMode, float positiveApectRatioAllowance, float negativeApectRatioAllowance)
 </code></pre>
+<p>Creates a fully specified style with an explicit resize mode, snap threshold, rounding mode, and aspect-ratio tolerance bands.</p>
 <p><strong>Parameters</strong> <br />
 <code>resizeMode</code> <a href="../../../Murder/Core/Graphics/ViewportResizeMode.html">ViewportResizeMode</a> <br />
 <code>snapToInteger</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
@@ -162,37 +167,44 @@
 <code>negativeApectRatioAllowance</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <pre><code class="language-csharp">public ViewportResizeStyle(ViewportResizeMode resizeMode)
 </code></pre>
+<p>Creates a style with the given resize mode and default tolerance values.</p>
 <p><strong>Parameters</strong> <br />
 <code>resizeMode</code> <a href="../../../Murder/Core/Graphics/ViewportResizeMode.html">ViewportResizeMode</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="absolutescale"><a class="header" href="#absolutescale">AbsoluteScale</a></h4>
 <pre><code class="language-csharp">public readonly T? AbsoluteScale;
 </code></pre>
+<p>When <code>ResizeMode</code> is <code>AbsoluteScale</code>, the explicit scale factor applied to the game buffer; null otherwise.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="negativeapectratioallowance"><a class="header" href="#negativeapectratioallowance">NegativeApectRatioAllowance</a></h4>
 <pre><code class="language-csharp">public readonly float NegativeApectRatioAllowance;
 </code></pre>
+<p>Maximum aspect-ratio deviation below the target before letterboxing is applied; allows the image to be slightly taller than the window without adding bars.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="positiveapectratioallowance"><a class="header" href="#positiveapectratioallowance">PositiveApectRatioAllowance</a></h4>
 <pre><code class="language-csharp">public readonly float PositiveApectRatioAllowance;
 </code></pre>
+<p>Maximum aspect-ratio deviation above the target before letterboxing is applied; allows the image to be slightly wider than the window without adding bars.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="resizemode"><a class="header" href="#resizemode">ResizeMode</a></h4>
 <pre><code class="language-csharp">public readonly ViewportResizeMode ResizeMode;
 </code></pre>
+<p>The <code>ViewportResizeMode</code> strategy applied when the window is resized.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/ViewportResizeMode.html">ViewportResizeMode</a> </p>
 <h4 id="roundingmode"><a class="header" href="#roundingmode">RoundingMode</a></h4>
 <pre><code class="language-csharp">public readonly RoundingMode RoundingMode;
 </code></pre>
+<p>Determines whether the computed scale factor is rounded to the nearest integer, floored, or ceiled to maintain pixel-perfect output.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/RoundingMode.html">RoundingMode</a> </p>
 <h4 id="snaptointeger"><a class="header" href="#snaptointeger">SnapToInteger</a></h4>
 <pre><code class="language-csharp">public readonly float SnapToInteger;
 </code></pre>
+<p>Threshold within which the scale factor is snapped to the nearest integer multiple, preserving pixel-perfect rendering without visible blurring.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

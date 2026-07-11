@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct RuntimeTextData
 </code></pre>
 <p>This has runtime information about a text which is displayed in screen.</p>
+<p><strong>Intent:</strong> Holds the parsed, layout-ready representation of a text string along with optional per-character property overrides, used directly by <code>PixelFont.Draw()</code>.</p>
+<p><strong>Use-case:</strong> Obtain an instance from <code>TextDataServices.GetOrCreateText()</code> and pass it to <code>PixelFont.Draw()</code> each frame; the data is cached automatically to avoid re-parsing.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public RuntimeTextData()
 </code></pre>
@@ -166,6 +168,7 @@
 <h4 id="empty"><a class="header" href="#empty">Empty</a></h4>
 <pre><code class="language-csharp">public bool Empty { get; }
 </code></pre>
+<p>Returns true when the text string is null or empty, indicating there is nothing to render.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="font"><a class="header" href="#font">Font</a></h4>
@@ -183,17 +186,20 @@
 <h4 id="length"><a class="header" href="#length">Length</a></h4>
 <pre><code class="language-csharp">public int Length { get; }
 </code></pre>
+<p>Total number of characters in the text string, used by typewriter systems to control the reveal progress.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="text"><a class="header" href="#text">Text</a></h4>
 <pre><code class="language-csharp">public readonly string Text;
 </code></pre>
+<p>The raw text string after markup pre-processing, used as the source for all glyph lookups.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="trygetletterpropertyint"><a class="header" href="#trygetletterpropertyint">TryGetLetterProperty(int)</a></h4>
 <pre><code class="language-csharp">public T? TryGetLetterProperty(int index)
 </code></pre>
+<p>Returns the <code>RuntimeLetterProperties</code> for the character at <code>index</code> if one was set by the markup parser, or null if no override exists.</p>
 <p><strong>Parameters</strong> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />

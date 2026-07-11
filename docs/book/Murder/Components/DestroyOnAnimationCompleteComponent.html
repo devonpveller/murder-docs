@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct DestroyOnAnimationCompleteComponent : IComponent
 </code></pre>
+<p>Instructs the engine to destroy (or deactivate) this entity when its sprite animation finishes.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Automates the lifetime of one-shot animation effects so they clean themselves up without manual teardown logic.</p>
+<p><strong>Use-case:</strong> Attach to particle bursts, hit-flash sprites, or other temporary effects; the system watching for <code>AnimationCompleteComponent</code> will then destroy or deactivate the entity accordingly.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DestroyOnAnimationCompleteComponent()
 </code></pre>

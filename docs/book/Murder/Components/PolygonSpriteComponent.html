@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct PolygonSpriteComponent : IComponent
 </code></pre>
+<p>Renders one or more filled polygons as a sprite-like visual on an entity. Each shape in the list is drawn using the specified color and sorted by the <code>SortOffset</code> value.</p>
+<p><strong>Intent:</strong> Draw procedural polygon geometry directly on an entity without requiring a texture or atlas asset.</p>
+<p><strong>Use-case:</strong> Use for debug overlays, simple geometric entities, or UI elements that need solid-color polygon shapes rendered in the game world.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PolygonSpriteComponent()
@@ -157,21 +160,25 @@
 <h4 id="batch"><a class="header" href="#batch">Batch</a></h4>
 <pre><code class="language-csharp">public readonly int Batch;
 </code></pre>
+<p>Sprite batch layer used when rendering these polygons.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="color"><a class="header" href="#color">Color</a></h4>
 <pre><code class="language-csharp">public readonly Color Color;
 </code></pre>
+<p>Fill color applied to all shapes in the collection.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/Color.html">Color</a> </p>
 <h4 id="shapes"><a class="header" href="#shapes">Shapes</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Shapes;
 </code></pre>
+<p>The polygon shapes to be drawn on the entity.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="sortoffset"><a class="header" href="#sortoffset">SortOffset</a></h4>
 <pre><code class="language-csharp">public readonly int SortOffset;
 </code></pre>
+<p>Vertical sort offset applied when determining draw order relative to other entities.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

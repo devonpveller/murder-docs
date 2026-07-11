@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct InCameraComponent : IComponent
 </code></pre>
+<p>Runtime marker added to entities that are currently within the camera's visible bounds, storing their computed render position.</p>
+<p><strong>Intent:</strong> Allow render and game systems to quickly determine which entities are on-screen and where they should be drawn without repeating camera projection math.</p>
+<p><strong>Use-case:</strong> Added and removed automatically by camera culling systems; read <code>RenderPosition</code> in a render system to obtain the already-projected screen position for this entity.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public InCameraComponent(Vector2 renderPosition)
@@ -159,6 +162,7 @@
 <h4 id="renderposition"><a class="header" href="#renderposition">RenderPosition</a></h4>
 <pre><code class="language-csharp">public readonly Vector2 RenderPosition;
 </code></pre>
+<p>The pre-computed screen-space position at which this entity should be rendered this frame.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p>⚡</p>

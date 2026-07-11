@@ -149,15 +149,20 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">sealed struct ResourceDataForAsset
 </code></pre>
+<p>Internal struct that groups all <code>LocalizedStringData</code> resources belonging to a single dialogue asset.</p>
+<p><strong>Intent:</strong> Associate a set of localized string entries with the GUID of the dialogue asset that owns them, so the localization system can efficiently look up all strings for a given dialogue.</p>
+<p><strong>Use-case:</strong> Returned by <code>LocalizationAsset.FetchResourcesForDialogue</code> when the editor or export pipeline needs to enumerate all translated strings tied to a specific <code>CharacterAsset</code>.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="dialogueresourceguid"><a class="header" href="#dialogueresourceguid">DialogueResourceGuid</a></h4>
 <pre><code class="language-csharp">public Guid DialogueResourceGuid { get; public set; }
 </code></pre>
+<p>The GUID of the dialogue asset (e.g. a <code>CharacterAsset</code>) that these string resources belong to.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="resources"><a class="header" href="#resources">Resources</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; Resources { get; public set; }
 </code></pre>
+<p>All localized string entries associated with the owning dialogue asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <p>⚡</p>

@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct UnscaledDeltaTimeComponent : IComponent
 </code></pre>
 <p>Used when calculating time for <a href="../../Bang/StateMachines/StateMachine.html">StateMachine</a>.</p>
+<p><strong>Intent:</strong> Signal that a state machine on this entity should use real (unscaled) delta time rather than game-scaled time.</p>
+<p><strong>Use-case:</strong> Attach to entities whose state machines must advance at real-world speed even when the game is paused or slowed (e.g. UI elements or cutscene controllers).</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <p>⚡</p>
 

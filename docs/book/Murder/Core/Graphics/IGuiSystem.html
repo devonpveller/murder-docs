@@ -150,12 +150,14 @@
 <pre><code class="language-csharp">public abstract IGuiSystem : IRenderSystem, ISystem
 </code></pre>
 <p>System for rendering Gui entities.</p>
+<p><strong>Intent:</strong> Marks an ECS system as an ImGui overlay renderer so the engine calls it during the editor's GUI pass.</p>
+<p><strong>Use-case:</strong> Implement this interface in editor-tool systems that need to draw ImGui windows, widgets, or gizmos on top of the game viewport.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Systems/IRenderSystem.html">IRenderSystem</a>, <a href="../../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="drawguirendercontext-context"><a class="header" href="#drawguirendercontext-context">DrawGui(RenderContext, Context)</a></h4>
 <pre><code class="language-csharp">public abstract void DrawGui(RenderContext render, Context context)
 </code></pre>
-<p>Called before rendering starts.</p>
+<p>Called each editor frame to submit ImGui draw commands for this system's entities.</p>
 <p><strong>Parameters</strong> <br />
 <code>render</code> <a href="../../../Murder/Core/Graphics/RenderContext.html">RenderContext</a> <br />
 <code>context</code> <a href="../../../Bang/Contexts/Context.html">Context</a> </p>

@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct GuidToIdTargetCollectionComponent : IComponent
 </code></pre>
 <p>This is a component used to translate entity instaces guid to an actual entity id.</p>
+<p><strong>Intent:</strong> Persist multiple named GUID-to-entity-ID mappings at design time so they can be resolved to runtime entity IDs when the world is loaded.</p>
+<p><strong>Use-case:</strong> Add to an entity that needs to reference several other entities by name; the serialization system automatically translates each <code>GuidId</code> in <code>Collection</code> into the corresponding runtime <code>IdTargetCollectionComponent</code>.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public GuidToIdTargetCollectionComponent()
@@ -165,6 +167,7 @@
 <h4 id="tryfindguidstring"><a class="header" href="#tryfindguidstring">TryFindGuid(string)</a></h4>
 <pre><code class="language-csharp">public T? TryFindGuid(string name)
 </code></pre>
+<p>Searches the collection for a <code>GuidId</code> entry whose <code>Id</code> matches <code>name</code> (case-insensitive) and returns its target <code>Guid</code>, or <code>null</code> if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />

@@ -149,11 +149,15 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct EnableChildrenInteraction : IInteraction
 </code></pre>
+<p>Activates all inactive child entities of the interacted entity (or a specified target) when the interaction fires.</p>
+<p><strong>Intent:</strong> Enables hidden child entities so they become visible and active in the world.</p>
+<p><strong>Use-case:</strong> Use to reveal children on interaction, such as making a door open by activating its open-state child sprites, or revealing hidden items under an entity.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Activates all inactive children of the interacted entity, or of the entity resolved via the optional target name.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
@@ -161,6 +165,7 @@
 <h4 id="enableworld-entity"><a class="header" href="#enableworld-entity">Enable(World, Entity)</a></h4>
 <pre><code class="language-csharp">public void Enable(World world, Entity target)
 </code></pre>
+<p>Activates all inactive children of <code>target</code>, resetting their animation start time if they have a sprite component.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>target</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>

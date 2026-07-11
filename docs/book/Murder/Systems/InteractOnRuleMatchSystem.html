@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class InteractOnRuleMatchSystem : IStartupSystem, ISystem, IReactiveSystem
 </code></pre>
+<p>Watches for changes to <code>RuleWatcherComponent</code> and fires interaction events on entities whose <code>InteractOnRuleMatchComponent</code> conditions are satisfied by the current blackboard state.</p>
+<p><strong>Intent:</strong> Triggers interactions reactively whenever blackboard variables satisfy the rule conditions defined on an entity.</p>
+<p><strong>Use-case:</strong> Use with dialogue or game-state flags to make objects react automatically when story conditions are met, without needing to poll the blackboard each frame.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IStartupSystem.html">IStartupSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a>, <a href="../../Bang/Systems/IReactiveSystem.html">IReactiveSystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public InteractOnRuleMatchSystem()
@@ -157,24 +160,28 @@
 <h4 id="onaddedworld-immutablearray"><a class="header" href="#onaddedworld-immutablearray">OnAdded(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnAdded(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Triggered when the <code>RuleWatcherComponent</code> is first added; runs an initial rule evaluation pass against the current blackboard state.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="onmodifiedworld-immutablearray"><a class="header" href="#onmodifiedworld-immutablearray">OnModified(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnModified(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Re-evaluates all <code>InteractOnRuleMatchComponent</code> entities against current blackboard state and fires interaction events for any newly matched rules.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="onremovedworld-immutablearray"><a class="header" href="#onremovedworld-immutablearray">OnRemoved(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnRemoved(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Clears the <code>RuleMatched</code> component from entities that were previously marked as having a matched rule.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="startcontext"><a class="header" href="#startcontext">Start(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Start(Context context)
 </code></pre>
+<p>Adds the singleton <code>RuleWatcherComponent</code> entity to the world that reactive rule checks depend on.</p>
 <p><strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <p>⚡</p>

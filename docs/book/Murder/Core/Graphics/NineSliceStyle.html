@@ -150,15 +150,20 @@
 <pre><code class="language-csharp">public sealed enum NineSliceStyle : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
+<p>Controls how the center and edge regions of a 9-slice sprite are rendered when its container is scaled.</p>
+<p><strong>Intent:</strong> Determines whether the interior tiles of a 9-slice image are stretched or tiled to fill the target rectangle.</p>
+<p><strong>Use-case:</strong> Assign to <code>NineSliceInfo</code> or <code>CachedNineSlice</code> to choose between a smooth stretched panel (<code>Stretch</code>) and a repeating tile pattern (<code>Tile</code>) when drawing resizable UI frames.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="stretch"><a class="header" href="#stretch">Stretch</a></h4>
 <pre><code class="language-csharp">public static const NineSliceStyle Stretch;
 </code></pre>
+<p>Stretches all center and edge tiles uniformly to fill the target rectangle.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/NineSliceStyle.html">NineSliceStyle</a> </p>
 <h4 id="tile"><a class="header" href="#tile">Tile</a></h4>
 <pre><code class="language-csharp">public static const NineSliceStyle Tile;
 </code></pre>
+<p>Repeats (tiles) the center and edge pieces instead of stretching them, preserving their original pixel size.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/NineSliceStyle.html">NineSliceStyle</a> </p>
 <p>⚡</p>

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class Theme
 </code></pre>
+<p>Defines the color palette used by the Murder editor UI and in-game UI systems.</p>
+<p><strong>Intent:</strong> Provide a single, serializable set of named RGBA color slots that the editor and UI renderer read from, allowing visual themes to be swapped or customised without code changes.</p>
+<p><strong>Use-case:</strong> Reference <code>Game.Profile.Theme</code> to obtain any named color (e.g. <code>Theme.Accent</code>, <code>Theme.Red</code>) when drawing custom editor windows or in-game UI elements. Override the default <code>Theme</code> instance in <code>GameProfile</code> to ship a branded color scheme.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Theme()
 </code></pre>
@@ -156,66 +159,79 @@
 <h4 id="accent"><a class="header" href="#accent">Accent</a></h4>
 <pre><code class="language-csharp">public Vector4 Accent;
 </code></pre>
+<p>Primary accent color used for highlighted or interactive UI elements.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="bg"><a class="header" href="#bg">Bg</a></h4>
 <pre><code class="language-csharp">public Vector4 Bg;
 </code></pre>
+<p>Base background color for panels and windows.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="bgfaded"><a class="header" href="#bgfaded">BgFaded</a></h4>
 <pre><code class="language-csharp">public Vector4 BgFaded;
 </code></pre>
+<p>Slightly lighter background color used for secondary panels or alternating rows.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="faded"><a class="header" href="#faded">Faded</a></h4>
 <pre><code class="language-csharp">public Vector4 Faded;
 </code></pre>
+<p>Muted foreground color used for disabled or less important text and icons.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="foreground"><a class="header" href="#foreground">Foreground</a></h4>
 <pre><code class="language-csharp">public Vector4 Foreground;
 </code></pre>
+<p>Primary foreground color used for standard text and icons.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="genericasset"><a class="header" href="#genericasset">GenericAsset</a></h4>
 <pre><code class="language-csharp">public Vector4 GenericAsset;
 </code></pre>
+<p>Color used to tint generic asset entries in the editor asset browser.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="green"><a class="header" href="#green">Green</a></h4>
 <pre><code class="language-csharp">public Vector4 Green;
 </code></pre>
+<p>Green semantic color used for success states, positive values, or additive indicators.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="highaccent"><a class="header" href="#highaccent">HighAccent</a></h4>
 <pre><code class="language-csharp">public Vector4 HighAccent;
 </code></pre>
+<p>High-contrast accent color for strongly highlighted or selected UI elements.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="red"><a class="header" href="#red">Red</a></h4>
 <pre><code class="language-csharp">public Vector4 Red;
 </code></pre>
+<p>Red semantic color used for error states, destructive actions, or negative values.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="redfaded"><a class="header" href="#redfaded">RedFaded</a></h4>
 <pre><code class="language-csharp">public Vector4 RedFaded;
 </code></pre>
+<p>Muted red color used for subdued error or warning backgrounds.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="warning"><a class="header" href="#warning">Warning</a></h4>
 <pre><code class="language-csharp">public Vector4 Warning;
 </code></pre>
+<p>Orange/amber color used to draw attention to non-critical warnings or cautions.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="white"><a class="header" href="#white">White</a></h4>
 <pre><code class="language-csharp">public Vector4 White;
 </code></pre>
+<p>Near-white color used for primary highlighted text or maximum-brightness UI elements.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="yellow"><a class="header" href="#yellow">Yellow</a></h4>
 <pre><code class="language-csharp">public Vector4 Yellow;
 </code></pre>
+<p>Yellow color used for informational labels, special indicators, or gold-tier values.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <p>⚡</p>

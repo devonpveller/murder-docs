@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class RandomExtensions
 </code></pre>
+<p>Extension methods on <code>System.Random</code> for common randomization operations used in gameplay and procedural content.</p>
+<p><strong>Intent:</strong> Provides ergonomic helpers for game-code randomization, including coin flips, probability gates, and typed random ranges.</p>
+<p><strong>Use-case:</strong> Use <code>FlipACoin</code> for 50/50 decisions, <code>TryWithChanceOf</code> for probability gates, and <code>NextFloat</code> for random float values in a range.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="flipacoinrandom"><a class="header" href="#flipacoinrandom">FlipACoin(Random)</a></h4>
 <pre><code class="language-csharp">public bool FlipACoin(Random random)
 </code></pre>
+<p>Returns <code>true</code> with 50% probability.</p>
 <p><strong>Parameters</strong> <br />
 <code>random</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Random?view=net-7.0">Random</a> </p>
 <p><strong>Returns</strong> <br />
@@ -182,6 +186,7 @@
 <h4 id="nextfloatrandom-float"><a class="header" href="#nextfloatrandom-float">NextFloat(Random, float)</a></h4>
 <pre><code class="language-csharp">public float NextFloat(Random r, float max)
 </code></pre>
+<p>Returns a random float in the range [0, max).</p>
 <p><strong>Parameters</strong> <br />
 <code>r</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Random?view=net-7.0">Random</a> <br />
 <code>max</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
@@ -190,6 +195,7 @@
 <h4 id="nextfloatrandom-float-float"><a class="header" href="#nextfloatrandom-float-float">NextFloat(Random, float, float)</a></h4>
 <pre><code class="language-csharp">public float NextFloat(Random r, float min, float max)
 </code></pre>
+<p>Returns a random float in the range [min, max).</p>
 <p><strong>Parameters</strong> <br />
 <code>r</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Random?view=net-7.0">Random</a> <br />
 <code>min</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />

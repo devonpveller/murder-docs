@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct BlackboardActionInteraction : IInteraction
 </code></pre>
+<p>Applies a single <a href="../../Murder/Core/Dialogs/DialogAction.html">DialogAction</a> to the active save's blackboard when the interaction fires.</p>
+<p><strong>Intent:</strong> Mutates a blackboard variable in response to an in-world interaction.</p>
+<p><strong>Use-case:</strong> Use to record game-state changes triggered by interaction, such as setting a flag when the player picks up an item or flips a switch.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public BlackboardActionInteraction()
@@ -157,6 +160,7 @@
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Executes the configured dialog action on the active save's blackboard tracker.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class PerlinNoise
 </code></pre>
+<p>A static implementation of classic Perlin noise for generating smooth pseudo-random values.</p>
+<p><strong>Intent:</strong> Provides classic 3D Perlin noise sampling for procedural content generation.</p>
+<p><strong>Use-case:</strong> Call <code>Noise(x, y, z)</code> to sample a smooth noise value at a 3D coordinate; useful for terrain height maps, texture variation, or oscillating animation offsets.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="noisefloat-float-float"><a class="header" href="#noisefloat-float-float">Noise(float, float, float)</a></h4>
 <pre><code class="language-csharp">public float Noise(float x, float y, float z)
 </code></pre>
+<p>Returns a Perlin noise value in approximately [-1, 1] for the given 3D sample coordinate.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />

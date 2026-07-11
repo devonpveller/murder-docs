@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct QuadtreeComponent : IModifiableComponent, IComponent
 </code></pre>
+<p>Singleton component that holds the spatial quadtree used for broad-phase collision and entity queries. Only one instance exists per world.</p>
+<p><strong>Intent:</strong> Provide fast spatial look-up of entities within rectangular regions.</p>
+<p><strong>Use-case:</strong> Added automatically by the engine when a world is initialised; call physics services that accept a <code>Quadtree</code> to query nearby entities instead of iterating all entities manually.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IModifiableComponent.html">IModifiableComponent</a>, <a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public QuadtreeComponent(Rectangle size)
@@ -159,17 +162,20 @@
 <h4 id="quadtree"><a class="header" href="#quadtree">Quadtree</a></h4>
 <pre><code class="language-csharp">public readonly Quadtree Quadtree;
 </code></pre>
+<p>The underlying quadtree data structure used to spatially index entities in the world.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Physics/Quadtree.html">Quadtree</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="subscribeaction"><a class="header" href="#subscribeaction">Subscribe(Action)</a></h4>
 <pre><code class="language-csharp">public virtual void Subscribe(Action notification)
 </code></pre>
+<p>No-op; the quadtree does not raise change notifications.</p>
 <p><strong>Parameters</strong> <br />
 <code>notification</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0">Action</a> </p>
 <h4 id="unsubscribeaction"><a class="header" href="#unsubscribeaction">Unsubscribe(Action)</a></h4>
 <pre><code class="language-csharp">public virtual void Unsubscribe(Action notification)
 </code></pre>
+<p>No-op; the quadtree does not raise change notifications.</p>
 <p><strong>Parameters</strong> <br />
 <code>notification</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0">Action</a> </p>
 <p>⚡</p>

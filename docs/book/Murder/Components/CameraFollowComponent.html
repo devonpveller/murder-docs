@@ -151,6 +151,8 @@
 </code></pre>
 <p>Component used by the camera for tracking its target position.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Marks an entity as the camera's follow target and configures how the camera interpolates toward it.</p>
+<p><strong>Use-case:</strong> Attach to the player entity (or a dedicated camera target entity) so <code>CameraFollowSystem</code> knows which entity to track and with which <code>CameraStyle</code>.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public CameraFollowComponent()
 </code></pre>
@@ -176,11 +178,13 @@
 <h4 id="enabled"><a class="header" href="#enabled">Enabled</a></h4>
 <pre><code class="language-csharp">public readonly bool Enabled;
 </code></pre>
+<p>Whether camera following is currently active for this entity.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="secondarytarget"><a class="header" href="#secondarytarget">SecondaryTarget</a></h4>
 <pre><code class="language-csharp">public readonly Entity SecondaryTarget;
 </code></pre>
+<p>Optional secondary entity whose position is blended with the primary target to produce the final camera position.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <h4 id="style"><a class="header" href="#style">Style</a></h4>
@@ -192,6 +196,7 @@
 <h4 id="targetposition"><a class="header" href="#targetposition">TargetPosition</a></h4>
 <pre><code class="language-csharp">public readonly T? TargetPosition;
 </code></pre>
+<p>Optional fixed world-space position the camera should move toward; overrides entity tracking when set.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <p>⚡</p>

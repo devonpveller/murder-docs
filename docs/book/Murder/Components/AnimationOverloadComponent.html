@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AnimationOverloadComponent : IComponent
 </code></pre>
+<p>Forces an entity's sprite to play a specific animation (or sequence of animations) instead of its default state-machine animation.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Temporarily overrides the sprite animation chosen by the agent or state-machine system with a hand-specified clip.</p>
+<p><strong>Use-case:</strong> Attach when a cutscene or ability needs to play a one-shot animation clip (e.g., an attack or emote) that should override normal locomotion animations until it finishes or is removed.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AnimationOverloadComponent()
 </code></pre>
@@ -232,72 +235,86 @@
 <h4 id="animationcount"><a class="header" href="#animationcount">AnimationCount</a></h4>
 <pre><code class="language-csharp">public int AnimationCount { get; }
 </code></pre>
+<p>Total number of animation clips in the overload sequence.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="animationid"><a class="header" href="#animationid">AnimationId</a></h4>
 <pre><code class="language-csharp">public string AnimationId { get; }
 </code></pre>
+<p>Name of the first animation clip in the overload sequence (legacy single-clip accessor).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="atlast"><a class="header" href="#atlast">AtLast</a></h4>
 <pre><code class="language-csharp">public bool AtLast { get; }
 </code></pre>
+<p><code>true</code> when <code>Current</code> points to the final clip in the sequence.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="current"><a class="header" href="#current">Current</a></h4>
 <pre><code class="language-csharp">public readonly int Current;
 </code></pre>
+<p>Index of the clip currently playing within the animation sequence.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="currentanimation"><a class="header" href="#currentanimation">CurrentAnimation</a></h4>
 <pre><code class="language-csharp">public string CurrentAnimation { get; }
 </code></pre>
+<p>Name of the animation clip at <code>Current</code> index; returns an empty string when the sequence is empty.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="customsprite"><a class="header" href="#customsprite">CustomSprite</a></h4>
 <pre><code class="language-csharp">public SpriteAsset CustomSprite { get; }
 </code></pre>
+<p>Optional sprite asset that replaces the entity's default sprite while this overload is active; <code>null</code> if no replacement is set.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Assets/Graphics/SpriteAsset.html">SpriteAsset</a> </p>
 <h4 id="duration"><a class="header" href="#duration">Duration</a></h4>
 <pre><code class="language-csharp">public readonly float Duration;
 </code></pre>
+<p>Maximum time in seconds to play the animation; <code>-1</code> means use the clip's natural length.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="ignorefacing"><a class="header" href="#ignorefacing">IgnoreFacing</a></h4>
 <pre><code class="language-csharp">public readonly bool IgnoreFacing;
 </code></pre>
+<p>When <code>true</code>, the sprite system will not append directional suffixes to the animation name based on the entity's facing direction.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="loop"><a class="header" href="#loop">Loop</a></h4>
 <pre><code class="language-csharp">public readonly bool Loop;
 </code></pre>
+<p>Whether the overload animation should loop continuously or play once and stop.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="noloop"><a class="header" href="#noloop">NoLoop</a></h4>
 <pre><code class="language-csharp">public AnimationOverloadComponent NoLoop { get; }
 </code></pre>
+<p>Returns a copy of this component with <code>Loop</code> set to <code>false</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/AnimationOverloadComponent.html">AnimationOverloadComponent</a> </p>
 <h4 id="now"><a class="header" href="#now">Now</a></h4>
 <pre><code class="language-csharp">public AnimationOverloadComponent Now { get; }
 </code></pre>
+<p>Returns a copy of this component with <code>Start</code> set to the current game time, causing the animation to begin immediately.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/AnimationOverloadComponent.html">AnimationOverloadComponent</a> </p>
 <h4 id="sortoffset"><a class="header" href="#sortoffset">SortOffset</a></h4>
 <pre><code class="language-csharp">public readonly float SortOffset;
 </code></pre>
+<p>Vertical offset added to the entity's Y position when computing draw-order sorting while this overload is active.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="start"><a class="header" href="#start">Start</a></h4>
 <pre><code class="language-csharp">public readonly float Start;
 </code></pre>
+<p>Game time (in seconds) at which the overload animation began playing, used to compute the current playback position.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="playnext"><a class="header" href="#playnext">PlayNext()</a></h4>
 <pre><code class="language-csharp">public AnimationOverloadComponent PlayNext()
 </code></pre>
+<p>Advances to the next clip in the sequence, returning a new component with <code>Current</code> incremented.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/AnimationOverloadComponent.html">AnimationOverloadComponent</a> </p>
 <p>⚡</p>

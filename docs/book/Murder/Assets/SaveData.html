@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class SaveData : GameAsset
 </code></pre>
 <p>Tracks a saved game with all the player status.</p>
+<p><strong>Intent:</strong> Persist the entire runtime game state for one save slot: the current world, blackboard variable values, world-persistent entity deletions, and all active dynamic assets.</p>
+<p><strong>Use-case:</strong> Subclass <code>SaveData</code> to add game-specific save fields. Call <code>TryLoadLevel</code> to obtain a <code>SavedWorld</code> snapshot for a given world GUID, use <code>RecordRemovedEntityFromWorld</code> to mark persistent entity removals, and access <code>BlackboardTracker</code> to read and write global or character-scoped dialogue variables.</p>
 <p><strong>Implements:</strong> <em><a href="../../Murder/Assets/GameAsset.html">GameAsset</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">protected SaveData(int saveSlot, float saveVersion, BlackboardTracker blackboardTracker)
@@ -175,31 +177,37 @@ Mapped according to:
 <h4 id="blackboardtracker"><a class="header" href="#blackboardtracker">BlackboardTracker</a></h4>
 <pre><code class="language-csharp">public readonly BlackboardTracker BlackboardTracker;
 </code></pre>
+<p>Tracks all blackboard variables (global and character-scoped) for this save, used by the dialogue system.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Save/BlackboardTracker.html">BlackboardTracker</a> </p>
 <h4 id="canbecreated"><a class="header" href="#canbecreated">CanBeCreated</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeCreated { get; }
 </code></pre>
+<p>Determines if the asset can be created, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canbedeleted"><a class="header" href="#canbedeleted">CanBeDeleted</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeDeleted { get; }
 </code></pre>
+<p>Determines if the asset can be deleted, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canberenamed"><a class="header" href="#canberenamed">CanBeRenamed</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeRenamed { get; }
 </code></pre>
+<p>Determines if the asset can be renamed, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canbesaved"><a class="header" href="#canbesaved">CanBeSaved</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeSaved { get; }
 </code></pre>
+<p>Determines if the asset can be saved, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="currentworld"><a class="header" href="#currentworld">CurrentWorld</a></h4>
 <pre><code class="language-csharp">public T? CurrentWorld { get; }
 </code></pre>
+<p>The GUID of the world that was active when this save was last written.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="dynamicassets"><a class="header" href="#dynamicassets">DynamicAssets</a></h4>
@@ -211,51 +219,61 @@ Mapped according to:
 <h4 id="editorcolor"><a class="header" href="#editorcolor">EditorColor</a></h4>
 <pre><code class="language-csharp">public virtual Vector4 EditorColor { get; }
 </code></pre>
+<p>Gets the default color used in the editor for the asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="editorfolder"><a class="header" href="#editorfolder">EditorFolder</a></h4>
 <pre><code class="language-csharp">public virtual string EditorFolder { get; }
 </code></pre>
+<p>Gets the folder path in the editor where this asset is grouped.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="filechanged"><a class="header" href="#filechanged">FileChanged</a></h4>
 <pre><code class="language-csharp">public bool FileChanged { get; public set; }
 </code></pre>
+<p>Indicates whether the asset has unsaved modifications.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="filepath"><a class="header" href="#filepath">FilePath</a></h4>
 <pre><code class="language-csharp">public string FilePath { get; public set; }
 </code></pre>
+<p>Path to this asset file, relative to its base directory.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="guid"><a class="header" href="#guid">Guid</a></h4>
 <pre><code class="language-csharp">public Guid Guid { get; protected set; }
 </code></pre>
+<p>Unique identifier for this asset, used to reference it from other assets and components.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="icon"><a class="header" href="#icon">Icon</a></h4>
 <pre><code class="language-csharp">public virtual char Icon { get; }
 </code></pre>
+<p>FontAwesome character icon displayed next to this asset in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0">char</a> </p>
 <h4 id="isstoredinsavedata"><a class="header" href="#isstoredinsavedata">IsStoredInSaveData</a></h4>
 <pre><code class="language-csharp">public virtual bool IsStoredInSaveData { get; }
 </code></pre>
+<p>Whether this file is stored relative to the save path.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public string Name { get; public set; }
 </code></pre>
+<p>Display name of this asset as shown in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="pendingoperation"><a class="header" href="#pendingoperation">PendingOperation</a></h4>
 <pre><code class="language-csharp">public Task PendingOperation { get; }
 </code></pre>
+<p>The async task representing an in-progress save or world-snapshot operation, if any.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0">Task</a> </p>
 <h4 id="rename"><a class="header" href="#rename">Rename</a></h4>
 <pre><code class="language-csharp">public bool Rename { get; public set; }
 </code></pre>
+<p>Whether the file should be renamed and the previous name deleted on next save.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="savedatarelativedirectorypath"><a class="header" href="#savedatarelativedirectorypath">SaveDataRelativeDirectoryPath</a></h4>
@@ -275,6 +293,7 @@ that does not belong to a run and should be persisted.</p>
 <h4 id="savelocation"><a class="header" href="#savelocation">SaveLocation</a></h4>
 <pre><code class="language-csharp">public virtual string SaveLocation { get; }
 </code></pre>
+<p>The folder path where this asset is saved on disk.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="savename"><a class="header" href="#savename">SaveName</a></h4>
@@ -304,11 +323,13 @@ that does not belong to a run and should be persisted.</p>
 <h4 id="storeindatabase"><a class="header" href="#storeindatabase">StoreInDatabase</a></h4>
 <pre><code class="language-csharp">public virtual bool StoreInDatabase { get; }
 </code></pre>
+<p>Whether this asset is stored following the database hierarchy.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="taggedfordeletion"><a class="header" href="#taggedfordeletion">TaggedForDeletion</a></h4>
 <pre><code class="language-csharp">public bool TaggedForDeletion;
 </code></pre>
+<p>Marks this asset for removal on the next save.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
@@ -324,6 +345,7 @@ If none, creates a new empty collection and returns that instead.</p>
 <h4 id="entitytoguidworld-entity"><a class="header" href="#entitytoguidworld-entity">EntityToGuid(World, Entity)</a></h4>
 <pre><code class="language-csharp">protected T? EntityToGuid(World world, Entity e)
 </code></pre>
+<p>Attempts to resolve the GUID of a live entity in the given world; returns null if the entity has no GUID.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
@@ -332,6 +354,7 @@ If none, creates a new empty collection and returns that instead.</p>
 <h4 id="entitytoguidworld-int"><a class="header" href="#entitytoguidworld-int">EntityToGuid(World, int)</a></h4>
 <pre><code class="language-csharp">protected T? EntityToGuid(World world, int id)
 </code></pre>
+<p>Attempts to resolve the GUID of the entity with the given integer ID in the world; returns null if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -340,6 +363,7 @@ If none, creates a new empty collection and returns that instead.</p>
 <h4 id="trygetdynamicassetimplout-t"><a class="header" href="#trygetdynamicassetimplout-t">TryGetDynamicAssetImpl(out T&amp;)</a></h4>
 <pre><code class="language-csharp">protected virtual bool TryGetDynamicAssetImpl(T&amp; value)
 </code></pre>
+<p>Overridable implementation that attempts to retrieve a typed <code>DynamicAsset</code> from the save; returns false if absent.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="../../">T&amp;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -347,6 +371,7 @@ If none, creates a new empty collection and returns that instead.</p>
 <h4 id="getdefaultsavename"><a class="header" href="#getdefaultsavename">GetDefaultSaveName()</a></h4>
 <pre><code class="language-csharp">protected virtual string GetDefaultSaveName()
 </code></pre>
+<p>Returns the default display name for this save slot; override to customise the auto-generated name.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="clearallworlds"><a class="header" href="#clearallworlds">ClearAllWorlds()</a></h4>
@@ -356,9 +381,11 @@ If none, creates a new empty collection and returns that instead.</p>
 <h4 id="onmodified"><a class="header" href="#onmodified">OnModified()</a></h4>
 <pre><code class="language-csharp">protected virtual void OnModified()
 </code></pre>
+<p>Called by the editor when the asset is modified; override to clear cached derived data.</p>
 <h4 id="hasfinishedsaveworld"><a class="header" href="#hasfinishedsaveworld">HasFinishedSaveWorld()</a></h4>
 <pre><code class="language-csharp">public bool HasFinishedSaveWorld()
 </code></pre>
+<p>Returns true when any pending asynchronous world-save operation has completed.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="recordremovedentityfromworldworld-entity"><a class="header" href="#recordremovedentityfromworldworld-entity">RecordRemovedEntityFromWorld(World, Entity)</a></h4>
@@ -373,6 +400,7 @@ If none, creates a new empty collection and returns that instead.</p>
 <h4 id="duplicatestring"><a class="header" href="#duplicatestring">Duplicate(string)</a></h4>
 <pre><code class="language-csharp">public GameAsset Duplicate(string name)
 </code></pre>
+<p>Creates a deep copy of this asset with the given new name.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -380,21 +408,25 @@ If none, creates a new empty collection and returns that instead.</p>
 <h4 id="assetstobesaved"><a class="header" href="#assetstobesaved">AssetsToBeSaved()</a></h4>
 <pre><code class="language-csharp">public List&lt;T&gt; AssetsToBeSaved()
 </code></pre>
+<p>Returns and clears the list of dependent assets queued to be saved alongside this asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <h4 id="getsimplifiedname"><a class="header" href="#getsimplifiedname">GetSimplifiedName()</a></h4>
 <pre><code class="language-csharp">public string GetSimplifiedName()
 </code></pre>
+<p>Returns the asset name stripped of any editor-folder prefix characters.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="getsplitnamewitheditorpath"><a class="header" href="#getsplitnamewitheditorpath">GetSplitNameWithEditorPath()</a></h4>
 <pre><code class="language-csharp">public String[] GetSplitNameWithEditorPath()
 </code></pre>
+<p>Returns the display name split into path segments following the EditorFolder hierarchy.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string[]</a> </p>
 <h4 id="trygetdynamicasset"><a class="header" href="#trygetdynamicasset">TryGetDynamicAsset()</a></h4>
 <pre><code class="language-csharp">public T TryGetDynamicAsset()
 </code></pre>
+<p>Retrieves the <code>DynamicAsset</code> of type <code>T</code> for this save slot; returns a new default instance if absent.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../">T</a> </p>
 <h4 id="tryloadlevelguid"><a class="header" href="#tryloadlevelguid">TryLoadLevel(Guid)</a></h4>
@@ -409,9 +441,11 @@ This tracks the <paramref name="guid" /> at <a href="../../Murder/Assets/SaveDat
 <h4 id="afterdeserialized"><a class="header" href="#afterdeserialized">AfterDeserialized()</a></h4>
 <pre><code class="language-csharp">public virtual void AfterDeserialized()
 </code></pre>
+<p>Called after deserialization; override to rebuild caches from deserialized data.</p>
 <h4 id="changesavenamestring"><a class="header" href="#changesavenamestring">ChangeSaveName(string)</a></h4>
 <pre><code class="language-csharp">public void ChangeSaveName(string name)
 </code></pre>
+<p>Sets the player-facing display name of this save slot.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="initialize"><a class="header" href="#initialize">Initialize()</a></h4>
@@ -421,9 +455,11 @@ This tracks the <paramref name="guid" /> at <a href="../../Murder/Assets/SaveDat
 <h4 id="makeguid"><a class="header" href="#makeguid">MakeGuid()</a></h4>
 <pre><code class="language-csharp">public void MakeGuid()
 </code></pre>
+<p>Generates and assigns a new GUID to this asset.</p>
 <h4 id="removedynamicassettype"><a class="header" href="#removedynamicassettype">RemoveDynamicAsset(Type)</a></h4>
 <pre><code class="language-csharp">public void RemoveDynamicAsset(Type t)
 </code></pre>
+<p>Removes the <code>DynamicAsset</code> of the given type from this save slot's asset collection.</p>
 <p><strong>Parameters</strong> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <h4 id="saveasyncmonoworld"><a class="header" href="#saveasyncmonoworld">SaveAsync(MonoWorld)</a></h4>
@@ -436,16 +472,19 @@ For now, this will be restricted to the city.</p>
 <h4 id="savedynamicassetguid"><a class="header" href="#savedynamicassetguid">SaveDynamicAsset(Guid)</a></h4>
 <pre><code class="language-csharp">public void SaveDynamicAsset(Guid guid)
 </code></pre>
+<p>Marks the <code>DynamicAsset</code> with the given GUID as dirty so it will be included in the next save.</p>
 <p><strong>Parameters</strong> <br />
 <code>guid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="trackassetonsaveguid"><a class="header" href="#trackassetonsaveguid">TrackAssetOnSave(Guid)</a></h4>
 <pre><code class="language-csharp">public void TrackAssetOnSave(Guid g)
 </code></pre>
+<p>Queues a dependent asset by GUID to be saved whenever this asset is saved.</p>
 <p><strong>Parameters</strong> <br />
 <code>g</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="trackcurrentworldguid"><a class="header" href="#trackcurrentworldguid">TrackCurrentWorld(Guid)</a></h4>
 <pre><code class="language-csharp">public void TrackCurrentWorld(Guid guid)
 </code></pre>
+<p>Records the GUID of the world that is currently loaded, updating <code>CurrentWorld</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>guid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p>⚡</p>

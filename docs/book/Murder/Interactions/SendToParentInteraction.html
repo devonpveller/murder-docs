@@ -149,17 +149,22 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SendToParentInteraction : IInteraction
 </code></pre>
+<p>Sends a message to the parent entity of the interacted entity when the interaction fires.</p>
+<p><strong>Intent:</strong> Propagates an interaction event up to the parent entity in the entity hierarchy.</p>
+<p><strong>Use-case:</strong> Use when a child component (such as a trigger collider or a sub-object) needs to notify its parent that it has been interacted with, for example a button child informing its parent machine.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="custommessage"><a class="header" href="#custommessage">CustomMessage</a></h4>
 <pre><code class="language-csharp">public readonly IMessage CustomMessage;
 </code></pre>
+<p>An optional custom message to send; if <code>null</code>, a default <code>InteractMessage</code> is sent with the interacted entity as sender.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Bang/Components/IMessage.html">IMessage</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Sends <code>CustomMessage</code> (or a default <code>InteractMessage</code>) to the parent of the interacted entity.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

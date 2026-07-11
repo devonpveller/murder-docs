@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed class NoiseHelper
 </code></pre>
+<p>Provides multiple simplex and value noise algorithm implementations accessible from a single instance.</p>
+<p><strong>Intent:</strong> Collects Carmody and Gustavson simplex noise implementations in one place so callers can compare or swap algorithms without changing call sites.</p>
+<p><strong>Use-case:</strong> Instantiate once and call the noise functions with coordinate inputs to generate smooth pseudo-random values for procedural effects, animations, or world generation.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public NoiseHelper()
 </code></pre>

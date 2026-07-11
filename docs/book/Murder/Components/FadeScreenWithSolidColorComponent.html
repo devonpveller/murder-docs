@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct FadeScreenWithSolidColorComponent : IComponent
 </code></pre>
+<p>Drives a simple full-screen solid-color fade managed by <code>FadeScreenWithSolidColorSystem</code>.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Provides a lightweight alternative to <code>FadeScreenComponent</code> when only a plain colored overlay fade is needed.</p>
+<p><strong>Use-case:</strong> Add to the world entity when you need a fast solid-color fade-in or fade-out without custom textures or buffering.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FadeScreenWithSolidColorComponent(Color color, FadeType fade, float duration)
 </code></pre>
@@ -161,16 +164,19 @@
 <h4 id="color"><a class="header" href="#color">Color</a></h4>
 <pre><code class="language-csharp">public readonly Color Color;
 </code></pre>
+<p>Color of the solid overlay used for the fade effect.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/Color.html">Color</a> </p>
 <h4 id="duration"><a class="header" href="#duration">Duration</a></h4>
 <pre><code class="language-csharp">public readonly float Duration;
 </code></pre>
+<p>Duration of the fade effect in seconds.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="fadetype"><a class="header" href="#fadetype">FadeType</a></h4>
 <pre><code class="language-csharp">public readonly FadeType FadeType;
 </code></pre>
+<p>The direction of the fade (in or out).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/FadeType.html">FadeType</a> </p>
 <p>⚡</p>

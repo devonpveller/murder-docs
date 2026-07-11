@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct CollidedWithMessage : IMessage
 </code></pre>
+<p>Carries the identity and collision layer of the other entity involved in a physical collision.</p>
+<p><strong>Intent:</strong> Notify an entity that it has physically collided with another specific entity.</p>
+<p><strong>Use-case:</strong> Send this from a physics or collision detection system and receive it in gameplay systems that need to react to collisions—such as dealing damage, triggering pickups, or applying knockback—while knowing which entity and which collision layer was involved.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IMessage.html">IMessage</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public CollidedWithMessage(int entityId, int layer)
@@ -163,11 +166,13 @@
 <h4 id="entityid"><a class="header" href="#entityid">EntityId</a></h4>
 <pre><code class="language-csharp">public readonly int EntityId;
 </code></pre>
+<p>Entity ID of the other entity involved in the collision.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="layer"><a class="header" href="#layer">Layer</a></h4>
 <pre><code class="language-csharp">public readonly int Layer;
 </code></pre>
+<p>Collision layer of the other entity's collider at the time of the collision.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

@@ -151,6 +151,8 @@
 </code></pre>
 <p>This component makes sure that any sprite will render as a 9-slice instead,
 as specified.</p>
+<p><strong>Intent:</strong> Render a sprite asset as a 9-slice so that it scales to an arbitrary size without distorting the corners or edges.</p>
+<p><strong>Use-case:</strong> Add to UI panels, dialogue boxes, or scalable world objects and set <code>Target</code> to the desired output rectangle; the renderer stretches only the center regions while keeping corners and edges pixel-perfect.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public NineSliceComponent()
@@ -159,26 +161,31 @@ as specified.</p>
 <h4 id="sprite"><a class="header" href="#sprite">Sprite</a></h4>
 <pre><code class="language-csharp">public readonly Guid Sprite;
 </code></pre>
+<p>GUID of the sprite asset to draw as a 9-slice.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="style"><a class="header" href="#style">Style</a></h4>
 <pre><code class="language-csharp">public readonly NineSliceStyle Style;
 </code></pre>
+<p>Determines how the center region of the nine-slice is scaled (e.g. stretch or tile).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/NineSliceStyle.html">NineSliceStyle</a> </p>
 <h4 id="target"><a class="header" href="#target">Target</a></h4>
 <pre><code class="language-csharp">public readonly Rectangle Target;
 </code></pre>
+<p>Destination rectangle defining the final rendered size and position of the nine-slice sprite.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <h4 id="targetspritebatch"><a class="header" href="#targetspritebatch">TargetSpriteBatch</a></h4>
 <pre><code class="language-csharp">public readonly int TargetSpriteBatch;
 </code></pre>
+<p>ID of the sprite batch layer on which this nine-slice is drawn.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="ysortoffset"><a class="header" href="#ysortoffset">YSortOffset</a></h4>
 <pre><code class="language-csharp">public readonly int YSortOffset;
 </code></pre>
+<p>Pixel offset added to the entity's Y position when computing the draw-order sort key.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

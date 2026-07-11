@@ -149,17 +149,22 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class ShaderHelper
 </code></pre>
+<p>Extension methods for setting typed parameters on MonoGame <code>Effect</code> objects by their shader variable name.</p>
+<p><strong>Intent:</strong> Provides a type-safe, overload-based API for applying shader parameters, eliminating direct calls to <code>Effect.Parameters[name].SetValue</code>.</p>
+<p><strong>Use-case:</strong> Call <code>SetParameter</code> on any loaded effect to apply textures, vectors, colors, or scalars by their shader variable name.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="setparametereffect-string-texture2d"><a class="header" href="#setparametereffect-string-texture2d">SetParameter(Effect, string, Texture2D)</a></h4>
 <pre><code class="language-csharp">public void SetParameter(Effect effect, string id, Texture2D val)
 </code></pre>
+<p>Sets the <code>Texture2D</code> shader parameter named <code>id</code> on the given effect.</p>
 <p><strong>Parameters</strong> <br />
 <code>effect</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html">Effect</a> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
-<code>val</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a> </p>
+<code>val</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a></p>
 <h4 id="setparametereffect-string-vector2"><a class="header" href="#setparametereffect-string-vector2">SetParameter(Effect, string, Vector2)</a></h4>
 <pre><code class="language-csharp">public void SetParameter(Effect effect, string id, Vector2 val)
 </code></pre>
+<p>Sets the <code>Vector2</code> (XNA) shader parameter named <code>id</code> on the given effect.</p>
 <p><strong>Parameters</strong> <br />
 <code>effect</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html">Effect</a> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -167,6 +172,7 @@
 <h4 id="setparametereffect-string-vector3"><a class="header" href="#setparametereffect-string-vector3">SetParameter(Effect, string, Vector3)</a></h4>
 <pre><code class="language-csharp">public void SetParameter(Effect effect, string id, Vector3 val)
 </code></pre>
+<p>Sets the <code>Vector3</code> shader parameter named <code>id</code> on the given effect.</p>
 <p><strong>Parameters</strong> <br />
 <code>effect</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html">Effect</a> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -174,6 +180,7 @@
 <h4 id="setparametereffect-string-vector3-1"><a class="header" href="#setparametereffect-string-vector3-1">SetParameter(Effect, string, Vector3[])</a></h4>
 <pre><code class="language-csharp">public void SetParameter(Effect effect, string id, Vector3[] val)
 </code></pre>
+<p>Sets the <code>Vector3</code> array shader parameter named <code>id</code> on the given effect.</p>
 <p><strong>Parameters</strong> <br />
 <code>effect</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html">Effect</a> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -181,6 +188,7 @@
 <h4 id="setparametereffect-string-point"><a class="header" href="#setparametereffect-string-point">SetParameter(Effect, string, Point)</a></h4>
 <pre><code class="language-csharp">public void SetParameter(Effect effect, string id, Point val)
 </code></pre>
+<p>Sets the <code>Point</code> shader parameter named <code>id</code> on the given effect as a two-component integer vector.</p>
 <p><strong>Parameters</strong> <br />
 <code>effect</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html">Effect</a> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -188,6 +196,7 @@
 <h4 id="setparametereffect-string-bool"><a class="header" href="#setparametereffect-string-bool">SetParameter(Effect, string, bool)</a></h4>
 <pre><code class="language-csharp">public void SetParameter(Effect effect, string id, bool val)
 </code></pre>
+<p>Sets the <code>bool</code> shader parameter named <code>id</code> on the given effect.</p>
 <p><strong>Parameters</strong> <br />
 <code>effect</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html">Effect</a> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -195,6 +204,7 @@
 <h4 id="setparametereffect-string-float"><a class="header" href="#setparametereffect-string-float">SetParameter(Effect, string, float)</a></h4>
 <pre><code class="language-csharp">public void SetParameter(Effect effect, string id, float val)
 </code></pre>
+<p>Sets the <code>float</code> scalar shader parameter named <code>id</code> on the given effect.</p>
 <p><strong>Parameters</strong> <br />
 <code>effect</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html">Effect</a> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -202,6 +212,7 @@
 <h4 id="setparametereffect-string-int"><a class="header" href="#setparametereffect-string-int">SetParameter(Effect, string, int)</a></h4>
 <pre><code class="language-csharp">public void SetParameter(Effect effect, string id, int val)
 </code></pre>
+<p>Sets the <code>int</code> scalar shader parameter named <code>id</code> on the given effect.</p>
 <p><strong>Parameters</strong> <br />
 <code>effect</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html">Effect</a> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />

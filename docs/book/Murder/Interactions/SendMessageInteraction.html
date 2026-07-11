@@ -149,17 +149,22 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SendMessageInteraction : IInteraction
 </code></pre>
+<p>Broadcasts a Bang <code>IMessage</code> to a target entity (self, parent, interactor, or a referenced target) when the interaction fires.</p>
+<p><strong>Intent:</strong> Sends an arbitrary message to a specific entity in the ECS world as part of an interaction.</p>
+<p><strong>Use-case:</strong> Use to notify systems that observe a particular message type, such as sending a <code>DamageMessage</code> or a custom event message to a controller entity when an interactive trigger is activated.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="message"><a class="header" href="#message">Message</a></h4>
 <pre><code class="language-csharp">public readonly IMessage Message;
 </code></pre>
+<p>The message instance to dispatch when the interaction fires.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Bang/Components/IMessage.html">IMessage</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Resolves the target entity from <code>Target</code> and dispatches <code>Message</code> to it.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

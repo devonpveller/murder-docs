@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class EditorSettingsAsset : GameAsset
 </code></pre>
+<p>Stores all editor-specific configuration for a Murder project, including source paths, tool paths, and editor UI preferences.</p>
+<p><strong>Intent:</strong> Acts as the persistent settings file for the editor, holding everything from the Aseprite executable path to which world was last open.</p>
+<p><strong>Use-case:</strong> Accessed via <code>Game.EditorSettings</code> inside the editor; serialized automatically alongside other editor-only save data so preferences persist between sessions.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Murder/Assets/GameAsset.html">GameAsset</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public EditorSettingsAsset(string name, string gameSourcePath, ImmutableArray&lt;T&gt; editorSystems)
@@ -161,26 +164,31 @@
 <h4 id="alwaysbuildatlasonstartup"><a class="header" href="#alwaysbuildatlasonstartup">AlwaysBuildAtlasOnStartup</a></h4>
 <pre><code class="language-csharp">public bool AlwaysBuildAtlasOnStartup;
 </code></pre>
+<p>When <code>true</code>, the editor will always rebuild all texture atlases on startup regardless of file timestamps.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="asepritepath"><a class="header" href="#asepritepath">AsepritePath</a></h4>
 <pre><code class="language-csharp">public string AsepritePath;
 </code></pre>
+<p>Absolute path to the Aseprite executable used for sprite import and hot-reload.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="assetnamepattern"><a class="header" href="#assetnamepattern">AssetNamePattern</a></h4>
 <pre><code class="language-csharp">public string AssetNamePattern;
 </code></pre>
+<p>Format string applied when renaming a newly duplicated asset (e.g. <code>&quot; ({0})&quot;</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="automaticallyhotreloaddialoguechanges"><a class="header" href="#automaticallyhotreloaddialoguechanges">AutomaticallyHotReloadDialogueChanges</a></h4>
 <pre><code class="language-csharp">public bool AutomaticallyHotReloadDialogueChanges;
 </code></pre>
+<p>When <code>true</code>, the editor will automatically reimport dialogue files on change without a full restart.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="automaticallyhotreloadshaderchanges"><a class="header" href="#automaticallyhotreloadshaderchanges">AutomaticallyHotReloadShaderChanges</a></h4>
 <pre><code class="language-csharp">public bool AutomaticallyHotReloadShaderChanges;
 </code></pre>
+<p>When <code>true</code>, the editor will automatically recompile and reload shaders on change without a full restart.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="binresourcespath"><a class="header" href="#binresourcespath">BinResourcesPath</a></h4>
@@ -192,26 +200,31 @@
 <h4 id="camerapositions"><a class="header" href="#camerapositions">CameraPositions</a></h4>
 <pre><code class="language-csharp">public readonly Dictionary&lt;TKey, TValue&gt; CameraPositions;
 </code></pre>
+<p>Persists the last known camera position for each open editor stage, keyed by stage/world GUID.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0">Dictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="canbecreated"><a class="header" href="#canbecreated">CanBeCreated</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeCreated { get; }
 </code></pre>
+<p>Returns <code>false</code>; this asset is a singleton and cannot be created from the asset browser.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canbedeleted"><a class="header" href="#canbedeleted">CanBeDeleted</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeDeleted { get; }
 </code></pre>
+<p>Returns <code>false</code>; this asset must not be deleted from within the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canberenamed"><a class="header" href="#canberenamed">CanBeRenamed</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeRenamed { get; }
 </code></pre>
+<p>Returns <code>false</code>; this asset has a fixed name and cannot be renamed.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canbesaved"><a class="header" href="#canbesaved">CanBeSaved</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeSaved { get; }
 </code></pre>
+<p>Returns <code>true</code>; the editor settings asset is always serialized to disk.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="defaultfloor"><a class="header" href="#defaultfloor">DefaultFloor</a></h4>
@@ -223,11 +236,13 @@
 <h4 id="editorcolor"><a class="header" href="#editorcolor">EditorColor</a></h4>
 <pre><code class="language-csharp">public virtual Vector4 EditorColor { get; }
 </code></pre>
+<p>Color used to tint this asset's icon in the editor asset browser.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="editorfolder"><a class="header" href="#editorfolder">EditorFolder</a></h4>
 <pre><code class="language-csharp">public virtual string EditorFolder { get; }
 </code></pre>
+<p>The virtual folder path that groups this asset in the editor asset browser.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="editorsystems"><a class="header" href="#editorsystems">EditorSystems</a></h4>
@@ -239,21 +254,25 @@
 <h4 id="filechanged"><a class="header" href="#filechanged">FileChanged</a></h4>
 <pre><code class="language-csharp">public bool FileChanged { get; public set; }
 </code></pre>
+<p>Dirty flag indicating that this asset has been modified and needs to be saved.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="filepath"><a class="header" href="#filepath">FilePath</a></h4>
 <pre><code class="language-csharp">public string FilePath { get; public set; }
 </code></pre>
+<p>Absolute path to the serialized file on disk for this asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="fontscale"><a class="header" href="#fontscale">FontScale</a></h4>
 <pre><code class="language-csharp">public float FontScale;
 </code></pre>
+<p>Scaling factor applied to editor UI fonts; useful for high-DPI displays.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="fxcpath"><a class="header" href="#fxcpath">FxcPath</a></h4>
 <pre><code class="language-csharp">public string FxcPath;
 </code></pre>
+<p>Path to the FXC shader compiler executable used to compile HLSL shaders for DirectX.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="gamesourcepath"><a class="header" href="#gamesourcepath">GameSourcePath</a></h4>
@@ -265,21 +284,25 @@
 <h4 id="guid"><a class="header" href="#guid">Guid</a></h4>
 <pre><code class="language-csharp">public Guid Guid { get; protected set; }
 </code></pre>
+<p>Unique identifier for this asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="icon"><a class="header" href="#icon">Icon</a></h4>
 <pre><code class="language-csharp">public virtual char Icon { get; }
 </code></pre>
+<p>Icon character from the icon font used to represent this asset in the editor browser.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0">char</a> </p>
 <h4 id="ignoredtexturepackingextensions"><a class="header" href="#ignoredtexturepackingextensions">IgnoredTexturePackingExtensions</a></h4>
 <pre><code class="language-csharp">public string IgnoredTexturePackingExtensions;
 </code></pre>
+<p>Comma-separated list of file extensions (e.g. <code>.clip,.psd</code>) that the atlas packer should skip.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="isstoredinsavedata"><a class="header" href="#isstoredinsavedata">IsStoredInSaveData</a></h4>
 <pre><code class="language-csharp">public virtual bool IsStoredInSaveData { get; }
 </code></pre>
+<p>Returns <code>true</code>; editor settings are stored alongside save data rather than packed assets.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="lasthotreloadimport"><a class="header" href="#lasthotreloadimport">LastHotReloadImport</a></h4>
@@ -309,31 +332,37 @@
 <h4 id="luascriptspath"><a class="header" href="#luascriptspath">LuaScriptsPath</a></h4>
 <pre><code class="language-csharp">public string LuaScriptsPath;
 </code></pre>
+<p>Path to the directory containing Lua scripts used by editor tools and importers.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="monitor"><a class="header" href="#monitor">Monitor</a></h4>
 <pre><code class="language-csharp">public int Monitor;
 </code></pre>
+<p>Index of the monitor the editor window should appear on when <code>StartMaximized</code> is false.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public string Name { get; public set; }
 </code></pre>
+<p>Display name of this asset as shown in the editor asset browser.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="newassetdefaultname"><a class="header" href="#newassetdefaultname">NewAssetDefaultName</a></h4>
 <pre><code class="language-csharp">public string NewAssetDefaultName;
 </code></pre>
+<p>Format string for the default name given to newly created assets (e.g. <code>&quot;New {0}&quot;</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="openedtabs"><a class="header" href="#openedtabs">OpenedTabs</a></h4>
 <pre><code class="language-csharp">public Guid[] OpenedTabs;
 </code></pre>
+<p>Array of GUIDs identifying the assets that were open in the editor tabs at last save.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid[]</a> </p>
 <h4 id="quickstartscene"><a class="header" href="#quickstartscene">QuickStartScene</a></h4>
 <pre><code class="language-csharp">public Guid QuickStartScene;
 </code></pre>
+<p>GUID of the world asset that will be loaded when the developer presses Shift+F5 for a quick play test.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="rawresourcespath"><a class="header" href="#rawresourcespath">RawResourcesPath</a></h4>
@@ -345,21 +374,25 @@
 <h4 id="rename"><a class="header" href="#rename">Rename</a></h4>
 <pre><code class="language-csharp">public bool Rename { get; public set; }
 </code></pre>
+<p>Indicates whether this asset is currently in a rename operation in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="saveasepriteinfoonspriteasset"><a class="header" href="#saveasepriteinfoonspriteasset">SaveAsepriteInfoOnSpriteAsset</a></h4>
 <pre><code class="language-csharp">public bool SaveAsepriteInfoOnSpriteAsset;
 </code></pre>
+<p>When <code>true</code>, saves raw Aseprite metadata alongside the generated sprite asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="savedeserializedassetonerror"><a class="header" href="#savedeserializedassetonerror">SaveDeserializedAssetOnError</a></h4>
 <pre><code class="language-csharp">public bool SaveDeserializedAssetOnError;
 </code></pre>
+<p>When <code>true</code>, writes the partially-deserialized asset back to disk when a deserialization error occurs, aiding debugging.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="savelocation"><a class="header" href="#savelocation">SaveLocation</a></h4>
 <pre><code class="language-csharp">public virtual string SaveLocation { get; }
 </code></pre>
+<p>Relative directory where this asset is serialized; empty string means root save directory.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="sourcepackedpath"><a class="header" href="#sourcepackedpath">SourcePackedPath</a></h4>
@@ -377,31 +410,37 @@
 <h4 id="startmaximized"><a class="header" href="#startmaximized">StartMaximized</a></h4>
 <pre><code class="language-csharp">public bool StartMaximized;
 </code></pre>
+<p>When <code>true</code>, the editor window will open maximized.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="startoneditor"><a class="header" href="#startoneditor">StartOnEditor</a></h4>
 <pre><code class="language-csharp">public bool StartOnEditor;
 </code></pre>
+<p>When <code>true</code>, the game launches directly into the editor scene instead of the normal startup flow.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="storeindatabase"><a class="header" href="#storeindatabase">StoreInDatabase</a></h4>
 <pre><code class="language-csharp">public virtual bool StoreInDatabase { get; }
 </code></pre>
+<p>Returns <code>false</code>; editor settings are not tracked in the main asset database.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="taggedfordeletion"><a class="header" href="#taggedfordeletion">TaggedForDeletion</a></h4>
 <pre><code class="language-csharp">public bool TaggedForDeletion;
 </code></pre>
+<p>When <code>true</code>, this asset is queued for deletion on the next save operation.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="teststarttime"><a class="header" href="#teststarttime">TestStartTime</a></h4>
 <pre><code class="language-csharp">public T? TestStartTime;
 </code></pre>
+<p>Optional override for the game start time used when running a quick-test from the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="teststartwithentityandcomponent"><a class="header" href="#teststartwithentityandcomponent">TestStartWithEntityAndComponent</a></h4>
 <pre><code class="language-csharp">public T? TestStartWithEntityAndComponent;
 </code></pre>
+<p>Optional entity and component pair used to configure a quick-test start state in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="testworldposition"><a class="header" href="#testworldposition">TestWorldPosition</a></h4>
@@ -414,30 +453,36 @@ TODO: Move this to save, eventually? Especially if this is a in-game feature at 
 <h4 id="usecustomcutscene"><a class="header" href="#usecustomcutscene">UseCustomCutscene</a></h4>
 <pre><code class="language-csharp">public bool UseCustomCutscene;
 </code></pre>
+<p>When <code>true</code>, the editor uses a custom cutscene implementation instead of the default.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="wasdcameraspeed"><a class="header" href="#wasdcameraspeed">WasdCameraSpeed</a></h4>
 <pre><code class="language-csharp">public float WasdCameraSpeed;
 </code></pre>
+<p>Movement speed of the editor camera when navigating with WASD keys.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="windowsize"><a class="header" href="#windowsize">WindowSize</a></h4>
 <pre><code class="language-csharp">public Point WindowSize;
 </code></pre>
+<p>Stored size of the editor window; used to restore window dimensions on next launch.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="windowstartposition"><a class="header" href="#windowstartposition">WindowStartPosition</a></h4>
 <pre><code class="language-csharp">public Point WindowStartPosition;
 </code></pre>
+<p>Stored top-left position of the editor window; used to restore window position on next launch.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="onmodified"><a class="header" href="#onmodified">OnModified()</a></h4>
 <pre><code class="language-csharp">protected virtual void OnModified()
 </code></pre>
+<p>Called whenever any property of this asset changes; override to react to settings updates.</p>
 <h4 id="duplicatestring"><a class="header" href="#duplicatestring">Duplicate(string)</a></h4>
 <pre><code class="language-csharp">public GameAsset Duplicate(string name)
 </code></pre>
+<p>Creates a deep copy of this asset with the given name.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -445,32 +490,39 @@ TODO: Move this to save, eventually? Especially if this is a in-game feature at 
 <h4 id="assetstobesaved"><a class="header" href="#assetstobesaved">AssetsToBeSaved()</a></h4>
 <pre><code class="language-csharp">public List&lt;T&gt; AssetsToBeSaved()
 </code></pre>
+<p>Returns the list of additional assets that should be saved along with this one.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <h4 id="getsimplifiedname"><a class="header" href="#getsimplifiedname">GetSimplifiedName()</a></h4>
 <pre><code class="language-csharp">public string GetSimplifiedName()
 </code></pre>
+<p>Returns the asset's display name with any path prefix stripped.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="getsplitnamewitheditorpath"><a class="header" href="#getsplitnamewitheditorpath">GetSplitNameWithEditorPath()</a></h4>
 <pre><code class="language-csharp">public String[] GetSplitNameWithEditorPath()
 </code></pre>
+<p>Splits the asset name into segments including the editor folder path.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string[]</a> </p>
 <h4 id="afterdeserialized"><a class="header" href="#afterdeserialized">AfterDeserialized()</a></h4>
 <pre><code class="language-csharp">public virtual void AfterDeserialized()
 </code></pre>
+<p>Called after this asset has been deserialized; use to perform post-load initialization.</p>
 <h4 id="makeguid"><a class="header" href="#makeguid">MakeGuid()</a></h4>
 <pre><code class="language-csharp">public void MakeGuid()
 </code></pre>
+<p>Assigns a new random GUID to this asset.</p>
 <h4 id="trackassetonsaveguid"><a class="header" href="#trackassetonsaveguid">TrackAssetOnSave(Guid)</a></h4>
 <pre><code class="language-csharp">public void TrackAssetOnSave(Guid g)
 </code></pre>
+<p>Registers the asset identified by <code>g</code> to be serialized the next time this asset is saved.</p>
 <p><strong>Parameters</strong> <br />
 <code>g</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="updatesystemsimmutablearray"><a class="header" href="#updatesystemsimmutablearray">UpdateSystems(ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public void UpdateSystems(ImmutableArray&lt;T&gt; systems)
 </code></pre>
+<p>Replaces the editor's registered systems list with the given immutable array.</p>
 <p><strong>Parameters</strong> <br />
 <code>systems</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <p>⚡</p>

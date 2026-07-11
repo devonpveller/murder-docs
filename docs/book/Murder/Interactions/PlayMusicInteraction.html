@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct PlayMusicInteraction : IInteraction
 </code></pre>
+<p>Starts a music event when the interaction fires, optionally stopping a previous track.</p>
+<p><strong>Intent:</strong> Triggers a background music transition as a result of an in-world interaction.</p>
+<p><strong>Use-case:</strong> Use to change the background music when the player enters a new area or triggers a scripted event, such as switching from an exploration theme to a combat theme.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PlayMusicInteraction()
@@ -157,22 +160,26 @@
 <h4 id="music"><a class="header" href="#music">Music</a></h4>
 <pre><code class="language-csharp">public readonly SoundEventId Music;
 </code></pre>
+<p>The sound event identifier of the music track to start playing.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Sounds/SoundEventId.html">SoundEventId</a> </p>
 <h4 id="previousmusic"><a class="header" href="#previousmusic">PreviousMusic</a></h4>
 <pre><code class="language-csharp">public readonly T? PreviousMusic;
 </code></pre>
+<p>Optional identifier of the previous music track to restore after this one ends, if applicable.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="stopprevious"><a class="header" href="#stopprevious">StopPrevious</a></h4>
 <pre><code class="language-csharp">public readonly bool StopPrevious;
 </code></pre>
+<p>When <code>true</code>, stops the currently playing music before starting the new track.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Plays <code>Music</code>, optionally stopping the previous track first.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

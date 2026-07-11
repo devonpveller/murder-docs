@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Polygon
 </code></pre>
+<p>An immutable convex (or concave) polygon defined by an ordered array of 2D vertices.</p>
+<p><strong>Intent:</strong> Store and query the vertex data for arbitrary 2D collision shapes and geometry operations.</p>
+<p><strong>Use-case:</strong> Create a <code>Polygon</code> from a list of <code>Vector2</code> vertices and wrap it in a <code>PolygonShape</code> to use as a collision shape. Use <code>Contains()</code> for point-in-polygon tests and <code>GetLines()</code> to iterate over edges.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Polygon()
 </code></pre>
@@ -165,22 +168,26 @@
 <h4 id="diamond"><a class="header" href="#diamond">DIAMOND</a></h4>
 <pre><code class="language-csharp">public readonly static Polygon DIAMOND;
 </code></pre>
+<p>A pre-built diamond (rhombus) polygon with vertices at (±10, 0) and (0, ±10).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Polygon.html">Polygon</a> </p>
 <h4 id="empty"><a class="header" href="#empty">EMPTY</a></h4>
 <pre><code class="language-csharp">public readonly static Polygon EMPTY;
 </code></pre>
+<p>A polygon with no vertices, used as a default or sentinel value.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Polygon.html">Polygon</a> </p>
 <h4 id="vertices"><a class="header" href="#vertices">Vertices</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Vertices;
 </code></pre>
+<p>The ordered list of vertices that define this polygon's shape.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="containspoint"><a class="header" href="#containspoint">Contains(Point)</a></h4>
 <pre><code class="language-csharp">public bool Contains(Point point)
 </code></pre>
+<p>Returns <code>true</code> if <code>point</code> lies inside this polygon using a ray-casting algorithm.</p>
 <p><strong>Parameters</strong> <br />
 <code>point</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />
@@ -188,6 +195,7 @@
 <h4 id="containsvector2"><a class="header" href="#containsvector2">Contains(Vector2)</a></h4>
 <pre><code class="language-csharp">public bool Contains(Vector2 vector)
 </code></pre>
+<p>Returns <code>true</code> if <code>vector</code> lies inside this polygon.</p>
 <p><strong>Parameters</strong> <br />
 <code>vector</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -195,6 +203,7 @@
 <h4 id="isclockwiselist"><a class="header" href="#isclockwiselist">IsClockwise(List<T>)</a></h4>
 <pre><code class="language-csharp">public bool IsClockwise(List&lt;T&gt; vertices)
 </code></pre>
+<p>Returns <code>true</code> if the given vertex list is ordered clockwise.</p>
 <p><strong>Parameters</strong> <br />
 <code>vertices</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -202,11 +211,13 @@
 <h4 id="isconvex"><a class="header" href="#isconvex">IsConvex()</a></h4>
 <pre><code class="language-csharp">public bool IsConvex()
 </code></pre>
+<p>Returns <code>true</code> if this polygon is convex (no concave vertices).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="ispointintrianglevector2-vector2-vector2-vector2"><a class="header" href="#ispointintrianglevector2-vector2-vector2-vector2">IsPointInTriangle(Vector2, Vector2, Vector2, Vector2)</a></h4>
 <pre><code class="language-csharp">public bool IsPointInTriangle(Vector2 point, Vector2 a, Vector2 b, Vector2 c)
 </code></pre>
+<p>Returns <code>true</code> if <code>point</code> lies inside the triangle defined by vertices <code>a</code>, <code>b</code>, and <code>c</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>point</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
 <code>a</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />

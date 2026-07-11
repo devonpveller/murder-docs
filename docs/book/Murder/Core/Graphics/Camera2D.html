@@ -150,9 +150,12 @@
 <pre><code class="language-csharp">public class Camera2D
 </code></pre>
 <p>Creates a camera 2D world view for our game.</p>
+<p><strong>Intent:</strong> Manages the world-to-screen transform for 2D rendering, including position, zoom, rotation, and screen-shake.</p>
+<p><strong>Use-case:</strong> Access the camera through <code>RenderContext.Camera</code>; set <code>Position</code> and <code>Zoom</code> to control what the player sees, call <code>Shake()</code> for screen-shake effects, and use <code>WorldToScreenPosition()</code> / <code>ScreenToWorldPosition()</code> for coordinate conversions.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Camera2D(int width, int height)
 </code></pre>
+<p>Creates a camera with the given viewport resolution.</p>
 <p><strong>Parameters</strong> <br />
 <code>width</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>height</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -160,61 +163,73 @@
 <h4 id="aspect"><a class="header" href="#aspect">Aspect</a></h4>
 <pre><code class="language-csharp">public float Aspect { get; }
 </code></pre>
+<p>Width-to-height aspect ratio of the camera viewport (<code>Width / Height</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="bounds"><a class="header" href="#bounds">Bounds</a></h4>
 <pre><code class="language-csharp">public Rectangle Bounds { get; private set; }
 </code></pre>
+<p>The axis-aligned world-space rectangle currently visible through the camera, useful for frustum culling.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <h4 id="halfwidth"><a class="header" href="#halfwidth">HalfWidth</a></h4>
 <pre><code class="language-csharp">public int HalfWidth { get; }
 </code></pre>
+<p>Half the viewport width in pixels; useful when centering objects or computing screen offsets.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="height"><a class="header" href="#height">Height</a></h4>
 <pre><code class="language-csharp">public int Height { get; private set; }
 </code></pre>
+<p>Viewport height in pixels.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="position"><a class="header" href="#position">Position</a></h4>
 <pre><code class="language-csharp">public Vector2 Position { get; public set; }
 </code></pre>
+<p>The top-left world-space position of the camera. Setting this moves the viewport within the game world.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="safebounds"><a class="header" href="#safebounds">SafeBounds</a></h4>
 <pre><code class="language-csharp">public Rectangle SafeBounds { get; private set; }
 </code></pre>
+<p>A slightly inset version of <code>Bounds</code> used for safe-area checks (e.g., ensuring spawned entities don't appear right at the viewport edge).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <h4 id="shakeintensity"><a class="header" href="#shakeintensity">ShakeIntensity</a></h4>
 <pre><code class="language-csharp">public float ShakeIntensity;
 </code></pre>
+<p>The current pixel magnitude of the screen-shake displacement.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="shaketime"><a class="header" href="#shaketime">ShakeTime</a></h4>
 <pre><code class="language-csharp">public float ShakeTime;
 </code></pre>
+<p>Remaining duration of the active screen-shake in seconds.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="size"><a class="header" href="#size">Size</a></h4>
 <pre><code class="language-csharp">public Point Size { get; }
 </code></pre>
+<p>Viewport dimensions as a <code>Point</code> (<code>Width</code>, <code>Height</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="width"><a class="header" href="#width">Width</a></h4>
 <pre><code class="language-csharp">public int Width { get; private set; }
 </code></pre>
+<p>Viewport width in pixels.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="worldviewprojection"><a class="header" href="#worldviewprojection">WorldViewProjection</a></h4>
 <pre><code class="language-csharp">public Matrix WorldViewProjection { get; }
 </code></pre>
+<p>The combined world-view-projection matrix passed to shaders; cached and recomputed only when <code>Position</code>, <code>Zoom</code>, or rotation changes.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Matrix.html">Matrix</a> </p>
 <h4 id="zoom"><a class="header" href="#zoom">Zoom</a></h4>
 <pre><code class="language-csharp">public float Zoom { get; public set; }
 </code></pre>
+<p>Camera zoom factor (1.0 = no zoom). Clamped to [0.1, 500]. Values greater than 1 zoom in; values less than 1 zoom out.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
@@ -240,6 +255,7 @@ Ideally you should use the EditorHook for this if you are in an editor System.</
 <h4 id="screentoworldpositionvector2"><a class="header" href="#screentoworldpositionvector2">ScreenToWorldPosition(Vector2)</a></h4>
 <pre><code class="language-csharp">public Vector2 ScreenToWorldPosition(Vector2 screenPosition)
 </code></pre>
+<p>Converts a screen-space position to world-space coordinates using the current camera transform.</p>
 <p><strong>Parameters</strong> <br />
 <code>screenPosition</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -247,6 +263,7 @@ Ideally you should use the EditorHook for this if you are in an editor System.</
 <h4 id="worldtoscreenpositionvector2"><a class="header" href="#worldtoscreenpositionvector2">WorldToScreenPosition(Vector2)</a></h4>
 <pre><code class="language-csharp">public Vector2 WorldToScreenPosition(Vector2 screenPosition)
 </code></pre>
+<p>Converts a world-space position to screen-space coordinates using the current camera transform.</p>
 <p><strong>Parameters</strong> <br />
 <code>screenPosition</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -254,23 +271,28 @@ Ideally you should use the EditorHook for this if you are in an editor System.</
 <h4 id="clearcache"><a class="header" href="#clearcache">ClearCache()</a></h4>
 <pre><code class="language-csharp">public void ClearCache()
 </code></pre>
+<p>Forces the cached <code>WorldViewProjection</code> matrix to be recomputed on next access, typically after the viewport resolution changes.</p>
 <h4 id="lock"><a class="header" href="#lock">Lock()</a></h4>
 <pre><code class="language-csharp">public void Lock()
 </code></pre>
+<p>Prevents further changes to <code>Position</code> from updating the camera transform until <code>Unlock()</code> is called; useful during cinematic sequences.</p>
 <h4 id="rotatefloat"><a class="header" href="#rotatefloat">Rotate(float)</a></h4>
 <pre><code class="language-csharp">public void Rotate(float degrees)
 </code></pre>
+<p>Rotates the camera by <code>degrees</code> (added to the current rotation). Invalidates the cached transform.</p>
 <p><strong>Parameters</strong> <br />
 <code>degrees</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="shakefloat-float"><a class="header" href="#shakefloat-float">Shake(float, float)</a></h4>
 <pre><code class="language-csharp">public void Shake(float intensity, float time)
 </code></pre>
+<p>Triggers a screen-shake effect with the given pixel <code>intensity</code> that decays over <code>time</code> seconds.</p>
 <p><strong>Parameters</strong> <br />
 <code>intensity</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>time</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="unlock"><a class="header" href="#unlock">Unlock()</a></h4>
 <pre><code class="language-csharp">public void Unlock()
 </code></pre>
+<p>Re-enables position updates after a <code>Lock()</code> call.</p>
 <p>⚡</p>
 
                     </main>

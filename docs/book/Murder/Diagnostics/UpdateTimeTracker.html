@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class UpdateTimeTracker
 </code></pre>
 <p>Track the latest update times.</p>
+<p><strong>Intent:</strong> Records per-frame update-phase timing data for each system to power the diagnostics overlay.</p>
+<p><strong>Use-case:</strong> Queried by the diagnostics system to display which systems are consuming the most update time; not typically used directly in game code.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public UpdateTimeTracker()
 </code></pre>
@@ -157,17 +159,20 @@
 <h4 id="length"><a class="header" href="#length">Length</a></h4>
 <pre><code class="language-csharp">public int Length { get; }
 </code></pre>
+<p>Number of recorded samples currently stored in <code>Sample</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="sample"><a class="header" href="#sample">Sample</a></h4>
 <pre><code class="language-csharp">public readonly Single[] Sample;
 </code></pre>
+<p>Ring buffer of the most recent update delta times in milliseconds.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float[]</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="updatedouble"><a class="header" href="#updatedouble">Update(double)</a></h4>
 <pre><code class="language-csharp">public void Update(double dt)
 </code></pre>
+<p>Appends <code>dt</code> (in seconds, converted to ms) to the ring buffer; only active in DEBUG builds.</p>
 <p><strong>Parameters</strong> <br />
 <code>dt</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Double?view=net-7.0">double</a> </p>
 <p>⚡</p>

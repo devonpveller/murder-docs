@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AgentSpriteComponent : IComponent
 </code></pre>
+<p>Configures which sprite asset and animation name prefixes an agent entity uses for idle and walk states.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Links an agent entity to a sprite asset and defines the naming convention for its directional idle/walk animation clips.</p>
+<p><strong>Use-case:</strong> Attach to any entity with an <code>AgentComponent</code> and <code>FacingComponent</code>; <code>AgentSpriteSystem</code> reads this to play the correct animation depending on whether the agent is moving or idle.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AgentSpriteComponent()
 </code></pre>
@@ -157,26 +160,31 @@
 <h4 id="animationguid"><a class="header" href="#animationguid">AnimationGuid</a></h4>
 <pre><code class="language-csharp">public Guid AnimationGuid { get; public set; }
 </code></pre>
+<p>GUID of the <code>SpriteAsset</code> that contains the agent's animations.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="idleprefix"><a class="header" href="#idleprefix">IdlePrefix</a></h4>
 <pre><code class="language-csharp">public readonly string IdlePrefix;
 </code></pre>
+<p>Prefix used to look up the idle animation clips (e.g., <code>&quot;idle&quot;</code> matches <code>&quot;idle_right&quot;</code>, <code>&quot;idle_up&quot;</code>, etc.).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="targetspritebatch"><a class="header" href="#targetspritebatch">TargetSpriteBatch</a></h4>
 <pre><code class="language-csharp">public readonly int TargetSpriteBatch;
 </code></pre>
+<p>Index of the sprite batch that this agent's sprite is rendered into.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="walkprefix"><a class="header" href="#walkprefix">WalkPrefix</a></h4>
 <pre><code class="language-csharp">public readonly string WalkPrefix;
 </code></pre>
+<p>Prefix used to look up the walk animation clips (e.g., <code>&quot;walk&quot;</code> matches <code>&quot;walk_right&quot;</code>, <code>&quot;walk_up&quot;</code>, etc.).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="ysortoffset"><a class="header" href="#ysortoffset">YSortOffset</a></h4>
 <pre><code class="language-csharp">public readonly int YSortOffset;
 </code></pre>
+<p>Vertical pixel offset added to this entity's Y position when computing draw-order sorting.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

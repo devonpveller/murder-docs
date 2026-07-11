@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SoundFact : IComparable&lt;T&gt;, IEquatable&lt;T&gt;
 </code></pre>
+<p>A named blackboard fact used as a key in the adaptive audio rule system.</p>
+<p><strong>Intent:</strong> Identify a variable in the sound blackboard that can be read or written to drive audio rule logic.</p>
+<p><strong>Use-case:</strong> Create <code>SoundFact</code> entries in a sound rules asset to define conditions (e.g. &quot;player_health &lt; 30&quot;). Reference the same fact in <code>SoundRuleAction</code> to set its value at gameplay events.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable-1?view=net-7.0">IComparable&lt;T&gt;</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0">IEquatable&lt;T&gt;</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SoundFact()
@@ -168,6 +171,7 @@
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public readonly string Name;
 </code></pre>
+<p>The name of the fact within its blackboard.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>

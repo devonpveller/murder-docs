@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct TextureComponent : IComponent
 </code></pre>
+<p>Holds a raw <code>Texture2D</code> to be rendered on an entity at runtime, bypassing the atlas/asset pipeline.</p>
+<p><strong>Intent:</strong> Render a dynamically generated or externally loaded texture on an entity.</p>
+<p><strong>Use-case:</strong> Use when a texture is created procedurally at runtime (e.g. a render-target or a captured screenshot) and needs to be displayed on a world entity.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TextureComponent(Texture2D texture, int targetSpriteBatch)
@@ -160,16 +163,19 @@
 <h4 id="autodispose"><a class="header" href="#autodispose">AutoDispose</a></h4>
 <pre><code class="language-csharp">public readonly bool AutoDispose;
 </code></pre>
+<p>When true, the <code>Texture2D</code> is automatically disposed when the component is removed or the entity is destroyed.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="targetspritebatch"><a class="header" href="#targetspritebatch">TargetSpriteBatch</a></h4>
 <pre><code class="language-csharp">public readonly int TargetSpriteBatch;
 </code></pre>
+<p>Sprite batch layer used when rendering this texture.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="texture"><a class="header" href="#texture">Texture</a></h4>
 <pre><code class="language-csharp">public readonly Texture2D Texture;
 </code></pre>
+<p>The raw GPU texture to be drawn on the entity.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a> </p>
 <p>⚡</p>

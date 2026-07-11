@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct FreezeWorldComponent : IComponent
 </code></pre>
+<p>A unique, runtime-only component that requests a full pause of the world simulation, preventing all game systems from advancing until the freeze is released.</p>
+<p><strong>Intent:</strong> Pause all entity updates and physics simultaneously, for example during a hit-stop effect, a transition, or a UI pause menu.</p>
+<p><strong>Use-case:</strong> Add this component to the world entity (it is <code>[Unique]</code>) with the current game time as <code>StartTime</code>; multiple requestors increment <code>Count</code> so the world only resumes when the last request is removed.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FreezeWorldComponent(float startTime, int count)
@@ -164,11 +167,13 @@
 <h4 id="count"><a class="header" href="#count">Count</a></h4>
 <pre><code class="language-csharp">public readonly int Count;
 </code></pre>
+<p>Number of active freeze requests; the world stays frozen while this is greater than zero.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="starttime"><a class="header" href="#starttime">StartTime</a></h4>
 <pre><code class="language-csharp">public readonly float StartTime;
 </code></pre>
+<p>Absolute game time (in seconds) when the freeze was first requested, used to measure freeze duration.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

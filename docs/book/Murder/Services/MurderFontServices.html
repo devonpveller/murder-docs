@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class MurderFontServices
 </code></pre>
+<p>Provides utilities for measuring text width using the engine's built-in font system.</p>
+<p><strong>Intent:</strong> Allows game code to query the pixel width of a string before rendering it, enabling layout calculations.</p>
+<p><strong>Use-case:</strong> Use <code>GetLineWidth</code> before calling <code>RenderServices.DrawText</code> to centre a label, truncate overflowing text, or align UI elements based on their text content.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getlinewidthmurderfonts-readonlyspan"><a class="header" href="#getlinewidthmurderfonts-readonlyspan">GetLineWidth(MurderFonts, ReadOnlySpan<T>)</a></h4>
 <pre><code class="language-csharp">public float GetLineWidth(MurderFonts font, ReadOnlySpan&lt;T&gt; text)
 </code></pre>
+<p>Returns the pixel width of <code>text</code> when rendered with the given <code>MurderFonts</code> font (span overload for zero-allocation calls).</p>
 <p><strong>Parameters</strong> <br />
 <code>font</code> <a href="../../Murder/Services/MurderFonts.html">MurderFonts</a> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ReadOnlySpan-1?view=net-7.0">ReadOnlySpan&lt;T&gt;</a> </p>
@@ -161,6 +165,7 @@
 <h4 id="getlinewidthmurderfonts-string"><a class="header" href="#getlinewidthmurderfonts-string">GetLineWidth(MurderFonts, string)</a></h4>
 <pre><code class="language-csharp">public float GetLineWidth(MurderFonts font, string text)
 </code></pre>
+<p>Returns the pixel width of <code>text</code> when rendered with the given <code>MurderFonts</code> font.</p>
 <p><strong>Parameters</strong> <br />
 <code>font</code> <a href="../../Murder/Services/MurderFonts.html">MurderFonts</a> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
@@ -169,6 +174,7 @@
 <h4 id="getlinewidthint-string"><a class="header" href="#getlinewidthint-string">GetLineWidth(int, string)</a></h4>
 <pre><code class="language-csharp">public float GetLineWidth(int font, string text)
 </code></pre>
+<p>Returns the pixel width of <code>text</code> when rendered with the font identified by its integer index.</p>
 <p><strong>Parameters</strong> <br />
 <code>font</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>

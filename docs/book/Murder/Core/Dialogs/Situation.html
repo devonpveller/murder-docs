@@ -149,11 +149,16 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Situation
 </code></pre>
+<p>A named collection of <code>Dialog</code> nodes and their outgoing <code>DialogEdge</code> transitions, representing one addressable dialogue state for a character.</p>
+<p><strong>Intent:</strong> Groups all the dialogue nodes that belong to a single logical conversation topic or game state into a named, indexable unit that the runtime can activate by name.</p>
+<p><strong>Use-case:</strong> A character asset holds a dictionary of <code>Situation</code>s; <code>CharacterRuntime.StartAtSituation</code> selects the active one by name, after which the runtime traverses its <code>Dialogs</code> and <code>Edges</code> to drive the conversation.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Situation()
 </code></pre>
+<p>Creates an empty situation with default values.</p>
 <pre><code class="language-csharp">public Situation(int id, string name, ImmutableArray&lt;T&gt; dialogs, ImmutableDictionary&lt;TKey, TValue&gt; edges)
 </code></pre>
+<p>Full constructor that populates all fields of the situation.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -161,6 +166,7 @@
 <code>edges</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0">ImmutableDictionary&lt;TKey, TValue&gt;</a> </p>
 <pre><code class="language-csharp">public Situation(int id, string name)
 </code></pre>
+<p>Creates a situation with the given id and name but no dialogs or edges.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
@@ -168,27 +174,32 @@
 <h4 id="dialogs"><a class="header" href="#dialogs">Dialogs</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Dialogs;
 </code></pre>
+<p>Ordered list of all <code>Dialog</code> nodes that belong to this situation.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="edges"><a class="header" href="#edges">Edges</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableDictionary&lt;TKey, TValue&gt; Edges;
 </code></pre>
+<p>Map from a source dialog id to the <code>DialogEdge</code> that describes how to transition to the next dialog.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0">ImmutableDictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="id"><a class="header" href="#id">Id</a></h4>
 <pre><code class="language-csharp">public readonly int Id;
 </code></pre>
+<p>Unique integer identifier for this situation within the character's situation list.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public readonly string Name;
 </code></pre>
+<p>Human-readable name used by <code>CharacterRuntime.StartAtSituation</code> to look up and activate this situation.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="withdialogatint-dialog"><a class="header" href="#withdialogatint-dialog">WithDialogAt(int, Dialog)</a></h4>
 <pre><code class="language-csharp">public Situation WithDialogAt(int index, Dialog dialog)
 </code></pre>
+<p>Returns a copy of this situation with the <code>Dialog</code> at <code>index</code> replaced.</p>
 <p><strong>Parameters</strong> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>dialog</code> <a href="../../../Murder/Core/Dialogs/Dialog.html">Dialog</a> </p>
@@ -197,6 +208,7 @@
 <h4 id="withnamestring"><a class="header" href="#withnamestring">WithName(string)</a></h4>
 <pre><code class="language-csharp">public Situation WithName(string name)
 </code></pre>
+<p>Returns a copy of this situation with the <code>Name</code> replaced.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />

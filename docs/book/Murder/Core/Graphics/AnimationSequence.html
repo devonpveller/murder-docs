@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AnimationSequence
 </code></pre>
+<p>Defines a candidate follow-up animation clip with a probability weight used for weighted-random selection when the current clip finishes.</p>
+<p><strong>Intent:</strong> Allows an animation to chain into one of several possible next clips instead of a single fixed successor.</p>
+<p><strong>Use-case:</strong> Populate <code>Animation.NextAnimation</code> with one or more <code>AnimationSequence</code> entries; the runtime picks a successor clip according to their relative <code>Chance</code> weights.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AnimationSequence(string nextAnimation, float chance)
 </code></pre>
+<p>Creates an entry pointing to <code>nextAnimation</code> with the given selection <code>chance</code> weight.</p>
 <p><strong>Parameters</strong> <br />
 <code>nextAnimation</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>chance</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
@@ -159,17 +163,20 @@
 <h4 id="chance"><a class="header" href="#chance">Chance</a></h4>
 <pre><code class="language-csharp">public readonly float Chance;
 </code></pre>
+<p>Relative probability weight for selecting this entry during weighted-random successor selection. Higher values increase the chance of being chosen.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="next"><a class="header" href="#next">Next</a></h4>
 <pre><code class="language-csharp">public readonly string Next;
 </code></pre>
+<p>The name of the animation clip to play next if this entry is selected.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="createifpossiblestring"><a class="header" href="#createifpossiblestring">CreateIfPossible(string)</a></h4>
 <pre><code class="language-csharp">public T? CreateIfPossible(string userData)
 </code></pre>
+<p>Parses a comma-separated <code>userData</code> string of <code>clipName:weight</code> pairs into an <code>ImmutableArray&lt;AnimationSequence&gt;</code>. Returns an empty array if <code>userData</code> is null or whitespace.</p>
 <p><strong>Parameters</strong> <br />
 <code>userData</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />

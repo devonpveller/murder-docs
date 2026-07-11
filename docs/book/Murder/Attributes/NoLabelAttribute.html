@@ -149,14 +149,19 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class NoLabelAttribute : Attribute
 </code></pre>
+<p>Suppresses the auto-generated label that the editor renders next to a field widget in the inspector.</p>
+<p><strong>Intent:</strong> Hide the field name label in the editor inspector, rendering only the widget itself.</p>
+<p><strong>Use-case:</strong> Apply to fields whose purpose is self-evident from the widget alone, or to fields in a custom editor layout where an extra label would add unnecessary visual clutter.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public NoLabelAttribute()
 </code></pre>
+<p>Creates a new instance of <code>NoLabelAttribute</code>.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct TalkToInteraction : IInteraction
 </code></pre>
+<p>Starts a dialogue sequence with the interacted entity by creating a dialogue child entity and setting its situation and state machine.</p>
+<p><strong>Intent:</strong> Initiates an NPC dialogue when the player interacts with a character.</p>
+<p><strong>Use-case:</strong> Attach to any character entity that has a <code>SituationComponent</code> to enable conversation when the player presses the interact button near it.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TalkToInteraction()
@@ -157,12 +160,14 @@
 <h4 id="dialogue_child"><a class="header" href="#dialogue_child">DIALOGUE_CHILD</a></h4>
 <pre><code class="language-csharp">public readonly static string DIALOGUE_CHILD;
 </code></pre>
+<p>The fixed child entity name used to store the active dialogue state machine entity under the NPC.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="createdialoguechildworld-entity"><a class="header" href="#createdialoguechildworld-entity">CreateDialogueChild(World, Entity)</a></h4>
 <pre><code class="language-csharp">public Entity CreateDialogueChild(World world, Entity interacted)
 </code></pre>
+<p>Creates (or reuses) the dialogue child entity under the interacted entity; returns <code>null</code> if a dialogue is already in progress.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interacted</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
@@ -171,6 +176,7 @@
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Creates the dialogue child entity and starts the <code>DialogStateMachine</code> for the current situation.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

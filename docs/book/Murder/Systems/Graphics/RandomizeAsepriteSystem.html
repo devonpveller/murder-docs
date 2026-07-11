@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class RandomizeAsepriteSystem : IReactiveSystem, ISystem
 </code></pre>
+<p>Reacts to <code>RandomizeSpriteComponent</code> being added and picks a random animation frame or sprite variant.</p>
+<p><strong>Intent:</strong> Assigns a random animation variant to new entities with <code>RandomizeSpriteComponent</code>.</p>
+<p><strong>Use-case:</strong> Use to add visual variety to entities (e.g., foliage, decorations) that share a sprite but should start on a random frame.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Systems/IReactiveSystem.html">IReactiveSystem</a>, <a href="../../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public RandomizeAsepriteSystem()

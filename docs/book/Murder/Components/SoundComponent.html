@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct SoundComponent : IComponent
 </code></pre>
 <p>Sound component which will be immediately played and destroyed.</p>
+<p><strong>Intent:</strong> Fire a one-shot sound event from an entity the moment the component is added.</p>
+<p><strong>Use-case:</strong> Add this component to an entity (or a dedicated sound entity) when you need to trigger a sound effect; the system plays it immediately and then removes the component or the entity.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SoundComponent()
@@ -163,11 +165,13 @@
 <h4 id="destroyentity"><a class="header" href="#destroyentity">DestroyEntity</a></h4>
 <pre><code class="language-csharp">public readonly bool DestroyEntity;
 </code></pre>
+<p>When true, the entity is destroyed after the sound finishes playing.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="sound"><a class="header" href="#sound">Sound</a></h4>
 <pre><code class="language-csharp">public readonly T? Sound;
 </code></pre>
+<p>Identifier of the sound event to play. Null disables playback.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <p>⚡</p>

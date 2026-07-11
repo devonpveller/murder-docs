@@ -149,22 +149,29 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct MapTile
 </code></pre>
+<p>Per-cell data stored inside a <code>Map</code>, holding the collision bitmask and pathfinding weight for a single tile.</p>
+<p><strong>Intent:</strong> Lightweight value type that encodes everything the engine needs to know about a single grid cell at runtime.</p>
+<p><strong>Use-case:</strong> Read via <code>Map.GetGridMap</code> to inspect collision or weight data for a specific tile; written by map-building systems when populating the map from tilemap assets.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MapTile()
 </code></pre>
+<p>Creates a default tile with no collision and zero weight.</p>
 <pre><code class="language-csharp">public MapTile(int weight)
 </code></pre>
+<p>Creates a tile with the specified pathfinding traversal weight and no collision.</p>
 <p><strong>Parameters</strong> <br />
 <code>weight</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="collisiontype"><a class="header" href="#collisiontype">CollisionType</a></h4>
 <pre><code class="language-csharp">public int CollisionType;
 </code></pre>
+<p>Bitmask of collision layers active on this tile (see <code>CollisionLayersBase</code> constants).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="weight"><a class="header" href="#weight">Weight</a></h4>
 <pre><code class="language-csharp">public int Weight;
 </code></pre>
+<p>Pathfinding traversal cost for this tile; higher values make it less desirable for pathfinding routes.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

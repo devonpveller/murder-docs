@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct HighlightSpriteComponent : IComponent
 </code></pre>
+<p>Causes the entity's sprite to be drawn with a solid color overlay, visually highlighting it.</p>
+<p><strong>Intent:</strong> Draw attention to an interactable or selected entity by rendering a colored highlight over its sprite.</p>
+<p><strong>Use-case:</strong> Add when the player hovers over or targets an entity and provide the desired <code>Color</code>; remove the component to clear the highlight.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public HighlightSpriteComponent(Color color)
@@ -159,6 +162,7 @@
 <h4 id="color"><a class="header" href="#color">Color</a></h4>
 <pre><code class="language-csharp">public readonly Color Color;
 </code></pre>
+<p>Color of the highlight overlay drawn on top of the sprite (default is white).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/Color.html">Color</a> </p>
 <p>⚡</p>

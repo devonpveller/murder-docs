@@ -149,8 +149,8 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Line2
 </code></pre>
-<p>Class for a simple line with two points.
-This is based on a Otter2d class: https://github.com/kylepulver/Otter/blob/master/Otter/Utility/Line2.cs</p>
+<p><strong>Intent:</strong> Represent a 2D line segment for geometry queries and collision checks.</p>
+<p><strong>Use-case:</strong> Use <code>Line2</code> to perform line-intersection tests or to query the boundaries of a <code>LineShape</code>. Construct it from two points or four individual coordinates.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Line2(float x1, float y1, float x2, float y2)
 </code></pre>
@@ -188,6 +188,7 @@ This is based on a Otter2d class: https://github.com/kylepulver/Otter/blob/maste
 <h4 id="height"><a class="header" href="#height">Height</a></h4>
 <pre><code class="language-csharp">public float Height { get; }
 </code></pre>
+<p>The vertical span of the line (absolute difference between the two Y coordinates).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="left"><a class="header" href="#left">Left</a></h4>

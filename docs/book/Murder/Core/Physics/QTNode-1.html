@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class QTNode&lt;T&gt;
 </code></pre>
+<p>A single node in a spatial quadtree, holding entity bounding-box data and up to four child sub-nodes that subdivide its rectangular bounds.</p>
+<p><strong>Intent:</strong> Internal quadtree node that stores entities whose bounding boxes overlap its <code>Bounds</code> rectangle, splitting into child nodes when capacity is exceeded.</p>
+<p><strong>Use-case:</strong> Not used directly; interact with the quadtree through <code>Quadtree</code> methods such as <code>GetCollisionEntitiesAt</code> and <code>AddToCollisionQuadTree</code>.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public QTNode&lt;T&gt;(int level, Rectangle bounds)
 </code></pre>
+<p>Creates a quadtree node at the given subdivision <code>level</code> covering the specified <code>bounds</code> rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>level</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>bounds</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
@@ -159,6 +163,7 @@
 <h4 id="bounds"><a class="header" href="#bounds">Bounds</a></h4>
 <pre><code class="language-csharp">public readonly Rectangle Bounds;
 </code></pre>
+<p>The world-space rectangle this node covers.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <h4 id="entities"><a class="header" href="#entities">Entities</a></h4>
@@ -170,11 +175,13 @@
 <h4 id="level"><a class="header" href="#level">Level</a></h4>
 <pre><code class="language-csharp">public readonly int Level;
 </code></pre>
+<p>The subdivision depth of this node; 0 is the root.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="nodes"><a class="header" href="#nodes">Nodes</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; Nodes;
 </code></pre>
+<p>The four child sub-nodes created when this node is subdivided. Empty until subdivision occurs.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
@@ -195,6 +202,7 @@
 <h4 id="drawdebugbatch2d"><a class="header" href="#drawdebugbatch2d">DrawDebug(Batch2D)</a></h4>
 <pre><code class="language-csharp">public void DrawDebug(Batch2D spriteBatch)
 </code></pre>
+<p>Draws the node's bounding rectangle and entity outlines to <code>spriteBatch</code> for debugging purposes.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> </p>
 <h4 id="insertint-t-rectangle"><a class="header" href="#insertint-t-rectangle">Insert(int, T, Rectangle)</a></h4>

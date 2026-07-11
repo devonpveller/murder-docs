@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class QuestTrackerSystem : IReactiveSystem, ISystem
 </code></pre>
+<p>Reacts to quest-related component changes and updates quest state based on blackboard conditions.</p>
+<p><strong>Intent:</strong> Updates quest progress when quest-tracker components are added or modified.</p>
+<p><strong>Use-case:</strong> Include in worlds that use Murder's quest and blackboard system to automatically progress quests when conditions are met.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Systems/IReactiveSystem.html">IReactiveSystem</a>, <a href="../../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public QuestTrackerSystem()

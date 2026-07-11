@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public static class MurderSerializerOptionsExtensions
 </code></pre>
 <p>Provides a json serializer that supports all the serializable types in Murder.</p>
+<p><strong>Intent:</strong> Provides pre-configured <code>JsonSerializerOptions</code> with all Murder custom converters registered.</p>
+<p><strong>Use-case:</strong> Reference <code>MurderSerializerOptionsExtensions.Options</code> wherever you need to serialize or deserialize Murder types with <code>System.Text.Json</code>.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="options"><a class="header" href="#options">Options</a></h4>
 <pre><code class="language-csharp">public readonly static JsonSerializerOptions Options;

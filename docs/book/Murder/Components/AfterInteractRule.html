@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed enum AfterInteractRule : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Defines what happens to an interaction component after it has been triggered.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
+<p><strong>Intent:</strong> Controls the lifecycle of an interaction trigger — whether it fires repeatedly, fires once, disables itself, or destroys its entity.</p>
+<p><strong>Use-case:</strong> Set this value on interaction components to tune whether a door opens every time the player touches it (<code>Always</code>), only the first time (<code>InteractOnlyOnce</code>), or only during a reload (<code>InteractOnReload</code>).</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="always"><a class="header" href="#always">Always</a></h4>
 <pre><code class="language-csharp">public static const AfterInteractRule Always;
@@ -160,6 +163,7 @@
 <h4 id="interactonlyonce"><a class="header" href="#interactonlyonce">InteractOnlyOnce</a></h4>
 <pre><code class="language-csharp">public static const AfterInteractRule InteractOnlyOnce;
 </code></pre>
+<p>Interact the first time it is triggered, then remove the interaction component so it never fires again.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/AfterInteractRule.html">AfterInteractRule</a> </p>
 <h4 id="interactonreload"><a class="header" href="#interactonreload">InteractOnReload</a></h4>
@@ -169,6 +173,31 @@
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/AfterInteractRule.html">AfterInteractRule</a> </p>
 <h4 id="removeentity"><a class="header" href="#removeentity">RemoveEntity</a></h4>
+<pre><code class="language-csharp">public static const AfterInteractRule RemoveEntity;
+</code></pre>
+<p>Instead of removing this component once triggered, this will remove the entity.</p>
+<p><strong>Returns</strong> <br />
+<a href="../../Murder/Components/AfterInteractRule.html">AfterInteractRule</a> </p>
+<p>⚡</p>
+<h3 id="-properties-1"><a class="header" href="#-properties-1">⭐ Properties</a></h3>
+<h4 id="always-1"><a class="header" href="#always-1">Always</a></h4>
+<pre><code class="language-csharp">public static const AfterInteractRule Always;
+</code></pre>
+<p>Always interact whenever the rule gets triggered (added or modified).</p>
+<p><strong>Returns</strong> <br />
+<a href="../../Murder/Components/AfterInteractRule.html">AfterInteractRule</a> </p>
+<h4 id="interactonlyonce-1"><a class="header" href="#interactonlyonce-1">InteractOnlyOnce</a></h4>
+<pre><code class="language-csharp">public static const AfterInteractRule InteractOnlyOnce;
+</code></pre>
+<p><strong>Returns</strong> <br />
+<a href="../../Murder/Components/AfterInteractRule.html">AfterInteractRule</a> </p>
+<h4 id="interactonreload-1"><a class="header" href="#interactonreload-1">InteractOnReload</a></h4>
+<pre><code class="language-csharp">public static const AfterInteractRule InteractOnReload;
+</code></pre>
+<p>Instead of removing this component once triggered, this will only disable it.</p>
+<p><strong>Returns</strong> <br />
+<a href="../../Murder/Components/AfterInteractRule.html">AfterInteractRule</a> </p>
+<h4 id="removeentity-1"><a class="header" href="#removeentity-1">RemoveEntity</a></h4>
 <pre><code class="language-csharp">public static const AfterInteractRule RemoveEntity;
 </code></pre>
 <p>Instead of removing this component once triggered, this will remove the entity.</p>

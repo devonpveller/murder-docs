@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class SoundServices
 </code></pre>
+<p>Provides high-level methods for playing, stopping, and parameterising audio events in the Murder engine.</p>
+<p><strong>Intent:</strong> Abstracts the audio middleware so game code can trigger and control sound events without depending directly on the underlying sound backend.</p>
+<p><strong>Use-case:</strong> Use <code>Play</code> to start a sound attached to an entity, <code>PlayMusic</code> for background music, <code>Stop</code> to halt specific events, <code>SetGlobalParameter</code> to drive global audio state (such as intensity or environment), and <code>StopAll</code> to silence everything on scene exit.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getglobalparameterparameterid"><a class="header" href="#getglobalparameterparameterid">GetGlobalParameter(ParameterId)</a></h4>
 <pre><code class="language-csharp">public float GetGlobalParameter(ParameterId id)
 </code></pre>
+<p>Returns the current value of the global sound parameter identified by <code>id</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="../../Murder/Core/Sounds/ParameterId.html">ParameterId</a> </p>
 <p><strong>Returns</strong> <br />
@@ -160,6 +164,7 @@
 <h4 id="replaceidentifiersimmutabledictionarytkey-tvalue-funct-tresult"><a class="header" href="#replaceidentifiersimmutabledictionarytkey-tvalue-funct-tresult">ReplaceIdentifiers(ImmutableDictionary&lt;TKey, TValue&gt;, Func&lt;T, TResult&gt;)</a></h4>
 <pre><code class="language-csharp">public ImmutableDictionary&lt;TKey, TValue&gt; ReplaceIdentifiers(ImmutableDictionary&lt;TKey, TValue&gt; source, Func&lt;T, TResult&gt; converter)
 </code></pre>
+<p>Returns a new dictionary with each key converted using <code>converter</code>, used for remapping sound event identifiers.</p>
 <p><strong>Parameters</strong> <br />
 <code>source</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0">ImmutableDictionary&lt;TKey, TValue&gt;</a> <br />
 <code>converter</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Func-2?view=net-7.0">Func&lt;T, TResult&gt;</a> </p>
@@ -168,6 +173,7 @@
 <h4 id="stopallbool-hashset"><a class="header" href="#stopallbool-hashset">StopAll(bool, HashSet<T>)</a></h4>
 <pre><code class="language-csharp">public SoundEventId[] StopAll(bool fadeOut, HashSet&lt;T&gt; exceptFor)
 </code></pre>
+<p>Stops all currently playing events except those in <code>exceptFor</code>; returns the IDs of stopped events.</p>
 <p><strong>Parameters</strong> <br />
 <code>fadeOut</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> <br />
 <code>exceptFor</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.HashSet-1?view=net-7.0">HashSet&lt;T&gt;</a> </p>
@@ -207,6 +213,7 @@ on an entity with an <a href="../../Murder/Components/EventListenerComponent.htm
 <h4 id="playsoundeventid-entity-soundproperties"><a class="header" href="#playsoundeventid-entity-soundproperties">Play(SoundEventId, Entity, SoundProperties)</a></h4>
 <pre><code class="language-csharp">public ValueTask Play(SoundEventId id, Entity target, SoundProperties properties)
 </code></pre>
+<p>Plays the sound event <code>id</code> spatially positioned at <code>target</code> with the given <code>properties</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="../../Murder/Core/Sounds/SoundEventId.html">SoundEventId</a> <br />
 <code>target</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
@@ -216,6 +223,7 @@ on an entity with an <a href="../../Murder/Components/EventListenerComponent.htm
 <h4 id="playsoundeventid-soundproperties-t"><a class="header" href="#playsoundeventid-soundproperties-t">Play(SoundEventId, SoundProperties, T?)</a></h4>
 <pre><code class="language-csharp">public ValueTask Play(SoundEventId id, SoundProperties properties, T? attributes)
 </code></pre>
+<p>Plays the sound event <code>id</code> with the given properties and optional spatial attributes.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="../../Murder/Core/Sounds/SoundEventId.html">SoundEventId</a> <br />
 <code>properties</code> <a href="../../Murder/Core/Sounds/SoundProperties.html">SoundProperties</a> <br />
@@ -225,6 +233,7 @@ on an entity with an <a href="../../Murder/Components/EventListenerComponent.htm
 <h4 id="playmusicsoundeventid"><a class="header" href="#playmusicsoundeventid">PlayMusic(SoundEventId)</a></h4>
 <pre><code class="language-csharp">public ValueTask PlayMusic(SoundEventId id)
 </code></pre>
+<p>Plays <code>id</code> as a music event with default persistent and layer properties.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="../../Murder/Core/Sounds/SoundEventId.html">SoundEventId</a> </p>
 <p><strong>Returns</strong> <br />
@@ -232,18 +241,21 @@ on an entity with an <a href="../../Murder/Components/EventListenerComponent.htm
 <h4 id="setglobalparameterparameterid-t"><a class="header" href="#setglobalparameterparameterid-t">SetGlobalParameter(ParameterId, T)</a></h4>
 <pre><code class="language-csharp">public void SetGlobalParameter(ParameterId id, T value)
 </code></pre>
+<p>Sets the global sound parameter <code>id</code> to <code>value</code>; the value is automatically cast to <code>float</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="../../Murder/Core/Sounds/ParameterId.html">ParameterId</a> <br />
 <code>value</code> <a href="../../">T</a> </p>
 <h4 id="stopt-bool"><a class="header" href="#stopt-bool">Stop(T?, bool)</a></h4>
 <pre><code class="language-csharp">public void Stop(T? id, bool fadeOut)
 </code></pre>
+<p>Stops the sound event identified by <code>id</code>, optionally fading it out.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> <br />
 <code>fadeOut</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="trackeventsourcepositionsoundeventid-entity"><a class="header" href="#trackeventsourcepositionsoundeventid-entity">TrackEventSourcePosition(SoundEventId, Entity)</a></h4>
 <pre><code class="language-csharp">public void TrackEventSourcePosition(SoundEventId eventId, Entity e)
 </code></pre>
+<p>Updates the 3D position of an already-playing <code>eventId</code> event to follow the current position of entity <code>e</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>eventId</code> <a href="../../Murder/Core/Sounds/SoundEventId.html">SoundEventId</a> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>

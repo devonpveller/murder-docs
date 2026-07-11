@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct RemoveEntityOnInteraction : IInteraction
 </code></pre>
+<p>Destroys a specified entity (interacted, interactor, parent, child, or target) when the interaction fires.</p>
+<p><strong>Intent:</strong> Removes an entity from the world as a consequence of an interaction.</p>
+<p><strong>Use-case:</strong> Use to despawn consumables, destroy obstacles, remove the interactor after it uses an item, or clean up one-shot objects when the player activates them.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public RemoveEntityOnInteraction()
@@ -157,17 +160,20 @@
 <h4 id="addcomponentsbeforeremoving"><a class="header" href="#addcomponentsbeforeremoving">AddComponentsBeforeRemoving</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; AddComponentsBeforeRemoving;
 </code></pre>
+<p>Components to add to the target entity immediately before it is destroyed, useful for triggering reactive systems on the way out.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="destroywho"><a class="header" href="#destroywho">DestroyWho</a></h4>
 <pre><code class="language-csharp">public readonly DestroyWho DestroyWho;
 </code></pre>
+<p>Determines which entity is destroyed when the interaction fires.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Interactions/DestroyWho.html">DestroyWho</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Determines the target entity based on <code>DestroyWho</code>, optionally adds pre-removal components, then destroys the target.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

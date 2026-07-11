@@ -151,6 +151,8 @@
 </code></pre>
 <p>This will remove the entity that contains this component as soon as the entity is serialized
 into an actual world instance.</p>
+<p><strong>Intent:</strong> Conditionally eliminate an entity from the world at load time based on blackboard state.</p>
+<p><strong>Use-case:</strong> Attach to optional world entities (e.g. a chest that has already been looted) so they are removed automatically when the scene loads if the relevant save-state conditions are met.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public RemoveEntityOnRuleMatchAtLoadComponent()

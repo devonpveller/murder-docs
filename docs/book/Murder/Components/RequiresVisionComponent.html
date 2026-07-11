@@ -150,11 +150,14 @@
 <pre><code class="language-csharp">public sealed struct RequiresVisionComponent : IComponent
 </code></pre>
 <p>Will only be rendered if the player has vision on this</p>
+<p><strong>Intent:</strong> Hide an entity's visual representation until the player's vision cone or field of view covers it.</p>
+<p><strong>Use-case:</strong> Attach to hidden objects or enemies in stealth or fog-of-war scenarios; the entity is not rendered until the player can see it, and if <code>OnlyOnce</code> is true it stays visible once seen.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="onlyonce"><a class="header" href="#onlyonce">OnlyOnce</a></h4>
 <pre><code class="language-csharp">public readonly bool OnlyOnce;
 </code></pre>
+<p>When true, the entity remains permanently visible after first entering the player's vision; when false it hides again when vision is lost.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <p>⚡</p>

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct TweenComponent : IComponent
 </code></pre>
+<p>Drives a tween animation that interpolates an entity's position and/or scale over a time range using a configurable ease function.</p>
+<p><strong>Intent:</strong> Describe a time-based lerp animation on an entity's transform properties.</p>
+<p><strong>Use-case:</strong> Add to an entity to animate it moving or scaling between two values; remove the component when the tween is no longer needed or when <code>Time.Max</code> is reached.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TweenComponent()
@@ -162,21 +165,25 @@
 <h4 id="ease"><a class="header" href="#ease">Ease</a></h4>
 <pre><code class="language-csharp">public EaseKind Ease { get; public set; }
 </code></pre>
+<p>Ease function applied to the interpolation across the time range.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="position"><a class="header" href="#position">Position</a></h4>
 <pre><code class="language-csharp">public T? Position { get; public set; }
 </code></pre>
+<p>Optional position tween; when set the entity's position is interpolated from <code>From</code> to <code>To</code> over <code>Time</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="scale"><a class="header" href="#scale">Scale</a></h4>
 <pre><code class="language-csharp">public T? Scale { get; public set; }
 </code></pre>
+<p>Optional scale tween; when set the entity's scale is interpolated from <code>From</code> to <code>To</code> over <code>Time</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="time"><a class="header" href="#time">Time</a></h4>
 <pre><code class="language-csharp">public FloatRange Time { get; public set; }
 </code></pre>
+<p>Game-time range (start, end) over which the tween progresses.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/FloatRange.html">FloatRange</a> </p>
 <p>⚡</p>

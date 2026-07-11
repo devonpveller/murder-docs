@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct LocalizedString
 </code></pre>
+<p>A lightweight string key that is resolved to localized text at runtime via the active <code>LocalizationAsset</code>.</p>
+<p><strong>Intent:</strong> Decouple content strings from their translations by storing only a GUID reference (or an optional inline override), so the same dialogue and UI data works across all supported languages.</p>
+<p><strong>Use-case:</strong> Use a <code>LocalizedString</code> anywhere a displayed string is needed. Assign its <code>Id</code> in the editor to point at an entry in the localization asset, or set <code>OverrideText</code> to bypass translation for dynamically generated strings. Cast the struct to <code>string</code> to resolve it against the active locale at runtime.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public LocalizedString()
 </code></pre>
@@ -164,6 +167,7 @@
 <h4 id="id"><a class="header" href="#id">Id</a></h4>
 <pre><code class="language-csharp">public readonly Guid Id;
 </code></pre>
+<p>The GUID key used to look up the translated string in the active <code>LocalizationAsset</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="overridetext"><a class="header" href="#overridetext">OverrideText</a></h4>

@@ -151,6 +151,8 @@
 </code></pre>
 <p>The color type as described by the engine. Values are represented as <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> from 0 to 1.
 To create a color using 0-255, use [Color.CreateFrom256(System.Byte,System.Byte,System.Byte,System.Byte)](../../../Murder/Core/Graphics/Color.html#createfrom256(byte,).</p>
+<p><strong>Intent:</strong> Provides a float-precision RGBA color type with named constants, conversion helpers, and color-math operations (lerp, darken, premultiply).</p>
+<p><strong>Use-case:</strong> Use <code>Color</code> wherever tinting, blending, or color animation is needed; pass it to <code>DrawInfo.Color</code>, <code>Batch2D.Draw</code>, and animation/particle systems.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0">IEquatable&lt;T&gt;</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Color(float r, float g, float b, float a)
@@ -350,6 +352,7 @@ While this is named &quot;Darken&quot;, values above 1.0f will effectively make 
 <h4 id="lerpsmoothcolor-color-float-float"><a class="header" href="#lerpsmoothcolor-color-float-float">LerpSmooth(Color, Color, float, float)</a></h4>
 <pre><code class="language-csharp">public Color LerpSmooth(Color a, Color b, float deltaTime, float halfLife)
 </code></pre>
+<p>Smooth (frame-rate-independent) interpolation between <code>a</code> and <code>b</code>, reaching halfway to <code>b</code> in <code>halfLife</code> seconds.</p>
 <p><strong>Parameters</strong> <br />
 <code>a</code> <a href="../../../Murder/Core/Graphics/Color.html">Color</a> <br />
 <code>b</code> <a href="../../../Murder/Core/Graphics/Color.html">Color</a> <br />
@@ -374,7 +377,7 @@ While this is named &quot;Darken&quot;, values above 1.0f will effectively make 
 <h4 id="touintvector4"><a class="header" href="#touintvector4">ToUint(Vector4)</a></h4>
 <pre><code class="language-csharp">public uint ToUint(Vector4 color)
 </code></pre>
-<p>Interprets the Vector4 <paramref name="color" /> as a color and return the unsigned integer representation of that color.</p>
+<p>Packs the RGBA components of <code>color</code> (0–1 floats) into a single <code>uint</code> in RGBA byte order.</p>
 <p><strong>Parameters</strong> <br />
 <code>color</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <p><strong>Returns</strong> <br />

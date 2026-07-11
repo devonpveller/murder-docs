@@ -151,17 +151,21 @@
 </code></pre>
 <p>Represents an entity as an instance placed on the map.
 This map may be relative to the world or another entity.</p>
+<p><strong>Intent:</strong> Records a single entity placement inside a prefab or world asset, including its component data and GUID.</p>
+<p><strong>Use-case:</strong> Used by the editor and runtime to represent positioned entities in a world or nested inside a prefab; instantiate via <code>PrefabAsset.CreateInstance</code>.</p>
 <p><strong>Implements:</strong> <em><a href="../../Murder/Prefabs/IEntity.html">IEntity</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public EntityInstance()
 </code></pre>
 <pre><code class="language-csharp">public EntityInstance(string name, Guid guid)
 </code></pre>
+<p>Creates a new entity instance with the given display name and GUID.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>guid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <pre><code class="language-csharp">public EntityInstance(string name, T? guid)
 </code></pre>
+<p>Creates a new entity instance with the given display name and optional GUID.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>guid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
@@ -169,6 +173,7 @@ This map may be relative to the world or another entity.</p>
 <h4 id="_children"><a class="header" href="#_children">_children</a></h4>
 <pre><code class="language-csharp">protected Dictionary&lt;TKey, TValue&gt; _children;
 </code></pre>
+<p>Mutable map from child GUID to child <code>EntityInstance</code> definitions.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0">Dictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="_components"><a class="header" href="#_components">_components</a></h4>
@@ -188,16 +193,19 @@ TODO: We might need to revisit on whether this is okay/actually scales well.</p>
 <h4 id="children"><a class="header" href="#children">Children</a></h4>
 <pre><code class="language-csharp">public virtual ImmutableArray&lt;T&gt; Children { get; }
 </code></pre>
+<p>Immutable list of child <code>EntityInstance</code> identifiers for this entity.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="components"><a class="header" href="#components">Components</a></h4>
 <pre><code class="language-csharp">public virtual ImmutableArray&lt;T&gt; Components { get; }
 </code></pre>
+<p>Immutable list of all components attached to this entity instance.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="guid"><a class="header" href="#guid">Guid</a></h4>
 <pre><code class="language-csharp">public virtual Guid Guid { get; }
 </code></pre>
+<p>Unique identifier for this entity instance.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="id"><a class="header" href="#id">Id</a></h4>
@@ -216,11 +224,13 @@ This only exists for instances in the world.</p>
 <h4 id="isempty"><a class="header" href="#isempty">IsEmpty</a></h4>
 <pre><code class="language-csharp">public virtual bool IsEmpty { get; }
 </code></pre>
+<p>Returns <code>true</code> if this instance has no components and no children.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public virtual string Name { get; }
 </code></pre>
+<p>Display name of this entity instance.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="prefabrefname"><a class="header" href="#prefabrefname">PrefabRefName</a></h4>
@@ -234,6 +244,7 @@ Return null.</p>
 <h4 id="addorreplacecomponentforchildguid-icomponent"><a class="header" href="#addorreplacecomponentforchildguid-icomponent">AddOrReplaceComponentForChild(Guid, IComponent)</a></h4>
 <pre><code class="language-csharp">public virtual bool AddOrReplaceComponentForChild(Guid childGuid, IComponent component)
 </code></pre>
+<p>Adds or replaces <code>component</code> on the child identified by <code>childGuid</code>; returns <code>true</code> if the child was found.</p>
 <p><strong>Parameters</strong> <br />
 <code>childGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>component</code> <a href="../../Bang/Components/IComponent.html">IComponent</a> </p>
@@ -242,6 +253,7 @@ Return null.</p>
 <h4 id="canremovechildguid"><a class="header" href="#canremovechildguid">CanRemoveChild(Guid)</a></h4>
 <pre><code class="language-csharp">public virtual bool CanRemoveChild(Guid instanceGuid)
 </code></pre>
+<p>Returns <code>true</code> if the child with the given GUID can be removed from this instance.</p>
 <p><strong>Parameters</strong> <br />
 <code>instanceGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -249,6 +261,7 @@ Return null.</p>
 <h4 id="canrevertcomponenttype"><a class="header" href="#canrevertcomponenttype">CanRevertComponent(Type)</a></h4>
 <pre><code class="language-csharp">public virtual bool CanRevertComponent(Type t)
 </code></pre>
+<p>Returns <code>true</code> if the component of the given type can be reverted to its base value.</p>
 <p><strong>Parameters</strong> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <p><strong>Returns</strong> <br />
@@ -264,6 +277,7 @@ Return null.</p>
 <h4 id="hascomponentatchildguid-type"><a class="header" href="#hascomponentatchildguid-type">HasComponentAtChild(Guid, Type)</a></h4>
 <pre><code class="language-csharp">public virtual bool HasComponentAtChild(Guid childGuid, Type type)
 </code></pre>
+<p>Returns <code>true</code> if the child identified by <code>childGuid</code> has a component of the given type.</p>
 <p><strong>Parameters</strong> <br />
 <code>childGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>type</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
@@ -280,11 +294,13 @@ Return null.</p>
 <h4 id="removeallcomponents"><a class="header" href="#removeallcomponents">RemoveAllComponents()</a></h4>
 <pre><code class="language-csharp">public virtual bool RemoveAllComponents()
 </code></pre>
+<p>Removes all components from this entity instance; returns <code>true</code> if any were removed.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="removechildguid"><a class="header" href="#removechildguid">RemoveChild(Guid)</a></h4>
 <pre><code class="language-csharp">public virtual bool RemoveChild(Guid instanceGuid)
 </code></pre>
+<p>Removes the child entity with the given GUID from this instance; returns <code>true</code> if it was found and removed.</p>
 <p><strong>Parameters</strong> <br />
 <code>instanceGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -292,6 +308,7 @@ Return null.</p>
 <h4 id="removecomponenttype"><a class="header" href="#removecomponenttype">RemoveComponent(Type)</a></h4>
 <pre><code class="language-csharp">public virtual bool RemoveComponent(Type t)
 </code></pre>
+<p>Removes the component of the given type from this instance; returns <code>true</code> if it was present.</p>
 <p><strong>Parameters</strong> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <p><strong>Returns</strong> <br />
@@ -299,6 +316,7 @@ Return null.</p>
 <h4 id="revertcomponenttype"><a class="header" href="#revertcomponenttype">RevertComponent(Type)</a></h4>
 <pre><code class="language-csharp">public virtual bool RevertComponent(Type t)
 </code></pre>
+<p>Reverts the component of the given type to its base value; returns <code>true</code> if the revert succeeded.</p>
 <p><strong>Parameters</strong> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <p><strong>Returns</strong> <br />
@@ -306,6 +324,7 @@ Return null.</p>
 <h4 id="revertcomponentforchildguid-type"><a class="header" href="#revertcomponentforchildguid-type">RevertComponentForChild(Guid, Type)</a></h4>
 <pre><code class="language-csharp">public virtual bool RevertComponentForChild(Guid childGuid, Type t)
 </code></pre>
+<p>Reverts the component of type <code>t</code> on the child identified by <code>childGuid</code>; returns <code>true</code> if reverted.</p>
 <p><strong>Parameters</strong> <br />
 <code>childGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
@@ -314,6 +333,7 @@ Return null.</p>
 <h4 id="trygetchildguid-out-entityinstance"><a class="header" href="#trygetchildguid-out-entityinstance">TryGetChild(Guid, out EntityInstance&amp;)</a></h4>
 <pre><code class="language-csharp">public virtual bool TryGetChild(Guid guid, EntityInstance&amp; instance)
 </code></pre>
+<p>Attempts to find the child with the given GUID; returns <code>true</code> and populates <code>instance</code> if found.</p>
 <p><strong>Parameters</strong> <br />
 <code>guid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>instance</code> <a href="../../Murder/Prefabs/EntityInstance.html">EntityInstance&amp;</a> </p>
@@ -322,6 +342,7 @@ Return null.</p>
 <h4 id="getchildguid"><a class="header" href="#getchildguid">GetChild(Guid)</a></h4>
 <pre><code class="language-csharp">public virtual EntityInstance GetChild(Guid instanceGuid)
 </code></pre>
+<p>Returns the child entity instance with the given GUID; throws if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>instanceGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -329,6 +350,7 @@ Return null.</p>
 <h4 id="getcomponenttype"><a class="header" href="#getcomponenttype">GetComponent(Type)</a></h4>
 <pre><code class="language-csharp">public virtual IComponent GetComponent(Type componentType)
 </code></pre>
+<p>Returns the component of the given type; throws if not present.</p>
 <p><strong>Parameters</strong> <br />
 <code>componentType</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <p><strong>Returns</strong> <br />
@@ -336,6 +358,7 @@ Return null.</p>
 <h4 id="trygetcomponentforchildguid-type"><a class="header" href="#trygetcomponentforchildguid-type">TryGetComponentForChild(Guid, Type)</a></h4>
 <pre><code class="language-csharp">public virtual IComponent TryGetComponentForChild(Guid guid, Type t)
 </code></pre>
+<p>Returns the component of type <code>t</code> from the child with GUID <code>guid</code>, or <code>null</code> if not present.</p>
 <p><strong>Parameters</strong> <br />
 <code>guid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
@@ -344,6 +367,7 @@ Return null.</p>
 <h4 id="fetchchildren"><a class="header" href="#fetchchildren">FetchChildren()</a></h4>
 <pre><code class="language-csharp">public virtual ImmutableArray&lt;T&gt; FetchChildren()
 </code></pre>
+<p>Returns all child <code>EntityInstance</code> objects as an immutable array.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="getchildcomponentsguid"><a class="header" href="#getchildcomponentsguid">GetChildComponents(Guid)</a></h4>
@@ -380,16 +404,19 @@ Are we limiting the amount of children recursive to two?</p>
 <h4 id="addchildentityinstance"><a class="header" href="#addchildentityinstance">AddChild(EntityInstance)</a></h4>
 <pre><code class="language-csharp">public virtual void AddChild(EntityInstance asset)
 </code></pre>
+<p>Adds <code>asset</code> as a child of this entity instance.</p>
 <p><strong>Parameters</strong> <br />
 <code>asset</code> <a href="../../Murder/Prefabs/EntityInstance.html">EntityInstance</a> </p>
 <h4 id="addorreplacecomponenticomponent"><a class="header" href="#addorreplacecomponenticomponent">AddOrReplaceComponent(IComponent)</a></h4>
 <pre><code class="language-csharp">public virtual void AddOrReplaceComponent(IComponent c)
 </code></pre>
+<p>Adds or replaces component <code>c</code> on this entity instance.</p>
 <p><strong>Parameters</strong> <br />
 <code>c</code> <a href="../../Bang/Components/IComponent.html">IComponent</a> </p>
 <h4 id="removecomponentforchildguid-type"><a class="header" href="#removecomponentforchildguid-type">RemoveComponentForChild(Guid, Type)</a></h4>
 <pre><code class="language-csharp">public virtual void RemoveComponentForChild(Guid childGuid, Type t)
 </code></pre>
+<p>Removes the component of type <code>t</code> from the child identified by <code>childGuid</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>childGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
@@ -402,6 +429,7 @@ Are we limiting the amount of children recursive to two?</p>
 <h4 id="updateguidguid"><a class="header" href="#updateguidguid">UpdateGuid(Guid)</a></h4>
 <pre><code class="language-csharp">public void UpdateGuid(Guid newGuid)
 </code></pre>
+<p>Replaces the GUID of this entity instance with <code>newGuid</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>newGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p>⚡</p>

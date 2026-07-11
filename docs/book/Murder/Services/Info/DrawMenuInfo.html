@@ -149,28 +149,36 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct DrawMenuInfo
 </code></pre>
+<p>Carries draw-state data for a menu render pass, including selector position history for smooth animation.</p>
+<p><strong>Intent:</strong> Passes layout and animation state to the menu drawing routine.</p>
+<p><strong>Use-case:</strong> Created internally by <code>MurderUiServices</code> during menu rendering; consumed by menu draw calls to position the animated selection cursor.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DrawMenuInfo()
 </code></pre>
+<p>Creates a <code>DrawMenuInfo</code> with default zeroed values.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="maximumselectionwidth"><a class="header" href="#maximumselectionwidth">MaximumSelectionWidth</a></h4>
 <pre><code class="language-csharp">public int MaximumSelectionWidth { get; public set; }
 </code></pre>
+<p>The maximum pixel width of any selectable menu item, used to size the selector indicator.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="previousselectorposition"><a class="header" href="#previousselectorposition">PreviousSelectorPosition</a></h4>
 <pre><code class="language-csharp">public Vector2 PreviousSelectorPosition { get; public set; }
 </code></pre>
+<p>The selector's world position during the previous frame, used for interpolation.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="selectoreasedposition"><a class="header" href="#selectoreasedposition">SelectorEasedPosition</a></h4>
 <pre><code class="language-csharp">public Vector2 SelectorEasedPosition { get; public set; }
 </code></pre>
+<p>The smoothly-interpolated current position of the selection cursor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="selectorposition"><a class="header" href="#selectorposition">SelectorPosition</a></h4>
 <pre><code class="language-csharp">public Vector2 SelectorPosition { get; public set; }
 </code></pre>
+<p>The target pixel position of the selection cursor for the current frame.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p>⚡</p>

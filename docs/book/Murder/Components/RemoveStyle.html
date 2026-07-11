@@ -149,26 +149,33 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed enum RemoveStyle : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Describes the method used to remove or deactivate an entity when a timed or conditional removal is triggered.</p>
+<p><strong>Intent:</strong> Give designers fine-grained control over what happens to an entity when it is &quot;removed&quot; — ranging from full destruction to simply hiding it.</p>
+<p><strong>Use-case:</strong> Set on components such as <code>DestroyAtTimeComponent</code> to specify whether an entity should be fully destroyed, deactivated, or just have its components stripped.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="deactivate"><a class="header" href="#deactivate">Deactivate</a></h4>
 <pre><code class="language-csharp">public static const RemoveStyle Deactivate;
 </code></pre>
+<p>Deactivates the entity (hides it) without fully destroying it.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/RemoveStyle.html">RemoveStyle</a> </p>
 <h4 id="destroy"><a class="header" href="#destroy">Destroy</a></h4>
 <pre><code class="language-csharp">public static const RemoveStyle Destroy;
 </code></pre>
+<p>Fully destroys the entity, removing it from the world permanently.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/RemoveStyle.html">RemoveStyle</a> </p>
 <h4 id="none"><a class="header" href="#none">None</a></h4>
 <pre><code class="language-csharp">public static const RemoveStyle None;
 </code></pre>
+<p>No removal action is taken.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/RemoveStyle.html">RemoveStyle</a> </p>
 <h4 id="removecomponents"><a class="header" href="#removecomponents">RemoveComponents</a></h4>
 <pre><code class="language-csharp">public static const RemoveStyle RemoveComponents;
 </code></pre>
+<p>Strips the associated components from the entity but leaves the entity itself in the world.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/RemoveStyle.html">RemoveStyle</a> </p>
 <p>⚡</p>

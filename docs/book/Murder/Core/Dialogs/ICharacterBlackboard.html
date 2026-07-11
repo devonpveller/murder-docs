@@ -151,14 +151,18 @@
 </code></pre>
 <p>This works similarly as a <a href="../../../Murder/Core/Dialogs/IBlackboard.html">IBlackboard</a>, except that each situation
 on the game has its own table.</p>
+<p><strong>Intent:</strong> Marks a blackboard as character-scoped, ensuring the engine tracks its state per-character rather than globally.</p>
+<p><strong>Use-case:</strong> Extend this class instead of <code>IBlackboard</code> when your custom blackboard should hold data that is specific to a single NPC's dialogue history (e.g. how many times a particular topic was discussed).</p>
 <p><strong>Implements:</strong> <em><a href="../../../Murder/Core/Dialogs/IBlackboard.html">IBlackboard</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">protected ICharacterBlackboard()
 </code></pre>
+<p>Protected constructor for subclasses.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="kind"><a class="header" href="#kind">Kind</a></h4>
 <pre><code class="language-csharp">public virtual BlackboardKind Kind { get; }
 </code></pre>
+<p>Always returns <code>BlackboardKind.Character</code> for character-scoped blackboards.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardKind.html">BlackboardKind</a> </p>
 <p>⚡</p>

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct PrefabRefComponent : IComponent
 </code></pre>
+<p>Stores a reference to the prefab asset that this entity was originally created from.</p>
+<p><strong>Intent:</strong> Track the originating prefab GUID so the engine can map a runtime entity back to its source asset.</p>
+<p><strong>Use-case:</strong> Added automatically when the engine instantiates a prefab; use it to identify or reload prefab data at runtime.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PrefabRefComponent(Guid assetGui)
@@ -159,6 +162,7 @@
 <h4 id="assetguid"><a class="header" href="#assetguid">AssetGuid</a></h4>
 <pre><code class="language-csharp">public readonly Guid AssetGuid;
 </code></pre>
+<p>GUID of the prefab asset this entity was instantiated from.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p>⚡</p>

@@ -150,9 +150,12 @@
 <pre><code class="language-csharp">public class SmoothFpsCounter
 </code></pre>
 <p>This will smooth the average FPS of the game.</p>
+<p><strong>Intent:</strong> Computes a rolling-average frames-per-second value to reduce per-frame noise.</p>
+<p><strong>Use-case:</strong> Instantiate with a window size and call the update method each frame; read <code>Value</code> for the smoothed FPS to display in a HUD or diagnostics overlay.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SmoothFpsCounter(int size)
 </code></pre>
+<p>Creates a new counter using a rolling window of <code>size</code> samples for averaging.</p>
 <p><strong>Parameters</strong> <br />
 <code>size</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
@@ -166,6 +169,7 @@
 <h4 id="updatedouble"><a class="header" href="#updatedouble">Update(double)</a></h4>
 <pre><code class="language-csharp">public void Update(double dt)
 </code></pre>
+<p>Advances the rolling average by one frame with the given delta time in seconds.</p>
 <p><strong>Parameters</strong> <br />
 <code>dt</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Double?view=net-7.0">double</a> </p>
 <p>⚡</p>

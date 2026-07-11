@@ -151,6 +151,8 @@
 </code></pre>
 <p>This is a struct that points to a singleton class.
 Reactive systems won't be able to subscribe to this component.</p>
+<p><strong>Intent:</strong> Store the tilemap grid data for a room entity, providing the physical tile layout used by rendering and collision systems.</p>
+<p><strong>Use-case:</strong> Added automatically to room entities alongside <a href="../../Murder/Components/RoomComponent.html">RoomComponent</a>; modify <code>Grid</code> to change tile contents at runtime.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IModifiableComponent.html">IModifiableComponent</a>, <a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TileGridComponent()
@@ -174,37 +176,44 @@ Reactive systems won't be able to subscribe to this component.</p>
 <h4 id="grid"><a class="header" href="#grid">Grid</a></h4>
 <pre><code class="language-csharp">public readonly TileGrid Grid;
 </code></pre>
+<p>The underlying tile grid object containing all tile data for this room.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/TileGrid.html">TileGrid</a> </p>
 <h4 id="height"><a class="header" href="#height">Height</a></h4>
 <pre><code class="language-csharp">public readonly int Height;
 </code></pre>
+<p>Number of tile rows in the grid.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="origin"><a class="header" href="#origin">Origin</a></h4>
 <pre><code class="language-csharp">public readonly Point Origin;
 </code></pre>
+<p>World-space tile coordinate of the grid's top-left corner.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="rectangle"><a class="header" href="#rectangle">Rectangle</a></h4>
 <pre><code class="language-csharp">public IntRectangle Rectangle { get; }
 </code></pre>
+<p>Bounding rectangle of the entire grid in tile coordinates.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Geometry/IntRectangle.html">IntRectangle</a> </p>
 <h4 id="width"><a class="header" href="#width">Width</a></h4>
 <pre><code class="language-csharp">public readonly int Width;
 </code></pre>
+<p>Number of tile columns in the grid.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="subscribeaction"><a class="header" href="#subscribeaction">Subscribe(Action)</a></h4>
 <pre><code class="language-csharp">public virtual void Subscribe(Action notification)
 </code></pre>
+<p>Registers a callback that fires when tile data in the grid is modified.</p>
 <p><strong>Parameters</strong> <br />
 <code>notification</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0">Action</a> </p>
 <h4 id="unsubscribeaction"><a class="header" href="#unsubscribeaction">Unsubscribe(Action)</a></h4>
 <pre><code class="language-csharp">public virtual void Unsubscribe(Action notification)
 </code></pre>
+<p>Removes a previously registered tile-modification callback.</p>
 <p><strong>Parameters</strong> <br />
 <code>notification</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0">Action</a> </p>
 <p>⚡</p>

@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class TilemapAndFloorRenderSystem : IMurderRenderSystem, IRenderSystem, ISystem
 </code></pre>
 <p>Generic and all-around tilemap rendering system. Draws all tilesmaps and floor tiles that are visible to the camera.</p>
+<p><strong>Intent:</strong> Renders all visible tilemap layers and floor tiles in the camera viewport.</p>
+<p><strong>Use-case:</strong> Include in worlds that contain tile-based rooms to draw both decorative tilemap layers and walkable floor tiles.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Murder/Core/Graphics/IMurderRenderSystem.html">IMurderRenderSystem</a>, <a href="../../../Bang/Systems/IRenderSystem.html">IRenderSystem</a>, <a href="../../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TilemapAndFloorRenderSystem()

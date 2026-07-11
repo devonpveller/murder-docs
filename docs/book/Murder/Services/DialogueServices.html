@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class DialogueServices
 </code></pre>
+<p>Helpers for querying and creating dialogue state from character assets and situation components.</p>
+<p><strong>Intent:</strong> Provides utilities for checking whether an entity has dialogue available and for constructing runtime dialogue objects.</p>
+<p><strong>Use-case:</strong> Use <code>HasDialogue</code> to decide whether to show a dialogue prompt indicator above an NPC, or <code>FetchFirstLine</code> to display a preview of the opening line in UI without starting the full conversation.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="hasdialogueworld-entity-situationcomponent"><a class="header" href="#hasdialogueworld-entity-situationcomponent">HasDialogue(World, Entity, SituationComponent)</a></h4>
 <pre><code class="language-csharp">public bool HasDialogue(World world, Entity e, SituationComponent situation)
 </code></pre>
+<p>Returns <code>true</code> if the character has at least one dialogue line available for the given situation.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
@@ -162,6 +166,7 @@
 <h4 id="hasnewdialogueworld-entity-situationcomponent"><a class="header" href="#hasnewdialogueworld-entity-situationcomponent">HasNewDialogue(World, Entity, SituationComponent)</a></h4>
 <pre><code class="language-csharp">public bool HasNewDialogue(World world, Entity e, SituationComponent situation)
 </code></pre>
+<p>Returns <code>true</code> if the character has unseen dialogue available for the given situation.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
@@ -171,6 +176,7 @@
 <h4 id="createcharacterfromguid-int"><a class="header" href="#createcharacterfromguid-int">CreateCharacterFrom(Guid, int)</a></h4>
 <pre><code class="language-csharp">public CharacterRuntime CreateCharacterFrom(Guid character, int situation)
 </code></pre>
+<p>Creates a <code>CharacterRuntime</code> for the given character asset and situation index, initialised from the active save's blackboard.</p>
 <p><strong>Parameters</strong> <br />
 <code>character</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>situation</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -179,6 +185,7 @@
 <h4 id="fetchalllinesworld-entity-situationcomponent"><a class="header" href="#fetchalllinesworld-entity-situationcomponent">FetchAllLines(World, Entity, SituationComponent)</a></h4>
 <pre><code class="language-csharp">public Line[] FetchAllLines(World world, Entity target, SituationComponent situation)
 </code></pre>
+<p>Advances through the entire dialogue situation and returns all text lines that would be spoken.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>target</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
@@ -188,6 +195,7 @@
 <h4 id="createlineline"><a class="header" href="#createlineline">CreateLine(Line)</a></h4>
 <pre><code class="language-csharp">public LineComponent CreateLine(Line line)
 </code></pre>
+<p>Wrap a raw <code>Line</code> value in a <code>LineComponent</code> timestamped to the current unscaled game time.</p>
 <p><strong>Parameters</strong> <br />
 <code>line</code> <a href="../../Murder/Core/Dialogs/Line.html">Line</a> </p>
 <p><strong>Returns</strong> <br />
@@ -195,6 +203,7 @@
 <h4 id="fetchfirstlineworld-entity-situationcomponent"><a class="header" href="#fetchfirstlineworld-entity-situationcomponent">FetchFirstLine(World, Entity, SituationComponent)</a></h4>
 <pre><code class="language-csharp">public string FetchFirstLine(World world, Entity target, SituationComponent situation)
 </code></pre>
+<p>Returns the localized text of the first dialogue line in the situation, or an empty string if none exists.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>target</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

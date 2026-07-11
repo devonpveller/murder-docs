@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class GameDataManager : IDisposable
 </code></pre>
+<p>Central manager responsible for loading, caching, and providing access to all game assets, atlases, shaders, save data, and localization.</p>
+<p><strong>Intent:</strong> Acts as the single source of truth for all persistent game content at runtime — from sprite atlases to serialized world data.</p>
+<p><strong>Use-case:</strong> Access it via <code>Game.Data</code> to retrieve assets by GUID, load or save game progress, switch localization, and manage texture atlases. Override it (e.g. in a custom editor host) to hook additional loading logic.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0">IDisposable</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">protected GameDataManager(IMurderGame game, FileManager fileManager)
@@ -182,11 +185,13 @@
 <h4 id="_assetsbindirectorypath"><a class="header" href="#_assetsbindirectorypath">_assetsBinDirectoryPath</a></h4>
 <pre><code class="language-csharp">protected string _assetsBinDirectoryPath;
 </code></pre>
+<p>Cached path to the directory containing the packed binary asset files.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="_binresourcesdirectory"><a class="header" href="#_binresourcesdirectory">_binResourcesDirectory</a></h4>
 <pre><code class="language-csharp">protected string _binResourcesDirectory;
 </code></pre>
+<p>Root directory for binary resource files, defaulting to <code>&quot;resources&quot;</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="_database"><a class="header" href="#_database">_database</a></h4>
@@ -199,16 +204,19 @@
 <h4 id="_fonts"><a class="header" href="#_fonts">_fonts</a></h4>
 <pre><code class="language-csharp">public ImmutableDictionary&lt;TKey, TValue&gt; _fonts;
 </code></pre>
+<p>Immutable map from font index to loaded <code>PixelFont</code> instances.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0">ImmutableDictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="_game"><a class="header" href="#_game">_game</a></h4>
 <pre><code class="language-csharp">protected readonly IMurderGame _game;
 </code></pre>
+<p>Reference to the game implementation used to provide custom profiles, processors, and shaders.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/IMurderGame.html">IMurderGame</a> </p>
 <h4 id="_gameprofile"><a class="header" href="#_gameprofile">_gameProfile</a></h4>
 <pre><code class="language-csharp">protected GameProfile _gameProfile;
 </code></pre>
+<p>Cached game profile loaded during initialization; contains global game configuration.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Assets/GameProfile.html">GameProfile</a> </p>
 <h4 id="_packedgamedatadirectory"><a class="header" href="#_packedgamedatadirectory">_packedGameDataDirectory</a></h4>
@@ -237,6 +245,7 @@ were reloaded completely here.</p>
 <h4 id="assetsbindirectorypath"><a class="header" href="#assetsbindirectorypath">AssetsBinDirectoryPath</a></h4>
 <pre><code class="language-csharp">public string AssetsBinDirectoryPath { get; }
 </code></pre>
+<p>Full path to the directory where packed binary asset files are located.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="assetslock"><a class="header" href="#assetslock">AssetsLock</a></h4>
@@ -248,11 +257,13 @@ were reloaded completely here.</p>
 <h4 id="binresourcesdirectorypath"><a class="header" href="#binresourcesdirectorypath">BinResourcesDirectoryPath</a></h4>
 <pre><code class="language-csharp">public string BinResourcesDirectoryPath { get; }
 </code></pre>
+<p>Full path to the binary resources directory, used to locate shaders, fonts, and atlases.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="cacheduniquetextures"><a class="header" href="#cacheduniquetextures">CachedUniqueTextures</a></h4>
 <pre><code class="language-csharp">public readonly CacheDictionary&lt;TKey, TValue&gt; CachedUniqueTextures;
 </code></pre>
+<p>LRU cache of individually loaded <code>Texture2D</code> objects that are not part of any atlas.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/CacheDictionary-2.html">CacheDictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="callafterloadcontent"><a class="header" href="#callafterloadcontent">CallAfterLoadContent</a></h4>
@@ -286,6 +297,7 @@ were reloaded completely here.</p>
 <h4 id="filemanager"><a class="header" href="#filemanager">FileManager</a></h4>
 <pre><code class="language-csharp">public readonly FileManager FileManager;
 </code></pre>
+<p>Provides all file I/O operations including serialization, deserialization, and directory management.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Serialization/FileManager.html">FileManager</a> </p>
 <h4 id="gamedirectory"><a class="header" href="#gamedirectory">GameDirectory</a></h4>
@@ -297,16 +309,19 @@ were reloaded completely here.</p>
 <h4 id="gameprofile"><a class="header" href="#gameprofile">GameProfile</a></h4>
 <pre><code class="language-csharp">public GameProfile GameProfile { get; protected set; }
 </code></pre>
+<p>The active game profile containing global configuration such as window size and available systems.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Assets/GameProfile.html">GameProfile</a> </p>
 <h4 id="gameprofilefilename"><a class="header" href="#gameprofilefilename">GameProfileFileName</a></h4>
 <pre><code class="language-csharp">public static const string GameProfileFileName;
 </code></pre>
+<p>Base filename (without extension) used when serializing the <code>GameProfile</code> asset to disk.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="hiddenassetsrelativepath"><a class="header" href="#hiddenassetsrelativepath">HiddenAssetsRelativePath</a></h4>
 <pre><code class="language-csharp">public static const string HiddenAssetsRelativePath;
 </code></pre>
+<p>Relative subdirectory name used to store editor-only hidden assets that are skipped in release builds.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="ignoreserializationerrors"><a class="header" href="#ignoreserializationerrors">IgnoreSerializationErrors</a></h4>
@@ -318,36 +333,43 @@ were reloaded completely here.</p>
 <h4 id="loadcontentprogress"><a class="header" href="#loadcontentprogress">LoadContentProgress</a></h4>
 <pre><code class="language-csharp">public Task LoadContentProgress;
 </code></pre>
+<p>Task that tracks the ongoing asynchronous content load; check its status to know when loading is complete.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0">Task</a> </p>
 <h4 id="loadedatlasses"><a class="header" href="#loadedatlasses">LoadedAtlasses</a></h4>
 <pre><code class="language-csharp">public readonly Dictionary&lt;TKey, TValue&gt; LoadedAtlasses;
 </code></pre>
+<p>Maps atlas name strings to the currently loaded <code>TextureAtlas</code> instances.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0">Dictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="localization"><a class="header" href="#localization">Localization</a></h4>
 <pre><code class="language-csharp">public LocalizationAsset Localization { get; }
 </code></pre>
+<p>The localization asset for the currently active language.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Assets/Localization/LocalizationAsset.html">LocalizationAsset</a> </p>
 <h4 id="othereffects"><a class="header" href="#othereffects">OtherEffects</a></h4>
 <pre><code class="language-csharp">public virtual Effect[] OtherEffects { get; }
 </code></pre>
+<p>Additional game-specific shader effects beyond the built-in set; override to supply custom shaders.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html">Effect[]</a> </p>
 <h4 id="packedbindirectorypath"><a class="header" href="#packedbindirectorypath">PackedBinDirectoryPath</a></h4>
 <pre><code class="language-csharp">public string PackedBinDirectoryPath { get; }
 </code></pre>
+<p>Full path to the directory containing packed binary asset archives.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="pendingsave"><a class="header" href="#pendingsave">PendingSave</a></h4>
 <pre><code class="language-csharp">public T? PendingSave;
 </code></pre>
+<p>A save operation that is waiting to be flushed to disk on the next safe opportunity.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="preferences"><a class="header" href="#preferences">Preferences</a></h4>
 <pre><code class="language-csharp">public GamePreferences Preferences { get; }
 </code></pre>
+<p>The current player preferences (volume, language, etc.) deserialized from disk.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Save/GamePreferences.html">GamePreferences</a> </p>
 <h4 id="publishedpackedassetsfullpath"><a class="header" href="#publishedpackedassetsfullpath">PublishedPackedAssetsFullPath</a></h4>
@@ -365,6 +387,7 @@ were reloaded completely here.</p>
 <h4 id="serializationoptions"><a class="header" href="#serializationoptions">SerializationOptions</a></h4>
 <pre><code class="language-csharp">public JsonSerializerOptions SerializationOptions { get; }
 </code></pre>
+<p>JSON serializer options configured with all Murder type converters and source-generation contexts.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.JsonSerializerOptions?view=net-7.0">JsonSerializerOptions</a> </p>
 <h4 id="shaderpixel"><a class="header" href="#shaderpixel">ShaderPixel</a></h4>
@@ -376,6 +399,7 @@ were reloaded completely here.</p>
 <h4 id="shaderrelativepath"><a class="header" href="#shaderrelativepath">ShaderRelativePath</a></h4>
 <pre><code class="language-csharp">protected readonly string ShaderRelativePath;
 </code></pre>
+<p>Format string for the relative path to compiled shader files, e.g. <code>&quot;shaders/{0}.fxb&quot;</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="shadersimple"><a class="header" href="#shadersimple">ShaderSimple</a></h4>
@@ -393,17 +417,20 @@ were reloaded completely here.</p>
 <h4 id="skip_char"><a class="header" href="#skip_char">SKIP_CHAR</a></h4>
 <pre><code class="language-csharp">public static const char SKIP_CHAR;
 </code></pre>
+<p>Assets whose names begin with this character (<code>_</code>) are considered hidden and skipped during game loading.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0">char</a> </p>
 <h4 id="waitpendingsavetrackeroperation"><a class="header" href="#waitpendingsavetrackeroperation">WaitPendingSaveTrackerOperation</a></h4>
 <pre><code class="language-csharp">public bool WaitPendingSaveTrackerOperation { get; }
 </code></pre>
+<p>Returns <code>true</code> while a pending save-tracker write operation has not yet completed.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="loadcontentasync"><a class="header" href="#loadcontentasync">LoadContentAsync()</a></h4>
 <pre><code class="language-csharp">protected Task LoadContentAsync()
 </code></pre>
+<p>Orchestrates the full asynchronous content load pipeline.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0">Task</a> </p>
 <h4 id="shouldskipassetstring"><a class="header" href="#shouldskipassetstring">ShouldSkipAsset(string)</a></h4>
@@ -418,6 +445,7 @@ that are only used in the editor.</p>
 <h4 id="trycompileshaderstring-out-effect"><a class="header" href="#trycompileshaderstring-out-effect">TryCompileShader(string, out Effect&amp;)</a></h4>
 <pre><code class="language-csharp">protected virtual bool TryCompileShader(string name, Effect&amp; result)
 </code></pre>
+<p>Attempts to compile or load the named shader into <code>result</code>; returns <code>true</code> on success.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>result</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html">Effect&amp;</a> </p>
@@ -426,6 +454,7 @@ that are only used in the editor.</p>
 <h4 id="creategameprofile"><a class="header" href="#creategameprofile">CreateGameProfile()</a></h4>
 <pre><code class="language-csharp">protected virtual GameProfile CreateGameProfile()
 </code></pre>
+<p>Factory method that creates the game's configuration profile; override to return a custom profile type.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Assets/GameProfile.html">GameProfile</a> </p>
 <h4 id="fetchsystemstostartwith"><a class="header" href="#fetchsystemstostartwith">FetchSystemsToStartWith()</a></h4>
@@ -438,6 +467,7 @@ Used when hooking new systems into the editor.</p>
 <h4 id="getlocalizationlanguageid"><a class="header" href="#getlocalizationlanguageid">GetLocalization(LanguageId)</a></h4>
 <pre><code class="language-csharp">protected virtual LocalizationAsset GetLocalization(LanguageId id)
 </code></pre>
+<p>Returns the localization asset for the given language identifier, falling back to English if unavailable.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="../../Murder/Assets/Localization/LanguageId.html">LanguageId</a> </p>
 <p><strong>Returns</strong> <br />
@@ -453,16 +483,19 @@ Used when hooking new systems into the editor.</p>
 <h4 id="loadallassetsasync"><a class="header" href="#loadallassetsasync">LoadAllAssetsAsync()</a></h4>
 <pre><code class="language-csharp">protected virtual Task LoadAllAssetsAsync()
 </code></pre>
+<p>Loads all game assets from packed archives into <code>_allAssets</code> and <code>_database</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0">Task</a> </p>
 <h4 id="loadcontentasyncimpl"><a class="header" href="#loadcontentasyncimpl">LoadContentAsyncImpl()</a></h4>
 <pre><code class="language-csharp">protected virtual Task LoadContentAsyncImpl()
 </code></pre>
+<p>Override point for subclasses to execute custom async content loading logic after base loading completes.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0">Task</a> </p>
 <h4 id="loadfontsandtexturesasync"><a class="header" href="#loadfontsandtexturesasync">LoadFontsAndTexturesAsync()</a></h4>
 <pre><code class="language-csharp">protected virtual Task LoadFontsAndTexturesAsync()
 </code></pre>
+<p>Loads font assets and standalone textures that are not part of any atlas.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0">Task</a> </p>
 <h4 id="loadsoundsimplasyncbool"><a class="header" href="#loadsoundsimplasyncbool">LoadSoundsImplAsync(bool)</a></h4>
@@ -494,15 +527,18 @@ This is called when the asset was successfully loaded but failed to fill some of
 <h4 id="removeassettype-guid"><a class="header" href="#removeassettype-guid">RemoveAsset(Type, Guid)</a></h4>
 <pre><code class="language-csharp">protected virtual void RemoveAsset(Type t, Guid assetGuid)
 </code></pre>
+<p>Removes the asset with the given GUID from the internal database and asset map.</p>
 <p><strong>Parameters</strong> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> <br />
 <code>assetGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="preloadcontent"><a class="header" href="#preloadcontent">PreloadContent()</a></h4>
 <pre><code class="language-csharp">protected void PreloadContent()
 </code></pre>
+<p>Executes the synchronous preload phase, loading the minimum assets required before async loading begins.</p>
 <h4 id="trackfontfontasset"><a class="header" href="#trackfontfontasset">TrackFont(FontAsset)</a></h4>
 <pre><code class="language-csharp">protected void TrackFont(FontAsset asset)
 </code></pre>
+<p>Registers a loaded <code>FontAsset</code> in the internal font lookup table.</p>
 <p><strong>Parameters</strong> <br />
 <code>asset</code> <a href="../../Murder/Assets/Graphics/FontAsset.html">FontAsset</a> </p>
 <h4 id="getasepriteframeguid"><a class="header" href="#getasepriteframeguid">GetAsepriteFrame(Guid)</a></h4>
@@ -518,6 +554,7 @@ This is called when the asset was successfully loaded but failed to fill some of
 <h4 id="addassetforcurrentsavegameasset"><a class="header" href="#addassetforcurrentsavegameasset">AddAssetForCurrentSave(GameAsset)</a></h4>
 <pre><code class="language-csharp">public bool AddAssetForCurrentSave(GameAsset asset)
 </code></pre>
+<p>Adds a dynamic asset to the active save slot; returns <code>true</code> if successfully added.</p>
 <p><strong>Parameters</strong> <br />
 <code>asset</code> <a href="../../Murder/Assets/GameAsset.html">GameAsset</a> </p>
 <p><strong>Returns</strong> <br />
@@ -525,6 +562,7 @@ This is called when the asset was successfully loaded but failed to fill some of
 <h4 id="canloadsavedataint"><a class="header" href="#canloadsavedataint">CanLoadSaveData(int)</a></h4>
 <pre><code class="language-csharp">public bool CanLoadSaveData(int slot)
 </code></pre>
+<p>Returns <code>true</code> if a save file exists for the given slot and can be deserialized.</p>
 <p><strong>Parameters</strong> <br />
 <code>slot</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -532,6 +570,7 @@ This is called when the asset was successfully loaded but failed to fill some of
 <h4 id="hasassetguid"><a class="header" href="#hasassetguid">HasAsset(Guid)</a></h4>
 <pre><code class="language-csharp">public bool HasAsset(Guid id)
 </code></pre>
+<p>Returns <code>true</code> if an asset with the given GUID is currently loaded.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -539,6 +578,7 @@ This is called when the asset was successfully loaded but failed to fill some of
 <h4 id="ispathonskiploadingstring"><a class="header" href="#ispathonskiploadingstring">IsPathOnSkipLoading(string)</a></h4>
 <pre><code class="language-csharp">public bool IsPathOnSkipLoading(string name)
 </code></pre>
+<p>Returns <code>true</code> if the given path is on the skip-loading list, meaning it will not be reloaded on hot-reload.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -546,6 +586,7 @@ This is called when the asset was successfully loaded but failed to fill some of
 <h4 id="loadallsaves"><a class="header" href="#loadallsaves">LoadAllSaves()</a></h4>
 <pre><code class="language-csharp">public bool LoadAllSaves()
 </code></pre>
+<p>Scans the save directory and populates <code>_allSavedData</code> with all found save slots; returns <code>true</code> on success.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="loadsaveascurrentsaveint"><a class="header" href="#loadsaveascurrentsaveint">LoadSaveAsCurrentSave(int)</a></h4>
@@ -560,6 +601,7 @@ is first available in all saved data.</p>
 <h4 id="loadshaderstring-out-effect-bool-bool"><a class="header" href="#loadshaderstring-out-effect-bool-bool">LoadShader(string, out Effect&amp;, bool, bool)</a></h4>
 <pre><code class="language-csharp">public bool LoadShader(string name, Effect&amp; effect, bool breakOnFail, bool forceReload)
 </code></pre>
+<p>Loads or reloads a compiled shader by name into <code>effect</code>; returns <code>true</code> on success.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>effect</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html">Effect&amp;</a> <br />
@@ -570,6 +612,7 @@ is first available in all saved data.</p>
 <h4 id="removeassetforcurrentsaveguid"><a class="header" href="#removeassetforcurrentsaveguid">RemoveAssetForCurrentSave(Guid)</a></h4>
 <pre><code class="language-csharp">public bool RemoveAssetForCurrentSave(Guid guid)
 </code></pre>
+<p>Removes a dynamic asset by GUID from the active save slot; returns <code>true</code> if the asset was found and removed.</p>
 <p><strong>Parameters</strong> <br />
 <code>guid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -577,6 +620,7 @@ is first available in all saved data.</p>
 <h4 id="trygetdynamicassetout-t"><a class="header" href="#trygetdynamicassetout-t">TryGetDynamicAsset(out T&amp;)</a></h4>
 <pre><code class="language-csharp">public bool TryGetDynamicAsset(T&amp; asset)
 </code></pre>
+<p>Attempts to retrieve a dynamic asset of type <code>T</code> from the active save; returns <code>true</code> if found.</p>
 <p><strong>Parameters</strong> <br />
 <code>asset</code> <a href="../../">T&amp;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -590,6 +634,7 @@ is first available in all saved data.</p>
 <h4 id="getassetguid"><a class="header" href="#getassetguid">GetAsset(Guid)</a></h4>
 <pre><code class="language-csharp">public GameAsset GetAsset(Guid id)
 </code></pre>
+<p>Returns the loaded asset with the given GUID, throwing if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -613,6 +658,7 @@ is first available in all saved data.</p>
 <h4 id="tryloadassetstring-string-bool-bool"><a class="header" href="#tryloadassetstring-string-bool-bool">TryLoadAsset(string, string, bool, bool)</a></h4>
 <pre><code class="language-csharp">public GameAsset TryLoadAsset(string path, string relativePath, bool skipFailures, bool hasEditorPath)
 </code></pre>
+<p>Attempts to deserialize a single asset from disk; returns <code>null</code> on failure when <code>skipFailures</code> is true.</p>
 <p><strong>Parameters</strong> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>relativePath</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -623,11 +669,13 @@ is first available in all saved data.</p>
 <h4 id="getallassets"><a class="header" href="#getallassets">GetAllAssets()</a></h4>
 <pre><code class="language-csharp">public IEnumerable&lt;T&gt; GetAllAssets()
 </code></pre>
+<p>Returns all currently loaded assets as an unordered enumerable sequence.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0">IEnumerable&lt;T&gt;</a> </p>
 <h4 id="filterallassetstype"><a class="header" href="#filterallassetstype">FilterAllAssets(Type[])</a></h4>
 <pre><code class="language-csharp">public ImmutableDictionary&lt;TKey, TValue&gt; FilterAllAssets(Type[] types)
 </code></pre>
+<p>Returns a dictionary of all loaded assets that match one of the given types.</p>
 <p><strong>Parameters</strong> <br />
 <code>types</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type[]</a> </p>
 <p><strong>Returns</strong> <br />
@@ -652,11 +700,13 @@ is first available in all saved data.</p>
 <h4 id="getdefaultlocalization"><a class="header" href="#getdefaultlocalization">GetDefaultLocalization()</a></h4>
 <pre><code class="language-csharp">public LocalizationAsset GetDefaultLocalization()
 </code></pre>
+<p>Returns the English (default) localization asset regardless of the current language setting.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Assets/Localization/LocalizationAsset.html">LocalizationAsset</a> </p>
 <h4 id="createworldinstancefromsaveguid-camera2d"><a class="header" href="#createworldinstancefromsaveguid-camera2d">CreateWorldInstanceFromSave(Guid, Camera2D)</a></h4>
 <pre><code class="language-csharp">public MonoWorld CreateWorldInstanceFromSave(Guid guid, Camera2D camera)
 </code></pre>
+<p>Instantiates a <code>MonoWorld</code> for the world asset identified by <code>guid</code>, rehydrating it from the current save data.</p>
 <p><strong>Parameters</strong> <br />
 <code>guid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>camera</code> <a href="../../Murder/Core/Graphics/Camera2D.html">Camera2D</a> </p>
@@ -665,6 +715,7 @@ is first available in all saved data.</p>
 <h4 id="getfontint"><a class="header" href="#getfontint">GetFont(int)</a></h4>
 <pre><code class="language-csharp">public PixelFont GetFont(int index)
 </code></pre>
+<p>Returns the loaded <code>PixelFont</code> at the given index.</p>
 <p><strong>Parameters</strong> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -672,6 +723,7 @@ is first available in all saved data.</p>
 <h4 id="getprefabguid"><a class="header" href="#getprefabguid">GetPrefab(Guid)</a></h4>
 <pre><code class="language-csharp">public PrefabAsset GetPrefab(Guid id)
 </code></pre>
+<p>Returns the <code>PrefabAsset</code> with the given GUID, throwing if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -679,6 +731,7 @@ is first available in all saved data.</p>
 <h4 id="trygetprefabguid"><a class="header" href="#trygetprefabguid">TryGetPrefab(Guid)</a></h4>
 <pre><code class="language-csharp">public PrefabAsset TryGetPrefab(Guid id)
 </code></pre>
+<p>Returns the <code>PrefabAsset</code> with the given GUID, or <code>null</code> if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -698,6 +751,7 @@ is first available in all saved data.</p>
 <h4 id="getassetguid-1"><a class="header" href="#getassetguid-1">GetAsset(Guid)</a></h4>
 <pre><code class="language-csharp">public T GetAsset(Guid id)
 </code></pre>
+<p>Returns the loaded asset of type <code>T</code> with the given GUID, throwing if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -712,6 +766,7 @@ If no dynamic asset is found, it creates a new one to the save data.</p>
 <h4 id="trygetassetguid-1"><a class="header" href="#trygetassetguid-1">TryGetAsset(Guid)</a></h4>
 <pre><code class="language-csharp">public T TryGetAsset(Guid id)
 </code></pre>
+<p>Returns the loaded asset of type <code>T</code> with the given GUID, or <code>null</code> if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -727,6 +782,7 @@ If no dynamic asset is found, it creates a new one to the save data.</p>
 <h4 id="tryloadassetasyncstring-string-bool-bool"><a class="header" href="#tryloadassetasyncstring-string-bool-bool">TryLoadAssetAsync(string, string, bool, bool)</a></h4>
 <pre><code class="language-csharp">public Task&lt;TResult&gt; TryLoadAssetAsync(string path, string relativePath, bool skipFailures, bool hasEditorPath)
 </code></pre>
+<p>Asynchronously attempts to deserialize a single asset from disk.</p>
 <p><strong>Parameters</strong> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>relativePath</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -737,6 +793,7 @@ If no dynamic asset is found, it creates a new one to the save data.</p>
 <h4 id="fetchtexturestring"><a class="header" href="#fetchtexturestring">FetchTexture(string)</a></h4>
 <pre><code class="language-csharp">public Texture2D FetchTexture(string path)
 </code></pre>
+<p>Loads or retrieves from cache an individual <code>Texture2D</code> from the given path.</p>
 <p><strong>Parameters</strong> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -744,6 +801,7 @@ If no dynamic asset is found, it creates a new one to the save data.</p>
 <h4 id="fetchatlasatlasid-bool"><a class="header" href="#fetchatlasatlasid-bool">FetchAtlas(AtlasId, bool)</a></h4>
 <pre><code class="language-csharp">public TextureAtlas FetchAtlas(AtlasId atlas, bool warnOnError)
 </code></pre>
+<p>Returns the loaded <code>TextureAtlas</code> for the given <code>AtlasId</code>, optionally logging a warning if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>atlas</code> <a href="../../Murder/Data/AtlasId.html">AtlasId</a> <br />
 <code>warnOnError</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
@@ -752,6 +810,7 @@ If no dynamic asset is found, it creates a new one to the save data.</p>
 <h4 id="tryfetchatlasatlasid"><a class="header" href="#tryfetchatlasatlasid">TryFetchAtlas(AtlasId)</a></h4>
 <pre><code class="language-csharp">public TextureAtlas TryFetchAtlas(AtlasId atlas)
 </code></pre>
+<p>Returns the loaded <code>TextureAtlas</code> for the given <code>AtlasId</code>, or <code>null</code> if not loaded.</p>
 <p><strong>Parameters</strong> <br />
 <code>atlas</code> <a href="../../Murder/Data/AtlasId.html">AtlasId</a> </p>
 <p><strong>Returns</strong> <br />
@@ -759,11 +818,13 @@ If no dynamic asset is found, it creates a new one to the save data.</p>
 <h4 id="serializesaveasync"><a class="header" href="#serializesaveasync">SerializeSaveAsync()</a></h4>
 <pre><code class="language-csharp">public ValueTask&lt;TResult&gt; SerializeSaveAsync()
 </code></pre>
+<p>Flushes all pending save data to disk asynchronously.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.ValueTask-1?view=net-7.0">ValueTask&lt;TResult&gt;</a> </p>
 <h4 id="deletesaveatint"><a class="header" href="#deletesaveatint">DeleteSaveAt(int)</a></h4>
 <pre><code class="language-csharp">public virtual bool DeleteSaveAt(int slot)
 </code></pre>
+<p>Deletes the save file in the given slot; returns <code>true</code> if the file existed and was removed.</p>
 <p><strong>Parameters</strong> <br />
 <code>slot</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -783,50 +844,62 @@ If no dynamic asset is found, it creates a new one to the save data.</p>
 <h4 id="deleteallsaves"><a class="header" href="#deleteallsaves">DeleteAllSaves()</a></h4>
 <pre><code class="language-csharp">public virtual void DeleteAllSaves()
 </code></pre>
+<p>Deletes every save file from disk and clears the in-memory save data collection.</p>
 <h4 id="dispose"><a class="header" href="#dispose">Dispose()</a></h4>
 <pre><code class="language-csharp">public virtual void Dispose()
 </code></pre>
+<p>Releases all managed and GPU resources held by this manager.</p>
 <h4 id="initializestring"><a class="header" href="#initializestring">Initialize(string)</a></h4>
 <pre><code class="language-csharp">public virtual void Initialize(string resourcesBinPath)
 </code></pre>
+<p>Initializes the data manager with the given binary resources directory path and prepares internal structures.</p>
 <p><strong>Parameters</strong> <br />
 <code>resourcesBinPath</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="initshaders"><a class="header" href="#initshaders">InitShaders()</a></h4>
 <pre><code class="language-csharp">public virtual void InitShaders()
 </code></pre>
+<p>Loads and compiles all built-in and custom shaders required by the engine.</p>
 <h4 id="loadcontent"><a class="header" href="#loadcontent">LoadContent()</a></h4>
 <pre><code class="language-csharp">public virtual void LoadContent()
 </code></pre>
+<p>Begins the full content load sequence, starting async loading of all assets.</p>
 <h4 id="onassetrenamedoraddedordeleted"><a class="header" href="#onassetrenamedoraddedordeleted">OnAssetRenamedOrAddedOrDeleted()</a></h4>
 <pre><code class="language-csharp">public virtual void OnAssetRenamedOrAddedOrDeleted()
 </code></pre>
+<p>Called when an asset is renamed, added, or deleted; use to refresh internal caches.</p>
 <h4 id="addassett-bool"><a class="header" href="#addassett-bool">AddAsset(T, bool)</a></h4>
 <pre><code class="language-csharp">public void AddAsset(T asset, bool overwriteDuplicateGuids)
 </code></pre>
+<p>Registers a new asset in the asset database; set <code>overwriteDuplicateGuids</code> to replace an existing entry with the same GUID.</p>
 <p><strong>Parameters</strong> <br />
 <code>asset</code> <a href="../../">T</a> <br />
 <code>overwriteDuplicateGuids</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="changelanguagelanguageid"><a class="header" href="#changelanguagelanguageid">ChangeLanguage(LanguageId)</a></h4>
 <pre><code class="language-csharp">public void ChangeLanguage(LanguageId id)
 </code></pre>
+<p>Switches the active localization to the given language and reloads the localization asset.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="../../Murder/Assets/Localization/LanguageId.html">LanguageId</a> </p>
 <h4 id="changelanguagelanguageiddata"><a class="header" href="#changelanguagelanguageiddata">ChangeLanguage(LanguageIdData)</a></h4>
 <pre><code class="language-csharp">public void ChangeLanguage(LanguageIdData data)
 </code></pre>
+<p>Switches the active localization using a full <code>LanguageIdData</code> descriptor.</p>
 <p><strong>Parameters</strong> <br />
 <code>data</code> <a href="../../Murder/Assets/Localization/LanguageIdData.html">LanguageIdData</a> </p>
 <h4 id="clearcontent"><a class="header" href="#clearcontent">ClearContent()</a></h4>
 <pre><code class="language-csharp">public void ClearContent()
 </code></pre>
+<p>Unloads all atlases, assets, and shaders, returning the manager to an uninitialized state.</p>
 <h4 id="disposeatlasatlasid"><a class="header" href="#disposeatlasatlasid">DisposeAtlas(AtlasId)</a></h4>
 <pre><code class="language-csharp">public void DisposeAtlas(AtlasId atlasId)
 </code></pre>
+<p>Unloads and disposes the <code>TextureAtlas</code> for the given <code>AtlasId</code>, freeing GPU memory.</p>
 <p><strong>Parameters</strong> <br />
 <code>atlasId</code> <a href="../../Murder/Data/AtlasId.html">AtlasId</a> </p>
 <h4 id="disposeatlases"><a class="header" href="#disposeatlases">DisposeAtlases()</a></h4>
 <pre><code class="language-csharp">public void DisposeAtlases()
 </code></pre>
+<p>Unloads and disposes all currently loaded texture atlases.</p>
 <h4 id="loadshadersbool-bool"><a class="header" href="#loadshadersbool-bool">LoadShaders(bool, bool)</a></h4>
 <pre><code class="language-csharp">public void LoadShaders(bool breakOnFail, bool forceReload)
 </code></pre>
@@ -839,6 +912,7 @@ If no dynamic asset is found, it creates a new one to the save data.</p>
 <h4 id="onerrorloadingasset"><a class="header" href="#onerrorloadingasset">OnErrorLoadingAsset()</a></h4>
 <pre><code class="language-csharp">public void OnErrorLoadingAsset()
 </code></pre>
+<p>Marks that an error occurred during asset loading so the manager can react appropriately.</p>
 <h4 id="quicksave"><a class="header" href="#quicksave">QuickSave()</a></h4>
 <pre><code class="language-csharp">public void QuickSave()
 </code></pre>
@@ -846,27 +920,32 @@ If no dynamic asset is found, it creates a new one to the save data.</p>
 <h4 id="removeassetguid"><a class="header" href="#removeassetguid">RemoveAsset(Guid)</a></h4>
 <pre><code class="language-csharp">public void RemoveAsset(Guid assetGuid)
 </code></pre>
+<p>Removes the asset with the given GUID from the in-memory database.</p>
 <p><strong>Parameters</strong> <br />
 <code>assetGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="removeassett"><a class="header" href="#removeassett">RemoveAsset(T)</a></h4>
 <pre><code class="language-csharp">public void RemoveAsset(T asset)
 </code></pre>
+<p>Removes the given asset instance from the in-memory database.</p>
 <p><strong>Parameters</strong> <br />
 <code>asset</code> <a href="../../">T</a> </p>
 <h4 id="replaceatlasatlasid-textureatlas"><a class="header" href="#replaceatlasatlasid-textureatlas">ReplaceAtlas(AtlasId, TextureAtlas)</a></h4>
 <pre><code class="language-csharp">public void ReplaceAtlas(AtlasId atlasId, TextureAtlas newAtlas)
 </code></pre>
+<p>Replaces the currently loaded atlas for <code>atlasId</code> with <code>newAtlas</code>, disposing the old one.</p>
 <p><strong>Parameters</strong> <br />
 <code>atlasId</code> <a href="../../Murder/Data/AtlasId.html">AtlasId</a> <br />
 <code>newAtlas</code> <a href="../../Murder/Core/Graphics/TextureAtlas.html">TextureAtlas</a> </p>
 <h4 id="saveworldmonoworld"><a class="header" href="#saveworldmonoworld">SaveWorld(MonoWorld)</a></h4>
 <pre><code class="language-csharp">public void SaveWorld(MonoWorld world)
 </code></pre>
+<p>Persists the current state of <code>world</code> into the active save slot.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Murder/Core/MonoWorld.html">MonoWorld</a> </p>
 <h4 id="skiploadingassetsatstring"><a class="header" href="#skiploadingassetsatstring">SkipLoadingAssetsAt(string)</a></h4>
 <pre><code class="language-csharp">public void SkipLoadingAssetsAt(string path)
 </code></pre>
+<p>Adds <code>path</code> to the skip-loading set so that hot-reload will not overwrite assets at that location.</p>
 <p><strong>Parameters</strong> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="unloadallsaves"><a class="header" href="#unloadallsaves">UnloadAllSaves()</a></h4>

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AnimationStartedComponent : IComponent
 </code></pre>
+<p>Runtime-only marker recording the game time at which the current animation began playing on the entity.</p>
+<p><strong>Intent:</strong> Track when an animation was started so that systems can compute elapsed time, synchronize events, or detect animation restarts.</p>
+<p><strong>Use-case:</strong> Added automatically by the animation system when a new animation sequence begins; read <code>StartTime</code> to calculate how far into the animation the entity currently is.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AnimationStartedComponent(float startTime)
@@ -159,6 +162,7 @@
 <h4 id="starttime"><a class="header" href="#starttime">StartTime</a></h4>
 <pre><code class="language-csharp">public readonly float StartTime;
 </code></pre>
+<p>Absolute game time (in seconds) when the current animation started playing.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

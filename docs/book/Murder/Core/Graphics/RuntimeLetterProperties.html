@@ -150,11 +150,14 @@
 <pre><code class="language-csharp">public sealed struct RuntimeLetterProperties : IEquatable&lt;T&gt;
 </code></pre>
 <p>Properties of a letter when printing it.</p>
+<p><strong>Intent:</strong> Holds all per-character rendering overrides (color, effects, timing) applied by the typewriter text system when displaying a dialogue line.</p>
+<p><strong>Use-case:</strong> Retrieved through <code>RuntimeTextData.TryGetLetterProperty()</code> at render time to apply per-character animations, pauses, and color changes without modifying the source string.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0">IEquatable&lt;T&gt;</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="color"><a class="header" href="#color">Color</a></h4>
 <pre><code class="language-csharp">public T? Color { get; public set; }
 </code></pre>
+<p>Optional tint color override applied to this character when it is rendered; null preserves the default text color.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="glitch"><a class="header" href="#glitch">Glitch</a></h4>
@@ -172,6 +175,7 @@
 <h4 id="properties"><a class="header" href="#properties">Properties</a></h4>
 <pre><code class="language-csharp">public RuntimeLetterPropertiesFlag Properties { get; public set; }
 </code></pre>
+<p>Bitfield of <code>RuntimeLetterPropertiesFlag</code> values controlling animations and formatting applied to this character (e.g. wave, fear, color reset).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/RuntimeLetterPropertiesFlag.html">RuntimeLetterPropertiesFlag</a> </p>
 <h4 id="shake"><a class="header" href="#shake">Shake</a></h4>
@@ -196,6 +200,7 @@
 <h4 id="combinewithruntimeletterproperties"><a class="header" href="#combinewithruntimeletterproperties">CombineWith(RuntimeLetterProperties)</a></h4>
 <pre><code class="language-csharp">public RuntimeLetterProperties CombineWith(RuntimeLetterProperties other)
 </code></pre>
+<p>Merges this set of letter properties with <code>other</code>, keeping non-default values from <code>this</code> and falling back to <code>other</code>'s values where <code>this</code> has defaults.</p>
 <p><strong>Parameters</strong> <br />
 <code>other</code> <a href="../../../Murder/Core/Graphics/RuntimeLetterProperties.html">RuntimeLetterProperties</a> </p>
 <p><strong>Returns</strong> <br />

@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct AddChildOnInteraction : IInteraction
 </code></pre>
 <p>This will set up a landing plot by adding a child to it.</p>
+<p><strong>Intent:</strong> Spawns a configured prefab as a named child of the interacted entity.</p>
+<p><strong>Use-case:</strong> Use when interacting with an entity should dynamically attach a child prefab to it, such as equipping an item, spawning a held object, or adding a visual sub-entity.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AddChildOnInteraction()
@@ -158,6 +160,7 @@
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Instantiates the configured prefab and attaches it as a named child of the interacted entity, optionally forwarding the child's event listener data to the parent.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

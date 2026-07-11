@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class ParticleDestroyerSystem : IFixedUpdateSystem, ISystem
 </code></pre>
+<p>Removes expired particle entities from the world each fixed update.</p>
+<p><strong>Intent:</strong> Cleans up particle entities whose lifetime has expired.</p>
+<p><strong>Use-case:</strong> Include in any world that uses Murder's particle system to prevent accumulation of dead particle entities.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Systems/IFixedUpdateSystem.html">IFixedUpdateSystem</a>, <a href="../../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ParticleDestroyerSystem()

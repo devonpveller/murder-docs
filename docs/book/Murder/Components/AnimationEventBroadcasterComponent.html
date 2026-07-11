@@ -149,18 +149,23 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AnimationEventBroadcasterComponent : IComponent
 </code></pre>
+<p>Holds the set of entity IDs that should receive animation events fired by this entity's sprite.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Allows an entity's animation events to be forwarded to a configurable set of listener entities rather than only the entity itself.</p>
+<p><strong>Use-case:</strong> Attach to a sprite entity and subscribe listener entities via <code>Subscribe</code>; <code>AnimationEventBroadcastSystem</code> will then route events to every entity in <code>BroadcastTo</code>.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AnimationEventBroadcasterComponent()
 </code></pre>
 <pre><code class="language-csharp">public AnimationEventBroadcasterComponent(ImmutableHashSet&lt;T&gt; broadcastTo)
 </code></pre>
+<p>Creates a broadcaster pre-populated with the given set of listener entity IDs.</p>
 <p><strong>Parameters</strong> <br />
 <code>broadcastTo</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableHashSet-1?view=net-7.0">ImmutableHashSet&lt;T&gt;</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="broadcastto"><a class="header" href="#broadcastto">BroadcastTo</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableHashSet&lt;T&gt; BroadcastTo;
 </code></pre>
+<p>The set of entity IDs that will receive this entity's animation events.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableHashSet-1?view=net-7.0">ImmutableHashSet&lt;T&gt;</a> </p>
 <p>⚡</p>

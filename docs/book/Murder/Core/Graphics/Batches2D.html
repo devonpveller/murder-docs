@@ -153,6 +153,8 @@
 If extend this class it will automatically show the new constants on the &quot;Target SpriteBatch&quot; in the inspector.
 Variables have &quot;BachId&quot; and &quot;Batch&quot; trimmed
 Numbers from 0 to 20 are reserved for Murder internal use.</p>
+<p><strong>Intent:</strong> Centralises the integer identifiers for every built-in render layer so systems and components can reference a layer by a named constant rather than a magic number.</p>
+<p><strong>Use-case:</strong> Extend this class in your game to define additional batch IDs above 20, then reference them in <code>DrawInfo.Sort</code> or sprite-component fields to route draw calls to the correct layer.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Batches2D()
 </code></pre>
@@ -160,31 +162,37 @@ Numbers from 0 to 20 are reserved for Murder internal use.</p>
 <h4 id="debugbatchid"><a class="header" href="#debugbatchid">DebugBatchId</a></h4>
 <pre><code class="language-csharp">public static const int DebugBatchId;
 </code></pre>
+<p>Batch layer for debug overlays (shapes, text, etc.) drawn on top of everything.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="debugfxbatchid"><a class="header" href="#debugfxbatchid">DebugFxBatchId</a></h4>
 <pre><code class="language-csharp">public static const int DebugFxBatchId;
 </code></pre>
+<p>Batch layer for debug visual effects, rendered just below the main debug overlay.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="floorbatchid"><a class="header" href="#floorbatchid">FloorBatchId</a></h4>
 <pre><code class="language-csharp">public static const int FloorBatchId;
 </code></pre>
+<p>Batch layer for floor/ground-level sprites drawn beneath gameplay objects.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="gameplaybatchid"><a class="header" href="#gameplaybatchid">GameplayBatchId</a></h4>
 <pre><code class="language-csharp">public static const int GameplayBatchId;
 </code></pre>
+<p>The main gameplay batch layer (ID 0); used for most in-world sprites and entities.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="gameuibatchid"><a class="header" href="#gameuibatchid">GameUiBatchId</a></h4>
 <pre><code class="language-csharp">public static const int GameUiBatchId;
 </code></pre>
+<p>Batch layer for in-game UI elements that exist in world space (health bars, nameplates, etc.).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="uibatchid"><a class="header" href="#uibatchid">UiBatchId</a></h4>
 <pre><code class="language-csharp">public static const int UiBatchId;
 </code></pre>
+<p>Batch layer for screen-space UI elements that are composited after the game world.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

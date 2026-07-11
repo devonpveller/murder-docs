@@ -149,12 +149,17 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Portrait : IEquatable&lt;T&gt;
 </code></pre>
+<p>A reference to a character portrait, combining an aseprite sprite asset GUID with the name of the animation to display.</p>
+<p><strong>Intent:</strong> Lightweight value type that points to a specific animation frame within a sprite sheet used for character portraits in dialogue.</p>
+<p><strong>Use-case:</strong> Assign a <code>Portrait</code> to a dialogue line or character asset to control which sprite and animation are shown when a character speaks.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0">IEquatable&lt;T&gt;</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Portrait()
 </code></pre>
+<p>Creates an empty portrait with no sprite and no animation.</p>
 <pre><code class="language-csharp">public Portrait(Guid aseprite, string animationId)
 </code></pre>
+<p>Creates a portrait referencing the given sprite asset and animation name.</p>
 <p><strong>Parameters</strong> <br />
 <code>aseprite</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>animationId</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
@@ -162,27 +167,32 @@
 <h4 id="animationid"><a class="header" href="#animationid">AnimationId</a></h4>
 <pre><code class="language-csharp">public readonly string AnimationId;
 </code></pre>
+<p>The name of the animation within the sprite sheet to use as the portrait image.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="hasimage"><a class="header" href="#hasimage">HasImage</a></h4>
 <pre><code class="language-csharp">public bool HasImage { get; }
 </code></pre>
+<p>Returns <code>true</code> when both a sprite and a non-empty animation ID are set.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="hasvalue"><a class="header" href="#hasvalue">HasValue</a></h4>
 <pre><code class="language-csharp">public bool HasValue { get; }
 </code></pre>
+<p>Returns <code>true</code> when this portrait references a valid (non-empty) sprite GUID.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="sprite"><a class="header" href="#sprite">Sprite</a></h4>
 <pre><code class="language-csharp">public readonly Guid Sprite;
 </code></pre>
+<p>The GUID of the aseprite sprite asset used as the portrait image.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="withanimationidstring"><a class="header" href="#withanimationidstring">WithAnimationId(string)</a></h4>
 <pre><code class="language-csharp">public Portrait WithAnimationId(string animationId)
 </code></pre>
+<p>Returns a copy of this portrait with the animation ID replaced by <code>animationId</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>animationId</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />

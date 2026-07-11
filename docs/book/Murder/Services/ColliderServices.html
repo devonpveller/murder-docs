@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class ColliderServices
 </code></pre>
+<p>Helpers for computing bounding boxes, grid snapping, and center points from entity colliders.</p>
+<p><strong>Intent:</strong> Provides geometry utilities that operate directly on entities with <code>ColliderComponent</code> and <code>PositionComponent</code>.</p>
+<p><strong>Use-case:</strong> Use to determine where an entity sits in world or grid space without manually querying its components, such as when placing objects on a tile grid or centering a HUD element over an entity.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getboundingboxentity"><a class="header" href="#getboundingboxentity">GetBoundingBox(Entity)</a></h4>
 <pre><code class="language-csharp">public IntRectangle GetBoundingBox(Entity e)
 </code></pre>
+<p>Returns the integer bounding rectangle of the entity's collider in world coordinates.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <p><strong>Returns</strong> <br />
@@ -160,6 +164,7 @@
 <h4 id="togridintrectangle"><a class="header" href="#togridintrectangle">ToGrid(IntRectangle)</a></h4>
 <pre><code class="language-csharp">public IntRectangle ToGrid(IntRectangle rectangle)
 </code></pre>
+<p>Converts a pixel-space rectangle to grid-cell coordinates by dividing by <code>Grid.CellSize</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>rectangle</code> <a href="../../Murder/Core/Geometry/IntRectangle.html">IntRectangle</a> </p>
 <p><strong>Returns</strong> <br />
@@ -167,6 +172,7 @@
 <h4 id="getcollidersboundingboxentity-bool"><a class="header" href="#getcollidersboundingboxentity-bool">GetCollidersBoundingBox(Entity, bool)</a></h4>
 <pre><code class="language-csharp">public IntRectangle[] GetCollidersBoundingBox(Entity e, bool gridCoordinates)
 </code></pre>
+<p>Returns per-shape bounding boxes for all shapes in the entity's collider, optionally in grid space.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>gridCoordinates</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
@@ -183,6 +189,7 @@
 <h4 id="getcenterofentity"><a class="header" href="#getcenterofentity">GetCenterOf(Entity)</a></h4>
 <pre><code class="language-csharp">public Vector2 GetCenterOf(Entity e)
 </code></pre>
+<p>Returns the world-space center point of the entity, accounting for its collider offset and size.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <p><strong>Returns</strong> <br />
@@ -190,6 +197,7 @@
 <h4 id="snaptogridvector2"><a class="header" href="#snaptogridvector2">SnapToGrid(Vector2)</a></h4>
 <pre><code class="language-csharp">public Vector2 SnapToGrid(Vector2 positive)
 </code></pre>
+<p>Snaps a world-space position to the nearest grid cell origin.</p>
 <p><strong>Parameters</strong> <br />
 <code>positive</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -197,6 +205,7 @@
 <h4 id="snaptorelativegridvector2-vector2"><a class="header" href="#snaptorelativegridvector2-vector2">SnapToRelativeGrid(Vector2, Vector2)</a></h4>
 <pre><code class="language-csharp">public Vector2 SnapToRelativeGrid(Vector2 position, Vector2 origin)
 </code></pre>
+<p>Snaps a position to the nearest grid cell relative to a given origin point.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
 <code>origin</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>

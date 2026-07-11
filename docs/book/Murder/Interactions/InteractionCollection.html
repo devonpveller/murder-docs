@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct InteractionCollection : IInteraction
 </code></pre>
 <p>This triggers a list of different interactions within this entity.</p>
+<p><strong>Intent:</strong> Groups multiple <code>IInteraction</code> implementations so they all execute in sequence when the entity is interacted with.</p>
+<p><strong>Use-case:</strong> Use as the primary interaction component when an entity needs to perform several independent actions simultaneously, such as playing a sound, modifying a blackboard variable, and spawning a particle effect all at once.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public InteractionCollection()
@@ -162,12 +164,14 @@
 <h4 id="interactives"><a class="header" href="#interactives">Interactives</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Interactives;
 </code></pre>
+<p>The ordered list of interactions that will be invoked when this collection is triggered.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="withinteractioniinteractivecomponent"><a class="header" href="#withinteractioniinteractivecomponent">WithInteraction(IInteractiveComponent)</a></h4>
 <pre><code class="language-csharp">public InteractionCollection WithInteraction(IInteractiveComponent interactive)
 </code></pre>
+<p>Returns a new <code>InteractionCollection</code> with the given interaction appended.</p>
 <p><strong>Parameters</strong> <br />
 <code>interactive</code> <a href="../../Bang/Interactions/IInteractiveComponent.html">IInteractiveComponent</a> </p>
 <p><strong>Returns</strong> <br />
@@ -175,6 +179,7 @@
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Invokes every interaction in <code>Interactives</code> in order.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

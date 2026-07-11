@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct VerticalPositionComponent : IComponent
 </code></pre>
+<p>Tracks the vertical (Z-axis) position and velocity of an entity in a top-down 2.5D game. The entity can be above the ground and optionally subject to gravity.</p>
+<p><strong>Intent:</strong> Add a height dimension to 2D entities without a full 3D transform.</p>
+<p><strong>Use-case:</strong> Attach to characters or objects that can jump or be thrown; set <code>HasGravity</code> to apply the built-in constant gravity, or false for floating objects.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public VerticalPositionComponent()
@@ -163,27 +166,32 @@
 <h4 id="gravity"><a class="header" href="#gravity">GRAVITY</a></h4>
 <pre><code class="language-csharp">public static const float GRAVITY;
 </code></pre>
+<p>Base gravity constant (0.1) used as the acceleration multiplier each frame.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="hasgravity"><a class="header" href="#hasgravity">HasGravity</a></h4>
 <pre><code class="language-csharp">public readonly bool HasGravity;
 </code></pre>
+<p>When true, gravity is applied to <code>ZVelocity</code> each frame, pulling the entity toward the ground.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="z"><a class="header" href="#z">Z</a></h4>
 <pre><code class="language-csharp">public readonly float Z;
 </code></pre>
+<p>Current vertical height above the ground in pixels (0 = on the ground).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="zvelocity"><a class="header" href="#zvelocity">ZVelocity</a></h4>
 <pre><code class="language-csharp">public readonly float ZVelocity;
 </code></pre>
+<p>Current vertical velocity in pixels per second; negative values move toward the ground.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="updatepositionfloat-float"><a class="header" href="#updatepositionfloat-float">UpdatePosition(float, float)</a></h4>
 <pre><code class="language-csharp">public VerticalPositionComponent UpdatePosition(float deltaTime, float bounciness)
 </code></pre>
+<p>Advances the vertical physics simulation by one frame, applying gravity and bounce.</p>
 <p><strong>Parameters</strong> <br />
 <code>deltaTime</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>bounciness</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>

@@ -151,6 +151,8 @@
 </code></pre>
 <p>Tracks preferences of the current session. This is unique per run.
 Used to track the game settings that are not tied to any game run (for example, volume).</p>
+<p><strong>Intent:</strong> Stores player preferences that persist across game sessions.</p>
+<p><strong>Use-case:</strong> Access via <code>Game.Preferences</code> to read or write settings like volume and fullscreen mode; the engine serializes this automatically.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public GamePreferences()
 </code></pre>
@@ -158,60 +160,72 @@ Used to track the game settings that are not tied to any game run (for example, 
 <h4 id="_bloom"><a class="header" href="#_bloom">_bloom</a></h4>
 <pre><code class="language-csharp">protected bool _bloom;
 </code></pre>
+<p>Backing field for the bloom post-processing toggle.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="_downscale"><a class="header" href="#_downscale">_downscale</a></h4>
 <pre><code class="language-csharp">protected bool _downscale;
 </code></pre>
+<p>Backing field for the resolution downscale toggle.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="_language"><a class="header" href="#_language">_language</a></h4>
 <pre><code class="language-csharp">protected LanguageId _language;
 </code></pre>
+<p>Backing field for the current language preference.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Assets/Localization/LanguageId.html">LanguageId</a> </p>
 <h4 id="_musicvolume"><a class="header" href="#_musicvolume">_musicVolume</a></h4>
 <pre><code class="language-csharp">protected float _musicVolume;
 </code></pre>
+<p>Backingfield for the music volume level (0.0–1.0).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="_soundvolume"><a class="header" href="#_soundvolume">_soundVolume</a></h4>
 <pre><code class="language-csharp">protected float _soundVolume;
 </code></pre>
+<p>Backing field for the sound effects volume level (0.0–1.0).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="language"><a class="header" href="#language">Language</a></h4>
 <pre><code class="language-csharp">public LanguageId Language { get; }
 </code></pre>
+<p>The currently selected localization language.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Assets/Localization/LanguageId.html">LanguageId</a> </p>
 <h4 id="musicvolume"><a class="header" href="#musicvolume">MusicVolume</a></h4>
 <pre><code class="language-csharp">public float MusicVolume { get; }
 </code></pre>
+<p>Music volume level in the range 0.0 (silent) to 1.0 (full).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="soundvolume"><a class="header" href="#soundvolume">SoundVolume</a></h4>
 <pre><code class="language-csharp">public float SoundVolume { get; }
 </code></pre>
+<p>Sound effects volume level in the range 0.0 (silent) to 1.0 (full).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="savesettings"><a class="header" href="#savesettings">SaveSettings()</a></h4>
 <pre><code class="language-csharp">protected void SaveSettings()
 </code></pre>
+<p>Serializes the current preferences to disk.</p>
 <h4 id="togglebloomandsave"><a class="header" href="#togglebloomandsave">ToggleBloomAndSave()</a></h4>
 <pre><code class="language-csharp">public bool ToggleBloomAndSave()
 </code></pre>
+<p>Flips the bloom post-processing toggle and immediately saves preferences; returns the new state.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="toggledownscaleandsave"><a class="header" href="#toggledownscaleandsave">ToggleDownscaleAndSave()</a></h4>
 <pre><code class="language-csharp">public bool ToggleDownscaleAndSave()
 </code></pre>
+<p>Flips the resolution downscale toggle and immediately saves preferences; returns the new state.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="setmusicvolumefloat"><a class="header" href="#setmusicvolumefloat">SetMusicVolume(float)</a></h4>
 <pre><code class="language-csharp">public float SetMusicVolume(float value)
 </code></pre>
+<p>Sets the music volume to <code>value</code> and returns the applied value.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -219,6 +233,7 @@ Used to track the game settings that are not tied to any game run (for example, 
 <h4 id="setsoundvolumefloat"><a class="header" href="#setsoundvolumefloat">SetSoundVolume(float)</a></h4>
 <pre><code class="language-csharp">public float SetSoundVolume(float value)
 </code></pre>
+<p>Sets the sound effects volume to <code>value</code> and returns the applied value.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -240,12 +255,15 @@ Immediately serialize (and save) afterwards.</p>
 <h4 id="onpreferenceschangedimpl"><a class="header" href="#onpreferenceschangedimpl">OnPreferencesChangedImpl()</a></h4>
 <pre><code class="language-csharp">public virtual void OnPreferencesChangedImpl()
 </code></pre>
+<p>Override point called after any preference change; use to apply changes to the audio or rendering subsystem.</p>
 <h4 id="onpreferenceschanged"><a class="header" href="#onpreferenceschanged">OnPreferencesChanged()</a></h4>
 <pre><code class="language-csharp">public void OnPreferencesChanged()
 </code></pre>
+<p>Notifies all listeners that a preference has changed and serializes settings to disk.</p>
 <h4 id="setlanguagelanguageid"><a class="header" href="#setlanguagelanguageid">SetLanguage(LanguageId)</a></h4>
 <pre><code class="language-csharp">public void SetLanguage(LanguageId id)
 </code></pre>
+<p>Changes the active language and saves the preference.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="../../Murder/Assets/Localization/LanguageId.html">LanguageId</a> </p>
 <p>⚡</p>

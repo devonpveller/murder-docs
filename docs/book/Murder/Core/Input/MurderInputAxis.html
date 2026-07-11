@@ -151,6 +151,8 @@
 </code></pre>
 <p>Base class for input axis constants, numbers from 100 to 120 are reserved for the engine.
 We recomend that if you need to create new constants for more gameplay axis, start at 0.</p>
+<p><strong>Intent:</strong> Defines the built-in logical input axis action IDs reserved by the engine.</p>
+<p><strong>Use-case:</strong> Refer to these constants when registering physical input bindings with <code>PlayerInput</code>; reserve IDs below 100 for game-specific axes.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MurderInputAxis()
 </code></pre>
@@ -158,21 +160,25 @@ We recomend that if you need to create new constants for more gameplay axis, sta
 <h4 id="editorcamera"><a class="header" href="#editorcamera">EditorCamera</a></h4>
 <pre><code class="language-csharp">public static const int EditorCamera;
 </code></pre>
+<p>Axis ID for panning the editor camera.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="movement"><a class="header" href="#movement">Movement</a></h4>
 <pre><code class="language-csharp">public static const int Movement;
 </code></pre>
+<p>Axis ID for entity/player movement.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="ui"><a class="header" href="#ui">Ui</a></h4>
 <pre><code class="language-csharp">public static const int Ui;
 </code></pre>
+<p>Axis ID for navigating menu/UI elements.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="uitab"><a class="header" href="#uitab">UiTab</a></h4>
 <pre><code class="language-csharp">public static const int UiTab;
 </code></pre>
+<p>Axis ID for switching between tabs in a tabbed UI panel.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

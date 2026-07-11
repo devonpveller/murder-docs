@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">class Node
 </code></pre>
+<p>A node in the <code>HAAStar</code> abstract graph, representing a border point between two clusters along with its neighbours and traversal cost.</p>
+<p><strong>Intent:</strong> Graph vertex used internally by <code>HAAStar</code> to represent navigable transition points between clusters.</p>
+<p><strong>Use-case:</strong> Not used directly in gameplay; <code>HAAStar.Refresh</code> creates and links nodes, and <code>HAAStar.Search</code> traverses them to build paths.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Node(Point p, Point c, int weight)
 </code></pre>
+<p>Creates a node at tile position <code>p</code> belonging to cluster <code>c</code> with the given traversal <code>weight</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>p</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> <br />
 <code>c</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> <br />
@@ -160,37 +164,44 @@
 <h4 id="cluster"><a class="header" href="#cluster">Cluster</a></h4>
 <pre><code class="language-csharp">public readonly Point Cluster;
 </code></pre>
+<p>The cluster this node belongs to, identified by cluster grid coordinates.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="neighbours"><a class="header" href="#neighbours">Neighbours</a></h4>
 <pre><code class="language-csharp">public readonly Dictionary&lt;TKey, TValue&gt; Neighbours;
 </code></pre>
+<p>Adjacent nodes reachable from this node, keyed by their grid position.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0">Dictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="p"><a class="header" href="#p">P</a></h4>
 <pre><code class="language-csharp">public readonly Point P;
 </code></pre>
+<p>The tile-space grid position of this node.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="weight"><a class="header" href="#weight">Weight</a></h4>
 <pre><code class="language-csharp">public readonly int Weight;
 </code></pre>
+<p>Traversal cost of this node; higher values make paths through it less preferred.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="x"><a class="header" href="#x">X</a></h4>
 <pre><code class="language-csharp">public int X { get; }
 </code></pre>
+<p>The X tile coordinate of this node.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="y"><a class="header" href="#y">Y</a></h4>
 <pre><code class="language-csharp">public int Y { get; }
 </code></pre>
+<p>The Y tile coordinate of this node.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="hasneighbourpoint"><a class="header" href="#hasneighbourpoint">HasNeighbour(Point)</a></h4>
 <pre><code class="language-csharp">public bool HasNeighbour(Point p)
 </code></pre>
+<p>Returns <code>true</code> when this node has a direct edge to the node at position <code>p</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>p</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />
@@ -198,6 +209,7 @@
 <h4 id="pathtopoint"><a class="header" href="#pathtopoint">PathTo(Point)</a></h4>
 <pre><code class="language-csharp">public ImmutableDictionary&lt;TKey, TValue&gt; PathTo(Point p)
 </code></pre>
+<p>Returns the cached intra-cluster path from this node to node <code>p</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>p</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />
@@ -205,6 +217,7 @@
 <h4 id="addedgepoint-immutabledictionarytkey-tvalue-double"><a class="header" href="#addedgepoint-immutabledictionarytkey-tvalue-double">AddEdge(Point, ImmutableDictionary&lt;TKey, TValue&gt;, double)</a></h4>
 <pre><code class="language-csharp">public void AddEdge(Point p, ImmutableDictionary&lt;TKey, TValue&gt; path, double cost)
 </code></pre>
+<p>Adds a directed edge to node <code>p</code> with the given intra-cluster path and traversal cost.</p>
 <p><strong>Parameters</strong> <br />
 <code>p</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0">ImmutableDictionary&lt;TKey, TValue&gt;</a> <br />
@@ -212,6 +225,7 @@
 <h4 id="removeedgepoint"><a class="header" href="#removeedgepoint">RemoveEdge(Point)</a></h4>
 <pre><code class="language-csharp">public void RemoveEdge(Point p)
 </code></pre>
+<p>Removes the edge from this node to node <code>p</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>p</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p>⚡</p>

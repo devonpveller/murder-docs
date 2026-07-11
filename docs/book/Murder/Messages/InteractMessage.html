@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct InteractMessage : IMessage
 </code></pre>
 <p>Generic struct for interacting with an entity.</p>
+<p><strong>Intent:</strong> Notify an entity that another entity has interacted with it, passing along the interactor's identity.</p>
+<p><strong>Use-case:</strong> Send this from player input or proximity trigger systems when the player activates an interactable object. The receiving entity's interaction handlers can inspect <code>Interactor</code> to apply context-specific logic, such as granting items only to the player entity.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IMessage.html">IMessage</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public InteractMessage(Entity interactor)
@@ -160,6 +162,7 @@
 <h4 id="interactor"><a class="header" href="#interactor">Interactor</a></h4>
 <pre><code class="language-csharp">public readonly Entity Interactor;
 </code></pre>
+<p>The entity that initiated the interaction.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <p>⚡</p>

@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct AddEntityOnInteraction : IInteraction
 </code></pre>
 <p>This will trigger an effect by placing <a href="../../Murder/Interactions/AddEntityOnInteraction.html#_prefab">AddEntityOnInteraction._prefab</a> in the world.</p>
+<p><strong>Intent:</strong> Spawns a prefab entity into the world when the interaction fires.</p>
+<p><strong>Use-case:</strong> Use to create projectiles, particle effects, loot pickups, or other prefab instances at runtime as a consequence of interacting with an entity.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AddEntityOnInteraction()
@@ -162,6 +164,7 @@
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Creates the configured prefab entity in the world, applies any custom components, and optionally positions it at the interactor or interacted entity.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

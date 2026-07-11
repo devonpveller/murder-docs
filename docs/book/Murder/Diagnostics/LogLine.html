@@ -149,20 +149,26 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">sealed struct LogLine
 </code></pre>
+<p>Represents a single entry in the debug console log, with its display color, message text, and a repeat counter.</p>
+<p><strong>Intent:</strong> Stores the data for one console output line so the logger UI can render it with the correct color and collapse repeated identical messages.</p>
+<p><strong>Use-case:</strong> Returned in batches by <code>GameLogger.FetchLogs()</code> for display in the in-game console; not typically created by game code directly.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="color"><a class="header" href="#color">Color</a></h4>
 <pre><code class="language-csharp">public Vector4 Color { get; public set; }
 </code></pre>
+<p>RGBA color used to tint this log entry in the console UI (e.g. red for errors, yellow for warnings).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="message"><a class="header" href="#message">Message</a></h4>
 <pre><code class="language-csharp">public string Message { get; public set; }
 </code></pre>
+<p>The text content of this log entry.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="repeats"><a class="header" href="#repeats">Repeats</a></h4>
 <pre><code class="language-csharp">public int Repeats { get; public set; }
 </code></pre>
+<p>Number of times this exact message has been logged consecutively; used to collapse duplicate entries.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

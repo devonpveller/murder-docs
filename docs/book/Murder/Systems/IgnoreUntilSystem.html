@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class IgnoreUntilSystem : IUpdateSystem, ISystem
 </code></pre>
+<p>Removes <code>IgnoreUntilComponent</code> from entities once <code>Game.Now</code> reaches or surpasses the stored timestamp, re-enabling them for interaction or processing.</p>
+<p><strong>Intent:</strong> Provides a time-based ignore gate that suppresses entity interactions until a specified moment in game time.</p>
+<p><strong>Use-case:</strong> Add <code>IgnoreUntilComponent</code> to an entity to temporarily prevent it from being processed (e.g., prevent re-triggering immediately after activation); this system lifts the suppression automatically.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IUpdateSystem.html">IUpdateSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public IgnoreUntilSystem()
@@ -157,6 +160,7 @@
 <h4 id="updatecontext"><a class="header" href="#updatecontext">Update(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Update(Context context)
 </code></pre>
+<p>Checks each entity's <code>IgnoreUntilComponent</code> timestamp; removes the component once <code>Game.Now</code> has reached or passed the scheduled time.</p>
 <p><strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <p>⚡</p>

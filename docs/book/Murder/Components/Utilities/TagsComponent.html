@@ -149,11 +149,15 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct TagsComponent : IComponent
 </code></pre>
+<p>Attaches a set of gameplay tags to an entity, used by physics and AI systems to categorise or filter entities.</p>
+<p><strong>Intent:</strong> Store a compact tag bitmask on an entity for fast category-based queries (e.g. collision layer filtering or movement modifier checks).</p>
+<p><strong>Use-case:</strong> Attach to any entity that needs to participate in tag-based queries; set <code>Tags</code> to the appropriate flag combination for that entity's category.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="tags"><a class="header" href="#tags">Tags</a></h4>
 <pre><code class="language-csharp">public readonly Tags Tags;
 </code></pre>
+<p>Bitmask of gameplay tags assigned to this entity.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Tags.html">Tags</a> </p>
 <p>⚡</p>

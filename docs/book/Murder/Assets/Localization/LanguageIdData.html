@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct LanguageIdData
 </code></pre>
+<p>Pairs a <code>LanguageId</code> enum value with its BCP-47 locale identifier string (e.g. <code>&quot;en-US&quot;</code>).</p>
+<p><strong>Intent:</strong> Bundle the strongly-typed <code>LanguageId</code> with its corresponding locale string so that both can be retrieved from a single lookup.</p>
+<p><strong>Use-case:</strong> Obtain a <code>LanguageIdData</code> from <code>Languages.Get(LanguageId)</code> to read the <code>Identifier</code> string when configuring locale-sensitive systems or when reporting the active language to platform services.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public LanguageIdData(LanguageId id, string identifier)
 </code></pre>
@@ -159,11 +162,13 @@
 <h4 id="id"><a class="header" href="#id">Id</a></h4>
 <pre><code class="language-csharp">public readonly LanguageId Id;
 </code></pre>
+<p>The <code>LanguageId</code> enum value identifying the language.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Assets/Localization/LanguageId.html">LanguageId</a> </p>
 <h4 id="identifier"><a class="header" href="#identifier">Identifier</a></h4>
 <pre><code class="language-csharp">public readonly string Identifier;
 </code></pre>
+<p>BCP-47 locale string (e.g. <code>&quot;en-US&quot;</code>, <code>&quot;pt-BR&quot;</code>) for this language.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

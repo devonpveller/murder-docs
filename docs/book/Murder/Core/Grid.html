@@ -150,31 +150,38 @@
 <pre><code class="language-csharp">public static class Grid
 </code></pre>
 <p>Helper static class that forwards the values of the default <a href="../../Murder/Game.html#grid">Game.Grid</a> for easier access.</p>
+<p><strong>Intent:</strong> Provides convenient static shortcuts to the active <code>GridConfiguration</code> so code doesn't need to reference <code>Game.Grid</code> directly.</p>
+<p><strong>Use-case:</strong> Use these static members anywhere you need the current cell size or need to snap a world-space float to the nearest grid cell.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="celldimensions"><a class="header" href="#celldimensions">CellDimensions</a></h4>
 <pre><code class="language-csharp">public static Point CellDimensions { get; }
 </code></pre>
+<p>The grid cell size as a <code>Point</code> (same value on both axes).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="cellsize"><a class="header" href="#cellsize">CellSize</a></h4>
 <pre><code class="language-csharp">public static int CellSize { get; }
 </code></pre>
+<p>The width and height of a single grid cell in world-space pixels.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="halfcelldimensions"><a class="header" href="#halfcelldimensions">HalfCellDimensions</a></h4>
 <pre><code class="language-csharp">public static Point HalfCellDimensions { get; }
 </code></pre>
+<p>Half the cell dimensions as a <code>Point</code>, useful for centering within a cell.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="halfcellsize"><a class="header" href="#halfcellsize">HalfCellSize</a></h4>
 <pre><code class="language-csharp">public static int HalfCellSize { get; }
 </code></pre>
+<p>Half of <code>CellSize</code>, i.e. the distance from the center of a cell to its edge.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="ceiltogridfloat"><a class="header" href="#ceiltogridfloat">CeilToGrid(float)</a></h4>
 <pre><code class="language-csharp">public int CeilToGrid(float value)
 </code></pre>
+<p>Converts a world-space float to the grid cell index it falls in, rounding up.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -182,6 +189,7 @@
 <h4 id="floortogridfloat"><a class="header" href="#floortogridfloat">FloorToGrid(float)</a></h4>
 <pre><code class="language-csharp">public int FloorToGrid(float value)
 </code></pre>
+<p>Converts a world-space float to the grid cell index it falls in, rounding down.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -189,6 +197,7 @@
 <h4 id="roundtogridfloat"><a class="header" href="#roundtogridfloat">RoundToGrid(float)</a></h4>
 <pre><code class="language-csharp">public int RoundToGrid(float value)
 </code></pre>
+<p>Converts a world-space float to the nearest grid cell index using standard rounding.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />

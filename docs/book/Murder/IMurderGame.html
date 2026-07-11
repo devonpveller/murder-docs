@@ -150,10 +150,13 @@
 <pre><code class="language-csharp">public abstract IMurderGame
 </code></pre>
 <p>This is the main loop of a murder game. This has the callbacks to relevant events in the game.</p>
+<p><strong>Intent:</strong> <code>IMurderGame</code> is the central contract every Murder-based game must implement. It wires your game-specific logic into the engine's lifecycle (initialization, loading, update, draw, shutdown) and serves as a factory for engine subsystems such as save data, the sound player, and the render context.</p>
+<p><strong>Use-case:</strong> Create a class that implements <code>IMurderGame</code>, override the lifecycle hooks you need (<code>Initialize</code>, <code>LoadContentAsync</code>, <code>OnUpdate</code>, etc.), and pass it to the <code>Game</code> constructor. The engine calls these methods at the appropriate points in the game loop. Override factory methods (<code>CreateSoundPlayer</code>, <code>CreateRenderContext</code>, <code>CreateGameProfile</code>) to substitute custom subsystem implementations.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="hascursor"><a class="header" href="#hascursor">HasCursor</a></h4>
 <pre><code class="language-csharp">public virtual bool HasCursor { get; }
 </code></pre>
+<p>Whether the game renders and updates a visible mouse cursor. When <code>true</code> the engine shows the OS or custom cursor; when <code>false</code> the cursor is hidden. Defaults to <code>true</code>; override to <code>false</code> for controller-only games.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>

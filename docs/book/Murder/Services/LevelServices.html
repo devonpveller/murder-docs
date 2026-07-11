@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class LevelServices
 </code></pre>
+<p>Helpers for transitioning between game levels (worlds).</p>
+<p><strong>Intent:</strong> Provides a clean API for triggering world/scene switches, with optional delays and coroutine helpers.</p>
+<p><strong>Use-case:</strong> Call <code>SwitchScene</code> to immediately transition to a new world asset, or <code>SwitchSceneAfterSeconds</code> to delay the transition while a fade-out effect plays.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="switchsceneonsecondscoroutineguid-float"><a class="header" href="#switchsceneonsecondscoroutineguid-float">SwitchSceneOnSecondsCoroutine(Guid, float)</a></h4>
 <pre><code class="language-csharp">public IEnumerator&lt;T&gt; SwitchSceneOnSecondsCoroutine(Guid nextWorldGuid, float seconds)
 </code></pre>
+<p>A coroutine that waits for <code>seconds</code>, stops ambient and SFX layers, then switches to the target world.</p>
 <p><strong>Parameters</strong> <br />
 <code>nextWorldGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>seconds</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
@@ -161,6 +165,7 @@
 <h4 id="switchsceneguid"><a class="header" href="#switchsceneguid">SwitchScene(Guid)</a></h4>
 <pre><code class="language-csharp">public ValueTask SwitchScene(Guid nextWorldGuid)
 </code></pre>
+<p>Immediately queues a transition to the world identified by <code>nextWorldGuid</code> and records it in the active save.</p>
 <p><strong>Parameters</strong> <br />
 <code>nextWorldGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -168,6 +173,7 @@
 <h4 id="switchsceneaftersecondsworld-guid-float"><a class="header" href="#switchsceneaftersecondsworld-guid-float">SwitchSceneAfterSeconds(World, Guid, float)</a></h4>
 <pre><code class="language-csharp">public ValueTask SwitchSceneAfterSeconds(World world, Guid nextWorldGuid, float seconds)
 </code></pre>
+<p>Schedules a world transition after a delay; if <code>seconds</code> is 0 the switch happens immediately.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>nextWorldGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />

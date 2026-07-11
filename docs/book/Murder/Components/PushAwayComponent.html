@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct PushAwayComponent : IComponent
 </code></pre>
+<p>Causes an entity to repel other nearby entities within a defined radius each frame.</p>
+<p><strong>Intent:</strong> Implement simple push-away collision response so entities don't overlap.</p>
+<p><strong>Use-case:</strong> Attach to an enemy or NPC to make it push away other characters that enter its bounding radius; tune <code>Size</code> for the area of influence and <code>Strength</code> for how forcefully others are repelled.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PushAwayComponent(int size, int strength)
@@ -160,17 +163,20 @@
 <h4 id="size"><a class="header" href="#size">Size</a></h4>
 <pre><code class="language-csharp">public readonly float Size;
 </code></pre>
+<p>Diameter of the push-away area around the entity's position.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="strength"><a class="header" href="#strength">Strength</a></h4>
 <pre><code class="language-csharp">public readonly float Strength;
 </code></pre>
+<p>Force magnitude applied to nearby entities to push them away.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getboundingboximurdertransformcomponent"><a class="header" href="#getboundingboximurdertransformcomponent">GetBoundingBox(IMurderTransformComponent)</a></h4>
 <pre><code class="language-csharp">public Rectangle GetBoundingBox(IMurderTransformComponent position)
 </code></pre>
+<p>Returns the push-away bounding box centered on the given transform position.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="../../Murder/Components/IMurderTransformComponent.html">IMurderTransformComponent</a> </p>
 <p><strong>Returns</strong> <br />
@@ -178,6 +184,7 @@
 <h4 id="getboundingboxvector2"><a class="header" href="#getboundingboxvector2">GetBoundingBox(Vector2)</a></h4>
 <pre><code class="language-csharp">public Rectangle GetBoundingBox(Vector2 position)
 </code></pre>
+<p>Returns the push-away bounding box centered on the given world position.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />

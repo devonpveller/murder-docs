@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class BlackboardHelpers
 </code></pre>
+<p>Static helpers for evaluating blackboard rule sets against the current save state and for formatting blackboard-variable placeholders in text strings.</p>
+<p><strong>Intent:</strong> Provides the core matching logic used by rule-driven systems to check whether a set of <code>CriterionNode</code> conditions is satisfied.</p>
+<p><strong>Use-case:</strong> Call <code>Match</code> to test story conditions, or <code>FormatText</code> to interpolate blackboard variable values into dialogue strings.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="formattextstring-out-string"><a class="header" href="#formattextstring-out-string">FormatText(string, out String&amp;)</a></h4>
 <pre><code class="language-csharp">public bool FormatText(string text, String&amp; newText)
 </code></pre>
+<p>Replaces blackboard-variable placeholders in <code>text</code> with their current values; sets <code>newText</code> to the result and returns <code>true</code> if any substitution was made.</p>
 <p><strong>Parameters</strong> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>newText</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string&amp;</a> </p>
@@ -161,6 +165,7 @@
 <h4 id="matchworld-blackboardtracker-immutablearray"><a class="header" href="#matchworld-blackboardtracker-immutablearray">Match(World, BlackboardTracker, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public bool Match(World world, BlackboardTracker tracker, ImmutableArray&lt;T&gt; requirements)
 </code></pre>
+<p>Evaluates the criterion nodes against the given <code>tracker</code> and returns <code>true</code> if the requirements are satisfied (respecting AND/OR logic).</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>tracker</code> <a href="../../Murder/Save/BlackboardTracker.html">BlackboardTracker</a> <br />
@@ -170,6 +175,7 @@
 <h4 id="matchworld-immutablearray"><a class="header" href="#matchworld-immutablearray">Match(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public bool Match(World world, ImmutableArray&lt;T&gt; requirements)
 </code></pre>
+<p>Fetches the active save's <code>BlackboardTracker</code> and evaluates the criterion nodes; returns <code>true</code> if all requirements are met.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>requirements</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>

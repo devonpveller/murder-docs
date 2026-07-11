@@ -149,21 +149,27 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed enum EditorFieldFlags : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Bitwise flags that control how a field is rendered and filtered inside the Murder editor inspector.</p>
+<p><strong>Intent:</strong> Provide composable display options for the <code>EditorFieldPropertiesAttribute</code> to fine-tune field widget behavior.</p>
+<p><strong>Use-case:</strong> Combine flags in <code>[EditorFieldProperties(EditorFieldFlags.SingleLine | EditorFieldFlags.NoFilter)]</code> to control whether the inspector shows filter controls or forces a field onto a single line.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="nofilter"><a class="header" href="#nofilter">NoFilter</a></h4>
 <pre><code class="language-csharp">public static const EditorFieldFlags NoFilter;
 </code></pre>
+<p>Disables the search/filter widget for this field's contents in the editor inspector.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Attributes/EditorFieldFlags.html">EditorFieldFlags</a> </p>
 <h4 id="none"><a class="header" href="#none">None</a></h4>
 <pre><code class="language-csharp">public static const EditorFieldFlags None;
 </code></pre>
+<p>No special editor behavior applied; uses the default field rendering.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Attributes/EditorFieldFlags.html">EditorFieldFlags</a> </p>
 <h4 id="singleline"><a class="header" href="#singleline">SingleLine</a></h4>
 <pre><code class="language-csharp">public static const EditorFieldFlags SingleLine;
 </code></pre>
+<p>Forces the field widget to render on a single line in the inspector instead of expanding to multiple lines.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Attributes/EditorFieldFlags.html">EditorFieldFlags</a> </p>
 <p>⚡</p>

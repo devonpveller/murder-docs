@@ -151,9 +151,12 @@
 </code></pre>
 <p>This represents an item in the dialog that has been manually modified by the user
 and should be persisted.</p>
+<p><strong>Intent:</strong> Acts as a stable three-part key (situation + dialog + item) identifying a specific line or action within a character's dialogue asset, so user edits survive re-imports.</p>
+<p><strong>Use-case:</strong> Used by the editor when tracking overrides to individual dialog items; pass one to look up or update a specific element in the character's <code>Situations</code> hierarchy.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DialogItemId(int situation, int dialog, int id)
 </code></pre>
+<p>Creates a key identifying the item at <code>id</code> inside <code>dialog</code> inside <code>situation</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>situation</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>dialog</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -162,16 +165,19 @@ and should be persisted.</p>
 <h4 id="dialogid"><a class="header" href="#dialogid">DialogId</a></h4>
 <pre><code class="language-csharp">public readonly int DialogId;
 </code></pre>
+<p>The index of the <code>Dialog</code> node within the <code>Situation</code> that contains this item.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="itemid"><a class="header" href="#itemid">ItemId</a></h4>
 <pre><code class="language-csharp">public readonly int ItemId;
 </code></pre>
+<p>The index of the specific item (line or action) within the <code>Dialog</code> node.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="situationid"><a class="header" href="#situationid">SituationId</a></h4>
 <pre><code class="language-csharp">public readonly int SituationId;
 </code></pre>
+<p>The index of the <code>Situation</code> within the character's situation list.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

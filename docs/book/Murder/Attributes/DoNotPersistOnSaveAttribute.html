@@ -149,12 +149,17 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class DoNotPersistOnSaveAttribute : Attribute
 </code></pre>
+<p>Marks a component so it is excluded from save-game serialization, with an optional override condition.</p>
+<p><strong>Intent:</strong> Prevent a specific component from being written to the save file, keeping runtime-only state out of persisted data.</p>
+<p><strong>Use-case:</strong> Apply to components that hold transient runtime data (such as cached pathfinding results, active animation state, or physics velocities). Pass a component type to <code>ExceptIfComponentIsPresent</code> to re-enable persistence conditionally when the entity also carries that component.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DoNotPersistOnSaveAttribute()
 </code></pre>
+<p>Creates a new instance that unconditionally excludes the component from save serialization.</p>
 <pre><code class="language-csharp">public DoNotPersistOnSaveAttribute(Type exceptIfComponentIsPresent)
 </code></pre>
+<p>Creates a new instance that excludes the component unless the entity also has the specified component type.</p>
 <p><strong>Parameters</strong> <br />
 <code>exceptIfComponentIsPresent</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
@@ -167,6 +172,7 @@
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

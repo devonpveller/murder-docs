@@ -149,13 +149,18 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Circle
 </code></pre>
+<p>A 2D circle defined by a centre position and radius.</p>
+<p><strong>Intent:</strong> Represent a circle for overlap tests, collision queries, and particle emission shapes.</p>
+<p><strong>Use-case:</strong> Use <code>Circle</code> directly when you need to test whether a point or another circle overlaps a circular region. Pass a <code>CircleShape</code> (which wraps a <code>Circle</code>) to a <code>ColliderComponent</code> for physics-based collision.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Circle(float radius)
 </code></pre>
+<p>Creates a circle centred at the origin with the given radius.</p>
 <p><strong>Parameters</strong> <br />
 <code>radius</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <pre><code class="language-csharp">public Circle(float x, float y, float radius)
 </code></pre>
+<p>Creates a circle at position <code>(x, y)</code> with the given radius.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
@@ -164,22 +169,26 @@
 <h4 id="radius"><a class="header" href="#radius">Radius</a></h4>
 <pre><code class="language-csharp">public readonly float Radius;
 </code></pre>
+<p>The radius of the circle.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="x"><a class="header" href="#x">X</a></h4>
 <pre><code class="language-csharp">public readonly float X;
 </code></pre>
+<p>Horizontal position of the circle's centre.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="y"><a class="header" href="#y">Y</a></h4>
 <pre><code class="language-csharp">public readonly float Y;
 </code></pre>
+<p>Vertical position of the circle's centre.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="containspoint"><a class="header" href="#containspoint">Contains(Point)</a></h4>
 <pre><code class="language-csharp">public bool Contains(Point point)
 </code></pre>
+<p>Returns <code>true</code> if <code>point</code> lies strictly inside this circle.</p>
 <p><strong>Parameters</strong> <br />
 <code>point</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />
@@ -187,6 +196,7 @@
 <h4 id="containsvector2"><a class="header" href="#containsvector2">Contains(Vector2)</a></h4>
 <pre><code class="language-csharp">public bool Contains(Vector2 vector2)
 </code></pre>
+<p>Returns <code>true</code> if <code>vector2</code> lies strictly inside this circle.</p>
 <p><strong>Parameters</strong> <br />
 <code>vector2</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -194,6 +204,7 @@
 <h4 id="addpositionpositioncomponent"><a class="header" href="#addpositionpositioncomponent">AddPosition(PositionComponent)</a></h4>
 <pre><code class="language-csharp">public Circle AddPosition(PositionComponent position)
 </code></pre>
+<p>Returns a new circle translated by the given <code>PositionComponent</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="../../../Murder/Components/PositionComponent.html">PositionComponent</a> </p>
 <p><strong>Returns</strong> <br />
@@ -201,6 +212,7 @@
 <h4 id="addpositionpoint"><a class="header" href="#addpositionpoint">AddPosition(Point)</a></h4>
 <pre><code class="language-csharp">public Circle AddPosition(Point position)
 </code></pre>
+<p>Returns a new circle translated by the given <code>Point</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />
@@ -208,6 +220,7 @@
 <h4 id="addpositionvector2"><a class="header" href="#addpositionvector2">AddPosition(Vector2)</a></h4>
 <pre><code class="language-csharp">public Circle AddPosition(Vector2 position)
 </code></pre>
+<p>Returns a new circle translated by the given <code>Vector2</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -215,6 +228,7 @@
 <h4 id="estipulatesidesfromradiusfloat"><a class="header" href="#estipulatesidesfromradiusfloat">EstipulateSidesFromRadius(float)</a></h4>
 <pre><code class="language-csharp">public int EstipulateSidesFromRadius(float radius)
 </code></pre>
+<p>Calculates the recommended polygon vertex count for approximating a circle with the given radius.</p>
 <p><strong>Parameters</strong> <br />
 <code>radius</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />

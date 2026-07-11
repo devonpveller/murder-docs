@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class EffectsServices
 </code></pre>
+<p>Helpers for spawning visual effects and screen transitions in the game world.</p>
+<p><strong>Intent:</strong> Provides high-level methods for common visual effects such as highlights, fade transitions, and one-shot animations.</p>
+<p><strong>Use-case:</strong> Call <code>FadeIn</code>/<code>FadeOut</code> to create screen transitions between scenes, <code>ApplyHighlight</code> to visually mark an entity, and <code>PlayAnimationAt</code> to spawn a one-shot sprite animation at a world position.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="applyhighlightworld-entity-highlightspritecomponent"><a class="header" href="#applyhighlightworld-entity-highlightspritecomponent">ApplyHighlight(World, Entity, HighlightSpriteComponent)</a></h4>
 <pre><code class="language-csharp">public void ApplyHighlight(World world, Entity e, HighlightSpriteComponent highlight)
 </code></pre>
+<p>Applies a highlight visual effect to the entity by adding or replacing its <code>HighlightSpriteComponent</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
@@ -179,6 +183,7 @@
 <h4 id="playanimationatworld-portrait-vector2"><a class="header" href="#playanimationatworld-portrait-vector2">PlayAnimationAt(World, Portrait, Vector2)</a></h4>
 <pre><code class="language-csharp">public void PlayAnimationAt(World world, Portrait blastAnimation, Vector2 position)
 </code></pre>
+<p>Spawns a one-shot animated sprite entity at the given world position.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>blastAnimation</code> <a href="../../Murder/Core/Portrait.html">Portrait</a> <br />
@@ -186,6 +191,7 @@
 <h4 id="removehighlightentity"><a class="header" href="#removehighlightentity">RemoveHighlight(Entity)</a></h4>
 <pre><code class="language-csharp">public void RemoveHighlight(Entity e)
 </code></pre>
+<p>Removes the highlight effect from the entity by stripping its <code>HighlightSpriteComponent</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <p>⚡</p>

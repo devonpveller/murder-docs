@@ -151,6 +151,8 @@
 </code></pre>
 <p>This is a struct that points to a singleton class.
 Reactive systems won't be able to subscribe to this component.</p>
+<p><strong>Intent:</strong> Specify which tileset assets are used to render tiles in the current world.</p>
+<p><strong>Use-case:</strong> Add once per world (or room) entity and populate <code>Tilesets</code> with the GUIDs of the <a href="../../Murder/Assets/Graphics/TilesetAsset.html">TilesetAsset</a> files that define the tile visuals.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TilesetComponent()
@@ -163,12 +165,14 @@ Reactive systems won't be able to subscribe to this component.</p>
 <h4 id="tilesets"><a class="header" href="#tilesets">Tilesets</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Tilesets;
 </code></pre>
+<p>List of GUIDs referencing the tileset assets available for rendering tiles in this entity's grid.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="withtileguid"><a class="header" href="#withtileguid">WithTile(Guid)</a></h4>
 <pre><code class="language-csharp">public TilesetComponent WithTile(Guid tile)
 </code></pre>
+<p>Returns a new component with the given tileset GUID appended to the list.</p>
 <p><strong>Parameters</strong> <br />
 <code>tile</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -176,6 +180,7 @@ Reactive systems won't be able to subscribe to this component.</p>
 <h4 id="withtilesimmutablearray"><a class="header" href="#withtilesimmutablearray">WithTiles(ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public TilesetComponent WithTiles(ImmutableArray&lt;T&gt; tiles)
 </code></pre>
+<p>Returns a new component with the tileset list replaced by the provided array.</p>
 <p><strong>Parameters</strong> <br />
 <code>tiles</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <p><strong>Returns</strong> <br />

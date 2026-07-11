@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public static class Calculator
 </code></pre>
 <p>Calculator helper class.</p>
+<p><strong>Intent:</strong> A static utility class providing common math helpers, array operations, and geometry conversions used throughout the engine.</p>
+<p><strong>Use-case:</strong> Use in game systems and components for clamping, lerping, rounding, grid conversions, and other frequently needed math operations.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="layerscount"><a class="header" href="#layerscount">LayersCount</a></h4>
 <pre><code class="language-csharp">public static int LayersCount;
@@ -161,17 +163,20 @@ TODO: Make this customizable.</p>
 <h4 id="to_deg"><a class="header" href="#to_deg">TO_DEG</a></h4>
 <pre><code class="language-csharp">public static const float TO_DEG;
 </code></pre>
+<p>Conversion factor from radians to degrees (180 ÷ π).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="to_rad"><a class="header" href="#to_rad">TO_RAD</a></h4>
 <pre><code class="language-csharp">public static const float TO_RAD;
 </code></pre>
+<p>Conversion factor from degrees to radians (π ÷ 180).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="almostequalfloat-float"><a class="header" href="#almostequalfloat-float">AlmostEqual(float, float)</a></h4>
 <pre><code class="language-csharp">public bool AlmostEqual(float num1, float num2)
 </code></pre>
+<p>Returns <code>true</code> if <code>num1</code> and <code>num2</code> are within a small epsilon of each other.</p>
 <p><strong>Parameters</strong> <br />
 <code>num1</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>num2</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
@@ -180,6 +185,7 @@ TODO: Make this customizable.</p>
 <h4 id="blinkfloat-bool"><a class="header" href="#blinkfloat-bool">Blink(float, bool)</a></h4>
 <pre><code class="language-csharp">public bool Blink(float speed, bool scaled)
 </code></pre>
+<p>Returns a boolean that alternates at the given <code>speed</code>; if <code>scaled</code> is <code>true</code>, uses the game's time scale.</p>
 <p><strong>Parameters</strong> <br />
 <code>speed</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>scaled</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
@@ -188,6 +194,7 @@ TODO: Make this customizable.</p>
 <h4 id="isintegerfloat"><a class="header" href="#isintegerfloat">IsInteger(float)</a></h4>
 <pre><code class="language-csharp">public bool IsInteger(float value)
 </code></pre>
+<p>Returns <code>true</code> if the float value has no fractional part.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -195,6 +202,7 @@ TODO: Make this customizable.</p>
 <h4 id="isintegervector2"><a class="header" href="#isintegervector2">IsInteger(Vector2)</a></h4>
 <pre><code class="language-csharp">public bool IsInteger(Vector2 value)
 </code></pre>
+<p>Returns <code>true</code> if both components of the vector have no fractional part.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -202,6 +210,7 @@ TODO: Make this customizable.</p>
 <h4 id="samesignfloat-float"><a class="header" href="#samesignfloat-float">SameSign(float, float)</a></h4>
 <pre><code class="language-csharp">public bool SameSign(float num1, float num2)
 </code></pre>
+<p>Returns <code>true</code> if both values have the same sign (both positive or both negative).</p>
 <p><strong>Parameters</strong> <br />
 <code>num1</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>num2</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
@@ -210,6 +219,7 @@ TODO: Make this customizable.</p>
 <h4 id="samesignorsimilarfloat-float"><a class="header" href="#samesignorsimilarfloat-float">SameSignOrSimilar(float, float)</a></h4>
 <pre><code class="language-csharp">public bool SameSignOrSimilar(float num1, float num2)
 </code></pre>
+<p>Returns <code>true</code> if both values have the same sign or are close enough to zero to be treated as the same.</p>
 <p><strong>Parameters</strong> <br />
 <code>num1</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>num2</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
@@ -230,6 +240,7 @@ TODO: Make this customizable.</p>
 <h4 id="lerpsnapfloat-float-double-float"><a class="header" href="#lerpsnapfloat-float-double-float">LerpSnap(float, float, double, float)</a></h4>
 <pre><code class="language-csharp">public double LerpSnap(float origin, float target, double factor, float threshold)
 </code></pre>
+<p>Interpolates from <code>origin</code> to <code>target</code> by <code>factor</code>; snaps to <code>target</code> when the distance is less than <code>threshold</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>origin</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>target</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
@@ -240,6 +251,7 @@ TODO: Make this customizable.</p>
 <h4 id="approachfloat-float-float"><a class="header" href="#approachfloat-float-float">Approach(float, float, float)</a></h4>
 <pre><code class="language-csharp">public float Approach(float from, float target, float amount)
 </code></pre>
+<p>Moves <code>from</code> toward <code>target</code> by at most <code>amount</code>, never overshooting.</p>
 <p><strong>Parameters</strong> <br />
 <code>from</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>target</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
@@ -249,6 +261,7 @@ TODO: Make this customizable.</p>
 <h4 id="catmullromfloat-float-float-float-float"><a class="header" href="#catmullromfloat-float-float-float-float">CatmullRom(float, float, float, float, float)</a></h4>
 <pre><code class="language-csharp">public float CatmullRom(float p0, float p1, float p2, float p3, float t)
 </code></pre>
+<p>Evaluates a Catmull-Rom spline at parameter <code>t</code> using the four control points <code>p0</code>–<code>p3</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>p0</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>p1</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
@@ -260,6 +273,7 @@ TODO: Make this customizable.</p>
 <h4 id="clamp01float"><a class="header" href="#clamp01float">Clamp01(float)</a></h4>
 <pre><code class="language-csharp">public float Clamp01(float v)
 </code></pre>
+<p>Clamps <code>v</code> to the range [0, 1].</p>
 <p><strong>Parameters</strong> <br />
 <code>v</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -267,6 +281,7 @@ TODO: Make this customizable.</p>
 <h4 id="clamp01int"><a class="header" href="#clamp01int">Clamp01(int)</a></h4>
 <pre><code class="language-csharp">public float Clamp01(int v)
 </code></pre>
+<p>Clamps integer <code>v</code> to the range [0, 1] and returns a float.</p>
 <p><strong>Parameters</strong> <br />
 <code>v</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -274,6 +289,7 @@ TODO: Make this customizable.</p>
 <h4 id="clampnearzerofloat-float"><a class="header" href="#clampnearzerofloat-float">ClampNearZero(float, float)</a></h4>
 <pre><code class="language-csharp">public float ClampNearZero(float value, float minimum)
 </code></pre>
+<p>If <code>value</code> is closer to zero than <code>minimum</code>, snaps it to zero; otherwise returns <code>value</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>minimum</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>

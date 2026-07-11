@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class SpriteEventDataManagerAsset : GameAsset
 </code></pre>
+<p>Singleton asset that stores all custom sprite event overrides across the entire project, indexed by sprite GUID.</p>
+<p><strong>Intent:</strong> Serves as the global registry of per-sprite, per-animation event customizations made in the sprite event editor.</p>
+<p><strong>Use-case:</strong> Queried during atlas packing to merge custom event data into generated sprite assets; hidden from the main asset browser via <code>GameDataManager.SKIP_CHAR</code>.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Murder/Assets/GameAsset.html">GameAsset</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SpriteEventDataManagerAsset()
 </code></pre>
+<p>Creates a new empty sprite event data manager asset.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="canbecreated"><a class="header" href="#canbecreated">CanBeCreated</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeCreated { get; }
@@ -188,62 +192,74 @@
 <h4 id="events"><a class="header" href="#events">Events</a></h4>
 <pre><code class="language-csharp">public ImmutableDictionary&lt;TKey, TValue&gt; Events { get; private set; }
 </code></pre>
+<p>Immutable map from sprite GUID to the corresponding <code>SpriteEventData</code> overrides.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0">ImmutableDictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="filechanged"><a class="header" href="#filechanged">FileChanged</a></h4>
 <pre><code class="language-csharp">public bool FileChanged { get; public set; }
 </code></pre>
+<p>Dirty flag indicating that this asset has been modified and needs to be saved.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="filepath"><a class="header" href="#filepath">FilePath</a></h4>
 <pre><code class="language-csharp">public string FilePath { get; public set; }
 </code></pre>
+<p>Absolute path to the serialized file on disk for this asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="guid"><a class="header" href="#guid">Guid</a></h4>
 <pre><code class="language-csharp">public Guid Guid { get; protected set; }
 </code></pre>
+<p>Unique identifier for this asset instance.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="icon"><a class="header" href="#icon">Icon</a></h4>
 <pre><code class="language-csharp">public virtual char Icon { get; }
 </code></pre>
+<p>Icon character from the icon font used to represent this asset in the editor browser.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0">char</a> </p>
 <h4 id="isstoredinsavedata"><a class="header" href="#isstoredinsavedata">IsStoredInSaveData</a></h4>
 <pre><code class="language-csharp">public virtual bool IsStoredInSaveData { get; }
 </code></pre>
+<p>Returns <code>true</code>; this asset is serialized alongside save data.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public string Name { get; public set; }
 </code></pre>
+<p>Display name of this asset in the editor browser.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="rename"><a class="header" href="#rename">Rename</a></h4>
 <pre><code class="language-csharp">public bool Rename { get; public set; }
 </code></pre>
+<p>Indicates whether this asset is currently in a rename operation in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="savelocation"><a class="header" href="#savelocation">SaveLocation</a></h4>
 <pre><code class="language-csharp">public virtual string SaveLocation { get; }
 </code></pre>
+<p>Relative directory where this asset is serialized.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="storeindatabase"><a class="header" href="#storeindatabase">StoreInDatabase</a></h4>
 <pre><code class="language-csharp">public virtual bool StoreInDatabase { get; }
 </code></pre>
+<p>Returns <code>false</code>; this asset is not tracked in the main game asset database.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="taggedfordeletion"><a class="header" href="#taggedfordeletion">TaggedForDeletion</a></h4>
 <pre><code class="language-csharp">public bool TaggedForDeletion;
 </code></pre>
+<p>When <code>true</code>, this asset is queued for deletion on the next save.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="onmodified"><a class="header" href="#onmodified">OnModified()</a></h4>
 <pre><code class="language-csharp">protected virtual void OnModified()
 </code></pre>
+<p>Called when any property is changed; override to react to modifications.</p>
 <h4 id="deletespriteguid"><a class="header" href="#deletespriteguid">DeleteSprite(Guid)</a></h4>
 <pre><code class="language-csharp">public bool DeleteSprite(Guid spriteId)
 </code></pre>
@@ -255,6 +271,7 @@
 <h4 id="duplicatestring"><a class="header" href="#duplicatestring">Duplicate(string)</a></h4>
 <pre><code class="language-csharp">public GameAsset Duplicate(string name)
 </code></pre>
+<p>Creates a deep copy of this asset with the given name.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -262,11 +279,13 @@
 <h4 id="assetstobesaved"><a class="header" href="#assetstobesaved">AssetsToBeSaved()</a></h4>
 <pre><code class="language-csharp">public List&lt;T&gt; AssetsToBeSaved()
 </code></pre>
+<p>Returns the list of additional assets to save alongside this manager asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <h4 id="getorcreateguid"><a class="header" href="#getorcreateguid">GetOrCreate(Guid)</a></h4>
 <pre><code class="language-csharp">public SpriteEventData GetOrCreate(Guid spriteId)
 </code></pre>
+<p>Returns the <code>SpriteEventData</code> for the given sprite GUID, creating an empty one if it does not yet exist.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteId</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />

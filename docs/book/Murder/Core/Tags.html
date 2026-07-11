@@ -149,33 +149,42 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Tags
 </code></pre>
+<p>A bitmask struct used to assign and match entity tags defined in <code>MurderTagsBase</code>.</p>
+<p><strong>Intent:</strong> Compact representation of one or more entity tags, with a flag to control whether all bits must match or any single bit suffices.</p>
+<p><strong>Use-case:</strong> Assign to the <code>TagsComponent</code> on an entity, or pass to query helpers that filter entities by tag.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Tags()
 </code></pre>
+<p>Creates an empty <code>Tags</code> value with no flags set.</p>
 <pre><code class="language-csharp">public Tags(int flags, bool all)
 </code></pre>
+<p>Creates a <code>Tags</code> value with the given flag bitmask and match mode.</p>
 <p><strong>Parameters</strong> <br />
 <code>flags</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>all</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <pre><code class="language-csharp">public Tags(int flags)
 </code></pre>
+<p>Creates a <code>Tags</code> value from the given flag bitmask (match-any mode).</p>
 <p><strong>Parameters</strong> <br />
 <code>flags</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="all"><a class="header" href="#all">All</a></h4>
 <pre><code class="language-csharp">public readonly bool All;
 </code></pre>
+<p>When <code>true</code>, all bits in <code>Flags</code> must be present for a match; when <code>false</code>, any matching bit suffices.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="flags"><a class="header" href="#flags">Flags</a></h4>
 <pre><code class="language-csharp">public readonly int Flags;
 </code></pre>
+<p>The bitmask of tag bits assigned to this <code>Tags</code> value.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="hastagint"><a class="header" href="#hastagint">HasTag(int)</a></h4>
 <pre><code class="language-csharp">public bool HasTag(int tag)
 </code></pre>
+<p>Returns <code>true</code> when the given <code>tag</code> bit is set in this <code>Tags</code> value.</p>
 <p><strong>Parameters</strong> <br />
 <code>tag</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -183,6 +192,7 @@
 <h4 id="hastagstags"><a class="header" href="#hastagstags">HasTags(Tags)</a></h4>
 <pre><code class="language-csharp">public bool HasTags(Tags tags)
 </code></pre>
+<p>Returns <code>true</code> when this value satisfies the conditions in <code>tags</code>, taking into account the <code>All</code> flag.</p>
 <p><strong>Parameters</strong> <br />
 <code>tags</code> <a href="../../Murder/Core/Tags.html">Tags</a> </p>
 <p><strong>Returns</strong> <br />

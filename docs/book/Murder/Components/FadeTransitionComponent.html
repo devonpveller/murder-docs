@@ -151,6 +151,8 @@
 </code></pre>
 <p>For now, this will only fade out sprite components.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Animates an entity's sprite alpha from <code>StartAlpha</code> to <code>TargetAlpha</code> over <code>Duration</code> seconds.</p>
+<p><strong>Use-case:</strong> Attach to any sprite entity that should fade in or fade out; set <code>DestroyEntityOnEnd</code> to <code>true</code> for one-shot effects that should clean themselves up.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FadeTransitionComponent(float duration, float startAlpha, float targetAlpha, bool destroyOnEnd)
 </code></pre>
@@ -169,6 +171,7 @@
 <h4 id="destroyentityonend"><a class="header" href="#destroyentityonend">DestroyEntityOnEnd</a></h4>
 <pre><code class="language-csharp">public readonly bool DestroyEntityOnEnd;
 </code></pre>
+<p>When <code>true</code>, the entity is destroyed once the fade completes.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="duration"><a class="header" href="#duration">Duration</a></h4>
@@ -180,16 +183,19 @@
 <h4 id="startalpha"><a class="header" href="#startalpha">StartAlpha</a></h4>
 <pre><code class="language-csharp">public readonly float StartAlpha;
 </code></pre>
+<p>The initial alpha value at the beginning of the transition (range <code>0</code>–<code>1</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="starttime"><a class="header" href="#starttime">StartTime</a></h4>
 <pre><code class="language-csharp">public readonly float StartTime;
 </code></pre>
+<p>The game time (in seconds) when the transition started; used internally to compute interpolation progress.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="targetalpha"><a class="header" href="#targetalpha">TargetAlpha</a></h4>
 <pre><code class="language-csharp">public readonly float TargetAlpha;
 </code></pre>
+<p>The final alpha value at the end of the transition (range <code>0</code>–<code>1</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

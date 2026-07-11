@@ -149,11 +149,16 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Fact
 </code></pre>
+<p>Identifies a named, typed blackboard variable within a specific blackboard scope.</p>
+<p><strong>Intent:</strong> Acts as a key that uniquely addresses one variable in the blackboard system — specifying which blackboard holds it, its name, and its data type (<code>FactKind</code>).</p>
+<p><strong>Use-case:</strong> Embed a <code>Fact</code> inside a <code>Criterion</code> or <code>DialogAction</code> to target a specific blackboard variable for reading or writing during dialogue evaluation.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Fact()
 </code></pre>
+<p>Creates an empty, invalid fact (<code>FactKind.Invalid</code>).</p>
 <pre><code class="language-csharp">public Fact(string blackboard, string name, FactKind kind, Type componentType)
 </code></pre>
+<p>Creates a fully-specified fact targeting the named variable in the given blackboard.</p>
 <p><strong>Parameters</strong> <br />
 <code>blackboard</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -161,6 +166,7 @@
 <code>componentType</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <pre><code class="language-csharp">public Fact(Type componentType)
 </code></pre>
+<p>Creates a <code>FactKind.Component</code> fact targeting the specified component type.</p>
 <p><strong>Parameters</strong> <br />
 <code>componentType</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
@@ -179,16 +185,19 @@
 <h4 id="editorname"><a class="header" href="#editorname">EditorName</a></h4>
 <pre><code class="language-csharp">public string EditorName { get; }
 </code></pre>
+<p>The display name shown in the dialogue editor, equal to <code>Name</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="kind"><a class="header" href="#kind">Kind</a></h4>
 <pre><code class="language-csharp">public readonly FactKind Kind;
 </code></pre>
+<p>The data type of this fact's value (<code>Bool</code>, <code>Int</code>, <code>Float</code>, <code>String</code>, <code>Component</code>, etc.).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/FactKind.html">FactKind</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public readonly string Name;
 </code></pre>
+<p>The field name of the blackboard variable this fact refers to.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

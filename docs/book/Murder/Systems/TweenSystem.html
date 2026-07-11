@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class TweenSystem : IUpdateSystem, ISystem
 </code></pre>
+<p>Updates entities with <code>TweenComponent</code> each frame, evaluating position and scale curves at the current eased progress and removing the component when the animation completes.</p>
+<p><strong>Intent:</strong> Drives component-based property tweening (position and scale) for entities, cleaning itself up when the animation is done.</p>
+<p><strong>Use-case:</strong> Add <code>TweenComponent</code> to any entity that needs a timed interpolation of its position or scale; no callbacks or manual removal are required.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IUpdateSystem.html">IUpdateSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TweenSystem()
@@ -157,6 +160,7 @@
 <h4 id="updatecontext"><a class="header" href="#updatecontext">Update(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Update(Context context)
 </code></pre>
+<p>Evaluates the tween's easing function at the current elapsed time and applies interpolated position and scale values to the entity; removes <code>TweenComponent</code> on completion.</p>
 <p><strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <p>⚡</p>

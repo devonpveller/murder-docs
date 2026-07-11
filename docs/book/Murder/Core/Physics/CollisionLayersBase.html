@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class CollisionLayersBase
 </code></pre>
+<p>Base class that defines the built-in collision layer bit-constants used by the <code>Map</code> and quadtree systems to categorize collidable entities.</p>
+<p><strong>Intent:</strong> Registry of named bitmask constants that identify the role of a collidable object (actor, solid wall, trigger, hitbox, etc.).</p>
+<p><strong>Use-case:</strong> Reference these constants when setting the collision layer on a <code>ColliderComponent</code>, querying <code>Map.HasCollision</code>, or filtering entities in physics callbacks.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">protected CollisionLayersBase()
 </code></pre>
@@ -157,56 +160,67 @@
 <h4 id="actor"><a class="header" href="#actor">ACTOR</a></h4>
 <pre><code class="language-csharp">public static const int ACTOR;
 </code></pre>
+<p>Layer for entities that move and interact with the world (bit 3).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="block_vision"><a class="header" href="#block_vision">BLOCK_VISION</a></h4>
 <pre><code class="language-csharp">public static const int BLOCK_VISION;
 </code></pre>
+<p>Layer for entities or tiles that block line-of-sight checks (bit 6).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="carve"><a class="header" href="#carve">CARVE</a></h4>
 <pre><code class="language-csharp">public static const int CARVE;
 </code></pre>
+<p>Layer for dynamic carve components that cut holes into the navigation/collision map (bit 5).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="hitbox"><a class="header" href="#hitbox">HITBOX</a></h4>
 <pre><code class="language-csharp">public static const int HITBOX;
 </code></pre>
+<p>Layer for attack hitboxes that deal damage but do not block movement (bit 2).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="hole"><a class="header" href="#hole">HOLE</a></h4>
 <pre><code class="language-csharp">public static const int HOLE;
 </code></pre>
+<p>Layer for pit or hole areas that destroy or transition actors that enter them (bit 4).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="none"><a class="header" href="#none">NONE</a></h4>
 <pre><code class="language-csharp">public static const int NONE;
 </code></pre>
+<p>Empty collision layer (0); no collision.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="pathfind"><a class="header" href="#pathfind">PATHFIND</a></h4>
 <pre><code class="language-csharp">public static const int PATHFIND;
 </code></pre>
+<p>Layer for tiles that block pathfinding but not necessarily physical movement (bit 8).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="rayignore"><a class="header" href="#rayignore">RAYIGNORE</a></h4>
 <pre><code class="language-csharp">public static const int RAYIGNORE;
 </code></pre>
+<p>Layer for entities that are excluded from ray-cast checks (bit 7).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="reserved"><a class="header" href="#reserved">RESERVED</a></h4>
 <pre><code class="language-csharp">public static const int RESERVED;
 </code></pre>
+<p>A reserved layer bit for game-specific use, not assigned a built-in meaning.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="solid"><a class="header" href="#solid">SOLID</a></h4>
 <pre><code class="language-csharp">public static const int SOLID;
 </code></pre>
+<p>Layer for fully solid tiles and walls that block all movement (bit 0).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="trigger"><a class="header" href="#trigger">TRIGGER</a></h4>
 <pre><code class="language-csharp">public static const int TRIGGER;
 </code></pre>
+<p>Layer for trigger volumes that fire interactions when an actor overlaps them (bit 1).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

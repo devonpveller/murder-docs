@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class XnaExtensions
 </code></pre>
+<p>Conversion extension methods between MonoGame/XNA types and the <code>System.Numerics</code> types used internally by the engine.</p>
+<p><strong>Intent:</strong> Bridges the two type systems so engine code (System.Numerics) can interoperate with MonoGame rendering APIs (XNA types) without verbose manual conversion.</p>
+<p><strong>Use-case:</strong> Use when passing data between MonoGame API calls and engine math code; prefer these helpers over manual component assignment.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="toxnacolorvector4"><a class="header" href="#toxnacolorvector4">ToXnaColor(Vector4)</a></h4>
 <pre><code class="language-csharp">public Color ToXnaColor(Vector4 color)
 </code></pre>
+<p>Converts a <code>System.Numerics.Vector4</code> RGBA value to a MonoGame <code>Color</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>color</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <p><strong>Returns</strong> <br />
@@ -160,6 +164,7 @@
 <h4 id="sizerectangle"><a class="header" href="#sizerectangle">Size(Rectangle)</a></h4>
 <pre><code class="language-csharp">public Point Size(Rectangle this)
 </code></pre>
+<p>Returns the width and height of a MonoGame <code>Rectangle</code> as an engine <code>Point</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>this</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Rectangle.html">Rectangle</a> </p>
 <p><strong>Returns</strong> <br />
@@ -181,6 +186,7 @@
 <h4 id="toxnapointvector2"><a class="header" href="#toxnapointvector2">ToXnaPoint(Vector2)</a></h4>
 <pre><code class="language-csharp">public Point ToXnaPoint(Vector2 vector2)
 </code></pre>
+<p>Converts a <code>System.Numerics.Vector2</code> to a MonoGame <code>Point</code> by rounding each component to the nearest integer.</p>
 <p><strong>Parameters</strong> <br />
 <code>vector2</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />

@@ -149,11 +149,15 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct DestroyOnCollisionComponent : IComponent
 </code></pre>
+<p>Destroys (or kills) this entity the moment it collides with another entity.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Automates one-hit destruction of projectiles or fragile objects upon impact.</p>
+<p><strong>Use-case:</strong> Attach to a bullet or hazard entity; <code>DestroyOnCollisionSystem</code> will destroy it on the first physics overlap, or send a <code>FatalDamageMessage</code> instead when <code>KillInstead</code> is <code>true</code>.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="killinstead"><a class="header" href="#killinstead">KillInstead</a></h4>
 <pre><code class="language-csharp">public readonly bool KillInstead;
 </code></pre>
+<p>When <code>true</code>, sends a <code>FatalDamageMessage</code> to the entity instead of immediately destroying it, allowing damage systems to handle the kill.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <p>⚡</p>

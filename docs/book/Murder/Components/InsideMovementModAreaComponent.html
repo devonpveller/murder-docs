@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct InsideMovementModAreaComponent : IComponent
 </code></pre>
+<p>Runtime component that tracks all movement-modifier areas the entity is currently overlapping, aggregating their speed and slide effects.</p>
+<p><strong>Intent:</strong> Record that an agent is inside one or more <code>MovementModAreaComponent</code> zones so the movement system can apply the combined speed multiplier and slide vector each frame.</p>
+<p><strong>Use-case:</strong> Added and removed automatically by the <code>AgentMovementModifierSystem</code>; read <code>areas</code> in the movement system to apply all active movement modifiers to the agent's velocity.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public InsideMovementModAreaComponent(MovementModAreaComponent area)
@@ -163,12 +166,14 @@
 <h4 id="areas"><a class="header" href="#areas">areas</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; areas;
 </code></pre>
+<p>List of all movement-modifier area infos the entity is currently inside, each describing the originating area entity and its movement parameters.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="addareamovementmodareacomponent"><a class="header" href="#addareamovementmodareacomponent">AddArea(MovementModAreaComponent)</a></h4>
 <pre><code class="language-csharp">public InsideMovementModAreaComponent AddArea(MovementModAreaComponent area)
 </code></pre>
+<p>Returns a new component that includes the given area, or the same component unchanged if the area is already tracked.</p>
 <p><strong>Parameters</strong> <br />
 <code>area</code> <a href="../../Murder/Components/MovementModAreaComponent.html">MovementModAreaComponent</a> </p>
 <p><strong>Returns</strong> <br />

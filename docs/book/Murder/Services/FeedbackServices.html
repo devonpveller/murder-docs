@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class FeedbackServices
 </code></pre>
+<p>Provides asynchronous methods for sending player feedback and diagnostic data to a remote endpoint.</p>
+<p><strong>Intent:</strong> Abstracts the HTTP submission of player feedback, optionally bundling the current game log or save data.</p>
+<p><strong>Use-case:</strong> Call <code>SendFeedbackAsync</code> from an in-game feedback form to transmit the player's message (and optionally a zipped save file) to a developer-specified URL for bug reporting or playtesting feedback.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="sendfeedbackasyncstring-bool"><a class="header" href="#sendfeedbackasyncstring-bool">SendFeedbackAsync(string, bool)</a></h4>
 <pre><code class="language-csharp">public Task SendFeedbackAsync(string message, bool sendLog)
 </code></pre>
+<p>Sends a feedback message to the configured endpoint, optionally attaching the game log.</p>
 <p><strong>Parameters</strong> <br />
 <code>message</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>sendLog</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
@@ -161,6 +165,7 @@
 <h4 id="sendfeedbackasyncstring-string-filewrapper"><a class="header" href="#sendfeedbackasyncstring-string-filewrapper">SendFeedbackAsync(string, string, FileWrapper[])</a></h4>
 <pre><code class="language-csharp">public Task SendFeedbackAsync(string url, string message, FileWrapper[] files)
 </code></pre>
+<p>Sends a feedback message to <code>url</code> with an array of file attachments.</p>
 <p><strong>Parameters</strong> <br />
 <code>url</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>message</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -170,6 +175,7 @@
 <h4 id="sendsavedatafeedbackasyncstring"><a class="header" href="#sendsavedatafeedbackasyncstring">SendSaveDataFeedbackAsync(string)</a></h4>
 <pre><code class="language-csharp">public Task&lt;TResult&gt; SendSaveDataFeedbackAsync(string message)
 </code></pre>
+<p>Sends a feedback message with the player's current save data attached as a zip file.</p>
 <p><strong>Parameters</strong> <br />
 <code>message</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -177,6 +183,7 @@
 <h4 id="tryzipactivesaveasync"><a class="header" href="#tryzipactivesaveasync">TryZipActiveSaveAsync()</a></h4>
 <pre><code class="language-csharp">public Task&lt;TResult&gt; TryZipActiveSaveAsync()
 </code></pre>
+<p>Attempts to zip the active save directory and returns the archive as a <code>FileWrapper</code>, or <code>null</code> if no save is active.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task-1?view=net-7.0">Task&lt;TResult&gt;</a> </p>
 <p>⚡</p>

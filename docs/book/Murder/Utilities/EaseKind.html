@@ -150,176 +150,212 @@
 <pre><code class="language-csharp">public sealed enum EaseKind : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
 <p>Specifies an easing technique.</p>
+<p><strong>Intent:</strong> Enumerates all supported easing curves so that tweens and animations can specify their interpolation style declaratively.</p>
+<p><strong>Use-case:</strong> Set a <code>TweenComponent.EaseKind</code> or <code>MoveToPerfectComponent.EaseKind</code> to control the shape of a position or property animation.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="backin"><a class="header" href="#backin">BackIn</a></h4>
 <pre><code class="language-csharp">public static const EaseKind BackIn;
 </code></pre>
+<p>Overshoots slightly before the target on entry (cubic back easing, in).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="backinout"><a class="header" href="#backinout">BackInOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind BackInOut;
 </code></pre>
+<p>Overshoots on both entry and exit.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="backout"><a class="header" href="#backout">BackOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind BackOut;
 </code></pre>
+<p>Overshoots past the target and snaps back on exit.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="backoutsm"><a class="header" href="#backoutsm">BackOutSm</a></h4>
 <pre><code class="language-csharp">public static const EaseKind BackOutSm;
 </code></pre>
+<p>A smaller overshoot variant of <code>BackOut</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="bouncein"><a class="header" href="#bouncein">BounceIn</a></h4>
 <pre><code class="language-csharp">public static const EaseKind BounceIn;
 </code></pre>
+<p>Simulates a bouncing entry — the value bounces before reaching the start.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="bounceinout"><a class="header" href="#bounceinout">BounceInOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind BounceInOut;
 </code></pre>
+<p>Bounces on both entry and exit.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="bounceout"><a class="header" href="#bounceout">BounceOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind BounceOut;
 </code></pre>
+<p>Simulates a bouncing stop — the value bounces after reaching the target.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="circin"><a class="header" href="#circin">CircIn</a></h4>
 <pre><code class="language-csharp">public static const EaseKind CircIn;
 </code></pre>
+<p>Circular easing — accelerates from rest following a circular curve.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="circinout"><a class="header" href="#circinout">CircInOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind CircInOut;
 </code></pre>
+<p>Circular easing in and out.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="circout"><a class="header" href="#circout">CircOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind CircOut;
 </code></pre>
+<p>Circular easing — decelerates to rest following a circular curve.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="cubein"><a class="header" href="#cubein">CubeIn</a></h4>
 <pre><code class="language-csharp">public static const EaseKind CubeIn;
 </code></pre>
+<p>Cubic easing (t³) — slow start, accelerates toward the target.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="cubeinout"><a class="header" href="#cubeinout">CubeInOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind CubeInOut;
 </code></pre>
+<p>Cubic easing in and out — slow at both ends.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="cubeout"><a class="header" href="#cubeout">CubeOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind CubeOut;
 </code></pre>
+<p>Cubic easing (1 - (1-t)³) — fast start, decelerates to the target.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="elasticin"><a class="header" href="#elasticin">ElasticIn</a></h4>
 <pre><code class="language-csharp">public static const EaseKind ElasticIn;
 </code></pre>
+<p>Elastic easing — oscillates at the start before moving toward the target.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="elasticinout"><a class="header" href="#elasticinout">ElasticInOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind ElasticInOut;
 </code></pre>
+<p>Elastic easing oscillating at both ends.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="elasticout"><a class="header" href="#elasticout">ElasticOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind ElasticOut;
 </code></pre>
+<p>Elastic easing — oscillates past the target before settling.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="expoin"><a class="header" href="#expoin">ExpoIn</a></h4>
 <pre><code class="language-csharp">public static const EaseKind ExpoIn;
 </code></pre>
+<p>Exponential easing — very slow start with a sharp accelerating curve.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="expoinout"><a class="header" href="#expoinout">ExpoInOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind ExpoInOut;
 </code></pre>
+<p>Exponential easing in and out.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="expoout"><a class="header" href="#expoout">ExpoOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind ExpoOut;
 </code></pre>
+<p>Exponential easing — sharp start that decelerates to the target.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="linear"><a class="header" href="#linear">Linear</a></h4>
 <pre><code class="language-csharp">public static const EaseKind Linear;
 </code></pre>
+<p>Linear interpolation — constant rate of change with no easing.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="quadin"><a class="header" href="#quadin">QuadIn</a></h4>
 <pre><code class="language-csharp">public static const EaseKind QuadIn;
 </code></pre>
+<p>Quadratic easing (t²) — slow start.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="quadinout"><a class="header" href="#quadinout">QuadInOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind QuadInOut;
 </code></pre>
+<p>Quadratic easing in and out — slow at both ends.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="quadout"><a class="header" href="#quadout">QuadOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind QuadOut;
 </code></pre>
+<p>Quadratic easing (1 - (1-t)²) — fast start, decelerates.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="quartin"><a class="header" href="#quartin">QuartIn</a></h4>
 <pre><code class="language-csharp">public static const EaseKind QuartIn;
 </code></pre>
+<p>Quartic easing (t⁴) — very slow start.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="quartinout"><a class="header" href="#quartinout">QuartInOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind QuartInOut;
 </code></pre>
+<p>Quartic easing in and out.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="quartout"><a class="header" href="#quartout">QuartOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind QuartOut;
 </code></pre>
+<p>Quartic easing — fast start, decelerates sharply.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="quintin"><a class="header" href="#quintin">QuintIn</a></h4>
 <pre><code class="language-csharp">public static const EaseKind QuintIn;
 </code></pre>
+<p>Quintic easing (t⁵) — extremely slow start.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="quintinout"><a class="header" href="#quintinout">QuintInOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind QuintInOut;
 </code></pre>
+<p>Quintic easing in and out.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="quintout"><a class="header" href="#quintout">QuintOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind QuintOut;
 </code></pre>
+<p>Quintic easing — extremely fast start, decelerates.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="sinein"><a class="header" href="#sinein">SineIn</a></h4>
 <pre><code class="language-csharp">public static const EaseKind SineIn;
 </code></pre>
+<p>Sinusoidal easing — smooth acceleration following a sine curve.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="sineinout"><a class="header" href="#sineinout">SineInOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind SineInOut;
 </code></pre>
+<p>Sinusoidal easing in and out.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="sineout"><a class="header" href="#sineout">SineOut</a></h4>
 <pre><code class="language-csharp">public static const EaseKind SineOut;
 </code></pre>
+<p>Sinusoidal easing — smooth deceleration following a sine curve.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="toandfro"><a class="header" href="#toandfro">ToAndFro</a></h4>
 <pre><code class="language-csharp">public static const EaseKind ToAndFro;
 </code></pre>
+<p>Eases to the target value and then back, creating a ping-pong effect.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="zerotoone"><a class="header" href="#zerotoone">ZeroToOne</a></h4>
 <pre><code class="language-csharp">public static const EaseKind ZeroToOne;
 </code></pre>
+<p>A simple 0-to-1 ramp with no easing.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <p>⚡</p>

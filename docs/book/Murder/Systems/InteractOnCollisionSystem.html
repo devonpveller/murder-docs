@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class InteractOnCollisionSystem : IMessagerSystem, ISystem
 </code></pre>
 <p>Interactors tag hightlights and interacts with InteractorComponents</p>
+<p><strong>Intent:</strong> Triggers interaction logic when a colliding entity (e.g., the player) enters or exits the bounds of an interactive entity.</p>
+<p><strong>Use-case:</strong> Attach <code>InteractOnCollisionComponent</code> to doors, pickups, or trigger zones; this system routes <code>OnCollisionMessage</code> events to the entity's interaction handlers automatically.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IMessagerSystem.html">IMessagerSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public InteractOnCollisionSystem()
@@ -158,6 +160,7 @@
 <h4 id="isinteractallowedentity-interactoncollisioncomponent"><a class="header" href="#isinteractallowedentity-interactoncollisioncomponent">IsInteractAllowed(Entity, InteractOnCollisionComponent)</a></h4>
 <pre><code class="language-csharp">protected virtual bool IsInteractAllowed(Entity interactor, InteractOnCollisionComponent component)
 </code></pre>
+<p>Override to add custom conditions that must be satisfied before an interaction is allowed to fire; returns <code>true</code> by default.</p>
 <p><strong>Parameters</strong> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>component</code> <a href="../../Murder/Components/InteractOnCollisionComponent.html">InteractOnCollisionComponent</a> </p>

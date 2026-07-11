@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Rectangle : IEquatable&lt;T&gt;
 </code></pre>
+<p>A floating-point axis-aligned rectangle (X, Y, Width, Height). The primary rectangle type in Murder.</p>
+<p><strong>Intent:</strong> Store and manipulate rectangular regions with sub-pixel precision for rendering, collision, and layout.</p>
+<p><strong>Use-case:</strong> Use <code>Rectangle</code> for world-space bounds, camera viewports, sprite source rectangles, and overlap tests. Convert to <code>IntRectangle</code> when integer coordinates are required.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0">IEquatable&lt;T&gt;</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Rectangle(Point p, int width, int height)
@@ -311,6 +314,7 @@
 <h4 id="containspoint"><a class="header" href="#containspoint">Contains(Point)</a></h4>
 <pre><code class="language-csharp">public bool Contains(Point point)
 </code></pre>
+<p>Returns <code>true</code> if <code>point</code> is inside this rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>point</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />
@@ -318,6 +322,7 @@
 <h4 id="containsfloat-float"><a class="header" href="#containsfloat-float">Contains(float, float)</a></h4>
 <pre><code class="language-csharp">public bool Contains(float X, float Y)
 </code></pre>
+<p>Returns <code>true</code> if the floating-point coordinate <code>(X, Y)</code> is inside this rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>X</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>Y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
@@ -326,6 +331,7 @@
 <h4 id="containsint-int"><a class="header" href="#containsint-int">Contains(int, int)</a></h4>
 <pre><code class="language-csharp">public bool Contains(int X, int Y)
 </code></pre>
+<p>Returns <code>true</code> if the integer coordinate <code>(X, Y)</code> is inside this rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>X</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>Y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -334,6 +340,7 @@
 <h4 id="containsvector2"><a class="header" href="#containsvector2">Contains(Vector2)</a></h4>
 <pre><code class="language-csharp">public bool Contains(Vector2 vector)
 </code></pre>
+<p>Returns <code>true</code> if <code>vector</code> lies inside this rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>vector</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -372,6 +379,7 @@ This takes into account the &quot;maximum&quot; height and length given any rota
 <h4 id="subtractrectanglesrectangle-rectangle"><a class="header" href="#subtractrectanglesrectangle-rectangle">SubtractRectangles(Rectangle, Rectangle)</a></h4>
 <pre><code class="language-csharp">public IEnumerable&lt;T&gt; SubtractRectangles(Rectangle main, Rectangle subtract)
 </code></pre>
+<p>Returns up to four sub-rectangles that represent <code>main</code> minus the area covered by <code>subtract</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>main</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
 <code>subtract</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
@@ -380,6 +388,7 @@ This takes into account the &quot;maximum&quot; height and length given any rota
 <h4 id="addpaddingfloat-float-float-float"><a class="header" href="#addpaddingfloat-float-float-float">AddPadding(float, float, float, float)</a></h4>
 <pre><code class="language-csharp">public Rectangle AddPadding(float left, float top, float right, float bottom)
 </code></pre>
+<p>Returns a new rectangle expanded outward by the specified padding amounts on each side.</p>
 <p><strong>Parameters</strong> <br />
 <code>left</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>top</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
@@ -390,6 +399,7 @@ This takes into account the &quot;maximum&quot; height and length given any rota
 <h4 id="addpositionpoint"><a class="header" href="#addpositionpoint">AddPosition(Point)</a></h4>
 <pre><code class="language-csharp">public Rectangle AddPosition(Point position)
 </code></pre>
+<p>Returns a new rectangle translated by the given <code>Point</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />
@@ -397,6 +407,7 @@ This takes into account the &quot;maximum&quot; height and length given any rota
 <h4 id="addpositionvector2"><a class="header" href="#addpositionvector2">AddPosition(Vector2)</a></h4>
 <pre><code class="language-csharp">public Rectangle AddPosition(Vector2 position)
 </code></pre>
+<p>Returns a new rectangle translated by the given <code>Vector2</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -404,6 +415,7 @@ This takes into account the &quot;maximum&quot; height and length given any rota
 <h4 id="centerrectanglepoint-int-int"><a class="header" href="#centerrectanglepoint-int-int">CenterRectangle(Point, int, int)</a></h4>
 <pre><code class="language-csharp">public Rectangle CenterRectangle(Point center, int width, int height)
 </code></pre>
+<p>Creates a <code>width</code>×<code>height</code> rectangle centred at <code>center</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>center</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> <br />
 <code>width</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -413,6 +425,7 @@ This takes into account the &quot;maximum&quot; height and length given any rota
 <h4 id="centerrectanglefloat-float"><a class="header" href="#centerrectanglefloat-float">CenterRectangle(float, float)</a></h4>
 <pre><code class="language-csharp">public Rectangle CenterRectangle(float x, float y)
 </code></pre>
+<p>Returns this rectangle moved so its centre is at <code>(x, y)</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
@@ -421,6 +434,7 @@ This takes into account the &quot;maximum&quot; height and length given any rota
 <h4 id="centerrectanglevector2-float-float"><a class="header" href="#centerrectanglevector2-float-float">CenterRectangle(Vector2, float, float)</a></h4>
 <pre><code class="language-csharp">public Rectangle CenterRectangle(Vector2 center, float width, float height)
 </code></pre>
+<p>Creates a <code>width</code>×<code>height</code> rectangle centred at <code>center</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>center</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
 <code>width</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
@@ -430,6 +444,7 @@ This takes into account the &quot;maximum&quot; height and length given any rota
 <h4 id="centerrectanglevector2"><a class="header" href="#centerrectanglevector2">CenterRectangle(Vector2)</a></h4>
 <pre><code class="language-csharp">public Rectangle CenterRectangle(Vector2 size)
 </code></pre>
+<p>Returns a rectangle of the given <code>size</code> centred at this rectangle's centre point.</p>
 <p><strong>Parameters</strong> <br />
 <code>size</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -437,6 +452,7 @@ This takes into account the &quot;maximum&quot; height and length given any rota
 <h4 id="expandfloat"><a class="header" href="#expandfloat">Expand(float)</a></h4>
 <pre><code class="language-csharp">public Rectangle Expand(float value)
 </code></pre>
+<p>Returns a new rectangle expanded symmetrically by <code>value</code> on all sides.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -444,6 +460,7 @@ This takes into account the &quot;maximum&quot; height and length given any rota
 <h4 id="expandint"><a class="header" href="#expandint">Expand(int)</a></h4>
 <pre><code class="language-csharp">public Rectangle Expand(int value)
 </code></pre>
+<p>Returns a new rectangle expanded symmetrically by <code>value</code> pixels on all sides.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -471,6 +488,7 @@ This takes into account the &quot;maximum&quot; height and length given any rota
 <h4 id="intersectionrectangle-rectangle"><a class="header" href="#intersectionrectangle-rectangle">Intersection(Rectangle, Rectangle)</a></h4>
 <pre><code class="language-csharp">public Rectangle Intersection(Rectangle a, Rectangle b)
 </code></pre>
+<p>Returns the overlapping region of two rectangles, or an empty rectangle if they do not intersect.</p>
 <p><strong>Parameters</strong> <br />
 <code>a</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
 <code>b</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
@@ -479,6 +497,7 @@ This takes into account the &quot;maximum&quot; height and length given any rota
 <h4 id="lerprectangle-rectangle-float"><a class="header" href="#lerprectangle-rectangle-float">Lerp(Rectangle, Rectangle, float)</a></h4>
 <pre><code class="language-csharp">public Rectangle Lerp(Rectangle a, Rectangle b, float v)
 </code></pre>
+<p>Linearly interpolates between rectangles <code>a</code> and <code>b</code> by factor <code>v</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>a</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
 <code>b</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
@@ -488,6 +507,7 @@ This takes into account the &quot;maximum&quot; height and length given any rota
 <h4 id="setpositionvector2"><a class="header" href="#setpositionvector2">SetPosition(Vector2)</a></h4>
 <pre><code class="language-csharp">public Rectangle SetPosition(Vector2 position)
 </code></pre>
+<p>Returns a new rectangle with <code>X</code> and <code>Y</code> set to <code>position</code>, preserving size.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />

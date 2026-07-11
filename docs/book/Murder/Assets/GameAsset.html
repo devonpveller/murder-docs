@@ -151,6 +151,8 @@
 </code></pre>
 <p>The GameAsset is the core functionality on how Murder Engine serializes and persists data of the game. Its design is made so most of its data structures should be immutable while the game is running and any field modification is left to the editor project.
 You can override its fields and methods to specify where how it will be displayed in the editor, e.g.EditorFolder and EditorIcon.</p>
+<p><strong>Intent:</strong> Define the base contract for all engine data assets: a unique GUID, a display name, editor metadata, and serialization/save hooks.</p>
+<p><strong>Use-case:</strong> Subclass <code>GameAsset</code> to create custom data containers (levels, characters, configurations). Reference an asset by its <code>Guid</code> from ECS components using <code>AssetRef&lt;T&gt;</code> or <code>GameAssetId</code>. Use <code>GameData</code> to look up assets at runtime, and override <code>EditorFolder</code>, <code>EditorColor</code>, and <code>Icon</code> to control how the asset appears in the editor browser.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public GameAsset()
 </code></pre>
@@ -194,6 +196,7 @@ You can override its fields and methods to specify where how it will be displaye
 <h4 id="filechanged"><a class="header" href="#filechanged">FileChanged</a></h4>
 <pre><code class="language-csharp">public bool FileChanged { get; public set; }
 </code></pre>
+<p>Indicates whether the asset has unsaved modifications that require writing to disk.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="filepath"><a class="header" href="#filepath">FilePath</a></h4>
@@ -205,6 +208,7 @@ You can override its fields and methods to specify where how it will be displaye
 <h4 id="guid"><a class="header" href="#guid">Guid</a></h4>
 <pre><code class="language-csharp">public Guid Guid { get; protected set; }
 </code></pre>
+<p>Unique identifier for this asset, used to reference it from other assets and components.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="icon"><a class="header" href="#icon">Icon</a></h4>
@@ -222,6 +226,7 @@ You can override its fields and methods to specify where how it will be displaye
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public string Name { get; public set; }
 </code></pre>
+<p>Display name of the asset shown in the editor asset browser.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="rename"><a class="header" href="#rename">Rename</a></h4>
@@ -233,11 +238,13 @@ You can override its fields and methods to specify where how it will be displaye
 <h4 id="savelocation"><a class="header" href="#savelocation">SaveLocation</a></h4>
 <pre><code class="language-csharp">public virtual string SaveLocation { get; }
 </code></pre>
+<p>The folder path where this asset is saved on disk; override to change the default save location.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="skipdirectoryiconcharacter"><a class="header" href="#skipdirectoryiconcharacter">SkipDirectoryIconCharacter</a></h4>
 <pre><code class="language-csharp">public static const char SkipDirectoryIconCharacter;
 </code></pre>
+<p>Special character that, when prefixed to an <code>EditorFolder</code> segment, suppresses the folder icon in the editor tree.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0">char</a> </p>
 <h4 id="storeindatabase"><a class="header" href="#storeindatabase">StoreInDatabase</a></h4>
@@ -250,6 +257,7 @@ True by default.</p>
 <h4 id="taggedfordeletion"><a class="header" href="#taggedfordeletion">TaggedForDeletion</a></h4>
 <pre><code class="language-csharp">public bool TaggedForDeletion;
 </code></pre>
+<p>Marks this asset for removal on the next save operation.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
@@ -276,11 +284,13 @@ Also clear the pending list.</p>
 <h4 id="getsimplifiedname"><a class="header" href="#getsimplifiedname">GetSimplifiedName()</a></h4>
 <pre><code class="language-csharp">public string GetSimplifiedName()
 </code></pre>
+<p>Returns the asset name with any editor-folder prefix characters stripped.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="getsplitnamewitheditorpath"><a class="header" href="#getsplitnamewitheditorpath">GetSplitNameWithEditorPath()</a></h4>
 <pre><code class="language-csharp">public String[] GetSplitNameWithEditorPath()
 </code></pre>
+<p>Returns the display name split into path segments following the EditorFolder hierarchy.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string[]</a> </p>
 <h4 id="afterdeserialized"><a class="header" href="#afterdeserialized">AfterDeserialized()</a></h4>

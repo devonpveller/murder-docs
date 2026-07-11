@@ -150,13 +150,17 @@
 <pre><code class="language-csharp">public class FileManager
 </code></pre>
 <p>FileHelper which will do OS operations. This is system-agnostic.</p>
+<p><strong>Intent:</strong> Provides system-agnostic file I/O methods for reading, writing, and managing game asset and save files.</p>
+<p><strong>Use-case:</strong> Access via <code>Game.Data.FileManager</code> to serialize assets to JSON, deserialize from disk, pack/unpack compressed content archives, and manage directories.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FileManager()
 </code></pre>
+<p>Creates a new <code>FileManager</code> instance.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="fileexistswithcaseinsensitivestring"><a class="header" href="#fileexistswithcaseinsensitivestring">FileExistsWithCaseInsensitive(String&amp;)</a></h4>
 <pre><code class="language-csharp">protected virtual bool FileExistsWithCaseInsensitive(String&amp; path)
 </code></pre>
+<p>Returns <code>true</code> if a file exists at <code>path</code>, performing a case-insensitive match on case-sensitive file systems.</p>
 <p><strong>Parameters</strong> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string&amp;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -164,6 +168,7 @@
 <h4 id="deletedirectoryifexistsstring"><a class="header" href="#deletedirectoryifexistsstring">DeleteDirectoryIfExists(String&amp;)</a></h4>
 <pre><code class="language-csharp">public bool DeleteDirectoryIfExists(String&amp; path)
 </code></pre>
+<p>Deletes the directory at <code>path</code> and all its contents if it exists; returns <code>true</code> if deleted.</p>
 <p><strong>Parameters</strong> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string&amp;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -171,6 +176,7 @@
 <h4 id="deletefileifexistsstring"><a class="header" href="#deletefileifexistsstring">DeleteFileIfExists(String&amp;)</a></h4>
 <pre><code class="language-csharp">public bool DeleteFileIfExists(String&amp; path)
 </code></pre>
+<p>Deletes the file at <code>path</code> if it exists; returns <code>true</code> if the file was deleted.</p>
 <p><strong>Parameters</strong> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string&amp;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -178,6 +184,7 @@
 <h4 id="existsstring"><a class="header" href="#existsstring">Exists(String&amp;)</a></h4>
 <pre><code class="language-csharp">public bool Exists(String&amp; path)
 </code></pre>
+<p>Returns <code>true</code> if a file or directory exists at <code>path</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string&amp;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -185,6 +192,7 @@
 <h4 id="getorcreatedirectorystring"><a class="header" href="#getorcreatedirectorystring">GetOrCreateDirectory(String&amp;)</a></h4>
 <pre><code class="language-csharp">public DirectoryInfo GetOrCreateDirectory(String&amp; path)
 </code></pre>
+<p>Returns the <code>DirectoryInfo</code> for <code>path</code>, creating the directory and all parents if they do not exist.</p>
 <p><strong>Parameters</strong> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string&amp;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -192,6 +200,7 @@
 <h4 id="listalldirectoriesstring"><a class="header" href="#listalldirectoriesstring">ListAllDirectories(string)</a></h4>
 <pre><code class="language-csharp">public IEnumerable&lt;T&gt; ListAllDirectories(string path)
 </code></pre>
+<p>Enumerates all subdirectories within <code>path</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -199,6 +208,7 @@
 <h4 id="saveserializedt-string"><a class="header" href="#saveserializedt-string">SaveSerialized(T, string)</a></h4>
 <pre><code class="language-csharp">public string SaveSerialized(T value, string path)
 </code></pre>
+<p>Serializes <code>value</code> to JSON and writes it to <code>path</code>; returns the path on success.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="../../">T</a> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
@@ -207,6 +217,7 @@
 <h4 id="serializetojsont"><a class="header" href="#serializetojsont">SerializeToJson(T)</a></h4>
 <pre><code class="language-csharp">public string SerializeToJson(T value)
 </code></pre>
+<p>Serializes <code>value</code> to a JSON string using the Murder serializer options.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="../../">T</a> </p>
 <p><strong>Returns</strong> <br />
@@ -214,6 +225,7 @@
 <h4 id="deserializeassetstring"><a class="header" href="#deserializeassetstring">DeserializeAsset(string)</a></h4>
 <pre><code class="language-csharp">public T DeserializeAsset(string path)
 </code></pre>
+<p>Deserializes a <code>GameAsset</code> subclass from the file at <code>path</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -221,6 +233,7 @@
 <h4 id="deserializefromjsonstream"><a class="header" href="#deserializefromjsonstream">DeserializeFromJson(Stream)</a></h4>
 <pre><code class="language-csharp">public T DeserializeFromJson(Stream stream)
 </code></pre>
+<p>Deserializes an object of type <code>T</code> from a JSON <code>Stream</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>stream</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IO.Stream?view=net-7.0">Stream</a> </p>
 <p><strong>Returns</strong> <br />
@@ -228,6 +241,7 @@
 <h4 id="deserializefromjsonstring"><a class="header" href="#deserializefromjsonstring">DeserializeFromJson(string)</a></h4>
 <pre><code class="language-csharp">public T DeserializeFromJson(string json)
 </code></pre>
+<p>Deserializes an object of type <code>T</code> from a raw JSON string.</p>
 <p><strong>Parameters</strong> <br />
 <code>json</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -235,6 +249,7 @@
 <h4 id="deserializegenericstring-bool"><a class="header" href="#deserializegenericstring-bool">DeserializeGeneric(string, bool)</a></h4>
 <pre><code class="language-csharp">public T DeserializeGeneric(string path, bool warnOnErrors)
 </code></pre>
+<p>Deserializes an object of type <code>T</code> from the file at <code>path</code>; logs a warning on parse errors when <code>warnOnErrors</code> is <code>true</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>warnOnErrors</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
@@ -260,6 +275,7 @@
 <h4 id="savetextasyncstring-string"><a class="header" href="#savetextasyncstring-string">SaveTextAsync(string, string)</a></h4>
 <pre><code class="language-csharp">public Task SaveTextAsync(string fullpath, string content)
 </code></pre>
+<p>Writes <code>content</code> as UTF-8 text to <code>fullpath</code> asynchronously.</p>
 <p><strong>Parameters</strong> <br />
 <code>fullpath</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>content</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>

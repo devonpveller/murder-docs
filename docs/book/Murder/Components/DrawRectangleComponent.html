@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct DrawRectangleComponent : IComponent
 </code></pre>
+<p>Renders a filled or outlined rectangle at the entity's position each frame.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Provides a simple primitive drawing capability for entities that need a solid or outlined rectangle without a full sprite asset.</p>
+<p><strong>Use-case:</strong> Attach to debug overlays, UI elements, or simple gameplay shapes such as selection boxes or area indicators; configure <code>Color</code>, <code>Fill</code>, and <code>TargetSpriteBatch</code> as needed.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DrawRectangleComponent()
 </code></pre>
@@ -164,26 +167,31 @@
 <h4 id="color"><a class="header" href="#color">Color</a></h4>
 <pre><code class="language-csharp">public readonly Color Color;
 </code></pre>
+<p>Color of the rectangle (fill color or outline color depending on <code>Fill</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/Color.html">Color</a> </p>
 <h4 id="fill"><a class="header" href="#fill">Fill</a></h4>
 <pre><code class="language-csharp">public readonly bool Fill;
 </code></pre>
+<p>When <code>true</code>, the rectangle is drawn filled; when <code>false</code>, only the outline is drawn.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="linewidth"><a class="header" href="#linewidth">LineWidth</a></h4>
 <pre><code class="language-csharp">public readonly int LineWidth;
 </code></pre>
+<p>Width in pixels of the outline when <code>Fill</code> is <code>false</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="sortingoffset"><a class="header" href="#sortingoffset">SortingOffset</a></h4>
 <pre><code class="language-csharp">public readonly float SortingOffset;
 </code></pre>
+<p>Vertical pixel offset added to Y when computing draw-order sorting.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="targetspritebatch"><a class="header" href="#targetspritebatch">TargetSpriteBatch</a></h4>
 <pre><code class="language-csharp">public readonly int TargetSpriteBatch;
 </code></pre>
+<p>Index of the sprite batch that this rectangle is submitted to during rendering.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

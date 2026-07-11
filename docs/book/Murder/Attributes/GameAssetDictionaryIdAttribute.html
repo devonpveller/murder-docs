@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class GameAssetDictionaryIdAttribute : Attribute
 </code></pre>
 <p>This is an attribute used for a dictionary with a guid on both the key and values.</p>
+<p><strong>Intent:</strong> Instruct the editor to treat a dictionary field as a <code>Guid</code>→<code>Guid</code> mapping where both keys and values reference specific <code>GameAsset</code> subtypes.</p>
+<p><strong>Use-case:</strong> Apply to dictionary fields in components or assets that map one asset type to another (e.g., a character <code>Guid</code> mapped to a dialogue asset <code>Guid</code>). The editor will show asset-type-aware pickers for both key and value slots.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public GameAssetDictionaryIdAttribute(Type key, Type value)
@@ -168,6 +170,7 @@
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <h4 id="value"><a class="header" href="#value">Value</a></h4>

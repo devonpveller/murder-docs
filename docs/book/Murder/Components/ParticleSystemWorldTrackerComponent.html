@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct ParticleSystemWorldTrackerComponent : IComponent
 </code></pre>
 <p>This tracks all the particle systems that are currently active in the world.</p>
+<p><strong>Intent:</strong> Maintain a world-level registry of all active particle system instances so they can be updated and rendered centrally each frame.</p>
+<p><strong>Use-case:</strong> Added once to the world entity by the particle system; access <code>Tracker</code> to query or manipulate the set of live particle emitters without iterating over individual entities.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ParticleSystemWorldTrackerComponent()
@@ -158,6 +160,7 @@
 <h4 id="tracker"><a class="header" href="#tracker">Tracker</a></h4>
 <pre><code class="language-csharp">public readonly WorldParticleSystemTracker Tracker;
 </code></pre>
+<p>The shared tracker object that holds references to all currently active particle system instances in the world.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Particles/WorldParticleSystemTracker.html">WorldParticleSystemTracker</a> </p>
 <p>⚡</p>

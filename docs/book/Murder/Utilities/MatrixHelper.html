@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class MatrixHelper
 </code></pre>
+<p>Conversion helpers between <code>System.Numerics.Matrix4x4</code> and the MonoGame/XNA <code>Matrix</code> type.</p>
+<p><strong>Intent:</strong> Bridges the gap between the engine's use of <code>System.Numerics</code> math types and MonoGame's XNA matrix type.</p>
+<p><strong>Use-case:</strong> Call <code>ToXnaMatrix</code> when passing a System.Numerics matrix to MonoGame rendering APIs that require an XNA <code>Matrix</code>.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="toxnamatrixmatrix4x4"><a class="header" href="#toxnamatrixmatrix4x4">ToXnaMatrix(Matrix4x4)</a></h4>
 <pre><code class="language-csharp">public Matrix ToXnaMatrix(Matrix4x4 matrix)
 </code></pre>
+<p>Converts a <code>System.Numerics.Matrix4x4</code> to a MonoGame <code>Matrix</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>matrix</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Matrix4x4?view=net-7.0">Matrix4x4</a> </p>
 <p><strong>Returns</strong> <br />

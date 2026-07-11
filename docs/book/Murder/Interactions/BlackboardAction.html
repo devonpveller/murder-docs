@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct BlackboardAction
 </code></pre>
+<p>A conditional action bundle that checks a set of blackboard criteria, then applies dialog actions and fires interactions when the criteria are met.</p>
+<p><strong>Intent:</strong> Encapsulates a guarded set of blackboard mutations and sub-interactions that only execute when all required criteria pass.</p>
+<p><strong>Use-case:</strong> Use inside <a href="../../Murder/Interactions/AdvancedBlackboardInteraction.html">AdvancedBlackboardInteraction</a> to create branching behaviour where different sets of consequences fire depending on the current game state.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public BlackboardAction()
 </code></pre>
@@ -156,12 +159,14 @@
 <h4 id="_interactions"><a class="header" href="#_interactions">_interactions</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; _interactions;
 </code></pre>
+<p>The list of interactions to fire when all criteria are satisfied.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="invokeworld-entity-entity"><a class="header" href="#invokeworld-entity-entity">Invoke(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public void Invoke(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Evaluates requirements against the active blackboard and, if they pass, applies dialog actions and fires all configured interactions.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

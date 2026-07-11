@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class CameraShakeSystem : IMonoPreRenderSystem, IRenderSystem, ISystem
 </code></pre>
+<p>Decrements the camera's shake timer each frame and clears the camera's position cache while the shake is active; resets the intensity once the timer expires.</p>
+<p><strong>Intent:</strong> Drives the camera-shake effect by consuming the shake timer and stopping the shake when it runs out.</p>
+<p><strong>Use-case:</strong> Required in any world that uses <code>Camera2D.ShakeTime</code> to produce a shake effect; no per-entity configuration is needed.</p>
 <p><strong>Implements:</strong> <em><a href="../../Murder/Core/Graphics/IMonoPreRenderSystem.html">IMonoPreRenderSystem</a>, <a href="../../Bang/Systems/IRenderSystem.html">IRenderSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public CameraShakeSystem()
@@ -157,6 +160,7 @@
 <h4 id="beforedrawcontext"><a class="header" href="#beforedrawcontext">BeforeDraw(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void BeforeDraw(Context context)
 </code></pre>
+<p>Advances the camera shake timer by unscaled delta time and invalidates the camera's cached position while the shake is active.</p>
 <p><strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <p>⚡</p>

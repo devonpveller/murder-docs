@@ -150,15 +150,19 @@
 <pre><code class="language-csharp">public abstract IShape
 </code></pre>
 <p>An IShape is a component which will be applied physics properties for collision.</p>
+<p><strong>Intent:</strong> Define the contract for all collision shapes used by <code>ColliderComponent</code>.</p>
+<p><strong>Use-case:</strong> Implement <code>IShape</code> when creating a custom collision shape. Use <code>GetBoundingBox()</code> for broad-phase culling and <code>GetPolygon()</code> for precise SAT-based overlap tests.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getpolygon"><a class="header" href="#getpolygon">GetPolygon()</a></h4>
 <pre><code class="language-csharp">public abstract PolygonShape GetPolygon()
 </code></pre>
+<p>Returns a polygon approximation of this shape, used for SAT collision detection.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/PolygonShape.html">PolygonShape</a> </p>
 <h4 id="getboundingbox"><a class="header" href="#getboundingbox">GetBoundingBox()</a></h4>
 <pre><code class="language-csharp">public abstract Rectangle GetBoundingBox()
 </code></pre>
+<p>Returns the axis-aligned bounding box of this shape, used for broad-phase collision culling.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <p>⚡</p>

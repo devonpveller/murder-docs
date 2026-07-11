@@ -149,25 +149,32 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct InteractWithDelayInteraction : IInteraction
 </code></pre>
+<p>An interaction that waits a fixed number of seconds before invoking an inner <code>IInteraction</code>.</p>
+<p><strong>Intent:</strong> Delays the execution of any wrapped interaction by a configurable time, implemented as a coroutine so it does not block.</p>
+<p><strong>Use-case:</strong> Attach to a trigger entity when you want a door to open, a cutscene to begin, or an effect to fire after a short pause following player contact.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public InteractWithDelayInteraction()
 </code></pre>
+<p>Creates a new <code>InteractWithDelayInteraction</code> with default values (no delay, no inner interaction).</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="interactive"><a class="header" href="#interactive">Interactive</a></h4>
 <pre><code class="language-csharp">public readonly IInteraction Interactive;
 </code></pre>
+<p>The inner interaction that will be fired after <code>Time</code> seconds have elapsed.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Bang/Interactions/IInteraction.html">IInteraction</a> </p>
 <h4 id="time"><a class="header" href="#time">Time</a></h4>
 <pre><code class="language-csharp">public readonly float Time;
 </code></pre>
+<p>Number of seconds to wait before invoking <code>Interactive</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Launches a coroutine that waits for <code>Time</code> seconds then calls <code>Interactive.Interact</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

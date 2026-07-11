@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct IsInsideOfMessage : IMessage
 </code></pre>
+<p>Sent to notify an entity that it is currently located inside another entity's trigger area, carrying the ID of the containing entity.</p>
+<p><strong>Intent:</strong> Inform a contained entity about which trigger or zone it is currently overlapping.</p>
+<p><strong>Use-case:</strong> Use this in area-of-effect or zone systems (such as water, fire, or safe zones) to notify entities within the area each frame, allowing them to apply environmental effects based on the zone type.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IMessage.html">IMessage</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public IsInsideOfMessage(int insideOf)
@@ -159,6 +162,7 @@
 <h4 id="insideof"><a class="header" href="#insideof">InsideOf</a></h4>
 <pre><code class="language-csharp">public readonly int InsideOf;
 </code></pre>
+<p>Entity ID of the trigger area or zone that this entity is currently inside.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

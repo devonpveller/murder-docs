@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class VirtualAxis : IVirtualInput
 </code></pre>
+<p>Runtime state container for a 2D input axis — tracks value, direction, pressed/down state, and tick-repeat behaviour.</p>
+<p><strong>Intent:</strong> Maintain the per-frame state of a logical 2D axis mapped to one or more <code>InputButtonAxis</code> bindings.</p>
+<p><strong>Use-case:</strong> Access via <code>PlayerInput.GetAxis(int)</code>. Check <code>Value</code> or <code>IntValue</code> for the current direction, <code>Pressed</code> for the first-frame press, and <code>Tick</code>/<code>TickX</code>/<code>TickY</code> for key-repeat navigation in menus.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Murder/Core/Input/IVirtualInput.html">IVirtualInput</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public VirtualAxis()
@@ -235,17 +238,20 @@
 <h4 id="onpress"><a class="header" href="#onpress">OnPress</a></h4>
 <pre><code class="language-csharp">public event Action&lt;T&gt; OnPress;
 </code></pre>
+<p>Fired every frame the axis transitions to a non-zero state.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action-1?view=net-7.0">Action&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getactivebuttondescriptions"><a class="header" href="#getactivebuttondescriptions">GetActiveButtonDescriptions()</a></h4>
 <pre><code class="language-csharp">public IEnumerable&lt;T&gt; GetActiveButtonDescriptions()
 </code></pre>
+<p>Enumerates human-readable descriptions of the currently active button bindings for this axis.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0">IEnumerable&lt;T&gt;</a> </p>
 <h4 id="lastpressedaxesbool"><a class="header" href="#lastpressedaxesbool">LastPressedAxes(bool)</a></h4>
 <pre><code class="language-csharp">public InputButtonAxis LastPressedAxes(bool keyboard)
 </code></pre>
+<p>Returns the last <code>InputButtonAxis</code> that was pressed, from keyboard/mouse (<code>keyboard=true</code>) or gamepad (<code>keyboard=false</code>).</p>
 <p><strong>Parameters</strong> <br />
 <code>keyboard</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <p><strong>Returns</strong> <br />

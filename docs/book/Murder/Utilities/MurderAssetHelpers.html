@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class MurderAssetHelpers
 </code></pre>
+<p>Extension helpers for working with game assets — resolving file-system paths, fetching portrait sprites, and converting GUID arrays to typed asset instances.</p>
+<p><strong>Intent:</strong> Centralizes asset utility operations that are needed by multiple systems but do not belong on the asset classes themselves.</p>
+<p><strong>Use-case:</strong> Use <code>GetGameAssetPath</code> to build a storage path, <code>ToAssetArray</code> to resolve a list of GUIDs to typed assets, and portrait helpers to look up sprite assets for dialogue speakers.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getgameassetpathgameasset"><a class="header" href="#getgameassetpathgameasset">GetGameAssetPath(GameAsset)</a></h4>
 <pre><code class="language-csharp">public string GetGameAssetPath(GameAsset asset)
@@ -161,6 +164,7 @@
 <h4 id="getportraitforlineline"><a class="header" href="#getportraitforlineline">GetPortraitForLine(Line)</a></h4>
 <pre><code class="language-csharp">public T? GetPortraitForLine(Line line)
 </code></pre>
+<p>Returns the portrait sprite for the speaker in the given dialogue <code>line</code>, or <code>null</code> if no portrait is defined.</p>
 <p><strong>Parameters</strong> <br />
 <code>line</code> <a href="../../Murder/Core/Dialogs/Line.html">Line</a> </p>
 <p><strong>Returns</strong> <br />
@@ -168,6 +172,7 @@
 <h4 id="getspriteassetforportraitportrait"><a class="header" href="#getspriteassetforportraitportrait">GetSpriteAssetForPortrait(Portrait)</a></h4>
 <pre><code class="language-csharp">public T? GetSpriteAssetForPortrait(Portrait portrait)
 </code></pre>
+<p>Retrieves the <code>SpriteAsset</code> associated with the given portrait definition, or <code>null</code> if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>portrait</code> <a href="../../Murder/Core/Portrait.html">Portrait</a> </p>
 <p><strong>Returns</strong> <br />
@@ -175,6 +180,7 @@
 <h4 id="toassetarrayimmutablearray"><a class="header" href="#toassetarrayimmutablearray">ToAssetArray(ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public T[] ToAssetArray(ImmutableArray&lt;T&gt; guids)
 </code></pre>
+<p>Resolves an immutable array of asset GUIDs to a typed array of loaded <code>GameAsset</code> instances.</p>
 <p><strong>Parameters</strong> <br />
 <code>guids</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <p><strong>Returns</strong> <br />

@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Character
 </code></pre>
+<p>Immutable data record for a dialogue character asset, bundling the character's identity, default speaker, portrait, and all authored situations.</p>
+<p><strong>Intent:</strong> Represents the complete authored dialogue script for one character: who speaks, which portrait is shown by default, and the full set of <code>Situation</code>s that constitute their dialogue graph.</p>
+<p><strong>Use-case:</strong> Loaded from a <code>CharacterAsset</code> and handed to <code>CharacterRuntime</code> to drive a live dialogue session; read <code>Situations</code> to enumerate all authored dialogue trees for a character.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Character(Guid guid, Guid speaker, string portrait, ImmutableArray&lt;T&gt; situations)
 </code></pre>
+<p>Creates a fully-initialised character record with the given asset GUID, speaker GUID, default portrait, and situation dictionary.</p>
 <p><strong>Parameters</strong> <br />
 <code>guid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>speaker</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />

@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class DefaultAttribute : Attribute
 </code></pre>
 <p>Text which will be displayed when a field has a default value.</p>
+<p><strong>Intent:</strong> Provide a human-readable button label for creating or resetting a field to its default value in the editor inspector.</p>
+<p><strong>Use-case:</strong> Apply to a field or type to replace the generic “create default” button text with a context-specific label, such as “Add New Waypoint”, making the editor more intuitive for designers.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DefaultAttribute(string text)
@@ -168,6 +170,7 @@
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

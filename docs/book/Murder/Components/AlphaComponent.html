@@ -151,28 +151,34 @@
 </code></pre>
 <p>Set alpha of a component being displayed in the screen.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Stores a composite alpha value computed from multiple independent sources so any system can adjust transparency without overwriting another system's contribution.</p>
+<p><strong>Use-case:</strong> Attach to a sprite entity and use <code>Set(AlphaSources, float)</code> to let the fade system and the game logic each independently control opacity; the final <code>Alpha</code> is the product of all source values.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AlphaComponent()
 </code></pre>
 <pre><code class="language-csharp">public AlphaComponent(AlphaSources source, float amount)
 </code></pre>
+<p>Creates a component with <code>amount</code> applied to the specified <code>source</code> slot.</p>
 <p><strong>Parameters</strong> <br />
 <code>source</code> <a href="../../Murder/Components/AlphaSources.html">AlphaSources</a> <br />
 <code>amount</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <pre><code class="language-csharp">public AlphaComponent(Single[] sources)
 </code></pre>
+<p>Creates a component from a raw array of per-source alpha values.</p>
 <p><strong>Parameters</strong> <br />
 <code>sources</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float[]</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="alpha"><a class="header" href="#alpha">Alpha</a></h4>
 <pre><code class="language-csharp">public float Alpha { get; }
 </code></pre>
+<p>The final composite alpha value, computed as the product of all source slots.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="setalphasources-float"><a class="header" href="#setalphasources-float">Set(AlphaSources, float)</a></h4>
 <pre><code class="language-csharp">public AlphaComponent Set(AlphaSources source, float amount)
 </code></pre>
+<p>Returns a new <code>AlphaComponent</code> with the value for <code>source</code> updated to <code>amount</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>source</code> <a href="../../Murder/Components/AlphaSources.html">AlphaSources</a> <br />
 <code>amount</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
@@ -181,6 +187,7 @@
 <h4 id="getalphasources"><a class="header" href="#getalphasources">Get(AlphaSources)</a></h4>
 <pre><code class="language-csharp">public float Get(AlphaSources source)
 </code></pre>
+<p>Returns the alpha value currently stored for the given <code>source</code> slot.</p>
 <p><strong>Parameters</strong> <br />
 <code>source</code> <a href="../../Murder/Components/AlphaSources.html">AlphaSources</a> </p>
 <p><strong>Returns</strong> <br />

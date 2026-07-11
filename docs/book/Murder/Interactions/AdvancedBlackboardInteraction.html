@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AdvancedBlackboardInteraction : IInteraction
 </code></pre>
+<p>Executes a list of conditional <a href="../../Murder/Interactions/BlackboardAction.html">BlackboardAction</a> entries on interaction, each with its own requirement checks.</p>
+<p><strong>Intent:</strong> Applies multiple conditional blackboard mutations in a single interaction.</p>
+<p><strong>Use-case:</strong> Use when an interaction needs to evaluate and apply several independent sets of blackboard conditions and actions, such as branching story state changes triggered by a single in-world event.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AdvancedBlackboardInteraction()
@@ -157,6 +160,7 @@
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Iterates over all configured blackboard actions and invokes each one that passes its requirement checks.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

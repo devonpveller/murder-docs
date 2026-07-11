@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct PlaySoundInteraction : IInteraction
 </code></pre>
+<p>Plays a one-shot or looping sound event when the interaction fires.</p>
+<p><strong>Intent:</strong> Triggers a sound effect in response to an in-world interaction.</p>
+<p><strong>Use-case:</strong> Use to play a door creak, button click, or ambient sound cue whenever a player or entity activates an interactive object.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PlaySoundInteraction()
@@ -157,12 +160,14 @@
 <h4 id="sound"><a class="header" href="#sound">Sound</a></h4>
 <pre><code class="language-csharp">public readonly SoundEventId Sound;
 </code></pre>
+<p>The sound event identifier of the effect to play.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Sounds/SoundEventId.html">SoundEventId</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Plays the configured sound event via <code>SoundServices</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

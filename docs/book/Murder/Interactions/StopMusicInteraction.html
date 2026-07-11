@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct StopMusicInteraction : IInteraction
 </code></pre>
+<p>Stops one or all playing music events when the interaction fires.</p>
+<p><strong>Intent:</strong> Halts background music (with optional fade-out) as part of an in-world interaction.</p>
+<p><strong>Use-case:</strong> Use to silence music at a dramatic moment, transition to silence before a cutscene, or stop a specific music layer when the player leaves an area.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public StopMusicInteraction()
@@ -164,17 +167,20 @@ I will wait until we need that first.</p>
 <h4 id="fadeout"><a class="header" href="#fadeout">FadeOut</a></h4>
 <pre><code class="language-csharp">public readonly bool FadeOut;
 </code></pre>
+<p>When <code>true</code>, the music fades out gradually instead of stopping abruptly.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="music"><a class="header" href="#music">Music</a></h4>
 <pre><code class="language-csharp">public readonly T? Music;
 </code></pre>
+<p>The specific music event to stop; when <code>null</code>, all currently playing music events are stopped (except those listed in <code>ExceptFor</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Stops the configured music event (or all events), optionally fading out.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

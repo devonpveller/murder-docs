@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class MurderTransformExtensions
 </code></pre>
+<p>Extension methods for querying and modifying the <code>IMurderTransformComponent</code> on any entity.</p>
+<p><strong>Intent:</strong> Provide a convenient API for getting, setting, and checking transform components without knowing which concrete transform type is attached to an entity.</p>
+<p><strong>Use-case:</strong> Call <code>e.GetMurderTransform()</code> in any system to retrieve the entity's transform, or <code>e.SetMurderTransform(t)</code> to update it, regardless of whether the entity uses <code>PositionComponent</code> or a custom transform.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="hasmurdertransformentity"><a class="header" href="#hasmurdertransformentity">HasMurderTransform(Entity)</a></h4>
 <pre><code class="language-csharp">public bool HasMurderTransform(Entity e)
 </code></pre>
+<p>Returns <code>true</code> if the entity currently has an <code>IMurderTransformComponent</code> attached.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <p><strong>Returns</strong> <br />
@@ -160,6 +164,7 @@
 <h4 id="removemurdertransformentity"><a class="header" href="#removemurdertransformentity">RemoveMurderTransform(Entity)</a></h4>
 <pre><code class="language-csharp">public bool RemoveMurderTransform(Entity e)
 </code></pre>
+<p>Removes the <code>IMurderTransformComponent</code> from the entity if it exists and returns <code>true</code> on success.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <p><strong>Returns</strong> <br />
@@ -167,6 +172,7 @@
 <h4 id="getmurdertransformentity"><a class="header" href="#getmurdertransformentity">GetMurderTransform(Entity)</a></h4>
 <pre><code class="language-csharp">public IMurderTransformComponent GetMurderTransform(Entity e)
 </code></pre>
+<p>Retrieves the entity's <code>IMurderTransformComponent</code>, throwing if none is present.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <p><strong>Returns</strong> <br />
@@ -174,6 +180,7 @@
 <h4 id="trygetmurdertransformentity"><a class="header" href="#trygetmurdertransformentity">TryGetMurderTransform(Entity)</a></h4>
 <pre><code class="language-csharp">public IMurderTransformComponent TryGetMurderTransform(Entity e)
 </code></pre>
+<p>Attempts to retrieve the entity's <code>IMurderTransformComponent</code>, returning <code>null</code> if none is present.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <p><strong>Returns</strong> <br />
@@ -181,6 +188,7 @@
 <h4 id="setmurdertransformentity-imurdertransformcomponent"><a class="header" href="#setmurdertransformentity-imurdertransformcomponent">SetMurderTransform(Entity, IMurderTransformComponent)</a></h4>
 <pre><code class="language-csharp">public void SetMurderTransform(Entity e, IMurderTransformComponent component)
 </code></pre>
+<p>Sets or replaces the entity's <code>IMurderTransformComponent</code> with the provided value.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>component</code> <a href="../../Murder/Components/IMurderTransformComponent.html">IMurderTransformComponent</a> </p>

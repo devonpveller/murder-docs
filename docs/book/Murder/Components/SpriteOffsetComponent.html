@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SpriteOffsetComponent : IComponent
 </code></pre>
+<p>Applies a world-space pixel offset to the entity's sprite rendering position, decoupling the visual position from the logical entity position.</p>
+<p><strong>Intent:</strong> Nudge the rendered sprite relative to the entity's transform without moving the entity itself.</p>
+<p><strong>Use-case:</strong> Attach when a sprite's pivot or visual center doesn't align with the entity's logical origin, or for animation-driven positional offsets.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SpriteOffsetComponent(float x, float y)
@@ -164,6 +167,7 @@
 <h4 id="offset"><a class="header" href="#offset">Offset</a></h4>
 <pre><code class="language-csharp">public readonly Vector2 Offset;
 </code></pre>
+<p>Pixel offset in world space added to the entity's position before rendering the sprite.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p>⚡</p>

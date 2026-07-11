@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AnimationEventMessage : IMessage
 </code></pre>
+<p>A Bang message dispatched when an animation frame fires a named event.</p>
+<p><strong>Intent:</strong> Lets gameplay systems react to specific frames of an animation (e.g., a footstep at frame 3, or a sword swing at frame 7) without polling.</p>
+<p><strong>Use-case:</strong> Listen for this message on entities with a sprite component; call <code>Is()</code> to check whether the event name matches the one your system cares about.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Components/IMessage.html">IMessage</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AnimationEventMessage(string eventId)
 </code></pre>
+<p>Creates a message for the given event identifier string.</p>
 <p><strong>Parameters</strong> <br />
 <code>eventId</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
@@ -166,12 +170,14 @@ Right now this is only for debug purposes.</p>
 <h4 id="event"><a class="header" href="#event">Event</a></h4>
 <pre><code class="language-csharp">public readonly string Event;
 </code></pre>
+<p>The identifier string of the animation event that was triggered.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="isreadonlyspan"><a class="header" href="#isreadonlyspan">Is(ReadOnlySpan<T>)</a></h4>
 <pre><code class="language-csharp">public bool Is(ReadOnlySpan&lt;T&gt; eventId)
 </code></pre>
+<p>Returns <code>true</code> if the event identifier matches <code>eventId</code>, using a case-insensitive comparison without allocating a string.</p>
 <p><strong>Parameters</strong> <br />
 <code>eventId</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ReadOnlySpan-1?view=net-7.0">ReadOnlySpan&lt;T&gt;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -179,6 +185,7 @@ Right now this is only for debug purposes.</p>
 <h4 id="isstring"><a class="header" href="#isstring">Is(string)</a></h4>
 <pre><code class="language-csharp">public bool Is(string eventId)
 </code></pre>
+<p>Returns <code>true</code> if the event identifier matches <code>eventId</code> (case-insensitive string comparison).</p>
 <p><strong>Parameters</strong> <br />
 <code>eventId</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />

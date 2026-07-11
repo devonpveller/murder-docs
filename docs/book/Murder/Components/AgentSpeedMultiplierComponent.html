@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AgentSpeedMultiplierComponent : IComponent
 </code></pre>
+<p>Holds an array of per-slot speed multipliers applied on top of the agent's base speed.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Allows multiple independent systems to each apply a fractional speed modifier to an agent without overwriting one another.</p>
+<p><strong>Use-case:</strong> A status-effect system sets slot 0 to <code>0.5</code> to halve the agent's speed; another system sets slot 1 to <code>0.8</code> for a second debuff — the final speed is the product of all slot values multiplied by the base speed.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AgentSpeedMultiplierComponent(int slot, float speedMultiplier)
 </code></pre>
+<p>Creates a component with <code>speedMultiplier</code> written into <code>slot</code> and all other slots set to <code>1.0</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>slot</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>speedMultiplier</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
@@ -160,6 +164,7 @@
 <h4 id="_emptytemplate"><a class="header" href="#_emptytemplate">_emptyTemplate</a></h4>
 <pre><code class="language-csharp">public readonly static ImmutableArray&lt;T&gt; _emptyTemplate;
 </code></pre>
+<p>Default template with all 8 multiplier slots initialized to <code>1.0</code> (no modification).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="speedmultiplier"><a class="header" href="#speedmultiplier">SpeedMultiplier</a></h4>

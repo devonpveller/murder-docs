@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class TilemapNoFloorRenderSystem : IMurderRenderSystem, IRenderSystem, ISystem
 </code></pre>
 <p>Draws only the Tilemap and not the floor. Will still draw aditional tiles on floor tiles, like reflections.</p>
+<p><strong>Intent:</strong> Renders tilemap layers while skipping the floor-tile pass, but still draws floor-tile extras such as reflections.</p>
+<p><strong>Use-case:</strong> Use instead of <code>TilemapAndFloorRenderSystem</code> when the floor tile geometry is rendered separately (e.g., behind other layers).</p>
 <p><strong>Implements:</strong> <em><a href="../../../Murder/Core/Graphics/IMurderRenderSystem.html">IMurderRenderSystem</a>, <a href="../../../Bang/Systems/IRenderSystem.html">IRenderSystem</a>, <a href="../../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TilemapNoFloorRenderSystem()

@@ -149,38 +149,48 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SmartInt
 </code></pre>
+<p>An integer value that can hold a literal constant or reference an index into a <code>SmartIntAsset</code>, enabling data-driven numeric authoring.</p>
+<p><strong>Intent:</strong> Provides a runtime-resolved integer that designers can drive from a shared asset or override with a literal value.</p>
+<p><strong>Use-case:</strong> Use on components with integer parameters (counts, thresholds, layer indices) that should be shareable across many entities via a central <code>SmartIntAsset</code>.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SmartInt()
 </code></pre>
+<p>Creates a <code>SmartInt</code> with value 0 and no asset reference.</p>
 <pre><code class="language-csharp">public SmartInt(Guid guid, int index, int custom)
 </code></pre>
+<p>Creates a <code>SmartInt</code> that resolves its value from a <code>SmartIntAsset</code> identified by <code>guid</code> and <code>index</code>, falling back to <code>custom</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>guid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>custom</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <pre><code class="language-csharp">public SmartInt(int custom)
 </code></pre>
+<p>Creates a <code>SmartInt</code> that always returns the given literal <code>custom</code> value.</p>
 <p><strong>Parameters</strong> <br />
 <code>custom</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="asset"><a class="header" href="#asset">Asset</a></h4>
 <pre><code class="language-csharp">public readonly Guid Asset;
 </code></pre>
+<p>The GUID of the <code>SmartIntAsset</code> to resolve the value from, or <code>Guid.Empty</code> for a literal value.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="custom"><a class="header" href="#custom">Custom</a></h4>
 <pre><code class="language-csharp">public readonly int Custom;
 </code></pre>
+<p>The literal integer value used when <code>Asset</code> is empty or cannot be resolved.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="index"><a class="header" href="#index">Index</a></h4>
 <pre><code class="language-csharp">public readonly int Index;
 </code></pre>
+<p>The index into the <code>SmartIntAsset</code> array to read when resolving the value.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="int"><a class="header" href="#int">Int</a></h4>
 <pre><code class="language-csharp">public int Int { get; }
 </code></pre>
+<p>The resolved integer value: reads from the referenced <code>SmartIntAsset</code> if available, otherwise returns <code>Custom</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

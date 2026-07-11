@@ -150,14 +150,18 @@
 <pre><code class="language-csharp">public abstract class ISoundBlackboard : IBlackboard
 </code></pre>
 <p>This tracks and listens to parameters relevant to music and sound.</p>
+<p><strong>Intent:</strong> Marks a blackboard as sound-scoped so the engine routes its facts to the audio parameter store rather than the gameplay or character stores.</p>
+<p><strong>Use-case:</strong> Extend this class when creating a blackboard whose facts drive FMOD parameters or other adaptive audio systems; annotate it with <code>[Blackboard]</code> as usual.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Murder/Core/Dialogs/IBlackboard.html">IBlackboard</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">protected ISoundBlackboard()
 </code></pre>
+<p>Protected constructor for subclasses.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="kind"><a class="header" href="#kind">Kind</a></h4>
 <pre><code class="language-csharp">public virtual BlackboardKind Kind { get; }
 </code></pre>
+<p>Always returns <code>BlackboardKind.Sound</code> for sound-parameter blackboards.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardKind.html">BlackboardKind</a> </p>
 <p>⚡</p>

@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class WorldServices
 </code></pre>
+<p>Extension utilities for querying world-level metadata from a Bang <code>World</code>.</p>
+<p><strong>Intent:</strong> Provides helpers that extract Murder-specific information from a generic <code>World</code> instance.</p>
+<p><strong>Use-case:</strong> Call <code>Guid</code> to retrieve the <code>Guid</code> of the current world's asset, useful for save-state tracking and scene comparison.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="guidworld"><a class="header" href="#guidworld">Guid(World)</a></h4>
 <pre><code class="language-csharp">public Guid Guid(World world)
 </code></pre>
+<p>Returns the <code>Guid</code> of the world asset that the <code>MonoWorld</code> instance was created from.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> </p>
 <p><strong>Returns</strong> <br />

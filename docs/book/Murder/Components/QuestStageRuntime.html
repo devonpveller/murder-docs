@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct QuestStageRuntime
 </code></pre>
+<p>Runtime representation of a single quest stage, holding the evaluated requirements and pending actions for the current session.</p>
+<p><strong>Intent:</strong> Cache the evaluated state of a <a href="../../Murder/Components/QuestStage.html">QuestStage</a> so it can be checked and advanced each frame without re-reading the asset.</p>
+<p><strong>Use-case:</strong> Created automatically from <a href="../../Murder/Components/QuestTrackerComponent.html">QuestTrackerComponent</a> data at runtime and stored in <a href="../../Murder/Components/QuestTrackerRuntimeComponent.html">QuestTrackerRuntimeComponent</a>.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public QuestStageRuntime()
 </code></pre>
@@ -161,11 +164,13 @@
 <h4 id="actions"><a class="header" href="#actions">Actions</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Actions;
 </code></pre>
+<p>Pending actions for this stage that will be executed when requirements are met.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="requirements"><a class="header" href="#requirements">Requirements</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Requirements;
 </code></pre>
+<p>Current runtime state of each requirement criterion for this quest stage.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <p>⚡</p>

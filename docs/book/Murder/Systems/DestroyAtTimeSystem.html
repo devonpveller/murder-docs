@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class DestroyAtTimeSystem : IUpdateSystem, ISystem
 </code></pre>
+<p>Checks entities with <code>DestroyAtTimeComponent</code> each update and destroys or deactivates them once <code>Game.Now</code> surpasses their scheduled time.</p>
+<p><strong>Intent:</strong> Implements timed entity lifecycle management by removing or deactivating entities at a pre-specified game time.</p>
+<p><strong>Use-case:</strong> Attach <code>DestroyAtTimeComponent</code> to any temporary entity (projectile, visual effect, timer) and this system will clean it up automatically when the time is reached.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IUpdateSystem.html">IUpdateSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DestroyAtTimeSystem()
@@ -157,12 +160,14 @@
 <h4 id="destroyentityworld-entity"><a class="header" href="#destroyentityworld-entity">DestroyEntity(World, Entity)</a></h4>
 <pre><code class="language-csharp">protected virtual void DestroyEntity(World world, Entity e)
 </code></pre>
+<p>Called when the scheduled time is reached; override to customize destruction behaviour (default implementation destroys the entity).</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <h4 id="updatecontext"><a class="header" href="#updatecontext">Update(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Update(Context context)
 </code></pre>
+<p>Iterates all entities with <code>DestroyAtTimeComponent</code> and destroys or deactivates each one whose scheduled time has passed.</p>
 <p><strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <p>⚡</p>

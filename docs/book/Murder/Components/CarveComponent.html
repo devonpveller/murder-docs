@@ -153,6 +153,8 @@
 should be taken into account on pathfinding).
 This a tag used when caching information in <a href="../../Murder/Core/Map.html">Map</a>.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Marks a stationary entity as a pathfinding obstacle (or path-opener) so the map cache knows to update the navigation grid around it.</p>
+<p><strong>Use-case:</strong> Attach to walls, furniture, or bridge entities that do not move every frame; the pathfinding system bakes their influence into the navigation grid rather than re-computing it live.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public CarveComponent()
 </code></pre>
@@ -167,6 +169,7 @@ This a tag used when caching information in <a href="../../Murder/Core/Map.html"
 <h4 id="blockvision"><a class="header" href="#blockvision">BlockVision</a></h4>
 <pre><code class="language-csharp">public readonly bool BlockVision;
 </code></pre>
+<p>When <code>true</code>, this entity blocks line-of-sight checks in addition to blocking movement.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="carveclearpath"><a class="header" href="#carveclearpath">CarveClearPath</a></h4>
@@ -184,6 +187,7 @@ For example, a bridge over a river.</p>
 <h4 id="obstacle"><a class="header" href="#obstacle">Obstacle</a></h4>
 <pre><code class="language-csharp">public readonly bool Obstacle;
 </code></pre>
+<p>When <code>true</code>, this entity is treated as an impassable obstacle on the navigation grid.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="weight"><a class="header" href="#weight">Weight</a></h4>
@@ -197,6 +201,7 @@ Ignored if <a href="../../Murder/Components/CarveComponent.html#obstacle">CarveC
 <h4 id="withclearpathbool"><a class="header" href="#withclearpathbool">WithClearPath(bool)</a></h4>
 <pre><code class="language-csharp">public CarveComponent WithClearPath(bool clearPath)
 </code></pre>
+<p>Returns a copy of this component with <code>ClearPath</code> set to <code>clearPath</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>clearPath</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <p><strong>Returns</strong> <br />

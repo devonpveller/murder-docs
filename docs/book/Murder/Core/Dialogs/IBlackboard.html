@@ -151,10 +151,13 @@
 </code></pre>
 <p>This is a blackboard tracker with dialogue variables.
 This is used when defining the set of conditions which will play a given dialog.</p>
+<p><strong>Intent:</strong> Defines the contract for any blackboard implementation — a key-value store of typed dialogue variables that drive conditional dialogue logic.</p>
+<p><strong>Use-case:</strong> Implement this interface (or extend <code>ICharacterBlackboard</code> / <code>ISoundBlackboard</code>) to create a custom blackboard class, annotate it with <code>[Blackboard]</code>, and expose public fields for every fact the dialogue system should be able to read or write.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="kind"><a class="header" href="#kind">Kind</a></h4>
 <pre><code class="language-csharp">public virtual BlackboardKind Kind { get; }
 </code></pre>
+<p>Identifies which blackboard scope this instance belongs to; defaults to <code>BlackboardKind.Gameplay</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardKind.html">BlackboardKind</a> </p>
 <p>⚡</p>

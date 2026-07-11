@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct PauseAnimationComponent : IComponent
 </code></pre>
 <p>Struct to describe an entity that will not never have its animation paused.</p>
+<p><strong>Intent:</strong> Mark an entity whose animation should be frozen at its current frame, preventing it from advancing.</p>
+<p><strong>Use-case:</strong> Add to an entity when you need to freeze its animation (e.g. during a cutscene or a freeze effect); remove the component to resume normal playback.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <p>⚡</p>
 

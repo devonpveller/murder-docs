@@ -150,19 +150,24 @@
 <pre><code class="language-csharp">public class BaseCharacterBlackboard : ICharacterBlackboard, IBlackboard
 </code></pre>
 <p>Built-in capabilities for each speaker blackboard.</p>
+<p><strong>Intent:</strong> Provides the default blackboard implementation shared by all dialogue speakers, tracking built-in per-character state such as total interaction counts.</p>
+<p><strong>Use-case:</strong> Inherit from this class when creating a custom character blackboard so you automatically get standard character facts (e.g. <code>TotalInteractions</code>) alongside your own fields.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Murder/Core/Dialogs/ICharacterBlackboard.html">ICharacterBlackboard</a>, <a href="../../../Murder/Core/Dialogs/IBlackboard.html">IBlackboard</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public BaseCharacterBlackboard()
 </code></pre>
+<p>Initializes a new instance of the base character blackboard with default values.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="kind"><a class="header" href="#kind">Kind</a></h4>
 <pre><code class="language-csharp">public virtual BlackboardKind Kind { get; }
 </code></pre>
+<p>Returns <code>BlackboardKind.Character</code>, indicating this blackboard tracks per-character dialogue state.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardKind.html">BlackboardKind</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public static const string Name;
 </code></pre>
+<p>The registered blackboard name (<code>&quot;Character&quot;</code>), used to look up this blackboard type in the engine.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="totalinteractions"><a class="header" href="#totalinteractions">TotalInteractions</a></h4>

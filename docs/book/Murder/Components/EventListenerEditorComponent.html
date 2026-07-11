@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct EventListenerEditorComponent : IComponent
 </code></pre>
+<p>Editor-facing component that stores a list of <code>SpriteEventInfo</code> entries authored in the inspector, later converted to a runtime <code>EventListenerComponent</code>.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Provides a serializable, editor-editable format for animation event bindings that is converted to the efficient runtime dictionary form on world load.</p>
+<p><strong>Use-case:</strong> Set up animation event → sound/interaction bindings in the editor via this component; <code>WorldHelper.ToEventListener</code> converts it to <code>EventListenerComponent</code> at runtime.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public EventListenerEditorComponent()
 </code></pre>
@@ -157,6 +160,7 @@
 <h4 id="events"><a class="header" href="#events">Events</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Events;
 </code></pre>
+<p>Ordered list of <code>SpriteEventInfo</code> entries defining the animation events and their associated sounds and interactions.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <p>⚡</p>

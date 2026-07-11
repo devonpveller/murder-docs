@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class GameLogger
 </code></pre>
+<p>Singleton debug console and logging system for the Murder engine.</p>
+<p><strong>Intent:</strong> Provides the central interface for emitting log messages, performance data, and rendering an in-game debug console that can parse and dispatch <code>CommandServices</code> commands.</p>
+<p><strong>Use-case:</strong> Call <code>GameLogger.Log</code>, <code>GameLogger.Warning</code>, or <code>GameLogger.Error</code> to emit messages; call <code>DrawConsole</code> each frame (in debug mode) to render the interactive console overlay.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">protected GameLogger()
 </code></pre>
@@ -157,11 +160,13 @@
 <h4 id="_instance"><a class="header" href="#_instance">_instance</a></h4>
 <pre><code class="language-csharp">protected static GameLogger _instance;
 </code></pre>
+<p>The singleton instance; created lazily via <code>GetOrCreateInstance()</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Diagnostics/GameLogger.html">GameLogger</a> </p>
 <h4 id="_lastinputindex"><a class="header" href="#_lastinputindex">_lastInputIndex</a></h4>
 <pre><code class="language-csharp">protected int _lastInputIndex;
 </code></pre>
+<p>Current index into <code>_lastInputs</code> for navigating command history with the up/down arrows.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="_lastinputs"><a class="header" href="#_lastinputs">_lastInputs</a></h4>
@@ -173,31 +178,37 @@
 <h4 id="_log"><a class="header" href="#_log">_log</a></h4>
 <pre><code class="language-csharp">protected readonly List&lt;T&gt; _log;
 </code></pre>
+<p>In-memory list of all <code>LogLine</code> entries accumulated during the session.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <h4 id="_resetinputfocus"><a class="header" href="#_resetinputfocus">_resetInputFocus</a></h4>
 <pre><code class="language-csharp">protected bool _resetInputFocus;
 </code></pre>
+<p>When <code>true</code>, the console input field will be re-focused on the next draw frame.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="_scrolltobottom"><a class="header" href="#_scrolltobottom">_scrollToBottom</a></h4>
 <pre><code class="language-csharp">protected int _scrollToBottom;
 </code></pre>
+<p>Counter used to force the console output to scroll to the most recent entry for the next N frames.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="_showdebug"><a class="header" href="#_showdebug">_showDebug</a></h4>
 <pre><code class="language-csharp">protected bool _showDebug;
 </code></pre>
+<p>Whether the debug console overlay is currently visible.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="_tracecount"><a class="header" href="#_tracecount">_traceCount</a></h4>
 <pre><code class="language-csharp">protected static const int _traceCount;
 </code></pre>
+<p>Number of stack frames included when logging exception traces.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="isshowing"><a class="header" href="#isshowing">IsShowing</a></h4>
 <pre><code class="language-csharp">public static bool IsShowing { get; }
 </code></pre>
+<p>Returns <code>true</code> if the debug console overlay is currently open and visible.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
@@ -216,19 +227,23 @@
 <h4 id="topbarboolean"><a class="header" href="#topbarboolean">TopBar(Boolean&amp;)</a></h4>
 <pre><code class="language-csharp">protected virtual void TopBar(Boolean&amp; copy)
 </code></pre>
+<p>Renders the top toolbar of the console window; override to customize toolbar content.</p>
 <p><strong>Parameters</strong> <br />
 <code>copy</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool&amp;</a> </p>
 <h4 id="clearlog"><a class="header" href="#clearlog">ClearLog()</a></h4>
 <pre><code class="language-csharp">protected void ClearLog()
 </code></pre>
+<p>Clears all entries from the in-memory log list.</p>
 <h4 id="logcommandstring"><a class="header" href="#logcommandstring">LogCommand(string)</a></h4>
 <pre><code class="language-csharp">protected void LogCommand(string msg)
 </code></pre>
+<p>Appends <code>msg</code> to the log with the command-input styling.</p>
 <p><strong>Parameters</strong> <br />
 <code>msg</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="logcommandoutputstring"><a class="header" href="#logcommandoutputstring">LogCommandOutput(string)</a></h4>
 <pre><code class="language-csharp">protected void LogCommandOutput(string msg)
 </code></pre>
+<p>Appends <code>msg</code> to the log with the command-output styling.</p>
 <p><strong>Parameters</strong> <br />
 <code>msg</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="capturecrashexception-string"><a class="header" href="#capturecrashexception-string">CaptureCrash(Exception, string)</a></h4>
@@ -243,16 +258,19 @@
 <h4 id="getorcreateinstance"><a class="header" href="#getorcreateinstance">GetOrCreateInstance()</a></h4>
 <pre><code class="language-csharp">public GameLogger GetOrCreateInstance()
 </code></pre>
+<p>Returns the existing singleton instance or creates a new one if none exists.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Diagnostics/GameLogger.html">GameLogger</a> </p>
 <h4 id="fetchlogs"><a class="header" href="#fetchlogs">FetchLogs()</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; FetchLogs()
 </code></pre>
+<p>Returns an immutable snapshot of all log message strings accumulated so far.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="getcurrentlog"><a class="header" href="#getcurrentlog">GetCurrentLog()</a></h4>
 <pre><code class="language-csharp">public string GetCurrentLog()
 </code></pre>
+<p>Returns all log entries concatenated into a single newline-delimited string.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="drawconsolefunct-tresult"><a class="header" href="#drawconsolefunct-tresult">DrawConsole(Func&lt;T, TResult&gt;)</a></h4>
@@ -264,20 +282,24 @@
 <h4 id="trackimplstring-object"><a class="header" href="#trackimplstring-object">TrackImpl(string, Object)</a></h4>
 <pre><code class="language-csharp">public virtual void TrackImpl(string variableName, Object value)
 </code></pre>
+<p>Records a named variable value for live display in the debug overlay.</p>
 <p><strong>Parameters</strong> <br />
 <code>variableName</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <h4 id="clearallgraphs"><a class="header" href="#clearallgraphs">ClearAllGraphs()</a></h4>
 <pre><code class="language-csharp">public void ClearAllGraphs()
 </code></pre>
+<p>Removes all tracked graph data from all registered graph loggers.</p>
 <h4 id="cleargraphstring"><a class="header" href="#cleargraphstring">ClearGraph(string)</a></h4>
 <pre><code class="language-csharp">public void ClearGraph(string callerFilePath)
 </code></pre>
+<p>Clears the graph data for the file identified by <code>callerFilePath</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>callerFilePath</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="errorstring-string-int"><a class="header" href="#errorstring-string-int">Error(string, string, int)</a></h4>
 <pre><code class="language-csharp">public void Error(string msg, string memberName, int lineNumber)
 </code></pre>
+<p>Emits an error message tagged with the caller's member name and line number.</p>
 <p><strong>Parameters</strong> <br />
 <code>msg</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>memberName</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -291,29 +313,34 @@
 <h4 id="initializebool"><a class="header" href="#initializebool">Initialize(bool)</a></h4>
 <pre><code class="language-csharp">public void Initialize(bool diagnostic)
 </code></pre>
+<p>Sets up the logger; when <code>diagnostic</code> is <code>true</code>, hooks into <code>AppDomain.FirstChanceException</code> to log unhandled exceptions.</p>
 <p><strong>Parameters</strong> <br />
 <code>diagnostic</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="logstring-vector4"><a class="header" href="#logstring-vector4">Log(string, Vector4)</a></h4>
 <pre><code class="language-csharp">public void Log(string v, Vector4 color)
 </code></pre>
+<p>Emits a log message with the given RGBA color tint.</p>
 <p><strong>Parameters</strong> <br />
 <code>v</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>color</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="logstring-t"><a class="header" href="#logstring-t">Log(string, T?)</a></h4>
 <pre><code class="language-csharp">public void Log(string v, T? color)
 </code></pre>
+<p>Emits a log message with an optional color tint.</p>
 <p><strong>Parameters</strong> <br />
 <code>v</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>color</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="logperfstring-t"><a class="header" href="#logperfstring-t">LogPerf(string, T?)</a></h4>
 <pre><code class="language-csharp">public void LogPerf(string v, T? color)
 </code></pre>
+<p>Emits a performance-timing message, displayed with a distinct styling in the console.</p>
 <p><strong>Parameters</strong> <br />
 <code>v</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>color</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="plotgraphfloat-int-string"><a class="header" href="#plotgraphfloat-int-string">PlotGraph(float, int, string)</a></h4>
 <pre><code class="language-csharp">public void PlotGraph(float point, int max, string callerFilePath)
 </code></pre>
+<p>Forwards a data point with an explicit maximum to the registered <code>GraphLogger</code> for the calling file.</p>
 <p><strong>Parameters</strong> <br />
 <code>point</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>max</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -321,20 +348,24 @@
 <h4 id="plotgraphfloat-string"><a class="header" href="#plotgraphfloat-string">PlotGraph(float, string)</a></h4>
 <pre><code class="language-csharp">public void PlotGraph(float point, string callerFilePath)
 </code></pre>
+<p>Forwards a data point to the registered <code>GraphLogger</code> for the calling file.</p>
 <p><strong>Parameters</strong> <br />
 <code>point</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>callerFilePath</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="togglebool"><a class="header" href="#togglebool">Toggle(bool)</a></h4>
 <pre><code class="language-csharp">public void Toggle(bool value)
 </code></pre>
+<p>Shows or hides the debug console overlay.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="toggledebugwindow"><a class="header" href="#toggledebugwindow">ToggleDebugWindow()</a></h4>
 <pre><code class="language-csharp">public void ToggleDebugWindow()
 </code></pre>
+<p>Flips the visibility of the debug console overlay and resets focus when opening.</p>
 <h4 id="trackstring-object"><a class="header" href="#trackstring-object">Track(string, Object)</a></h4>
 <pre><code class="language-csharp">public void Track(string variableName, Object value)
 </code></pre>
+<p>Records a named variable for live display in the debug overlay; delegates to <code>TrackImpl</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>variableName</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
@@ -354,6 +385,7 @@
 <h4 id="warningstring-string-int"><a class="header" href="#warningstring-string-int">Warning(string, string, int)</a></h4>
 <pre><code class="language-csharp">public void Warning(string msg, string memberName, int lineNumber)
 </code></pre>
+<p>Emits a warning message tagged with the caller's member name and line number.</p>
 <p><strong>Parameters</strong> <br />
 <code>msg</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>memberName</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />

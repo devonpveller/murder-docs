@@ -149,14 +149,19 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class SimpleButton
 </code></pre>
+<p>A lightweight UI button that tracks hover, press, and disabled states and renders the appropriate sprite frame from a sprite asset.</p>
+<p><strong>Intent:</strong> Minimal clickable button for in-game UI menus that doesn't require a full UI framework.</p>
+<p><strong>Use-case:</strong> Instantiate with a sprite asset GUID and a screen rectangle, call <code>Update</code> each frame with the cursor position and click state, and call <code>Draw</code> to render it.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SimpleButton(Guid images, Rectangle rectangle)
 </code></pre>
+<p>Creates a button with the given sprite asset and screen rectangle in the default <code>Normal</code> state.</p>
 <p><strong>Parameters</strong> <br />
 <code>images</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>rectangle</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <pre><code class="language-csharp">public SimpleButton(Guid images, ButtonState state, Rectangle rectangle)
 </code></pre>
+<p>Creates a button with the given sprite asset, initial state, and screen rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>images</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>state</code> <a href="../../../Murder/Core/Ui/ButtonState.html">ButtonState</a> <br />
@@ -165,28 +170,33 @@
 <h4 id="images"><a class="header" href="#images">Images</a></h4>
 <pre><code class="language-csharp">public Guid Images;
 </code></pre>
+<p>The GUID of the sprite asset used to draw the button in each of its states.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="rectangle"><a class="header" href="#rectangle">Rectangle</a></h4>
 <pre><code class="language-csharp">public Rectangle Rectangle;
 </code></pre>
+<p>The screen-space rectangle that defines the button's hit area and render bounds.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <h4 id="state"><a class="header" href="#state">State</a></h4>
 <pre><code class="language-csharp">public ButtonState State;
 </code></pre>
+<p>The current interaction state of the button (Normal, Hover, Down, or Disabled).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Ui/ButtonState.html">ButtonState</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="drawbatch2d-drawinfo"><a class="header" href="#drawbatch2d-drawinfo">Draw(Batch2D, DrawInfo)</a></h4>
 <pre><code class="language-csharp">public void Draw(Batch2D batch, DrawInfo drawInfo)
 </code></pre>
+<p>Draws the button sprite corresponding to the current <code>State</code> to <code>batch</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>drawInfo</code> <a href="../../../Murder/Core/Graphics/DrawInfo.html">DrawInfo</a> </p>
 <h4 id="updatepoint-bool-bool-action"><a class="header" href="#updatepoint-bool-bool-action">Update(Point, bool, bool, Action)</a></h4>
 <pre><code class="language-csharp">public void Update(Point cursorPosition, bool cursorClicked, bool cursorDown, Action action)
 </code></pre>
+<p>Updates the button's <code>State</code> based on cursor input. Invokes <code>action</code> when the button is clicked (cursor released over it).</p>
 <p><strong>Parameters</strong> <br />
 <code>cursorPosition</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> <br />
 <code>cursorClicked</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> <br />
@@ -195,6 +205,7 @@
 <h4 id="updatepositionrectangle"><a class="header" href="#updatepositionrectangle">UpdatePosition(Rectangle)</a></h4>
 <pre><code class="language-csharp">public void UpdatePosition(Rectangle rectangle)
 </code></pre>
+<p>Updates the button's hit area and render bounds to the new <code>rectangle</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>rectangle</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <p>⚡</p>

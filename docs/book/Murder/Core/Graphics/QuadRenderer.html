@@ -151,15 +151,19 @@
 </code></pre>
 <p>Renders a simple quad to the screen. Uncomment the Vertex / Index buffers to make it a static fullscreen quad. 
 The performance effect is barely measurable though and you need to dispose of the buffers when finished!</p>
+<p><strong>Intent:</strong> Provides a minimal GPU path for drawing a single screen-space quad, typically used as a full-screen blit for post-processing passes.</p>
+<p><strong>Use-case:</strong> Instantiate once per render context and call <code>RenderQuad()</code> each frame to push a shader-driven quad through the GPU without the overhead of a sprite batch.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public QuadRenderer(GraphicsDevice _)
 </code></pre>
+<p>Initializes the vertex and index buffers for a screen-space quad. The <code>GraphicsDevice</code> parameter is accepted for API compatibility but not stored.</p>
 <p><strong>Parameters</strong> <br />
 <code>_</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.GraphicsDevice.html">GraphicsDevice</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="renderquadgraphicsdevice-vector2-vector2"><a class="header" href="#renderquadgraphicsdevice-vector2-vector2">RenderQuad(GraphicsDevice, Vector2, Vector2)</a></h4>
 <pre><code class="language-csharp">public void RenderQuad(GraphicsDevice graphicsDevice, Vector2 v1, Vector2 v2)
 </code></pre>
+<p>Draws a single quad from corner <code>v1</code> to corner <code>v2</code> using the provided graphics device and the current shader state.</p>
 <p><strong>Parameters</strong> <br />
 <code>graphicsDevice</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.GraphicsDevice.html">GraphicsDevice</a> <br />
 <code>v1</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector2.html">Vector2</a> <br />

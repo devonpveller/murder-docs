@@ -149,31 +149,39 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class Quadtree
 </code></pre>
+<p>Top-level spatial index that maintains three separate <code>QTNode&lt;T&gt;</code> trees for collision, push-away, and static rendering queries.</p>
+<p><strong>Intent:</strong> The engine's primary broad-phase spatial acceleration structure for fast overlap and proximity queries.</p>
+<p><strong>Use-case:</strong> Retrieved via <code>Quadtree.GetOrCreateUnique(world)</code> in physics systems; add entities with <code>AddToCollisionQuadTree</code> and query with <code>GetCollisionEntitiesAt</code> to find potential collision candidates.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Quadtree(Rectangle mapBounds)
 </code></pre>
+<p>Creates a <code>Quadtree</code> that covers the given world-space <code>mapBounds</code> rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>mapBounds</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="collision"><a class="header" href="#collision">Collision</a></h4>
 <pre><code class="language-csharp">public readonly QTNode&lt;T&gt; Collision;
 </code></pre>
+<p>The quadtree partition containing all entities registered for collision queries.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Physics/QTNode-1.html">QTNode&lt;T&gt;</a> </p>
 <h4 id="pushaway"><a class="header" href="#pushaway">PushAway</a></h4>
 <pre><code class="language-csharp">public readonly QTNode&lt;T&gt; PushAway;
 </code></pre>
+<p>The quadtree partition containing entities that push other actors away (solid body separation).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Physics/QTNode-1.html">QTNode&lt;T&gt;</a> </p>
 <h4 id="staticrender"><a class="header" href="#staticrender">StaticRender</a></h4>
 <pre><code class="language-csharp">public readonly QTNode&lt;T&gt; StaticRender;
 </code></pre>
+<p>The quadtree partition containing static entities used for render-culling queries.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Physics/QTNode-1.html">QTNode&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getorcreateuniqueworld"><a class="header" href="#getorcreateuniqueworld">GetOrCreateUnique(World)</a></h4>
 <pre><code class="language-csharp">public Quadtree GetOrCreateUnique(World world)
 </code></pre>
+<p>Retrieves the singleton <code>Quadtree</code> stored in the world, creating it if it does not exist.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../../Bang/World.html">World</a> </p>
 <p><strong>Returns</strong> <br />
@@ -181,27 +189,32 @@
 <h4 id="addtocollisionquadtreeienumerable"><a class="header" href="#addtocollisionquadtreeienumerable">AddToCollisionQuadTree(IEnumerable<T>)</a></h4>
 <pre><code class="language-csharp">public void AddToCollisionQuadTree(IEnumerable&lt;T&gt; entities)
 </code></pre>
+<p>Inserts the given entities into the collision quadtree partition.</p>
 <p><strong>Parameters</strong> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0">IEnumerable&lt;T&gt;</a> </p>
 <h4 id="addtostaticrenderquadtreeienumerable"><a class="header" href="#addtostaticrenderquadtreeienumerable">AddToStaticRenderQuadTree(IEnumerable<T>)</a></h4>
 <pre><code class="language-csharp">public void AddToStaticRenderQuadTree(IEnumerable&lt;T&gt; entities)
 </code></pre>
+<p>Inserts the given entities into the static render quadtree partition.</p>
 <p><strong>Parameters</strong> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0">IEnumerable&lt;T&gt;</a> </p>
 <h4 id="getcollisionentitiesatrectangle-list"><a class="header" href="#getcollisionentitiesatrectangle-list">GetCollisionEntitiesAt(Rectangle, List<T>)</a></h4>
 <pre><code class="language-csharp">public void GetCollisionEntitiesAt(Rectangle boundingBox, List&lt;T&gt; list)
 </code></pre>
+<p>Populates <code>list</code> with all entities in the collision partition whose bounding box overlaps <code>boundingBox</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>boundingBox</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
 <code>list</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <h4 id="removefromcollisionquadtreeienumerable"><a class="header" href="#removefromcollisionquadtreeienumerable">RemoveFromCollisionQuadTree(IEnumerable<T>)</a></h4>
 <pre><code class="language-csharp">public void RemoveFromCollisionQuadTree(IEnumerable&lt;T&gt; entities)
 </code></pre>
+<p>Removes the given entities from the collision quadtree partition.</p>
 <p><strong>Parameters</strong> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0">IEnumerable&lt;T&gt;</a> </p>
 <h4 id="removefromstaticrenderquadtreeienumerable"><a class="header" href="#removefromstaticrenderquadtreeienumerable">RemoveFromStaticRenderQuadTree(IEnumerable<T>)</a></h4>
 <pre><code class="language-csharp">public void RemoveFromStaticRenderQuadTree(IEnumerable&lt;T&gt; entities)
 </code></pre>
+<p>Removes the given entities from the static render quadtree partition.</p>
 <p><strong>Parameters</strong> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0">IEnumerable&lt;T&gt;</a> </p>
 <h4 id="updatequadtreeienumerable"><a class="header" href="#updatequadtreeienumerable">UpdateQuadTree(IEnumerable<T>)</a></h4>

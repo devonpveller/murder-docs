@@ -150,52 +150,63 @@
 <pre><code class="language-csharp">public class Coroutine : StateMachine
 </code></pre>
 <p>This CANNOT and WONT be serialized it is just a bad idea. Remember, we can't (or don't want to) serialize lambdas.</p>
+<p><strong>Intent:</strong> Wraps a caller-supplied <code>IEnumerator&lt;Wait&gt;</code> routine inside a <code>StateMachine</code> so any iterator-based coroutine can be driven by the Bang ECS scheduler without needing a dedicated class.</p>
+<p><strong>Use-case:</strong> Create a one-off coroutine in-place via <code>new Coroutine(MyMethod())</code> and attach it as a state-machine component to a temporary entity rather than writing a full <code>StateMachine</code> subclass.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/StateMachines/StateMachine.html">StateMachine</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Coroutine()
 </code></pre>
 <pre><code class="language-csharp">public Coroutine(IEnumerator&lt;T&gt; routine)
 </code></pre>
+<p>Creates a coroutine state machine that will run <code>routine</code> until it completes.</p>
 <p><strong>Parameters</strong> <br />
 <code>routine</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerator-1?view=net-7.0">IEnumerator&lt;T&gt;</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="entity"><a class="header" href="#entity">Entity</a></h4>
 <pre><code class="language-csharp">protected Entity Entity;
 </code></pre>
+<p>The ECS entity that owns this state machine, set by the Bang framework on start.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public string Name { get; }
 </code></pre>
+<p>Debug name of this state machine (typically the class name).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="persiststateonsave"><a class="header" href="#persiststateonsave">PersistStateOnSave</a></h4>
 <pre><code class="language-csharp">protected virtual bool PersistStateOnSave { get; }
 </code></pre>
+<p>When <code>false</code> (the default for <code>Coroutine</code>), the state machine state is not persisted across save/load.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="world"><a class="header" href="#world">World</a></h4>
 <pre><code class="language-csharp">protected World World;
 </code></pre>
+<p>The ECS world in which this state machine is running.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Bang/World.html">World</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="onmessageimessage"><a class="header" href="#onmessageimessage">OnMessage(IMessage)</a></h4>
 <pre><code class="language-csharp">protected virtual void OnMessage(IMessage message)
 </code></pre>
+<p>Called when a message is dispatched to the owning entity; override to handle specific messages.</p>
 <p><strong>Parameters</strong> <br />
 <code>message</code> <a href="../../Bang/Components/IMessage.html">IMessage</a> </p>
 <h4 id="onstart"><a class="header" href="#onstart">OnStart()</a></h4>
 <pre><code class="language-csharp">protected virtual void OnStart()
 </code></pre>
+<p>Called once when the state machine is first activated; override to perform initialization.</p>
 <h4 id="transitionfunc"><a class="header" href="#transitionfunc">Transition(Func<TResult>)</a></h4>
 <pre><code class="language-csharp">protected virtual void Transition(Func&lt;TResult&gt; routine)
 </code></pre>
+<p>Transitions the state machine to the given routine immediately, without waiting for the current tick to finish.</p>
 <p><strong>Parameters</strong> <br />
 <code>routine</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Func-1?view=net-7.0">Func&lt;TResult&gt;</a> </p>
 <h4 id="gotofunc"><a class="header" href="#gotofunc">GoTo(Func<TResult>)</a></h4>
 <pre><code class="language-csharp">protected virtual Wait GoTo(Func&lt;TResult&gt; routine)
 </code></pre>
+<p>Yields a <code>Wait</code> that transitions to <code>routine</code> on the next tick.</p>
 <p><strong>Parameters</strong> <br />
 <code>routine</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Func-1?view=net-7.0">Func&lt;TResult&gt;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -203,9 +214,11 @@
 <h4 id="reset"><a class="header" href="#reset">Reset()</a></h4>
 <pre><code class="language-csharp">protected void Reset()
 </code></pre>
+<p>Resets the state machine back to its initial state.</p>
 <h4 id="statefunc"><a class="header" href="#statefunc">State(Func<TResult>)</a></h4>
 <pre><code class="language-csharp">protected void State(Func&lt;TResult&gt; routine)
 </code></pre>
+<p>Registers <code>routine</code> as the current entry-point state; called in the constructor to set the initial routine.</p>
 <p><strong>Parameters</strong> <br />
 <code>routine</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Func-1?view=net-7.0">Func&lt;TResult&gt;</a> </p>
 <h4 id="switchstatefunc"><a class="header" href="#switchstatefunc">SwitchState(Func<TResult>)</a></h4>

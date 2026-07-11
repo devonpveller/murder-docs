@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct RouteComponent : IComponent
 </code></pre>
+<p>Holds the computed A* pathfinding route for an agent, represented as a dictionary of grid-cell waypoints.</p>
+<p><strong>Intent:</strong> Store the result of a pathfinding calculation so movement systems can follow the route step by step.</p>
+<p><strong>Use-case:</strong> Added by <code>CalculatePathfindSystem</code> when an agent needs to reach a target; movement systems read <code>Nodes</code>, <code>Initial</code>, and <code>Target</code> each frame to advance the agent along the path.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public RouteComponent(ImmutableDictionary&lt;TKey, TValue&gt; route, Point initial, Point target)

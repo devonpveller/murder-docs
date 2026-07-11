@@ -151,6 +151,8 @@
 </code></pre>
 <p>This is a move to component that is not tied to any agent and
 that matches perfectly the target.</p>
+<p><strong>Intent:</strong> Move an entity to an exact world-space position over a fixed duration using a chosen easing function, independent of agent speed or physics.</p>
+<p><strong>Use-case:</strong> Add to objects that need smooth, deterministic tweened movement (e.g. a projectile arcing to a point, a UI element sliding in); the <code>MoveToPerfectSystem</code> updates position each frame and removes the component on arrival.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MoveToPerfectComponent(Vector2&amp; target, float duration, EaseKind ease)
@@ -163,26 +165,31 @@ that matches perfectly the target.</p>
 <h4 id="duration"><a class="header" href="#duration">Duration</a></h4>
 <pre><code class="language-csharp">public readonly float Duration;
 </code></pre>
+<p>Total duration (in seconds) for the entity to travel from start to target.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="easekind"><a class="header" href="#easekind">EaseKind</a></h4>
 <pre><code class="language-csharp">public readonly EaseKind EaseKind;
 </code></pre>
+<p>Easing function applied to the movement interpolation (e.g. linear, ease-in, ease-out).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/EaseKind.html">EaseKind</a> </p>
 <h4 id="startposition"><a class="header" href="#startposition">StartPosition</a></h4>
 <pre><code class="language-csharp">public readonly T? StartPosition;
 </code></pre>
+<p>Optional explicit starting position; if <code>null</code>, the entity's current position at the time movement begins is used.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="starttime"><a class="header" href="#starttime">StartTime</a></h4>
 <pre><code class="language-csharp">public readonly float StartTime;
 </code></pre>
+<p>Absolute game time (in seconds) when the tween movement began, used to compute normalized progress each frame.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="target"><a class="header" href="#target">Target</a></h4>
 <pre><code class="language-csharp">public readonly Vector2 Target;
 </code></pre>
+<p>World-space destination position the entity will reach at the end of the tween.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>

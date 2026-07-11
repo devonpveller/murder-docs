@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct TetherPoint
 </code></pre>
 <p>Represents a single tether point for an entity.</p>
+<p><strong>Intent:</strong> Describe one tether constraint: which entity to follow, the desired separation distance, and angular limits.</p>
+<p><strong>Use-case:</strong> Construct one per tether target and add to the <code>TetherPoints</code> array of a <a href="../../Murder/Components/TetheredComponent.html">TetheredComponent</a>.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TetherPoint(int target, float distance, float maxAngleDeviation, float snapDistance)
 </code></pre>

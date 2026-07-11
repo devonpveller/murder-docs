@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public abstract class Scene : IDisposable
 </code></pre>
+<p>Abstract base class for all game scenes. Manages the lifecycle of a <code>MonoWorld</code> including initialization, content loading, updating, drawing, suspension, and unloading.</p>
+<p><strong>Intent:</strong> The top-level container for a single game state (menu, level, cutscene) that drives the ECS world through its lifetime.</p>
+<p><strong>Use-case:</strong> Subclass <code>Scene</code> (or use <code>GameScene</code> directly) and hand the instance to <code>SceneLoader</code> to drive the game loop for a given state.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0">IDisposable</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">protected Scene()
@@ -157,11 +160,13 @@
 <h4 id="_calledstart"><a class="header" href="#_calledstart">_calledStart</a></h4>
 <pre><code class="language-csharp">protected bool _calledStart;
 </code></pre>
+<p>Tracks whether <code>Start()</code> has been called, preventing double-initialization if the scene is resumed after suspension.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="loaded"><a class="header" href="#loaded">Loaded</a></h4>
 <pre><code class="language-csharp">public bool Loaded { get; private set; }
 </code></pre>
+<p>Whether this scene's content has been fully loaded and is ready to update and render.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="rendercontext"><a class="header" href="#rendercontext">RenderContext</a></h4>
@@ -173,20 +178,24 @@
 <h4 id="world"><a class="header" href="#world">World</a></h4>
 <pre><code class="language-csharp">public abstract virtual MonoWorld World { get; }
 </code></pre>
+<p>The active ECS world for this scene. Implementors create and own this instance.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/MonoWorld.html">MonoWorld</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="unloadasyncimpl"><a class="header" href="#unloadasyncimpl">UnloadAsyncImpl()</a></h4>
 <pre><code class="language-csharp">public virtual Task UnloadAsyncImpl()
 </code></pre>
+<p>Override to perform asynchronous resource unloading when the scene exits.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0">Task</a> </p>
 <h4 id="dispose"><a class="header" href="#dispose">Dispose()</a></h4>
 <pre><code class="language-csharp">public virtual void Dispose()
 </code></pre>
+<p>Disposes the scene and releases all held resources.</p>
 <h4 id="draw"><a class="header" href="#draw">Draw()</a></h4>
 <pre><code class="language-csharp">public virtual void Draw()
 </code></pre>
+<p>Called each frame to render the world via the render systems.</p>
 <h4 id="drawgui"><a class="header" href="#drawgui">DrawGui()</a></h4>
 <pre><code class="language-csharp">public virtual void DrawGui()
 </code></pre>
@@ -194,9 +203,11 @@
 <h4 id="fixedupdate"><a class="header" href="#fixedupdate">FixedUpdate()</a></h4>
 <pre><code class="language-csharp">public virtual void FixedUpdate()
 </code></pre>
+<p>Called at a fixed timestep for physics and other time-sensitive logic.</p>
 <h4 id="initializegraphicsdevice-gameprofile-rendercontextflags"><a class="header" href="#initializegraphicsdevice-gameprofile-rendercontextflags">Initialize(GraphicsDevice, GameProfile, RenderContextFlags)</a></h4>
 <pre><code class="language-csharp">public virtual void Initialize(GraphicsDevice graphics, GameProfile settings, RenderContextFlags flags)
 </code></pre>
+<p>Initializes the scene's <code>RenderContext</code> with the given graphics device and profile settings.</p>
 <p><strong>Parameters</strong> <br />
 <code>graphics</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.GraphicsDevice.html">GraphicsDevice</a> <br />
 <code>settings</code> <a href="../../Murder/Assets/GameProfile.html">GameProfile</a> <br />
@@ -204,9 +215,11 @@
 <h4 id="loadcontentimpl"><a class="header" href="#loadcontentimpl">LoadContentImpl()</a></h4>
 <pre><code class="language-csharp">public virtual void LoadContentImpl()
 </code></pre>
+<p>Override to load scene-specific content (textures, worlds, etc.) after initialization.</p>
 <h4 id="onbeforedraw"><a class="header" href="#onbeforedraw">OnBeforeDraw()</a></h4>
 <pre><code class="language-csharp">public virtual void OnBeforeDraw()
 </code></pre>
+<p>Called immediately before <code>Draw</code>, giving the scene a chance to perform pre-draw preparation.</p>
 <h4 id="refreshwindowpoint-graphicsdevice-gameprofile"><a class="header" href="#refreshwindowpoint-graphicsdevice-gameprofile">RefreshWindow(Point, GraphicsDevice, GameProfile)</a></h4>
 <pre><code class="language-csharp">public virtual void RefreshWindow(Point viewportSize, GraphicsDevice graphics, GameProfile settings)
 </code></pre>
@@ -221,18 +234,23 @@
 <h4 id="reloadimpl"><a class="header" href="#reloadimpl">ReloadImpl()</a></h4>
 <pre><code class="language-csharp">public virtual void ReloadImpl()
 </code></pre>
+<p>Override to handle hot-reload logic when source content changes during development.</p>
 <h4 id="resumeimpl"><a class="header" href="#resumeimpl">ResumeImpl()</a></h4>
 <pre><code class="language-csharp">public virtual void ResumeImpl()
 </code></pre>
+<p>Override to restore scene state when returning from a suspended state (e.g., re-entering from a pause menu).</p>
 <h4 id="start"><a class="header" href="#start">Start()</a></h4>
 <pre><code class="language-csharp">public virtual void Start()
 </code></pre>
+<p>Called once after content is loaded; runs all start systems in the world.</p>
 <h4 id="suspendimpl"><a class="header" href="#suspendimpl">SuspendImpl()</a></h4>
 <pre><code class="language-csharp">public virtual void SuspendImpl()
 </code></pre>
+<p>Override to save or freeze scene state when the scene is temporarily suspended.</p>
 <h4 id="update"><a class="header" href="#update">Update()</a></h4>
 <pre><code class="language-csharp">public virtual void Update()
 </code></pre>
+<p>Called every frame to tick the world's update systems.</p>
 <h4 id="addonwindowrefreshaction"><a class="header" href="#addonwindowrefreshaction">AddOnWindowRefresh(Action)</a></h4>
 <pre><code class="language-csharp">public void AddOnWindowRefresh(Action notification)
 </code></pre>
@@ -242,6 +260,7 @@
 <h4 id="loadcontent"><a class="header" href="#loadcontent">LoadContent()</a></h4>
 <pre><code class="language-csharp">public void LoadContent()
 </code></pre>
+<p>Loads the scene's content and marks it as <code>Loaded = true</code>.</p>
 <h4 id="reload"><a class="header" href="#reload">Reload()</a></h4>
 <pre><code class="language-csharp">public void Reload()
 </code></pre>
@@ -253,6 +272,7 @@
 <h4 id="resume"><a class="header" href="#resume">Resume()</a></h4>
 <pre><code class="language-csharp">public void Resume()
 </code></pre>
+<p>Resumes the scene from a suspended state.</p>
 <h4 id="suspend"><a class="header" href="#suspend">Suspend()</a></h4>
 <pre><code class="language-csharp">public void Suspend()
 </code></pre>
@@ -260,6 +280,7 @@
 <h4 id="unload"><a class="header" href="#unload">Unload()</a></h4>
 <pre><code class="language-csharp">public void Unload()
 </code></pre>
+<p>Asynchronously unloads the scene content and disposes the world.</p>
 <p>⚡</p>
 
                     </main>

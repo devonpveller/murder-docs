@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class CameraServices
 </code></pre>
+<p>Provides utility methods for controlling the game camera.</p>
+<p><strong>Intent:</strong> Exposes high-level camera operations such as screen-shake to game systems and interactions.</p>
+<p><strong>Use-case:</strong> Call <code>ShakeCamera</code> to add physical impact feedback or dramatic screen movement; use the secondary-target helpers to make the camera follow an entity other than the player temporarily.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="shakecameraworld-float-float"><a class="header" href="#shakecameraworld-float-float">ShakeCamera(World, float, float)</a></h4>
 <pre><code class="language-csharp">public void ShakeCamera(World world, float intensity, float time)
 </code></pre>
+<p>Applies a screen-shake effect with the given intensity for the specified duration; uses the stronger value if a shake is already active.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>intensity</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />

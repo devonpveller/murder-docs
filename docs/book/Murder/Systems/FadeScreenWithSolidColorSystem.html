@@ -151,6 +151,8 @@
 </code></pre>
 <p>System responsible for fading in and out entities.
 This is not responsible for the screen fade transition.</p>
+<p><strong>Intent:</strong> Renders a full-screen solid-color overlay that fades in or out, enabling smooth screen-wipe transitions between scenes or states.</p>
+<p><strong>Use-case:</strong> Add a <code>FadeScreenWithSolidColorComponent</code> to a world entity when you need a screen fade (e.g., fade to black before loading a new scene); this system drives the interpolation and draws the overlay.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IUpdateSystem.html">IUpdateSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a>, <a href="../../Bang/Systems/IReactiveSystem.html">IReactiveSystem</a>, <a href="../../Murder/Core/Graphics/IMurderRenderSystem.html">IMurderRenderSystem</a>, <a href="../../Bang/Systems/IRenderSystem.html">IRenderSystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FadeScreenWithSolidColorSystem()
@@ -165,24 +167,28 @@ This is not responsible for the screen fade transition.</p>
 <h4 id="onaddedworld-immutablearray"><a class="header" href="#onaddedworld-immutablearray">OnAdded(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnAdded(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Delegates to <code>OnModified</code> to configure the fade parameters from the newly added <code>FadeScreenWithSolidColorComponent</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="onmodifiedworld-immutablearray"><a class="header" href="#onmodifiedworld-immutablearray">OnModified(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnModified(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Reads the <code>FadeScreenWithSolidColorComponent</code> from the modified entity and updates internal fade-in/fade-out timers, color, duration, sort order, and target batch.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="onremovedworld-immutablearray"><a class="header" href="#onremovedworld-immutablearray">OnRemoved(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnRemoved(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>No-op; cleanup when the component is removed is handled elsewhere.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="updatecontext"><a class="header" href="#updatecontext">Update(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Update(Context context)
 </code></pre>
+<p>Advances the alpha interpolation each frame based on elapsed time; does nothing if no fade is currently active.</p>
 <p><strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <p>⚡</p>

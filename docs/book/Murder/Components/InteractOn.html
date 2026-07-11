@@ -149,16 +149,21 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed enum InteractOn : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Specifies the condition under which an <code>InteractOnRuleMatchComponent</code> rule is evaluated and can trigger an interaction.</p>
+<p><strong>Intent:</strong> Control whether a rule fires both when its underlying blackboard value is first set and when it changes, or only on subsequent changes.</p>
+<p><strong>Use-case:</strong> Set on <code>InteractOnRuleMatchComponent.InteractOn</code> to tune when exactly the associated interaction fires relative to blackboard state changes.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="addedormodified"><a class="header" href="#addedormodified">AddedOrModified</a></h4>
 <pre><code class="language-csharp">public static const InteractOn AddedOrModified;
 </code></pre>
+<p>The rule fires both when the tracked blackboard value is first added (set) and whenever it is subsequently modified.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/InteractOn.html">InteractOn</a> </p>
 <h4 id="modified"><a class="header" href="#modified">Modified</a></h4>
 <pre><code class="language-csharp">public static const InteractOn Modified;
 </code></pre>
+<p>The rule fires only when the tracked blackboard value changes after it has already been set at least once.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/InteractOn.html">InteractOn</a> </p>
 <p>⚡</p>

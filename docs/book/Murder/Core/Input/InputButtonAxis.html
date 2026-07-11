@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct InputButtonAxis
 </code></pre>
+<p>A set of four directional <code>InputButton</code> bindings (up/down/left/right) or a single analog axis that together form a 2D movement axis.</p>
+<p><strong>Intent:</strong> Represent a 2D movement axis built from directional buttons or a gamepad thumbstick.</p>
+<p><strong>Use-case:</strong> Construct an <code>InputButtonAxis</code> with WASD keys, D-pad buttons, or a <code>GamepadAxis</code> and pass it to <code>PlayerInput.Register(int axis, ...)</code> to drive a <code>VirtualAxis</code>.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public InputButtonAxis(Buttons up, Buttons left, Buttons down, Buttons right)
 </code></pre>
@@ -179,37 +182,44 @@
 <h4 id="down"><a class="header" href="#down">Down</a></h4>
 <pre><code class="language-csharp">public readonly InputButton Down;
 </code></pre>
+<p>The button bound to the downward direction.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Input/InputButton.html">InputButton</a> </p>
 <h4 id="left"><a class="header" href="#left">Left</a></h4>
 <pre><code class="language-csharp">public readonly InputButton Left;
 </code></pre>
+<p>The button bound to the leftward direction.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Input/InputButton.html">InputButton</a> </p>
 <h4 id="right"><a class="header" href="#right">Right</a></h4>
 <pre><code class="language-csharp">public readonly InputButton Right;
 </code></pre>
+<p>The button bound to the rightward direction.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Input/InputButton.html">InputButton</a> </p>
 <h4 id="single"><a class="header" href="#single">Single</a></h4>
 <pre><code class="language-csharp">public readonly T? Single;
 </code></pre>
+<p>When set, this axis uses a single analog <code>InputButton</code> (e.g. a thumbstick) instead of four directional buttons.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="source"><a class="header" href="#source">Source</a></h4>
 <pre><code class="language-csharp">public readonly InputSource Source;
 </code></pre>
+<p>The device source for this axis (keyboard, gamepad, etc.).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Input/InputSource.html">InputSource</a> </p>
 <h4 id="up"><a class="header" href="#up">Up</a></h4>
 <pre><code class="language-csharp">public readonly InputButton Up;
 </code></pre>
+<p>The button bound to the upward direction.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Input/InputButton.html">InputButton</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="checkinputstate"><a class="header" href="#checkinputstate">Check(InputState)</a></h4>
 <pre><code class="language-csharp">public Vector2 Check(InputState state)
 </code></pre>
+<p>Returns the current axis vector from this binding given the raw <code>state</code>. Uses the analog value when <code>Single</code> is set, or a discrete ±1 vector from the four directional buttons.</p>
 <p><strong>Parameters</strong> <br />
 <code>state</code> <a href="../../../Murder/Core/Input/InputState.html">InputState</a> </p>
 <p><strong>Returns</strong> <br />
@@ -217,6 +227,7 @@
 <h4 id="tostring"><a class="header" href="#tostring">ToString()</a></h4>
 <pre><code class="language-csharp">public virtual string ToString()
 </code></pre>
+<p>Returns a human-readable description of the active bindings in this axis.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

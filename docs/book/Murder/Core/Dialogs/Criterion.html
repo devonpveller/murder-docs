@@ -149,17 +149,23 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Criterion
 </code></pre>
+<p>Represents a single condition that compares a blackboard <code>Fact</code> to a literal value using a <code>CriterionKind</code> operator.</p>
+<p><strong>Intent:</strong> Encapsulates one conditional test — a fact reference, a comparison operator, and the expected value — used to guard <code>Dialog</code> nodes so they only play when their conditions are met.</p>
+<p><strong>Use-case:</strong> Build criteria in the dialogue editor or in code and group them into <code>CriterionNode</code> lists on a <code>Dialog</code>; the engine evaluates them against live blackboard data via <code>CharacterRuntime.CheckRequirements</code>.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Criterion()
 </code></pre>
+<p>Creates an empty criterion with default values (<code>FactKind.Invalid</code>, <code>CriterionKind.Is</code>).</p>
 <pre><code class="language-csharp">public Criterion(Fact fact, CriterionKind kind, Object value)
 </code></pre>
+<p>Creates a criterion comparing <code>fact</code> with <code>kind</code> against a boxed <code>value</code>; the value is stored in the typed slot matching the fact's <code>FactKind</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>fact</code> <a href="../../../Murder/Core/Dialogs/Fact.html">Fact</a> <br />
 <code>kind</code> <a href="../../../Murder/Core/Dialogs/CriterionKind.html">CriterionKind</a> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <pre><code class="language-csharp">public Criterion(Fact fact, CriterionKind kind, T? bool, T? int, T? float, string string, Object value)
 </code></pre>
+<p>Creates a criterion with all typed value slots supplied explicitly; prefer this overload when the value is already decomposed.</p>
 <p><strong>Parameters</strong> <br />
 <code>fact</code> <a href="../../../Murder/Core/Dialogs/Fact.html">Fact</a> <br />
 <code>kind</code> <a href="../../../Murder/Core/Dialogs/CriterionKind.html">CriterionKind</a> <br />
@@ -172,6 +178,7 @@
 <h4 id="boolvalue"><a class="header" href="#boolvalue">BoolValue</a></h4>
 <pre><code class="language-csharp">public readonly T? BoolValue;
 </code></pre>
+<p>The boolean comparison value; populated when the fact is of kind <code>Bool</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="component"><a class="header" href="#component">Component</a></h4>
@@ -183,26 +190,31 @@
 <h4 id="fact"><a class="header" href="#fact">Fact</a></h4>
 <pre><code class="language-csharp">public readonly Fact Fact;
 </code></pre>
+<p>The blackboard variable being tested by this criterion.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/Fact.html">Fact</a> </p>
 <h4 id="floatvalue"><a class="header" href="#floatvalue">FloatValue</a></h4>
 <pre><code class="language-csharp">public readonly T? FloatValue;
 </code></pre>
+<p>The float comparison value; populated when the fact is of kind <code>Float</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="intvalue"><a class="header" href="#intvalue">IntValue</a></h4>
 <pre><code class="language-csharp">public readonly T? IntValue;
 </code></pre>
+<p>The integer comparison value; populated when the fact is of kind <code>Int</code> or <code>Weight</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="kind"><a class="header" href="#kind">Kind</a></h4>
 <pre><code class="language-csharp">public readonly CriterionKind Kind;
 </code></pre>
+<p>The comparison operator applied between the fact's live value and the stored literal value.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/CriterionKind.html">CriterionKind</a> </p>
 <h4 id="strvalue"><a class="header" href="#strvalue">StrValue</a></h4>
 <pre><code class="language-csharp">public readonly string StrValue;
 </code></pre>
+<p>The string comparison value; populated when the fact is of kind <code>String</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="value"><a class="header" href="#value">Value</a></h4>

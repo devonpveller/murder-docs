@@ -149,26 +149,33 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed enum RoundingMode : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Specifies how a floating-point value should be rounded when converted to an integer grid coordinate.</p>
+<p><strong>Intent:</strong> Selects the rounding strategy used by grid coordinate conversions so callers can control snapping behavior.</p>
+<p><strong>Use-case:</strong> Pass to coordinate-helper methods to control whether a world position snaps to the floor, ceiling, or nearest grid cell.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="ceiling"><a class="header" href="#ceiling">Ceiling</a></h4>
 <pre><code class="language-csharp">public static const RoundingMode Ceiling;
 </code></pre>
+<p>Round up to the next integer grid cell.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/RoundingMode.html">RoundingMode</a> </p>
 <h4 id="floor"><a class="header" href="#floor">Floor</a></h4>
 <pre><code class="language-csharp">public static const RoundingMode Floor;
 </code></pre>
+<p>Round down to the previous integer grid cell.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/RoundingMode.html">RoundingMode</a> </p>
 <h4 id="none"><a class="header" href="#none">None</a></h4>
 <pre><code class="language-csharp">public static const RoundingMode None;
 </code></pre>
+<p>No rounding is applied; the raw float value is used as-is.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/RoundingMode.html">RoundingMode</a> </p>
 <h4 id="round"><a class="header" href="#round">Round</a></h4>
 <pre><code class="language-csharp">public static const RoundingMode Round;
 </code></pre>
+<p>Round to the nearest integer grid cell.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/RoundingMode.html">RoundingMode</a> </p>
 <p>⚡</p>

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct ParticleValueProperty
 </code></pre>
+<p>A float-valued property that can be a constant, a random range, a range-of-ranges, or a curve, used to drive scalar particle attributes over their lifetime.</p>
+<p><strong>Intent:</strong> Provide a flexible, designer-friendly float value source for particle system parameters.</p>
+<p><strong>Use-case:</strong> Assign a <code>ParticleValueProperty</code> to fields such as <code>Particle.Alpha</code>, <code>Particle.LifeTime</code>, or <code>Emitter.Speed</code>. Use the range constructors to randomise values per particle, or <code>GetValueAt(delta)</code> to sample a curve over the particle's lifetime.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ParticleValueProperty()
 </code></pre>
@@ -172,17 +175,20 @@
 <h4 id="empty"><a class="header" href="#empty">Empty</a></h4>
 <pre><code class="language-csharp">public static ParticleValueProperty Empty { get; }
 </code></pre>
+<p>A constant-1 property used as a default placeholder.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/ParticleValueProperty.html">ParticleValueProperty</a> </p>
 <h4 id="kind"><a class="header" href="#kind">Kind</a></h4>
 <pre><code class="language-csharp">public readonly ParticleValuePropertyKind Kind;
 </code></pre>
+<p>Determines whether this property is a constant, a range, a curve, or a ranged-start/ranged-end.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/ParticleValuePropertyKind.html">ParticleValuePropertyKind</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getrandomvaluerandom"><a class="header" href="#getrandomvaluerandom">GetRandomValue(Random)</a></h4>
 <pre><code class="language-csharp">public float GetRandomValue(Random random)
 </code></pre>
+<p>Samples the property and returns a concrete float value at spawn time using <code>random</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>random</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Random?view=net-7.0">Random</a> </p>
 <p><strong>Returns</strong> <br />

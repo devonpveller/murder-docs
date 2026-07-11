@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SpriteFacingComponent : IComponent
 </code></pre>
+<p>Controls how a sprite's animation suffix and horizontal flip change based on the entity's movement or facing angle. Each <code>FacingInfo</code> entry maps an angular slice to a suffix string and optional flip.</p>
+<p><strong>Intent:</strong> Drive directional animation selection (e.g. &quot;_up&quot;, &quot;_down&quot;, &quot;_side&quot;) and flipping automatically from the entity's angle.</p>
+<p><strong>Use-case:</strong> Attach to a character entity alongside a directional movement component; as the character's angle changes, this component selects the correct animation suffix and flip state.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SpriteFacingComponent()
@@ -157,21 +160,25 @@
 <h4 id="anglestart"><a class="header" href="#anglestart">AngleStart</a></h4>
 <pre><code class="language-csharp">public float AngleStart { get; public set; }
 </code></pre>
+<p>Starting angle offset (in radians) applied before slicing into facing segments.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="defaultflip"><a class="header" href="#defaultflip">DefaultFlip</a></h4>
 <pre><code class="language-csharp">public bool DefaultFlip { get; public set; }
 </code></pre>
+<p>Default horizontal flip state used when no facing segment overrides it.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="defaultsuffix"><a class="header" href="#defaultsuffix">DefaultSuffix</a></h4>
 <pre><code class="language-csharp">public string DefaultSuffix { get; public set; }
 </code></pre>
+<p>Animation suffix appended to the base animation name when no facing-info entry matches.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="facinginfo"><a class="header" href="#facinginfo">FacingInfo</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; FacingInfo { get; public set; }
 </code></pre>
+<p>Ordered list of angular slices, each specifying a suffix and flip state for that directional segment.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>

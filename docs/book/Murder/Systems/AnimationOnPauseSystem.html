@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class AnimationOnPauseSystem : IUpdateSystem, ISystem
 </code></pre>
 <p>System that will automatically completes aseprites on a freeze cutscene.</p>
+<p><strong>Intent:</strong> Forces all sprite and agent-sprite animations to complete when the world is in a freeze-cutscene state.</p>
+<p><strong>Use-case:</strong> Ensures that cutscene-frozen animations reach their final frame so gameplay events that depend on animation completion can fire and the scene can proceed.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IUpdateSystem.html">IUpdateSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AnimationOnPauseSystem()
@@ -158,6 +160,7 @@
 <h4 id="updatecontext"><a class="header" href="#updatecontext">Update(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Update(Context context)
 </code></pre>
+<p>Checks whether the world is currently skipping delta time (freeze-cutscene mode) and sends animation-complete messages to all sprite and agent-sprite entities.</p>
 <p><strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <p>⚡</p>

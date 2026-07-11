@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct DoNotPersistEntityOnSaveComponent : IComponent
 </code></pre>
+<p>Marker component that excludes an entity from being serialized when the game world is saved.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Prevents transient runtime entities (effects, particles, temporary helpers) from being written into save files where they would be meaningless on reload.</p>
+<p><strong>Use-case:</strong> Attach to any entity created at runtime that should not survive a save/load cycle, such as visual effects, runtime-spawned enemies, or temporary UI entities.</p>
 <p>⚡</p>
 
                     </main>

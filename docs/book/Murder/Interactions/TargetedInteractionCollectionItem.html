@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct TargetedInteractionCollectionItem
 </code></pre>
+<p>Pairs a named target identifier with a list of interactions to run against the resolved entity.</p>
+<p><strong>Intent:</strong> Defines a single (target, interactions) binding inside a <a href="../../Murder/Interactions/TargetedInteractionCollection.html">TargetedInteractionCollection</a>.</p>
+<p><strong>Use-case:</strong> Configure one entry per distinct entity you wish to interact with; set <code>Target</code> to the name key in the <code>IdTargetCollection</code> and populate <code>InteractionCollection</code> with the desired actions.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TargetedInteractionCollectionItem()
 </code></pre>
@@ -156,11 +159,13 @@
 <h4 id="interactioncollection"><a class="header" href="#interactioncollection">InteractionCollection</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; InteractionCollection;
 </code></pre>
+<p>The interactions to fire against the resolved target entity.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="target"><a class="header" href="#target">Target</a></h4>
 <pre><code class="language-csharp">public readonly string Target;
 </code></pre>
+<p>The name key used to look up the target entity in the <code>IdTargetCollection</code> of the interacted entity.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

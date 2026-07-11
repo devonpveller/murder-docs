@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct TetheredComponent : IComponent
 </code></pre>
+<p>Stores the set of active tether connections for an entity, each linking it to another entity at a desired distance and angle.</p>
+<p><strong>Intent:</strong> Constrain an entity's position relative to one or more target entities using tether physics.</p>
+<p><strong>Use-case:</strong> Attach to a follower or attached object entity; populate <code>TetherPoints</code> with <a href="../../Murder/Components/TetherPoint.html">TetherPoint</a> entries describing each tether target and its spring parameters.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TetheredComponent(ImmutableArray&lt;T&gt; tetherPoints)
@@ -159,11 +162,13 @@
 <h4 id="tetherpoints"><a class="header" href="#tetherpoints">TetherPoints</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; TetherPoints;
 </code></pre>
+<p>List of all tether connections active on this entity.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="tetherpointsdict"><a class="header" href="#tetherpointsdict">TetherPointsDict</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableDictionary&lt;TKey, TValue&gt; TetherPointsDict;
 </code></pre>
+<p>Dictionary view of <code>TetherPoints</code> keyed by target entity ID for fast per-target lookup.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0">ImmutableDictionary&lt;TKey, TValue&gt;</a> </p>
 <p>⚡</p>

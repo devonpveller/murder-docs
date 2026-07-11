@@ -150,9 +150,12 @@
 <pre><code class="language-csharp">public sealed struct FloatRange
 </code></pre>
 <p>Range of float values.</p>
+<p><strong>Intent:</strong> A min–max pair of floats used to represent a continuous range.</p>
+<p><strong>Use-case:</strong> Pass a <code>FloatRange</code> to particle emitters, randomized spawn offsets, or any system that needs to draw a random value or interpolate between two bounds.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FloatRange(float start, float end)
 </code></pre>
+<p>Creates a float range with the given inclusive lower and upper bounds.</p>
 <p><strong>Parameters</strong> <br />
 <code>start</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>end</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
@@ -160,17 +163,20 @@
 <h4 id="end"><a class="header" href="#end">End</a></h4>
 <pre><code class="language-csharp">public readonly float End;
 </code></pre>
+<p>The inclusive upper bound of the range.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="start"><a class="header" href="#start">Start</a></h4>
 <pre><code class="language-csharp">public readonly float Start;
 </code></pre>
+<p>The inclusive lower bound of the range.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="containsfloat"><a class="header" href="#containsfloat">Contains(float)</a></h4>
 <pre><code class="language-csharp">public bool Contains(float v)
 </code></pre>
+<p>Returns <code>true</code> when <code>v</code> falls within <code>[Start, End]</code> (inclusive).</p>
 <p><strong>Parameters</strong> <br />
 <code>v</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -178,11 +184,13 @@
 <h4 id="getrandom"><a class="header" href="#getrandom">GetRandom()</a></h4>
 <pre><code class="language-csharp">public float GetRandom()
 </code></pre>
+<p>Returns a uniformly distributed random float within this range using the shared <code>Game.Random</code> instance.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="getrandomrandom"><a class="header" href="#getrandomrandom">GetRandom(Random)</a></h4>
 <pre><code class="language-csharp">public float GetRandom(Random random)
 </code></pre>
+<p>Returns a uniformly distributed random float within this range using the supplied <code>random</code> source.</p>
 <p><strong>Parameters</strong> <br />
 <code>random</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Random?view=net-7.0">Random</a> </p>
 <p><strong>Returns</strong> <br />
@@ -190,6 +198,7 @@
 <h4 id="lerpfloat"><a class="header" href="#lerpfloat">Lerp(float)</a></h4>
 <pre><code class="language-csharp">public float Lerp(float progress)
 </code></pre>
+<p>Linearly interpolates from <code>Start</code> to <code>End</code> by <code>progress</code> (0 = Start, 1 = End).</p>
 <p><strong>Parameters</strong> <br />
 <code>progress</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />

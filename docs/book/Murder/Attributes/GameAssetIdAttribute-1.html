@@ -149,24 +149,31 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class GameAssetIdAttribute&lt;T&gt; : GameAssetIdAttribute
 </code></pre>
+<p>A strongly-typed convenience variant of <code>GameAssetIdAttribute</code> that infers the target <code>GameAsset</code> subtype from the generic parameter <code>T</code>.</p>
+<p><strong>Intent:</strong> Provide a type-safe shorthand for marking <code>Guid</code> fields as references to a specific <code>GameAsset</code> subtype without passing <code>typeof(T)</code> explicitly.</p>
+<p><strong>Use-case:</strong> Prefer <code>[GameAssetId&lt;MyAssetType&gt;]</code> over <code>[GameAssetId(typeof(MyAssetType))]</code> on <code>Guid</code> fields for conciseness and compile-time type safety when referencing game content such as sprites, sounds, or dialogue assets.</p>
 <p><strong>Implements:</strong> <em><a href="../../Murder/Attributes/GameAssetIdAttribute.html">GameAssetIdAttribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public GameAssetIdAttribute&lt;T&gt;()
 </code></pre>
+<p>Creates a new instance with the asset type inferred from <code>T</code> and inheritance disabled by default.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="allowinheritance"><a class="header" href="#allowinheritance">AllowInheritance</a></h4>
 <pre><code class="language-csharp">public readonly bool AllowInheritance;
 </code></pre>
+<p>Whether the editor picker should also list assets that derive from <code>T</code>, not just exact type matches.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="assettype"><a class="header" href="#assettype">AssetType</a></h4>
 <pre><code class="language-csharp">public readonly Type AssetType;
 </code></pre>
+<p>The <code>GameAsset</code> subtype that the decorated <code>Guid</code> field references, derived from the generic parameter <code>T</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

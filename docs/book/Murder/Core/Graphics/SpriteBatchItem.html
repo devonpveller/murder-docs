@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class SpriteBatchItem
 </code></pre>
+<p>A single queued sprite draw call containing the source texture, transformed vertex data, index buffer, and blend state.</p>
+<p><strong>Intent:</strong> Encapsulates all GPU data needed to draw one sprite quad, including rotation, scale, flipping, tint color, and blend mode.</p>
+<p><strong>Use-case:</strong> Created and pooled automatically by <code>Batch2D</code>; call <code>Set()</code> directly to configure a reused item for custom textured quads, or <code>SetPolygon()</code> for arbitrary polygon geometry.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SpriteBatchItem()
 </code></pre>
@@ -156,21 +159,25 @@
 <h4 id="indexdata"><a class="header" href="#indexdata">IndexData</a></h4>
 <pre><code class="language-csharp">public Int32[] IndexData;
 </code></pre>
+<p>Index array defining the two triangles that make up the sprite quad (six indices for four vertices).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int[]</a> </p>
 <h4 id="texture"><a class="header" href="#texture">Texture</a></h4>
 <pre><code class="language-csharp">public Texture2D Texture;
 </code></pre>
+<p>The source texture sampled when rendering this sprite; typically a page of a <code>TextureAtlas</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a> </p>
 <h4 id="vertexcount"><a class="header" href="#vertexcount">VertexCount</a></h4>
 <pre><code class="language-csharp">public int VertexCount;
 </code></pre>
+<p>Number of active vertices in <code>VertexData</code>; normally 4 for a quad but can be higher for polygon draws.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="vertexdata"><a class="header" href="#vertexdata">VertexData</a></h4>
 <pre><code class="language-csharp">public VertexInfo[] VertexData;
 </code></pre>
+<p>Four <code>VertexInfo</code> vertices storing the world-space positions, atlas UV coordinates, tint color, and blend selector for each corner of the sprite quad.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/VertexInfo.html">VertexInfo[]</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
@@ -204,6 +211,7 @@
 <h4 id="setpolygontexture2d-readonlyspan-drawinfo"><a class="header" href="#setpolygontexture2d-readonlyspan-drawinfo">SetPolygon(Texture2D, ReadOnlySpan<T>, DrawInfo)</a></h4>
 <pre><code class="language-csharp">public void SetPolygon(Texture2D texture, ReadOnlySpan&lt;T&gt; vertices, DrawInfo drawInfo)
 </code></pre>
+<p>Configures this item to draw an arbitrary polygon by uploading the supplied world-space vertex positions and applying the given draw info for color and sort.</p>
 <p><strong>Parameters</strong> <br />
 <code>texture</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a> <br />
 <code>vertices</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ReadOnlySpan-1?view=net-7.0">ReadOnlySpan&lt;T&gt;</a> <br />

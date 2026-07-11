@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct CreatedAtComponent : IComponent
 </code></pre>
+<p>Records the game time (in seconds) at which this entity was spawned.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Provides a reliable creation timestamp so lifetime and cooldown systems can compute how long an entity has existed.</p>
+<p><strong>Use-case:</strong> Added automatically by <code>CreationTimeSystem</code>; read by <code>DestroyAfterSecondsComponent</code> and other time-based systems to determine when to remove the entity.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public CreatedAtComponent(float when)
 </code></pre>
@@ -159,6 +162,7 @@
 <h4 id="when"><a class="header" href="#when">When</a></h4>
 <pre><code class="language-csharp">public float When { get; public set; }
 </code></pre>
+<p>The game time, in seconds, at which this entity was created.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

@@ -150,31 +150,38 @@
 <pre><code class="language-csharp">public class EventMessagesAttribute : Attribute
 </code></pre>
 <p>Notifies the editor that a set of events is available on this entity.</p>
+<p><strong>Intent:</strong> Declares which Bang event-message names a component or system listens to.</p>
+<p><strong>Use-case:</strong> Decorate a system class with this attribute so the editor can list and validate available event messages for that system's target entities.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public EventMessagesAttribute(EventMessageAttributeFlags flags, String[] events)
 </code></pre>
+<p>Declares event messages with the given flags and event name array.</p>
 <p><strong>Parameters</strong> <br />
 <code>flags</code> <a href="../../../Murder/Utilities/Attributes/EventMessageAttributeFlags.html">EventMessageAttributeFlags</a> <br />
 <code>events</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string[]</a> </p>
 <pre><code class="language-csharp">public EventMessagesAttribute(String[] events)
 </code></pre>
+<p>Declares event messages without special flags.</p>
 <p><strong>Parameters</strong> <br />
 <code>events</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string[]</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="events"><a class="header" href="#events">Events</a></h4>
 <pre><code class="language-csharp">public readonly String[] Events;
 </code></pre>
+<p>Array of event message names declared by this attribute.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string[]</a> </p>
 <h4 id="flags"><a class="header" href="#flags">Flags</a></h4>
 <pre><code class="language-csharp">public readonly EventMessageAttributeFlags Flags;
 </code></pre>
+<p>Flags controlling how the editor discovers and propagates these events.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Utilities/Attributes/EventMessageAttributeFlags.html">EventMessageAttributeFlags</a> </p>
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique object identity for this attribute type, inherited from <code>Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

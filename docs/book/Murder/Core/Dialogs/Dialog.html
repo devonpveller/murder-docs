@@ -149,11 +149,16 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Dialog
 </code></pre>
+<p>A single dialogue node: an ordered list of <code>Line</code>s protected by <code>CriterionNode</code> requirements, with optional <code>DialogAction</code>s to execute and an outgoing edge target.</p>
+<p><strong>Intent:</strong> Represents one &quot;page&quot; of dialogue within a <code>Situation</code> — the content to display, the conditions that must be met for it to be eligible, how many times it can play, and where to go next.</p>
+<p><strong>Use-case:</strong> Author nodes in the dialogue editor; at runtime <code>CharacterRuntime</code> evaluates <code>Requirements</code>, advances through <code>Lines</code>, fires <code>Actions</code>, and follows <code>GoTo</code> (or the situation's <code>DialogEdge</code>) when the node is complete.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Dialog()
 </code></pre>
+<p>Creates a default dialog node with no lines, requirements, or actions and <code>PlayUntil</code> set to <code>-1</code> (play forever).</p>
 <pre><code class="language-csharp">public Dialog(int id, int playUntil, ImmutableArray&lt;T&gt; requirements, ImmutableArray&lt;T&gt; lines, T? actions, T? goto, bool isChoice)
 </code></pre>
+<p>Full constructor that initialises all fields of the dialog node.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>playUntil</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -166,6 +171,7 @@
 <h4 id="actions"><a class="header" href="#actions">Actions</a></h4>
 <pre><code class="language-csharp">public readonly T? Actions;
 </code></pre>
+<p>Optional list of <code>DialogAction</code>s executed when this node is visited (e.g. setting blackboard variables).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="goto"><a class="header" href="#goto">GoTo</a></h4>
@@ -177,16 +183,19 @@
 <h4 id="id"><a class="header" href="#id">Id</a></h4>
 <pre><code class="language-csharp">public readonly int Id;
 </code></pre>
+<p>Unique integer identifier for this dialog node within its parent <code>Situation</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="ischoice"><a class="header" href="#ischoice">IsChoice</a></h4>
 <pre><code class="language-csharp">public readonly bool IsChoice;
 </code></pre>
+<p>When <code>true</code>, this node presents player-selectable choices rather than playing lines automatically.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="lines"><a class="header" href="#lines">Lines</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Lines;
 </code></pre>
+<p>The ordered list of <code>Line</code>s to display when this dialog node is active.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="playuntil"><a class="header" href="#playuntil">PlayUntil</a></h4>
@@ -199,12 +208,14 @@ If -1, this will play forever.</p>
 <h4 id="requirements"><a class="header" href="#requirements">Requirements</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Requirements;
 </code></pre>
+<p>The set of <code>CriterionNode</code> conditions that must be satisfied for this dialog node to be eligible during selection.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="withactionst"><a class="header" href="#withactionst">WithActions(T?)</a></h4>
 <pre><code class="language-csharp">public Dialog WithActions(T? actions)
 </code></pre>
+<p>Returns a copy of this dialog with the <code>Actions</code> list replaced.</p>
 <p><strong>Parameters</strong> <br />
 <code>actions</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <p><strong>Returns</strong> <br />
@@ -212,6 +223,7 @@ If -1, this will play forever.</p>
 <h4 id="withlineatint-line"><a class="header" href="#withlineatint-line">WithLineAt(int, Line)</a></h4>
 <pre><code class="language-csharp">public Dialog WithLineAt(int index, Line line)
 </code></pre>
+<p>Returns a copy of this dialog with the <code>Line</code> at position <code>index</code> replaced.</p>
 <p><strong>Parameters</strong> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>line</code> <a href="../../../Murder/Core/Dialogs/Line.html">Line</a> </p>
@@ -220,6 +232,7 @@ If -1, this will play forever.</p>
 <h4 id="debuggerdisplay"><a class="header" href="#debuggerdisplay">DebuggerDisplay()</a></h4>
 <pre><code class="language-csharp">public string DebuggerDisplay()
 </code></pre>
+<p>Returns a compact debug string showing the node id, requirement count, line count, and action count.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

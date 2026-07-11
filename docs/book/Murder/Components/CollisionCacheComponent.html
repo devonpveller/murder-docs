@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct CollisionCacheComponent : IComponent
 </code></pre>
+<p>Caches the set of entity IDs that are currently overlapping this entity's collider.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Provides a fast lookup of which entities are in contact so collision-response systems do not need to re-query the physics world every frame.</p>
+<p><strong>Use-case:</strong> Added and updated automatically by the physics system; query <code>CollidingWith</code> to iterate or test for specific colliders, and call <code>Add</code>/<code>Remove</code> to update it immutably.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public CollisionCacheComponent()
 </code></pre>
@@ -165,12 +168,14 @@
 <h4 id="collidingwith"><a class="header" href="#collidingwith">CollidingWith</a></h4>
 <pre><code class="language-csharp">public ImmutableHashSet&lt;T&gt; CollidingWith { get; }
 </code></pre>
+<p>The set of entity IDs currently overlapping this entity's collider.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableHashSet-1?view=net-7.0">ImmutableHashSet&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="containsworld"><a class="header" href="#containsworld">Contains(World)</a></h4>
 <pre><code class="language-csharp">public bool Contains(World world)
 </code></pre>
+<p>Returns <code>true</code> if any entity in the collision set has a component of type <code>T</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> </p>
 <p><strong>Returns</strong> <br />
@@ -178,6 +183,7 @@
 <h4 id="hasidint"><a class="header" href="#hasidint">HasId(int)</a></h4>
 <pre><code class="language-csharp">public bool HasId(int id)
 </code></pre>
+<p>Returns <code>true</code> if the entity with <code>id</code> is in the current collision set.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -185,6 +191,7 @@
 <h4 id="addint"><a class="header" href="#addint">Add(int)</a></h4>
 <pre><code class="language-csharp">public CollisionCacheComponent Add(int id)
 </code></pre>
+<p>Returns a new component with <code>id</code> added to the collision set.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -192,6 +199,7 @@
 <h4 id="removeint"><a class="header" href="#removeint">Remove(int)</a></h4>
 <pre><code class="language-csharp">public CollisionCacheComponent Remove(int id)
 </code></pre>
+<p>Returns a new component with <code>id</code> removed from the collision set.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -199,6 +207,7 @@
 <h4 id="getcollidingentitiesworld"><a class="header" href="#getcollidingentitiesworld">GetCollidingEntities(World)</a></h4>
 <pre><code class="language-csharp">public IEnumerable&lt;T&gt; GetCollidingEntities(World world)
 </code></pre>
+<p>Enumerates all live entities currently in the collision set.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> </p>
 <p><strong>Returns</strong> <br />

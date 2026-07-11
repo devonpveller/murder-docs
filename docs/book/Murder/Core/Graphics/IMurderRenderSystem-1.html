@@ -152,11 +152,14 @@
 <p>Main render system. This is used to draw on the screen and should not 
 have any update logic. This one includes a converter for your own
 <a href="../../../Murder/Core/Graphics/RenderContext.html">RenderContext</a> that you extended.</p>
+<p><strong>Intent:</strong> Generic variant of <code>IMurderRenderSystem</code> that automatically downcasts the <code>RenderContext</code> to your custom subclass, eliminating manual casts in every <code>Draw</code> implementation.</p>
+<p><strong>Use-case:</strong> Extend <code>RenderContext</code> for your game and implement <code>IMurderRenderSystem&lt;YourRenderContext&gt;</code> so that <code>Draw(T, Context)</code> receives your typed render context directly.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Murder/Core/Graphics/IMurderRenderSystem.html">IMurderRenderSystem</a>, <a href="../../../Bang/Systems/IRenderSystem.html">IRenderSystem</a>, <a href="../../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="drawt-context"><a class="header" href="#drawt-context">Draw(T, Context)</a></h4>
 <pre><code class="language-csharp">public abstract void Draw(T render, Context context)
 </code></pre>
+<p>Called each frame with the typed <code>RenderContext</code> subclass <code>T</code> and the component query context; implement this to issue draw calls for the system's entities.</p>
 <p><strong>Parameters</strong> <br />
 <code>render</code> <a href="../../../">T</a> <br />
 <code>context</code> <a href="../../../Bang/Contexts/Context.html">Context</a> </p>

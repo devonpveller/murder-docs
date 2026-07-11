@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct StaticComponent : IComponent
 </code></pre>
+<p>Marker component that flags an entity as non-moving, allowing physics and rendering systems to skip per-frame updates for it.</p>
+<p><strong>Intent:</strong> Signal that an entity will never change position so the engine can apply static-object optimisations.</p>
+<p><strong>Use-case:</strong> Attach to walls, floors, fixed props, or any entity whose position and shape will never change at runtime.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <p>⚡</p>
 

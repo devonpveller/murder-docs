@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class GridCacheRenderSystem : IReactiveSystem, ISystem
 </code></pre>
+<p>Listens for changes to <code>TileGridComponent</code> entities and rebuilds the per-tile render and collision cache for all tile grids in the world.</p>
+<p><strong>Intent:</strong> Keeps tile-grid cache data synchronized whenever a grid is added or modified, so that rendering and physics systems always read correct tile data.</p>
+<p><strong>Use-case:</strong> Must be included in any world with tile maps; it runs reactively so the cache is always current without requiring manual invalidation.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IReactiveSystem.html">IReactiveSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public GridCacheRenderSystem()
@@ -157,24 +160,28 @@
 <h4 id="onaddedworld-immutablearray"><a class="header" href="#onaddedworld-immutablearray">OnAdded(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnAdded(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
-<p><strong>Parameters</strong> <br />
+<p>Called when new <code>TileGridComponent</code> entities are added; currently triggers no action (cache is rebuilt on modification).
+<strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="onmodifiedworld-immutablearray"><a class="header" href="#onmodifiedworld-immutablearray">OnModified(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnModified(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
-<p><strong>Parameters</strong> <br />
+<p>Triggered when any watched <code>TileGridComponent</code> is modified; calls <code>OnTileGridModified</code> to rebuild all grid caches.
+<strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="onremovedworld-immutablearray"><a class="header" href="#onremovedworld-immutablearray">OnRemoved(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnRemoved(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
-<p><strong>Parameters</strong> <br />
+<p>Called when <code>TileGridComponent</code> entities are removed; currently triggers no action.
+<strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="ontilegridmodifiedworld"><a class="header" href="#ontilegridmodifiedworld">OnTileGridModified(World)</a></h4>
 <pre><code class="language-csharp">public void OnTileGridModified(World world)
 </code></pre>
+<p>Static helper that walks all <code>TileGridComponent</code> entities in the world and rebuilds their internal <code>TileGrid</code> cache; can be called externally when tiles change outside the normal reactive flow.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> </p>
 <p>⚡</p>

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct PathfindGridComponent : IComponent
 </code></pre>
+<p>Stores per-cell pathfinding overrides (weights and collision masks) that the pathfinding system layers on top of the default tile map.</p>
+<p><strong>Intent:</strong> Allow level designers to fine-tune pathfinding cost and passability for specific grid cells without modifying the tile asset.</p>
+<p><strong>Use-case:</strong> Add to the world entity (<code>[Unique]</code>) and populate <code>Cells</code> via the editor to mark heavy or impassable areas; the pathfinding system reads these properties when building traversal costs.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PathfindGridComponent()

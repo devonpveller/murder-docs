@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct DoNotPauseComponent : IComponent
 </code></pre>
+<p>Marker component that exempts an entity's systems from being suspended when the game is paused.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Keeps selected entities (e.g., UI, pause-menu animations, state machines) ticking even when the rest of the world is frozen.</p>
+<p><strong>Use-case:</strong> Attach to any entity that must remain active during a pause state, such as menu screens, countdown timers, or audio state machines.</p>
 <p>⚡</p>
 
                     </main>

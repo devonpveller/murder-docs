@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct RoomComponent : IComponent
 </code></pre>
 <p>This describes a room component properties.</p>
+<p><strong>Intent:</strong> Mark a tile-grid entity as a discrete room and specify the floor visual asset used for it.</p>
+<p><strong>Use-case:</strong> Attach alongside <a href="../../Murder/Components/TileGridComponent.html">TileGridComponent</a> on each room entity in a dungeon-style level; set <code>Floor</code> to the desired floor tileset asset and <code>Flags</code> to configure camera behaviour.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public RoomComponent()
@@ -162,6 +164,7 @@
 <h4 id="floor"><a class="header" href="#floor">Floor</a></h4>
 <pre><code class="language-csharp">public readonly Guid Floor;
 </code></pre>
+<p>GUID of the <a href="../../Murder/Assets/Graphics/FloorAsset.html">FloorAsset</a> used to render the floor of this room.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p>⚡</p>

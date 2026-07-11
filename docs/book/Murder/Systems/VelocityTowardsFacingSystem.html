@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class VelocityTowardsFacingSystem : IReactiveSystem, ISystem
 </code></pre>
+<p>Converts a <code>VelocityTowardsFacingComponent</code> into a world-space velocity vector aligned with the entity's current facing angle, then removes the component.</p>
+<p><strong>Intent:</strong> Translates a magnitude-based impulse into a directional velocity oriented along the entity's facing direction in a single reactive step.</p>
+<p><strong>Use-case:</strong> Use when you want to fire a projectile or dash an agent in the direction they are currently facing without manually computing the angle vector.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IReactiveSystem.html">IReactiveSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public VelocityTowardsFacingSystem()

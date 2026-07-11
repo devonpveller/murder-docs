@@ -149,35 +149,44 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AssetRef&lt;T&gt;
 </code></pre>
+<p>A lightweight, serializable reference to a typed <code>GameAsset</code> identified by its GUID; resolves the asset on demand from the game's data store.</p>
+<p><strong>Intent:</strong> Provides a type-safe, GUID-based handle to a <code>GameAsset</code> so that asset references can be stored in components and resolved at runtime.</p>
+<p><strong>Use-case:</strong> Store in components or config data wherever you need a reference to a game asset; call <code>Asset</code> to get the loaded instance or <code>TryAsset</code> for a null-safe lookup.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AssetRef&lt;T&gt;(Guid guid)
 </code></pre>
+<p>Creates a new <code>AssetRef&lt;T&gt;</code> that points to the asset identified by <code>guid</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>guid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="asset"><a class="header" href="#asset">Asset</a></h4>
 <pre><code class="language-csharp">public T Asset { get; }
 </code></pre>
+<p>Retrieves the asset from the data store by <code>Guid</code>; throws if the asset does not exist.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../">T</a> </p>
 <h4 id="empty"><a class="header" href="#empty">Empty</a></h4>
 <pre><code class="language-csharp">public static AssetRef&lt;T&gt; Empty { get; }
 </code></pre>
+<p>Returns an <code>AssetRef&lt;T&gt;</code> with an empty <code>Guid</code>, representing no asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/AssetRef-1.html">AssetRef&lt;T&gt;</a> </p>
 <h4 id="guid"><a class="header" href="#guid">Guid</a></h4>
 <pre><code class="language-csharp">public readonly Guid Guid;
 </code></pre>
+<p>The unique identifier of the referenced asset; <code>Guid.Empty</code> means no asset is referenced.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="hasvalue"><a class="header" href="#hasvalue">HasValue</a></h4>
 <pre><code class="language-csharp">public bool HasValue { get; }
 </code></pre>
+<p>Returns <code>true</code> if <code>Guid</code> is not empty, indicating this reference points to a valid asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="tryasset"><a class="header" href="#tryasset">TryAsset</a></h4>
 <pre><code class="language-csharp">public T TryAsset { get; }
 </code></pre>
+<p>Returns the asset from the data store, or <code>null</code> if <code>Guid</code> is empty.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../">T</a> </p>
 <p>⚡</p>

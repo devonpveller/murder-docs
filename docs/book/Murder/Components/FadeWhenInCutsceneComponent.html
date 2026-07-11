@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct FadeWhenInCutsceneComponent : IComponent
 </code></pre>
 <p>For now, this is only supported for aseprite components.</p>
+<p><strong>Intent:</strong> Gradually fade a sprite's alpha to zero (or a target value) when the entity enters a cutscene.</p>
+<p><strong>Use-case:</strong> Attach to any entity that should smoothly disappear during cutscene playback; the system reads <code>Duration</code> to drive the tween and restores the original alpha via <code>PreviousAlpha</code> when the cutscene ends.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FadeWhenInCutsceneComponent()
@@ -163,17 +165,20 @@
 <h4 id="duration"><a class="header" href="#duration">Duration</a></h4>
 <pre><code class="language-csharp">public readonly float Duration;
 </code></pre>
+<p>How many seconds the fade animation should take to complete.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="previousalpha"><a class="header" href="#previousalpha">PreviousAlpha</a></h4>
 <pre><code class="language-csharp">public readonly float PreviousAlpha;
 </code></pre>
+<p>The entity's alpha value before the cutscene fade began, used to restore the sprite on cutscene exit. Hidden in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="trackalphafloat"><a class="header" href="#trackalphafloat">TrackAlpha(float)</a></h4>
 <pre><code class="language-csharp">public FadeWhenInCutsceneComponent TrackAlpha(float alpha)
 </code></pre>
+<p>Returns a copy of this component with the given <code>alpha</code> recorded as <code>PreviousAlpha</code>, used by the system to snapshot the current alpha at fade start.</p>
 <p><strong>Parameters</strong> <br />
 <code>alpha</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />

@@ -149,26 +149,33 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class EntityModifier
 </code></pre>
+<p>Records the component additions, removals, and child-instance overrides that a <code>PrefabEntityInstance</code> applies on top of its parent prefab.</p>
+<p><strong>Intent:</strong> Encapsulates all customizations that distinguish one placed prefab instance from the base <code>PrefabAsset</code> definition.</p>
+<p><strong>Use-case:</strong> Created and manipulated by <code>PrefabEntityInstance</code> and the editor; game code rarely constructs these directly.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public EntityModifier(Guid guid)
 </code></pre>
+<p>Creates a new empty modifier for the entity identified by <code>guid</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>guid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="children"><a class="header" href="#children">Children</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; Children { get; }
 </code></pre>
+<p>Immutable set of child entity GUIDs that this modifier adds to the parent instance.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="guid"><a class="header" href="#guid">Guid</a></h4>
 <pre><code class="language-csharp">public readonly Guid Guid;
 </code></pre>
+<p>The GUID of the entity this modifier is associated with.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="haschildguid"><a class="header" href="#haschildguid">HasChild(Guid)</a></h4>
 <pre><code class="language-csharp">public bool HasChild(Guid childId)
 </code></pre>
+<p>Returns <code>true</code> if this modifier adds a child entity with the given GUID.</p>
 <p><strong>Parameters</strong> <br />
 <code>childId</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -176,6 +183,7 @@
 <h4 id="hascomponenttype"><a class="header" href="#hascomponenttype">HasComponent(Type)</a></h4>
 <pre><code class="language-csharp">public bool HasComponent(Type t)
 </code></pre>
+<p>Returns <code>true</code> if this modifier adds or overrides a component of the given type.</p>
 <p><strong>Parameters</strong> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <p><strong>Returns</strong> <br />
@@ -183,6 +191,7 @@
 <h4 id="iscomponentremovedtype"><a class="header" href="#iscomponentremovedtype">IsComponentRemoved(Type)</a></h4>
 <pre><code class="language-csharp">public bool IsComponentRemoved(Type t)
 </code></pre>
+<p>Returns <code>true</code> if this modifier explicitly removes the component of the given type.</p>
 <p><strong>Parameters</strong> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <p><strong>Returns</strong> <br />
@@ -190,6 +199,7 @@
 <h4 id="trygetcomponenttype-out-icomponent"><a class="header" href="#trygetcomponenttype-out-icomponent">TryGetComponent(Type, out IComponent&amp;)</a></h4>
 <pre><code class="language-csharp">public bool TryGetComponent(Type t, IComponent&amp; result)
 </code></pre>
+<p>Attempts to retrieve the overriding component of type <code>t</code>; returns <code>true</code> and writes to <code>result</code> if found.</p>
 <p><strong>Parameters</strong> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> <br />
 <code>result</code> <a href="../../Bang/Components/IComponent.html">IComponent&amp;</a> </p>
@@ -198,6 +208,7 @@
 <h4 id="undocustomcomponenttype"><a class="header" href="#undocustomcomponenttype">UndoCustomComponent(Type)</a></h4>
 <pre><code class="language-csharp">public bool UndoCustomComponent(Type t)
 </code></pre>
+<p>Removes the component override of type <code>t</code> from this modifier; returns <code>true</code> if it was present.</p>
 <p><strong>Parameters</strong> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <p><strong>Returns</strong> <br />
@@ -214,11 +225,13 @@ This will prioritize items present in <paramref name="other" />.</p>
 <h4 id="fetchchildren"><a class="header" href="#fetchchildren">FetchChildren()</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; FetchChildren()
 </code></pre>
+<p>Returns all child entity GUIDs added by this modifier as an immutable array.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="filtercomponentsienumerable1"><a class="header" href="#filtercomponentsienumerable1">FilterComponents(IEnumerable`1&amp;)</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; FilterComponents(IEnumerable`1&amp; allComponents)
 </code></pre>
+<p>Filters <code>allComponents</code> by removing any that this modifier overrides or deletes, and injects the modifier's own component values.</p>
 <p><strong>Parameters</strong> <br />
 <code>allComponents</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0">IEnumerable&lt;T&gt;&amp;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -226,21 +239,25 @@ This will prioritize items present in <paramref name="other" />.</p>
 <h4 id="addchildentityinstance"><a class="header" href="#addchildentityinstance">AddChild(EntityInstance)</a></h4>
 <pre><code class="language-csharp">public void AddChild(EntityInstance child)
 </code></pre>
+<p>Registers <code>child</code> as an entity that this modifier adds to the parent instance.</p>
 <p><strong>Parameters</strong> <br />
 <code>child</code> <a href="../../Murder/Prefabs/EntityInstance.html">EntityInstance</a> </p>
 <h4 id="addorreplacecomponenticomponent"><a class="header" href="#addorreplacecomponenticomponent">AddOrReplaceComponent(IComponent)</a></h4>
 <pre><code class="language-csharp">public void AddOrReplaceComponent(IComponent c)
 </code></pre>
+<p>Adds or replaces the component <code>c</code> in this modifier, and removes it from the removal set if present.</p>
 <p><strong>Parameters</strong> <br />
 <code>c</code> <a href="../../Bang/Components/IComponent.html">IComponent</a> </p>
 <h4 id="removechildguid"><a class="header" href="#removechildguid">RemoveChild(Guid)</a></h4>
 <pre><code class="language-csharp">public void RemoveChild(Guid guid)
 </code></pre>
+<p>Unregisters the child entity with the given GUID from this modifier.</p>
 <p><strong>Parameters</strong> <br />
 <code>guid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="removecomponenttype"><a class="header" href="#removecomponenttype">RemoveComponent(Type)</a></h4>
 <pre><code class="language-csharp">public void RemoveComponent(Type t)
 </code></pre>
+<p>Marks the component of type <code>t</code> for removal, and strips any override value previously added.</p>
 <p><strong>Parameters</strong> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <p>⚡</p>

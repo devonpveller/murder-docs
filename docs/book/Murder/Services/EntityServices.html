@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class EntityServices
 </code></pre>
+<p>General-purpose ECS entity utilities for animation playback, hierarchy traversal, spawning, and component helpers.</p>
+<p><strong>Intent:</strong> Provides convenience methods that operate on entities but don't belong to a more specific service domain.</p>
+<p><strong>Use-case:</strong> Use to play sprite animations, rotate entity positions, spawn prefab clusters, subscribe to animation events, or look up entity metadata without writing boilerplate component queries.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="animationavailableentity-string"><a class="header" href="#animationavailableentity-string">AnimationAvailable(Entity, string)</a></h4>
 <pre><code class="language-csharp">public bool AnimationAvailable(Entity entity, string id)
 </code></pre>
+<p>Returns <code>true</code> if the entity's sprite asset contains an animation with the given identifier.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
@@ -161,6 +165,7 @@
 <h4 id="ischildofworld-entity-entity"><a class="header" href="#ischildofworld-entity-entity">IsChildOf(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public bool IsChildOf(World world, Entity parent, Entity child)
 </code></pre>
+<p>Returns <code>true</code> if <code>child</code> is a direct child of <code>parent</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>parent</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
@@ -170,6 +175,7 @@
 <h4 id="isincameraentity-world"><a class="header" href="#isincameraentity-world">IsInCamera(Entity, World)</a></h4>
 <pre><code class="language-csharp">public bool IsInCamera(Entity e, World world)
 </code></pre>
+<p>Returns <code>true</code> if the entity's position falls within the current camera viewport.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> </p>
@@ -178,6 +184,7 @@
 <h4 id="findrootentityentity"><a class="header" href="#findrootentityentity">FindRootEntity(Entity)</a></h4>
 <pre><code class="language-csharp">public Entity FindRootEntity(Entity e)
 </code></pre>
+<p>Traverses the parent chain and returns the topmost ancestor entity (the root).</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <p><strong>Returns</strong> <br />
@@ -215,6 +222,7 @@ collection with <paramref name="prefix" />.</p>
 <h4 id="tryactivespriteassetentity"><a class="header" href="#tryactivespriteassetentity">TryActiveSpriteAsset(Entity)</a></h4>
 <pre><code class="language-csharp">public SpriteAsset TryActiveSpriteAsset(Entity entity)
 </code></pre>
+<p>Returns the <code>SpriteAsset</code> referenced by the entity's sprite component, or <code>null</code> if it has none.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <p><strong>Returns</strong> <br />
@@ -222,6 +230,7 @@ collection with <paramref name="prefix" />.</p>
 <h4 id="trygetentitynameentity"><a class="header" href="#trygetentitynameentity">TryGetEntityName(Entity)</a></h4>
 <pre><code class="language-csharp">public string TryGetEntityName(Entity entity)
 </code></pre>
+<p>Returns the debug or designer name assigned to the entity, or <code>null</code> if none is set.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <p><strong>Returns</strong> <br />
@@ -229,6 +238,7 @@ collection with <paramref name="prefix" />.</p>
 <h4 id="playasepriteanimationnextentity-string"><a class="header" href="#playasepriteanimationnextentity-string">PlayAsepriteAnimationNext(Entity, string)</a></h4>
 <pre><code class="language-csharp">public T? PlayAsepriteAnimationNext(Entity entity, string animationName)
 </code></pre>
+<p>Queues the named animation to play immediately after the current one finishes.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>animationName</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
@@ -273,6 +283,7 @@ collection with <paramref name="prefix" />.</p>
 <h4 id="tryplayasepriteanimationnextentity-string"><a class="header" href="#tryplayasepriteanimationnextentity-string">TryPlayAsepriteAnimationNext(Entity, string)</a></h4>
 <pre><code class="language-csharp">public T? TryPlayAsepriteAnimationNext(Entity entity, string animationName)
 </code></pre>
+<p>Attempts to queue the named animation after the current one; returns <code>null</code> if the entity has no sprite or the animation is unavailable.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>animationName</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
@@ -281,6 +292,7 @@ collection with <paramref name="prefix" />.</p>
 <h4 id="tryplayspriteanimationentity-immutablearray"><a class="header" href="#tryplayspriteanimationentity-immutablearray">TryPlaySpriteAnimation(Entity, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public T? TryPlaySpriteAnimation(Entity entity, ImmutableArray&lt;T&gt; nextAnimations)
 </code></pre>
+<p>Attempts to play an animation sequence; returns <code>null</code> silently if the entity has no sprite component.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>nextAnimations</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
@@ -289,6 +301,7 @@ collection with <paramref name="prefix" />.</p>
 <h4 id="tryplayspriteanimationentity-string"><a class="header" href="#tryplayspriteanimationentity-string">TryPlaySpriteAnimation(Entity, String[])</a></h4>
 <pre><code class="language-csharp">public T? TryPlaySpriteAnimation(Entity entity, String[] nextAnimations)
 </code></pre>
+<p>Attempts to play an animation sequence from a string array; returns <code>null</code> silently if the entity has no sprite component.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>nextAnimations</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string[]</a> </p>
@@ -297,12 +310,14 @@ collection with <paramref name="prefix" />.</p>
 <h4 id="removespeedmultiplierentity-int"><a class="header" href="#removespeedmultiplierentity-int">RemoveSpeedMultiplier(Entity, int)</a></h4>
 <pre><code class="language-csharp">public void RemoveSpeedMultiplier(Entity entity, int slot)
 </code></pre>
+<p>Removes the speed multiplier occupying the given slot from the entity's <code>AgentSpeedMultiplierComponent</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>slot</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="rotatechildpositionsworld-entity-float"><a class="header" href="#rotatechildpositionsworld-entity-float">RotateChildPositions(World, Entity, float)</a></h4>
 <pre><code class="language-csharp">public void RotateChildPositions(World world, Entity entity, float angle)
 </code></pre>
+<p>Rotates the world positions of all child entities around the parent entity's position by <code>angle</code> radians.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
@@ -310,12 +325,14 @@ collection with <paramref name="prefix" />.</p>
 <h4 id="rotatepositionentity-float"><a class="header" href="#rotatepositionentity-float">RotatePosition(Entity, float)</a></h4>
 <pre><code class="language-csharp">public void RotatePosition(Entity entity, float angle)
 </code></pre>
+<p>Rotates the entity's position by <code>angle</code> radians around the origin.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>angle</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="rotatepositionaroundentity-vector2-float"><a class="header" href="#rotatepositionaroundentity-vector2-float">RotatePositionAround(Entity, Vector2, float)</a></h4>
 <pre><code class="language-csharp">public void RotatePositionAround(Entity entity, Vector2 center, float angle)
 </code></pre>
+<p>Rotates the entity's world position by <code>angle</code> radians around <code>center</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>center</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
@@ -323,6 +340,7 @@ collection with <paramref name="prefix" />.</p>
 <h4 id="setagentspeedmultiplierentity-int-float"><a class="header" href="#setagentspeedmultiplierentity-int-float">SetAgentSpeedMultiplier(Entity, int, float)</a></h4>
 <pre><code class="language-csharp">public void SetAgentSpeedMultiplier(Entity entity, int slot, float speedMultiplier)
 </code></pre>
+<p>Sets a speed multiplier for the agent in the given slot, used to additively adjust movement speed.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>slot</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -330,6 +348,7 @@ collection with <paramref name="prefix" />.</p>
 <h4 id="spawnworld-vector2-guid-int-float-icomponent"><a class="header" href="#spawnworld-vector2-guid-int-float-icomponent">Spawn(World, Vector2, Guid, int, float, IComponent[])</a></h4>
 <pre><code class="language-csharp">public void Spawn(World world, Vector2 spawnerPosition, Guid entityToSpawn, int count, float radius, IComponent[] addComponents)
 </code></pre>
+<p>Spawns <code>count</code> copies of the given prefab scattered within <code>radius</code> of <code>spawnerPosition</code>, each with optional extra components.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>spawnerPosition</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
@@ -340,6 +359,7 @@ collection with <paramref name="prefix" />.</p>
 <h4 id="subscribetoanimationeventsentity-entity"><a class="header" href="#subscribetoanimationeventsentity-entity">SubscribeToAnimationEvents(Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public void SubscribeToAnimationEvents(Entity listener, Entity broadcaster)
 </code></pre>
+<p>Merges the animation event listeners of <code>broadcaster</code> into <code>listener</code> so that <code>listener</code> receives <code>broadcaster</code>'s animation events.</p>
 <p><strong>Parameters</strong> <br />
 <code>listener</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>broadcaster</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>

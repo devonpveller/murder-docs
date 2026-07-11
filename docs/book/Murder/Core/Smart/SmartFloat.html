@@ -149,15 +149,21 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SmartFloat
 </code></pre>
+<p>A float value that can either hold a literal constant or reference an index into a <code>SmartFloatAsset</code>, allowing game designers to drive values from centralized assets.</p>
+<p><strong>Intent:</strong> Provides a runtime-resolved float that can be authored as a literal or as a reference to a data asset, enabling data-driven tuning without code changes.</p>
+<p><strong>Use-case:</strong> Use on components whose numeric values (speed, damage, range) should be tweakable from a shared asset; the <code>Float</code> property always resolves the final value.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SmartFloat()
 </code></pre>
+<p>Creates a <code>SmartFloat</code> with value 0 and no asset reference.</p>
 <pre><code class="language-csharp">public SmartFloat(float custom)
 </code></pre>
+<p>Creates a <code>SmartFloat</code> that always returns the given literal <code>custom</code> value.</p>
 <p><strong>Parameters</strong> <br />
 <code>custom</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <pre><code class="language-csharp">public SmartFloat(Guid guid, int index, float custom)
 </code></pre>
+<p>Creates a <code>SmartFloat</code> that resolves its value from a <code>SmartFloatAsset</code> identified by <code>guid</code> and <code>index</code>, falling back to <code>custom</code> if the asset is unavailable.</p>
 <p><strong>Parameters</strong> <br />
 <code>guid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -166,21 +172,25 @@
 <h4 id="asset"><a class="header" href="#asset">Asset</a></h4>
 <pre><code class="language-csharp">public readonly Guid Asset;
 </code></pre>
+<p>The GUID of the <code>SmartFloatAsset</code> to resolve the value from, or <code>Guid.Empty</code> for a literal value.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="custom"><a class="header" href="#custom">Custom</a></h4>
 <pre><code class="language-csharp">public readonly float Custom;
 </code></pre>
+<p>The literal float value used when <code>Asset</code> is empty or the asset cannot be resolved.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="float"><a class="header" href="#float">Float</a></h4>
 <pre><code class="language-csharp">public float Float { get; }
 </code></pre>
+<p>The resolved float value: reads from the referenced <code>SmartFloatAsset</code> if available, otherwise returns <code>Custom</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="index"><a class="header" href="#index">Index</a></h4>
 <pre><code class="language-csharp">public readonly int Index;
 </code></pre>
+<p>The index into the <code>SmartFloatAsset</code> array to read when resolving the value.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

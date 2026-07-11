@@ -149,26 +149,33 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">sealed enum NextAvailablePositionFlags : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Flags that control the search strategy used by <code>PhysicsServices.FindNextAvailablePosition</code>.</p>
+<p><strong>Intent:</strong> Configures which additional checks are performed when searching for a free grid position near an entity.</p>
+<p><strong>Use-case:</strong> Pass <code>CheckNeighbours</code> to allow the search to scan adjacent tiles, or combine with <code>CheckLineOfSight</code> to ensure the found position is also visible from the origin.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="checklineofsight"><a class="header" href="#checklineofsight">CheckLineOfSight</a></h4>
 <pre><code class="language-csharp">public static const NextAvailablePositionFlags CheckLineOfSight;
 </code></pre>
+<p>Also verifies that the candidate position has line of sight to the origin.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Services/NextAvailablePositionFlags.html">NextAvailablePositionFlags</a> </p>
 <h4 id="checkneighbours"><a class="header" href="#checkneighbours">CheckNeighbours</a></h4>
 <pre><code class="language-csharp">public static const NextAvailablePositionFlags CheckNeighbours;
 </code></pre>
+<p>Expands the search to include cells adjacent to the target position.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Services/NextAvailablePositionFlags.html">NextAvailablePositionFlags</a> </p>
 <h4 id="checkrecursiveneighbours"><a class="header" href="#checkrecursiveneighbours">CheckRecursiveNeighbours</a></h4>
 <pre><code class="language-csharp">public static const NextAvailablePositionFlags CheckRecursiveNeighbours;
 </code></pre>
+<p>Expands the search recursively through neighbouring cells until a free position is found.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Services/NextAvailablePositionFlags.html">NextAvailablePositionFlags</a> </p>
 <h4 id="checktarget"><a class="header" href="#checktarget">CheckTarget</a></h4>
 <pre><code class="language-csharp">public static const NextAvailablePositionFlags CheckTarget;
 </code></pre>
+<p>Checks the exact target position first before expanding the search.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Services/NextAvailablePositionFlags.html">NextAvailablePositionFlags</a> </p>
 <p>⚡</p>

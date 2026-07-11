@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class MapCarveCollisionSystem : IReactiveSystem, ISystem
 </code></pre>
+<p>Tracks entities with <code>CarveComponent</code> and updates the pathfinding/collision map whenever they are added, moved, or removed, carving out or restoring navigable grid cells.</p>
+<p><strong>Intent:</strong> Keeps the navigable area of the map accurate by dynamically carving dynamic obstacles (moving walls, doors) into the navigation grid.</p>
+<p><strong>Use-case:</strong> Attach <code>CarveComponent</code> to any dynamic obstacle; this system keeps the pathfinding map up to date so agents automatically route around it.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IReactiveSystem.html">IReactiveSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MapCarveCollisionSystem()
@@ -157,6 +160,7 @@
 <h4 id="isvalidcarveentity-collidercomponent-carvecomponent"><a class="header" href="#isvalidcarveentity-collidercomponent-carvecomponent">IsValidCarve(Entity, ColliderComponent, CarveComponent)</a></h4>
 <pre><code class="language-csharp">protected bool IsValidCarve(Entity e, ColliderComponent collider, CarveComponent carve)
 </code></pre>
+<p>Returns whether the given entity should apply a carve to the map; override to add custom validity conditions.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>collider</code> <a href="../../Murder/Components/ColliderComponent.html">ColliderComponent</a> <br />
@@ -166,6 +170,7 @@
 <h4 id="trackentityongridmap-entity-intrectangle"><a class="header" href="#trackentityongridmap-entity-intrectangle">TrackEntityOnGrid(Map, Entity, IntRectangle)</a></h4>
 <pre><code class="language-csharp">protected void TrackEntityOnGrid(Map map, Entity e, IntRectangle rect)
 </code></pre>
+<p>Marks the cells in <code>rect</code> as occupied/carved on the map for the specified entity.</p>
 <p><strong>Parameters</strong> <br />
 <code>map</code> <a href="../../Murder/Core/Map.html">Map</a> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
@@ -173,26 +178,27 @@
 <h4 id="untrackentityongridmap-entity-intrectangle-bool"><a class="header" href="#untrackentityongridmap-entity-intrectangle-bool">UntrackEntityOnGrid(Map, Entity, IntRectangle, bool)</a></h4>
 <pre><code class="language-csharp">protected void UntrackEntityOnGrid(Map map, Entity e, IntRectangle rect, bool force)
 </code></pre>
+<p>Removes the entity's carve from the map cells; set <code>force</code> to bypass the guard that prevents accidental double-removal.</p>
 <p><strong>Parameters</strong> <br />
 <code>map</code> <a href="../../Murder/Core/Map.html">Map</a> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>rect</code> <a href="../../Murder/Core/Geometry/IntRectangle.html">IntRectangle</a> <br />
 <code>force</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
-<h4 id="onaddedworld-immutablearray"><a class="header" href="#onaddedworld-immutablearray">OnAdded(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnAdded(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Carves the initial bounding boxes of newly added entities into the map grid and refreshes the pathfinding data.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
-<h4 id="onmodifiedworld-immutablearray"><a class="header" href="#onmodifiedworld-immutablearray">OnModified(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnModified(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Updates the map grid by removing the previous bounding box and carving the new one whenever a carve entity moves or changes.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
-<h4 id="onremovedworld-immutablearray"><a class="header" href="#onremovedworld-immutablearray">OnRemoved(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnRemoved(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Restores the cells previously occupied by a removed carve entity and refreshes the pathfinding data.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>

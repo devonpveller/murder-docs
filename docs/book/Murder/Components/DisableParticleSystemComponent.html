@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct DisableParticleSystemComponent : IComponent
 </code></pre>
+<p>Marker component that stops a particle system entity from emitting new particles.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Pauses particle emission without destroying the particle system entity or its configuration.</p>
+<p><strong>Use-case:</strong> Attach to a particle emitter entity to halt emission (e.g., when an engine turns off); remove it to resume emission.</p>
 <p>⚡</p>
 
                     </main>

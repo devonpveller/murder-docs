@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct VelocityComponent : IComponent
 </code></pre>
+<p>Stores the per-frame velocity vector applied to an entity's position by the movement system.</p>
+<p><strong>Intent:</strong> Represent the current translational velocity of an entity in world space.</p>
+<p><strong>Use-case:</strong> Attach to any entity that moves via the velocity-driven movement pipeline; set <code>Velocity</code> to the desired speed vector each frame or via impulse.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public VelocityComponent(float x, float y)
@@ -164,6 +167,7 @@
 <h4 id="velocity"><a class="header" href="#velocity">Velocity</a></h4>
 <pre><code class="language-csharp">public readonly Vector2 Velocity;
 </code></pre>
+<p>Current velocity of the entity in pixels per second.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p>⚡</p>

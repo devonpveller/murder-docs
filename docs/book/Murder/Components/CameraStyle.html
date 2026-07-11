@@ -149,21 +149,27 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed enum CameraStyle : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Specifies how the camera interpolates toward its follow target.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
+<p><strong>Intent:</strong> Controls the camera follow algorithm so designers can choose the right feel for each gameplay context.</p>
+<p><strong>Use-case:</strong> Set via <code>CameraFollowComponent.Style</code> when the entity is created; for example use <code>DeadZone</code> for normal gameplay, <code>Center</code> for cutscenes, and <code>Perfect</code> for pixel-perfect movement.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="center"><a class="header" href="#center">Center</a></h4>
 <pre><code class="language-csharp">public static const CameraStyle Center;
 </code></pre>
+<p>Camera is always centered on the target with no dead zone or lag.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/CameraStyle.html">CameraStyle</a> </p>
 <h4 id="deadzone"><a class="header" href="#deadzone">DeadZone</a></h4>
 <pre><code class="language-csharp">public static const CameraStyle DeadZone;
 </code></pre>
+<p>Camera follows the target but only moves once the target exits the dead zone, providing a looser, more organic feel.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/CameraStyle.html">CameraStyle</a> </p>
 <h4 id="perfect"><a class="header" href="#perfect">Perfect</a></h4>
 <pre><code class="language-csharp">public static const CameraStyle Perfect;
 </code></pre>
+<p>Camera tracks the target pixel-perfectly with no smoothing or dead zone.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/CameraStyle.html">CameraStyle</a> </p>
 <p>⚡</p>

@@ -149,16 +149,21 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct ThetherSnapMessage : IMessage
 </code></pre>
+<p>Sent when an entity has been snapped or attached to a tether point, carrying the ID of the newly attached entity.</p>
+<p><strong>Intent:</strong> Notify relevant systems that an entity has been bound to a tether, enabling constraint-based movement or physics responses.</p>
+<p><strong>Use-case:</strong> Send this from a tether system when an entity snaps to a tether anchor. Listening systems can use the <code>AttachedEntityId</code> to apply movement constraints, synchronize animations, or trigger gameplay events tied to the attachment.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IMessage.html">IMessage</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ThetherSnapMessage(int attachedEntityId)
 </code></pre>
+<p>Creates a message identifying the entity that was just attached to the tether.</p>
 <p><strong>Parameters</strong> <br />
 <code>attachedEntityId</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="attachedentityid"><a class="header" href="#attachedentityid">AttachedEntityId</a></h4>
 <pre><code class="language-csharp">public readonly int AttachedEntityId;
 </code></pre>
+<p>Entity ID of the entity that has been attached to this tether.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

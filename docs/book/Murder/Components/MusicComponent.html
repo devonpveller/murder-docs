@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct MusicComponent : IComponent
 </code></pre>
 <p>Music component which will be immediately played and destroyed.</p>
+<p><strong>Intent:</strong> Trigger background music playback on an entity; the sound system plays the specified event and then disposes of the component.</p>
+<p><strong>Use-case:</strong> Add to any entity (or a dedicated music entity) with the desired <code>SoundEventId</code> to start a music track; remove the component or use a dedicated stop interaction to silence it.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MusicComponent()
@@ -162,6 +164,7 @@
 <h4 id="id"><a class="header" href="#id">Id</a></h4>
 <pre><code class="language-csharp">public readonly SoundEventId Id;
 </code></pre>
+<p>Identifier of the sound event (music track) to play.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Sounds/SoundEventId.html">SoundEventId</a> </p>
 <p>⚡</p>

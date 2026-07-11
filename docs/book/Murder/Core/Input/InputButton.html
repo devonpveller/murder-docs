@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct InputButton
 </code></pre>
+<p>Represents a single physical input binding — a keyboard key, gamepad button, mouse button, or gamepad axis — along with its device source.</p>
+<p><strong>Intent:</strong> Map one physical control to a logical input slot.</p>
+<p><strong>Use-case:</strong> Create <code>InputButton</code> instances from keys, buttons, or axes and add them to a <code>VirtualButton</code> or <code>VirtualAxis</code> via <code>PlayerInput.Register()</code> to define the control scheme.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public InputButton()
 </code></pre>
@@ -172,12 +175,14 @@
 <h4 id="source"><a class="header" href="#source">Source</a></h4>
 <pre><code class="language-csharp">public readonly InputSource Source;
 </code></pre>
+<p>The device this button is bound to (keyboard, mouse, gamepad, or gamepad axis).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Input/InputSource.html">InputSource</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="checkinputstate"><a class="header" href="#checkinputstate">Check(InputState)</a></h4>
 <pre><code class="language-csharp">public bool Check(InputState state)
 </code></pre>
+<p>Returns <code>true</code> if this button is currently held down in the given <code>state</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>state</code> <a href="../../../Murder/Core/Input/InputState.html">InputState</a> </p>
 <p><strong>Returns</strong> <br />
@@ -185,6 +190,7 @@
 <h4 id="isavailablegamepadcapabilities"><a class="header" href="#isavailablegamepadcapabilities">IsAvailable(GamePadCapabilities)</a></h4>
 <pre><code class="language-csharp">public bool IsAvailable(GamePadCapabilities capabilities)
 </code></pre>
+<p>Returns <code>true</code> if this button's physical control is present on the gamepad described by <code>capabilities</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>capabilities</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Input.GamePadCapabilities.html">GamePadCapabilities</a> </p>
 <p><strong>Returns</strong> <br />
@@ -192,11 +198,13 @@
 <h4 id="getinputimagestyle"><a class="header" href="#getinputimagestyle">GetInputImageStyle()</a></h4>
 <pre><code class="language-csharp">public InputImageStyle GetInputImageStyle()
 </code></pre>
+<p>Returns the <code>InputImageStyle</code> enum value used to look up the correct icon image for this button.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Input/InputImageStyle.html">InputImageStyle</a> </p>
 <h4 id="buttontoaxisbool-bool-bool-bool"><a class="header" href="#buttontoaxisbool-bool-bool-bool">ButtonToAxis(bool, bool, bool, bool)</a></h4>
 <pre><code class="language-csharp">public Vector2 ButtonToAxis(bool up, bool right, bool left, bool down)
 </code></pre>
+<p>Converts four directional button states into a normalised 2D axis vector.</p>
 <p><strong>Parameters</strong> <br />
 <code>up</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> <br />
 <code>right</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> <br />
@@ -207,6 +215,7 @@
 <h4 id="getaxisgamepadstate"><a class="header" href="#getaxisgamepadstate">GetAxis(GamePadState)</a></h4>
 <pre><code class="language-csharp">public Vector2 GetAxis(GamePadState gamepadState)
 </code></pre>
+<p>Returns the 2D axis value for this button's gamepad axis binding, or <code>Vector2.Zero</code> if it is not an axis binding.</p>
 <p><strong>Parameters</strong> <br />
 <code>gamepadState</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Input.GamePadState.html">GamePadState</a> </p>
 <p><strong>Returns</strong> <br />

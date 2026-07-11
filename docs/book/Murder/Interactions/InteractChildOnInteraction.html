@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct InteractChildOnInteraction : IInteraction
 </code></pre>
+<p>Sends an <a href="../../Murder/Messages/InteractMessage.html">InteractMessage</a> to one or more named children of the interacted entity.</p>
+<p><strong>Intent:</strong> Forwards an interaction event down to specific named child entities.</p>
+<p><strong>Use-case:</strong> Use when interacting with a parent entity should trigger behaviour on specific children, such as activating a mechanism that is modelled as a child node.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public InteractChildOnInteraction()
@@ -157,12 +160,14 @@
 <h4 id="children"><a class="header" href="#children">Children</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Children;
 </code></pre>
+<p>Names of the child entities that will receive the interact message.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Sends an <code>InteractMessage</code> from the interactor to each child listed in <code>Children</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

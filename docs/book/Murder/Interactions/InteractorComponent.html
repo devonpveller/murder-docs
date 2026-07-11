@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct InteractorComponent : IComponent
 </code></pre>
 <p>Component used to signal that an entity is able to interact with other objects.</p>
+<p><strong>Intent:</strong> Marks an entity as an active interactor in the ECS world.</p>
+<p><strong>Use-case:</strong> Attach to the player entity (or any NPC) so that the engine's interaction systems recognise it as a source that can trigger <code>IInteraction</code> responses on nearby entities.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <p>⚡</p>
 

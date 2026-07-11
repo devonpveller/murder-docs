@@ -149,52 +149,64 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class DialogStateMachine : StateMachine
 </code></pre>
+<p>State machine that drives dialogue playback for a character entity, feeding <code>DialogLine</code> components to the entity each tick and awaiting player choices.</p>
+<p><strong>Intent:</strong> Manages the full lifecycle of an in-game dialogue exchange, from fetching the next line to waiting for player input and cleaning up after the conversation ends.</p>
+<p><strong>Use-case:</strong> Added automatically to entities that have a <code>SituationComponent</code>; it will run through the character's dialogue tree and destroy itself (or remove the state-machine component) when the dialogue is exhausted.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/StateMachines/StateMachine.html">StateMachine</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DialogStateMachine()
 </code></pre>
 <pre><code class="language-csharp">public DialogStateMachine(bool destroyAfterDone)
 </code></pre>
+<p>Creates a dialog state machine; when <code>destroyAfterDone</code> is <code>false</code>, the state-machine component is removed instead of destroying the entity.</p>
 <p><strong>Parameters</strong> <br />
 <code>destroyAfterDone</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="entity"><a class="header" href="#entity">Entity</a></h4>
 <pre><code class="language-csharp">protected Entity Entity;
 </code></pre>
+<p>The ECS entity running this dialogue state machine.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public string Name { get; }
 </code></pre>
+<p>Debug name of this state machine.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="persiststateonsave"><a class="header" href="#persiststateonsave">PersistStateOnSave</a></h4>
 <pre><code class="language-csharp">protected virtual bool PersistStateOnSave { get; }
 </code></pre>
+<p>When <code>false</code>, the dialogue state is not persisted across save/load cycles.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="world"><a class="header" href="#world">World</a></h4>
 <pre><code class="language-csharp">protected World World;
 </code></pre>
+<p>The ECS world in which this state machine is running.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Bang/World.html">World</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="onmessageimessage"><a class="header" href="#onmessageimessage">OnMessage(IMessage)</a></h4>
 <pre><code class="language-csharp">protected virtual void OnMessage(IMessage message)
 </code></pre>
+<p>Called when a message is dispatched to the owning entity; handles <code>PickChoiceMessage</code> to advance choices.</p>
 <p><strong>Parameters</strong> <br />
 <code>message</code> <a href="../../Bang/Components/IMessage.html">IMessage</a> </p>
 <h4 id="onstart"><a class="header" href="#onstart">OnStart()</a></h4>
 <pre><code class="language-csharp">protected virtual void OnStart()
 </code></pre>
+<p>Initializes the character runtime from the entity's <code>SituationComponent</code>.</p>
 <h4 id="transitionfunc"><a class="header" href="#transitionfunc">Transition(Func<TResult>)</a></h4>
 <pre><code class="language-csharp">protected virtual void Transition(Func&lt;TResult&gt; routine)
 </code></pre>
+<p>Transitions immediately to a new routine.</p>
 <p><strong>Parameters</strong> <br />
 <code>routine</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Func-1?view=net-7.0">Func&lt;TResult&gt;</a> </p>
 <h4 id="gotofunc"><a class="header" href="#gotofunc">GoTo(Func<TResult>)</a></h4>
 <pre><code class="language-csharp">protected virtual Wait GoTo(Func&lt;TResult&gt; routine)
 </code></pre>
+<p>Yields a <code>Wait</code> that transitions to <code>routine</code> on the next tick.</p>
 <p><strong>Parameters</strong> <br />
 <code>routine</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Func-1?view=net-7.0">Func&lt;TResult&gt;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -202,32 +214,39 @@
 <h4 id="reset"><a class="header" href="#reset">Reset()</a></h4>
 <pre><code class="language-csharp">protected void Reset()
 </code></pre>
+<p>Resets this state machine back to its initial state.</p>
 <h4 id="statefunc"><a class="header" href="#statefunc">State(Func<TResult>)</a></h4>
 <pre><code class="language-csharp">protected void State(Func&lt;TResult&gt; routine)
 </code></pre>
+<p>Registers <code>routine</code> as the current entry-point state.</p>
 <p><strong>Parameters</strong> <br />
 <code>routine</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Func-1?view=net-7.0">Func&lt;TResult&gt;</a> </p>
 <h4 id="switchstatefunc"><a class="header" href="#switchstatefunc">SwitchState(Func<TResult>)</a></h4>
 <pre><code class="language-csharp">protected void SwitchState(Func&lt;TResult&gt; routine)
 </code></pre>
+<p>Switches to the given routine, replacing the current state.</p>
 <p><strong>Parameters</strong> <br />
 <code>routine</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Func-1?view=net-7.0">Func&lt;TResult&gt;</a> </p>
 <h4 id="talk"><a class="header" href="#talk">Talk()</a></h4>
 <pre><code class="language-csharp">public IEnumerator&lt;T&gt; Talk()
 </code></pre>
+<p>Main dialogue loop; fetches lines from the character runtime and sets <code>LineComponent</code> on the entity, yielding until the player advances.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerator-1?view=net-7.0">IEnumerator&lt;T&gt;</a> </p>
 <h4 id="ondestroyed"><a class="header" href="#ondestroyed">OnDestroyed()</a></h4>
 <pre><code class="language-csharp">public virtual void OnDestroyed()
 </code></pre>
+<p>Called when the owning entity is destroyed; unsubscribes all notification listeners.</p>
 <h4 id="subscribeaction"><a class="header" href="#subscribeaction">Subscribe(Action)</a></h4>
 <pre><code class="language-csharp">public void Subscribe(Action notification)
 </code></pre>
+<p>Registers a callback that will be invoked whenever the dialogue state changes.</p>
 <p><strong>Parameters</strong> <br />
 <code>notification</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0">Action</a> </p>
 <h4 id="unsubscribeaction"><a class="header" href="#unsubscribeaction">Unsubscribe(Action)</a></h4>
 <pre><code class="language-csharp">public void Unsubscribe(Action notification)
 </code></pre>
+<p>Removes a previously registered change notification callback.</p>
 <p><strong>Parameters</strong> <br />
 <code>notification</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0">Action</a> </p>
 <p>⚡</p>

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct NextDialogMessage : IMessage
 </code></pre>
+<p>A marker message with no payload sent to advance the current dialogue to its next line or node.</p>
+<p><strong>Intent:</strong> Trigger progression to the next step in a running dialogue sequence.</p>
+<p><strong>Use-case:</strong> Send this from input systems when the player presses the advance button during a cutscene or conversation. The dialogue system listens for it and moves the dialogue state machine forward to display the next line.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IMessage.html">IMessage</a></em></p>
 <p>⚡</p>
 

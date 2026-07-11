@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct SoundRuleAction
 </code></pre>
 <p>This is a generic blackboard action with a command.</p>
+<p><strong>Intent:</strong> Represent a rule action that writes a value to a <code>SoundFact</code> on the audio blackboard.</p>
+<p><strong>Use-case:</strong> Use <code>SoundRuleAction</code> in sound rule assets to update blackboard facts when game events occur (e.g. marking a music zone as entered), so the adaptive audio system can react.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SoundRuleAction()
 </code></pre>
@@ -163,16 +165,19 @@
 <h4 id="fact"><a class="header" href="#fact">Fact</a></h4>
 <pre><code class="language-csharp">public readonly SoundFact Fact;
 </code></pre>
+<p>The audio blackboard fact this action targets.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Sounds/SoundFact.html">SoundFact</a> </p>
 <h4 id="kind"><a class="header" href="#kind">Kind</a></h4>
 <pre><code class="language-csharp">public readonly BlackboardActionKind Kind;
 </code></pre>
+<p>The operation to apply to the fact (Set, Add, etc.).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardActionKind.html">BlackboardActionKind</a> </p>
 <h4 id="value"><a class="header" href="#value">Value</a></h4>
 <pre><code class="language-csharp">public readonly T? Value;
 </code></pre>
+<p>The integer value applied to the fact according to <code>Kind</code>; <code>null</code> means no value change.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <p>⚡</p>

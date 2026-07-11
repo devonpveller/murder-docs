@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class TilesetGridType
 </code></pre>
+<p>Integer constants for the two fundamental tileset grid cell types: empty space and solid collision.</p>
+<p><strong>Intent:</strong> Provide named constants for tileset cell type classification.</p>
+<p><strong>Use-case:</strong> Compare a cell value against <code>TilesetGridType.Solid</code> or <code>TilesetGridType.Empty</code> when querying the tile grid to determine whether a cell blocks movement.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TilesetGridType()
 </code></pre>
@@ -156,11 +159,13 @@
 <h4 id="empty"><a class="header" href="#empty">Empty</a></h4>
 <pre><code class="language-csharp">public static const int Empty;
 </code></pre>
+<p>Cell type value representing an open, passable tile (value: 0).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="solid"><a class="header" href="#solid">Solid</a></h4>
 <pre><code class="language-csharp">public static const int Solid;
 </code></pre>
+<p>Cell type value representing a solid, impassable tile (value: 1).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

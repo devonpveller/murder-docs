@@ -149,16 +149,25 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed enum NoiseType : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Identifies which simplex noise algorithm implementation to use when sampling noise.</p>
+<p><strong>Intent:</strong> Allows callers to select between available noise implementations by name rather than instantiating different classes.</p>
+<p><strong>Use-case:</strong> Pass to <code>NoiseHelper</code> methods or noise-generating components to choose the desired algorithm.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="carmody"><a class="header" href="#carmody">Carmody</a></h4>
+<h4 id="carmody-1"><a class="header" href="#carmody-1">Carmody</a></h4>
+<h4 id="carmody-2"><a class="header" href="#carmody-2">Carmody</a></h4>
 <pre><code class="language-csharp">public static const NoiseType Carmody;
 </code></pre>
+<p>Use Carmody's 3D Simplex Noise implementation.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/NoiseType.html">NoiseType</a> </p>
 <h4 id="gustavson"><a class="header" href="#gustavson">Gustavson</a></h4>
+<h4 id="gustavson-1"><a class="header" href="#gustavson-1">Gustavson</a></h4>
+<h4 id="gustavson-2"><a class="header" href="#gustavson-2">Gustavson</a></h4>
 <pre><code class="language-csharp">public static const NoiseType Gustavson;
 </code></pre>
+<p>Use Gustavson's 2D Simplex Noise implementation.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Utilities/NoiseType.html">NoiseType</a> </p>
 <p>⚡</p>

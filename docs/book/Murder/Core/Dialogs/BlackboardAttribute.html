@@ -149,31 +149,39 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class BlackboardAttribute : Attribute
 </code></pre>
+<p>Marks a class as a named blackboard type that the editor and engine can discover.</p>
+<p><strong>Intent:</strong> Registers a blackboard implementation under a stable string name so the dialogue system and editor tools can enumerate, serialize, and look up available blackboards by name.</p>
+<p><strong>Use-case:</strong> Apply <code>[Blackboard(&quot;MyBoard&quot;)]</code> to a class that implements <code>IBlackboard</code>; the engine will automatically associate it with that name and (optionally) treat it as the default blackboard when <code>isDefault</code> is <code>true</code>.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public BlackboardAttribute(string name, bool default)
 </code></pre>
+<p>Creates the attribute with an explicit name and marks whether this blackboard is the default one.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>default</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <pre><code class="language-csharp">public BlackboardAttribute(string name)
 </code></pre>
+<p>Creates the attribute with the given name; <code>IsDefault</code> will be <code>false</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="isdefault"><a class="header" href="#isdefault">IsDefault</a></h4>
 <pre><code class="language-csharp">public readonly bool IsDefault;
 </code></pre>
+<p>When <code>true</code>, this blackboard is the fallback used when no explicit blackboard name is specified during a fact lookup.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public readonly string Name;
 </code></pre>
+<p>The unique string identifier for this blackboard type, used by the dialogue system to locate the correct blackboard at runtime.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Inherited from <code>Attribute</code>; returns a unique object that identifies this attribute type instance.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

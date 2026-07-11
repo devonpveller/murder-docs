@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class QuadtreeCalculatorSystem : IReactiveSystem, ISystem
 </code></pre>
+<p>Maintains a spatial <code>Quadtree</code> by inserting, updating, and removing entities with <code>PositionComponent</code> and <code>ColliderComponent</code> whenever their transform or collider changes.</p>
+<p><strong>Intent:</strong> Keeps the world's spatial index accurate so collision and physics systems can efficiently query nearby entities.</p>
+<p><strong>Use-case:</strong> Required by <code>TriggerPhysicsSystem</code> and any other system that performs spatial queries; must be present in any world that uses collision detection.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IReactiveSystem.html">IReactiveSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public QuadtreeCalculatorSystem()
@@ -157,30 +160,35 @@
 <h4 id="onactivatedworld-immutablearray"><a class="header" href="#onactivatedworld-immutablearray">OnActivated(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnActivated(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Re-inserts reactivated entities into the spatial quadtree.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="onaddedworld-immutablearray"><a class="header" href="#onaddedworld-immutablearray">OnAdded(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnAdded(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Inserts newly added entities into the spatial quadtree.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="ondeactivatedworld-immutablearray"><a class="header" href="#ondeactivatedworld-immutablearray">OnDeactivated(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnDeactivated(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Removes deactivated entities from the quadtree so they are excluded from spatial queries.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="onmodifiedworld-immutablearray"><a class="header" href="#onmodifiedworld-immutablearray">OnModified(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnModified(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Updates each entity's bounding box entry in the quadtree when its position or collider changes.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="onremovedworld-immutablearray"><a class="header" href="#onremovedworld-immutablearray">OnRemoved(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnRemoved(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Removes destroyed entities from the quadtree.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>

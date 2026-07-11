@@ -149,26 +149,33 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AgentImpulseComponent : IComponent
 </code></pre>
+<p>Carries a one-frame velocity impulse and optional facing direction for an agent entity.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Delivers a movement impulse to the <code>AgentMoverSystem</code> for a single simulation step, then is cleared automatically.</p>
+<p><strong>Use-case:</strong> Attach (or replace) this component each frame to drive agent movement — for example from a player input system that converts stick input into a velocity vector.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AgentImpulseComponent(Vector2 impulse, T? direction)
 </code></pre>
+<p>Creates an impulse with an explicit desired facing direction.</p>
 <p><strong>Parameters</strong> <br />
 <code>impulse</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
 <code>direction</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <pre><code class="language-csharp">public AgentImpulseComponent(Vector2 impulse)
 </code></pre>
+<p>Creates an impulse; the facing direction is inferred from the impulse vector.</p>
 <p><strong>Parameters</strong> <br />
 <code>impulse</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="direction"><a class="header" href="#direction">Direction</a></h4>
 <pre><code class="language-csharp">public readonly T? Direction;
 </code></pre>
+<p>The desired facing direction for the agent this frame; <code>null</code> means direction is derived from the impulse vector.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="impulse"><a class="header" href="#impulse">Impulse</a></h4>
 <pre><code class="language-csharp">public readonly Vector2 Impulse;
 </code></pre>
+<p>The velocity impulse to apply to the agent this frame.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p>⚡</p>

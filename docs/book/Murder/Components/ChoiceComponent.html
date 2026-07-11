@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct ChoiceComponent : IComponent
 </code></pre>
+<p>Holds the current dialogue choice presented to the player during a conversation.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Carries the <code>ChoiceLine</code> data that the UI system needs to display a multiple-choice dialogue prompt.</p>
+<p><strong>Use-case:</strong> Added to the unique dialogue entity by the dialogue system when a branching choice is reached; the choice UI reads this component and removes it once the player selects an option.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ChoiceComponent(ChoiceLine choice)
 </code></pre>
@@ -159,6 +162,7 @@
 <h4 id="choice"><a class="header" href="#choice">Choice</a></h4>
 <pre><code class="language-csharp">public readonly ChoiceLine Choice;
 </code></pre>
+<p>The choice data to present to the player, including the available option lines.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Dialogs/ChoiceLine.html">ChoiceLine</a> </p>
 <p>⚡</p>

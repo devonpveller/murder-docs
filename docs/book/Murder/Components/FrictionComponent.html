@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct FrictionComponent : IComponent
 </code></pre>
+<p>Applies a friction coefficient to an agent's velocity each frame, decelerating it to a stop.</p>
+<p><strong>Intent:</strong> Simulate ground and air friction so that agents naturally slow down when no movement input is applied.</p>
+<p><strong>Use-case:</strong> Add to any entity with an <code>AgentComponent</code> and set <code>Amount</code> between 0 (no friction) and values close to 1 (stops very quickly); optionally provide <code>AirFriction</code> for separate in-air deceleration.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FrictionComponent(float amount)
@@ -159,6 +162,7 @@
 <h4 id="amount"><a class="header" href="#amount">Amount</a></h4>
 <pre><code class="language-csharp">public readonly float Amount;
 </code></pre>
+<p>Friction coefficient applied while the agent is grounded. Higher values (closer to 1) cause the agent to stop faster; 0 applies no friction.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

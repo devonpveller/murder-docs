@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">sealed struct Feedback
 </code></pre>
+<p>A data packet that bundles a player message, a signature, the current game version, and an optional log for submission to a feedback endpoint.</p>
+<p><strong>Intent:</strong> Represents a single structured feedback submission, ready to be serialised and sent to a remote server.</p>
+<p><strong>Use-case:</strong> Constructed automatically by <code>FeedbackServices</code>; inspect <code>Signature</code> for server-side verification or <code>Log</code> to see the captured game log attached to the report.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Feedback(string message, string secretKey, bool saveLog)
 </code></pre>
@@ -160,26 +163,31 @@
 <h4 id="log"><a class="header" href="#log">Log</a></h4>
 <pre><code class="language-csharp">public readonly string Log;
 </code></pre>
+<p>The game log snapshot captured at the time the feedback was created (empty when <code>saveLog</code> is <code>false</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="message"><a class="header" href="#message">Message</a></h4>
 <pre><code class="language-csharp">public readonly string Message;
 </code></pre>
+<p>The human-readable message entered by the player.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="signature"><a class="header" href="#signature">Signature</a></h4>
 <pre><code class="language-csharp">public readonly string Signature;
 </code></pre>
+<p>An HMAC or similar signature derived from the message and secret key, used by the server to verify authenticity.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="time"><a class="header" href="#time">Time</a></h4>
 <pre><code class="language-csharp">public readonly DateTime Time;
 </code></pre>
+<p>The UTC timestamp when this feedback packet was created.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.DateTime?view=net-7.0">DateTime</a> </p>
 <h4 id="version"><a class="header" href="#version">Version</a></h4>
 <pre><code class="language-csharp">public readonly float Version;
 </code></pre>
+<p>The game version number at the time the feedback was submitted.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

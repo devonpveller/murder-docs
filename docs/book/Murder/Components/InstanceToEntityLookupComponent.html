@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct InstanceToEntityLookupComponent : IComponent
 </code></pre>
 <p>This is used when serializing save data. This keeps a reference between entities and their guid.</p>
+<p><strong>Intent:</strong> Maintain a bidirectional map between entity instance GUIDs (design-time identifiers) and their runtime integer entity IDs across save/load cycles.</p>
+<p><strong>Use-case:</strong> Attached to the world or a root entity during serialization; systems use <code>InstancesToEntities</code> to resolve a saved GUID back to a live entity, and <code>EntitiesToInstances</code> to go the other direction.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public InstanceToEntityLookupComponent()

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct WaitForVacancyComponent : IComponent
 </code></pre>
+<p>Blocks an entity from advancing until the grid cell it needs to occupy becomes unoccupied.</p>
+<p><strong>Intent:</strong> Prevent pathfinding agents from colliding when multiple agents target the same grid cell simultaneously.</p>
+<p><strong>Use-case:</strong> Attach to an agent when it reaches a cell that is still occupied by another entity; it will wait in place and optionally notify its parent when the cell clears.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public WaitForVacancyComponent(bool alertParent)
@@ -159,6 +162,7 @@
 <h4 id="alertparent"><a class="header" href="#alertparent">AlertParent</a></h4>
 <pre><code class="language-csharp">public readonly bool AlertParent;
 </code></pre>
+<p>When true, the parent entity is notified when the waited-for cell becomes vacant.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <p>⚡</p>

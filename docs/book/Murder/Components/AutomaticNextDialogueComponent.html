@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AutomaticNextDialogueComponent : IComponent
 </code></pre>
+<p>Marker component that instructs the dialogue system to advance to the next dialogue line automatically without waiting for player input.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Skips the usual &quot;wait for player confirmation&quot; step so dialogue progresses on its own timing.</p>
+<p><strong>Use-case:</strong> Attach to a dialogue entity for NPC monologue sequences or tutorial text that should auto-advance after a timed delay or animation event.</p>
 <p>⚡</p>
 
                     </main>

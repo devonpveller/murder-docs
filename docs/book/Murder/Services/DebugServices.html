@@ -149,26 +149,33 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class DebugServices
 </code></pre>
+<p>Development utilities for timing, logging, and runtime debug rendering.</p>
+<p><strong>Intent:</strong> Provides helpers used during development for measuring performance and capturing diagnostic output.</p>
+<p><strong>Use-case:</strong> Use <code>StopwatchStart</code>/<code>StopwatchStop</code> to measure code segments in milliseconds; use <code>SaveLogAsync</code> to persist the current session log to disk for reporting.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="debugpreviewimage"><a class="header" href="#debugpreviewimage">DebugPreviewImage</a></h4>
 <pre><code class="language-csharp">public static Texture2D DebugPreviewImage;
 </code></pre>
+<p>A texture that can be set at runtime and used as a preview/debug overlay image.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="stopwatchstart"><a class="header" href="#stopwatchstart">StopwatchStart()</a></h4>
 <pre><code class="language-csharp">public DateTime StopwatchStart()
 </code></pre>
+<p>Records the current time as the start of a stopwatch measurement and returns it.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.DateTime?view=net-7.0">DateTime</a> </p>
 <h4 id="stopwatchstop"><a class="header" href="#stopwatchstop">StopwatchStop()</a></h4>
 <pre><code class="language-csharp">public float StopwatchStop()
 </code></pre>
+<p>Computes the elapsed time in milliseconds since the last <code>StopwatchStart</code> call, logs it, and returns the value.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="savelogasyncstring"><a class="header" href="#savelogasyncstring">SaveLogAsync(string)</a></h4>
 <pre><code class="language-csharp">public Task SaveLogAsync(string fullpath)
 </code></pre>
+<p>Appends all currently buffered game log lines to the file at <code>fullpath</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>fullpath</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />

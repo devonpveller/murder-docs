@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class PhysicsServices
 </code></pre>
+<p>Provides collision detection, raycasting, overlap queries, and physics utility methods for the Murder ECS world.</p>
+<p><strong>Intent:</strong> Centralises all physics and spatial query operations so game systems can test collisions and find entities in the world without manual component iteration.</p>
+<p><strong>Use-case:</strong> Use <code>Raycast</code> for projectile line-of-sight checks, <code>GetAllCollisionsAt</code> for overlap detection, <code>FilterPositionAndColliderEntities</code> to query collidable entities by layer, and <code>FindNextAvailablePosition</code> to safely place entities without overlapping obstacles.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="canseeentityworld-vector2-vector2-int-int"><a class="header" href="#canseeentityworld-vector2-vector2-int-int">CanSeeEntity(World, Vector2, Vector2, int, int)</a></h4>
 <pre><code class="language-csharp">public bool CanSeeEntity(World world, Vector2 from, Vector2 to, int selfEntityId, int targetEntityId)
@@ -166,6 +169,7 @@ it gets to <paramref name="to" />.</p>
 <h4 id="collidesatmap-int-collidercomponent-vector2-immutablearray-int-out-int32"><a class="header" href="#collidesatmap-int-collidercomponent-vector2-immutablearray-int-out-int32">CollidesAt(Map&amp;, int, ColliderComponent, Vector2, ImmutableArray<T>, int, out Int32&amp;)</a></h4>
 <pre><code class="language-csharp">public bool CollidesAt(Map&amp; map, int ignoreId, ColliderComponent collider, Vector2 position, ImmutableArray&lt;T&gt; others, int mask, Int32&amp; hitId)
 </code></pre>
+<p>Tests whether <code>collider</code> at <code>position</code> overlaps any entity in <code>others</code> (excluding <code>ignoreId</code>) with the given layer <code>mask</code>, and outputs the first hit entity ID.</p>
 <p><strong>Parameters</strong> <br />
 <code>map</code> <a href="../../Murder/Core/Map.html">Map&amp;</a> <br />
 <code>ignoreId</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -179,6 +183,7 @@ it gets to <paramref name="to" />.</p>
 <h4 id="collidesattilemap-collidercomponent-vector2-int"><a class="header" href="#collidesattilemap-collidercomponent-vector2-int">CollidesAtTile(Map&amp;, ColliderComponent, Vector2, int)</a></h4>
 <pre><code class="language-csharp">public bool CollidesAtTile(Map&amp; map, ColliderComponent collider, Vector2 position, int mask)
 </code></pre>
+<p>Returns <code>true</code> if <code>collider</code> at <code>position</code> overlaps a tile with the given collision layer <code>mask</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>map</code> <a href="../../Murder/Core/Map.html">Map&amp;</a> <br />
 <code>collider</code> <a href="../../Murder/Components/ColliderComponent.html">ColliderComponent</a> <br />
@@ -189,6 +194,7 @@ it gets to <paramref name="to" />.</p>
 <h4 id="collideswithentity-entity-vector2"><a class="header" href="#collideswithentity-entity-vector2">CollidesWith(Entity, Entity, Vector2)</a></h4>
 <pre><code class="language-csharp">public bool CollidesWith(Entity entityA, Entity entityB, Vector2 positionA)
 </code></pre>
+<p>Returns <code>true</code> if <code>entityA</code> (tested at <code>positionA</code>) overlaps <code>entityB</code> using their collider shapes.</p>
 <p><strong>Parameters</strong> <br />
 <code>entityA</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>entityB</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
@@ -198,6 +204,7 @@ it gets to <paramref name="to" />.</p>
 <h4 id="collideswithentity-entity"><a class="header" href="#collideswithentity-entity">CollidesWith(Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public bool CollidesWith(Entity entityA, Entity entityB)
 </code></pre>
+<p>Returns <code>true</code> if <code>entityA</code> and <code>entityB</code> currently overlap using their world-position collider shapes.</p>
 <p><strong>Parameters</strong> <br />
 <code>entityA</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>entityB</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
@@ -206,6 +213,7 @@ it gets to <paramref name="to" />.</p>
 <h4 id="collideswithishape-point-ishape-point"><a class="header" href="#collideswithishape-point-ishape-point">CollidesWith(IShape, Point, IShape, Point)</a></h4>
 <pre><code class="language-csharp">public bool CollidesWith(IShape shape1, Point position1, IShape shape2, Point position2)
 </code></pre>
+<p>Returns <code>true</code> if two arbitrary shapes overlap when placed at their respective positions.</p>
 <p><strong>Parameters</strong> <br />
 <code>shape1</code> <a href="../../Murder/Core/Geometry/IShape.html">IShape</a> <br />
 <code>position1</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />
@@ -216,6 +224,7 @@ it gets to <paramref name="to" />.</p>
 <h4 id="containspointentity-point"><a class="header" href="#containspointentity-point">ContainsPoint(Entity, Point)</a></h4>
 <pre><code class="language-csharp">public bool ContainsPoint(Entity entity, Point point)
 </code></pre>
+<p>Returns <code>true</code> if <code>point</code> falls inside any of the entity's collider shapes.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>point</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
@@ -224,6 +233,7 @@ it gets to <paramref name="to" />.</p>
 <h4 id="findclosestentityonrangeworld-vector2-float-int-hashset-out-entity-out-nullable1"><a class="header" href="#findclosestentityonrangeworld-vector2-float-int-hashset-out-entity-out-nullable1">FindClosestEntityOnRange(World, Vector2, float, int, HashSet<T>, out Entity&amp;, out Nullable`1&amp;)</a></h4>
 <pre><code class="language-csharp">public bool FindClosestEntityOnRange(World world, Vector2 fromPosition, float range, int collisionLayer, HashSet&lt;T&gt; excludeEntities, Entity&amp; target, Nullable`1&amp; location)
 </code></pre>
+<p>Searches for the nearest entity within <code>range</code> on the given collision layer, skipping any in <code>excludeEntities</code>; populates <code>target</code> and <code>location</code> on success.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>fromPosition</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
@@ -237,6 +247,7 @@ it gets to <paramref name="to" />.</p>
 <h4 id="getfirstmtvatmap-hashset-collidercomponent-vector2-immutablearray-int-out-int32-out-int32-out-vector2"><a class="header" href="#getfirstmtvatmap-hashset-collidercomponent-vector2-immutablearray-int-out-int32-out-int32-out-vector2">GetFirstMtvAt(Map&amp;, HashSet<T>, ColliderComponent, Vector2, ImmutableArray<T>, int, out Int32&amp;, out Int32&amp;, out Vector2&amp;)</a></h4>
 <pre><code class="language-csharp">public bool GetFirstMtvAt(Map&amp; map, HashSet&lt;T&gt; ignoreIds, ColliderComponent collider, Vector2 position, ImmutableArray&lt;T&gt; others, int mask, Int32&amp; hitId, Int32&amp; layer, Vector2&amp; mtv)
 </code></pre>
+<p>Finds the first overlap and computes the minimum translation vector (MTV) needed to resolve it, outputting the hit entity ID, its layer, and the MTV.</p>
 <p><strong>Parameters</strong> <br />
 <code>map</code> <a href="../../Murder/Core/Map.html">Map&amp;</a> <br />
 <code>ignoreIds</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.HashSet-1?view=net-7.0">HashSet&lt;T&gt;</a> <br />
@@ -263,6 +274,7 @@ it gets to <paramref name="to" />.</p>
 <h4 id="haslineofsightworld-entity-entity"><a class="header" href="#haslineofsightworld-entity-entity">HasLineOfSight(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public bool HasLineOfSight(World world, Entity from, Entity to)
 </code></pre>
+<p>Returns <code>true</code> if no tile or solid entity blocks the straight line between <code>from</code> and <code>to</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>from</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
@@ -272,6 +284,7 @@ it gets to <paramref name="to" />.</p>
 <h4 id="haslineofsightworld-vector2-vector2"><a class="header" href="#haslineofsightworld-vector2-vector2">HasLineOfSight(World, Vector2, Vector2)</a></h4>
 <pre><code class="language-csharp">public bool HasLineOfSight(World world, Vector2 from, Vector2 to)
 </code></pre>
+<p>Returns <code>true</code> if no tile or solid entity blocks the straight line between the two world positions.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>from</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
@@ -281,6 +294,7 @@ it gets to <paramref name="to" />.</p>
 <h4 id="raycastworld-vector2-vector2-int-ienumerable-out-raycasthit"><a class="header" href="#raycastworld-vector2-vector2-int-ienumerable-out-raycasthit">Raycast(World, Vector2, Vector2, int, IEnumerable<T>, out RaycastHit&amp;)</a></h4>
 <pre><code class="language-csharp">public bool Raycast(World world, Vector2 startPosition, Vector2 endPosition, int layerMask, IEnumerable&lt;T&gt; ignoreEntities, RaycastHit&amp; hit)
 </code></pre>
+<p>Casts a ray from <code>startPosition</code> to <code>endPosition</code>, testing against entities with the given layer mask; populates <code>hit</code> with the first intersection found.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>startPosition</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
@@ -329,6 +343,7 @@ it gets to <paramref name="to" />.</p>
 <h4 id="getallcollisionsatworld-point-collidercomponent-int-int"><a class="header" href="#getallcollisionsatworld-point-collidercomponent-int-int">GetAllCollisionsAt(World, Point, ColliderComponent, int, int)</a></h4>
 <pre><code class="language-csharp">public IEnumerable&lt;T&gt; GetAllCollisionsAt(World world, Point position, ColliderComponent collider, int ignoreId, int mask)
 </code></pre>
+<p>Returns all entities whose colliders overlap <code>collider</code> placed at <code>position</code>, filtered by layer <code>mask</code> and excluding <code>ignoreId</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>position</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />
@@ -351,6 +366,7 @@ This does not check for collision (yet)!</p>
 <h4 id="filterentitiesworld-int"><a class="header" href="#filterentitiesworld-int">FilterEntities(World, int)</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; FilterEntities(World world, int layerMask)
 </code></pre>
+<p>Returns all entities in the world that have colliders matching <code>layerMask</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>layerMask</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -359,6 +375,7 @@ This does not check for collision (yet)!</p>
 <h4 id="filterpositionandcolliderentitiesworld-funct-tresult"><a class="header" href="#filterpositionandcolliderentitiesworld-funct-tresult">FilterPositionAndColliderEntities(World, Func&lt;T, TResult&gt;)</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; FilterPositionAndColliderEntities(World world, Func&lt;T, TResult&gt; filter)
 </code></pre>
+<p>Returns all entities that have both a position and a collider component and satisfy the custom <code>filter</code> predicate.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>filter</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Func-2?view=net-7.0">Func&lt;T, TResult&gt;</a> </p>
@@ -367,6 +384,7 @@ This does not check for collision (yet)!</p>
 <h4 id="filterpositionandcolliderentitiesworld-int-type"><a class="header" href="#filterpositionandcolliderentitiesworld-int-type">FilterPositionAndColliderEntities(World, int, Type[])</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; FilterPositionAndColliderEntities(World world, int layerMask, Type[] requireComponents)
 </code></pre>
+<p>Returns all entities matching <code>layerMask</code> that also possess all of the additional required component types.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>layerMask</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -376,6 +394,7 @@ This does not check for collision (yet)!</p>
 <h4 id="filterpositionandcolliderentitiesworld-int"><a class="header" href="#filterpositionandcolliderentitiesworld-int">FilterPositionAndColliderEntities(World, int)</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; FilterPositionAndColliderEntities(World world, int layerMask)
 </code></pre>
+<p>Returns all entities in the world that have both a position component and a collider matching <code>layerMask</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>layerMask</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -384,6 +403,7 @@ This does not check for collision (yet)!</p>
 <h4 id="filterpositionandcolliderentitiesienumerable-int"><a class="header" href="#filterpositionandcolliderentitiesienumerable-int">FilterPositionAndColliderEntities(IEnumerable<T>, int)</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; FilterPositionAndColliderEntities(IEnumerable&lt;T&gt; entities, int layerMask)
 </code></pre>
+<p>Filters an existing entity collection, returning only those with a collider matching <code>layerMask</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0">IEnumerable&lt;T&gt;</a> <br />
 <code>layerMask</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -392,6 +412,7 @@ This does not check for collision (yet)!</p>
 <h4 id="getcarveboundingboxcollidercomponent-vector2"><a class="header" href="#getcarveboundingboxcollidercomponent-vector2">GetCarveBoundingBox(ColliderComponent, Vector2)</a></h4>
 <pre><code class="language-csharp">public IntRectangle GetCarveBoundingBox(ColliderComponent collider, Vector2 position)
 </code></pre>
+<p>Returns the bounding rectangle used when this collider carves into the tilemap.</p>
 <p><strong>Parameters</strong> <br />
 <code>collider</code> <a href="../../Murder/Components/ColliderComponent.html">ColliderComponent</a> <br />
 <code>position</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
@@ -409,6 +430,7 @@ and <a href="../../Murder/Components/PositionComponent.html">PositionComponent</
 <h4 id="getcollidersboundingboxcollidercomponent-point-bool"><a class="header" href="#getcollidersboundingboxcollidercomponent-point-bool">GetCollidersBoundingBox(ColliderComponent, Point, bool)</a></h4>
 <pre><code class="language-csharp">public IntRectangle[] GetCollidersBoundingBox(ColliderComponent collider, Point position, bool gridCoordinates)
 </code></pre>
+<p>Returns per-shape bounding rectangles for all shapes in <code>collider</code> at <code>position</code>, optionally converted to grid coordinates.</p>
 <p><strong>Parameters</strong> <br />
 <code>collider</code> <a href="../../Murder/Components/ColliderComponent.html">ColliderComponent</a> <br />
 <code>position</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />
@@ -418,6 +440,7 @@ and <a href="../../Murder/Components/PositionComponent.html">PositionComponent</
 <h4 id="getmtvatmap-int-collidercomponent-vector2-ienumerable-int-out-int32"><a class="header" href="#getmtvatmap-int-collidercomponent-vector2-ienumerable-int-out-int32">GetMtvAt(Map&amp;, int, ColliderComponent, Vector2, IEnumerable<T>, int, out Int32&amp;)</a></h4>
 <pre><code class="language-csharp">public List&lt;T&gt; GetMtvAt(Map&amp; map, int ignoreId, ColliderComponent collider, Vector2 position, IEnumerable&lt;T&gt; others, int mask, Int32&amp; hitId)
 </code></pre>
+<p>Returns a list of all minimum translation vectors for each overlapping entity found.</p>
 <p><strong>Parameters</strong> <br />
 <code>map</code> <a href="../../Murder/Core/Map.html">Map&amp;</a> <br />
 <code>ignoreId</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -431,6 +454,7 @@ and <a href="../../Murder/Components/PositionComponent.html">PositionComponent</
 <h4 id="getboundingboxcollidercomponent-vector2"><a class="header" href="#getboundingboxcollidercomponent-vector2">GetBoundingBox(ColliderComponent, Vector2)</a></h4>
 <pre><code class="language-csharp">public Rectangle GetBoundingBox(ColliderComponent collider, Vector2 position)
 </code></pre>
+<p>Returns the combined float bounding rectangle of all shapes in <code>collider</code> at <code>position</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>collider</code> <a href="../../Murder/Components/ColliderComponent.html">ColliderComponent</a> <br />
 <code>position</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
@@ -439,6 +463,7 @@ and <a href="../../Murder/Components/PositionComponent.html">PositionComponent</
 <h4 id="findnextavailablepositionworld-entity-vector2-vector2-int-nextavailablepositionflags"><a class="header" href="#findnextavailablepositionworld-entity-vector2-vector2-int-nextavailablepositionflags">FindNextAvailablePosition(World, Entity, Vector2, Vector2, int, NextAvailablePositionFlags)</a></h4>
 <pre><code class="language-csharp">public T? FindNextAvailablePosition(World world, Entity e, Vector2 center, Vector2 target, int layerMask, NextAvailablePositionFlags flags)
 </code></pre>
+<p>Finds the nearest unoccupied position around <code>target</code> that is valid for entity <code>e</code>, using the search strategy specified by <code>flags</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
@@ -451,18 +476,21 @@ and <a href="../../Murder/Components/PositionComponent.html">PositionComponent</
 <h4 id="addtocollisioncacheentity-int"><a class="header" href="#addtocollisioncacheentity-int">AddToCollisionCache(Entity, int)</a></h4>
 <pre><code class="language-csharp">public void AddToCollisionCache(Entity entity, int entityId)
 </code></pre>
+<p>Adds <code>entityId</code> to the entity's <code>IsColliding</code> cache, indicating an active collision with that entity.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>entityId</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="addvelocityentity-vector2"><a class="header" href="#addvelocityentity-vector2">AddVelocity(Entity, Vector2)</a></h4>
 <pre><code class="language-csharp">public void AddVelocity(Entity entity, Vector2 addVelocity)
 </code></pre>
+<p>Adds <code>addVelocity</code> to the entity's current velocity component.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>addVelocity</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="getallcollisionsatgridworld-point-list1"><a class="header" href="#getallcollisionsatgridworld-point-list1">GetAllCollisionsAtGrid(World, Point, List`1&amp;)</a></h4>
 <pre><code class="language-csharp">public void GetAllCollisionsAtGrid(World world, Point grid, List`1&amp; output)
 </code></pre>
+<p>Populates <code>output</code> with all entities whose colliders touch the given grid cell.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>grid</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />

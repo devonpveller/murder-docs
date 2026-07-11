@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class FontAttribute : Attribute
 </code></pre>
+<p>Marks an integer field as a font index reference, so the editor shows a font-picker dropdown.</p>
+<p><strong>Intent:</strong> Marks an integer field as a font index.</p>
+<p><strong>Use-case:</strong> Apply to an int field in a component so the editor shows a font-picker dropdown instead of a raw integer input.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FontAttribute()
@@ -157,6 +160,7 @@
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique object identity for this attribute type, inherited from <code>Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

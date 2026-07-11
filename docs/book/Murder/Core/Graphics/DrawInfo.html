@@ -152,6 +152,8 @@
 <p>Generic struct for drawing things without cluttering methods full of arguments.
 Note that not all fields are supported by all methods.
 Tip: Create a new one like this: <code>new DrawInfo(){ Color = Color.Red, Sort = 0.2f}</code></p>
+<p><strong>Intent:</strong> Bundles all per-draw rendering parameters (color, sort order, scale, flip, blend, outline) into a single value type so draw-call APIs stay clean.</p>
+<p><strong>Use-case:</strong> Construct a <code>DrawInfo</code> with object initializer syntax at call sites and pass it to sprite-rendering helpers like <code>AtlasCoordinates.Draw</code>, <code>RenderServices.DrawSprite</code>, or <code>NineSliceInfo.Draw</code>.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DrawInfo()
 </code></pre>
@@ -168,31 +170,37 @@ Tip: Create a new one like this: <code>new DrawInfo(){ Color = Color.Red, Sort =
 <h4 id="blendmode"><a class="header" href="#blendmode">BlendMode</a></h4>
 <pre><code class="language-csharp">public BlendStyle BlendMode { get; public set; }
 </code></pre>
+<p>The shader-level blend style applied to the sprite (Normal, Wash, or Color). Defaults to <code>BlendStyle.Normal</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/BlendStyle.html">BlendStyle</a> </p>
 <h4 id="clip"><a class="header" href="#clip">Clip</a></h4>
 <pre><code class="language-csharp">public Rectangle Clip { get; public set; }
 </code></pre>
+<p>An optional source-rect clip to draw only a sub-region of the sprite. Ignored when empty.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <h4 id="color"><a class="header" href="#color">Color</a></h4>
 <pre><code class="language-csharp">public Color Color { get; public set; }
 </code></pre>
+<p>Tint color multiplied with the sprite's texture. Defaults to <code>Color.White</code> (no tint).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/Color.html">Color</a> </p>
 <h4 id="debug"><a class="header" href="#debug">Debug</a></h4>
 <pre><code class="language-csharp">public bool Debug { get; public set; }
 </code></pre>
+<p>When <code>true</code>, routes the draw call to the debug batch layer regardless of other settings.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="default"><a class="header" href="#default">Default</a></h4>
 <pre><code class="language-csharp">public static DrawInfo Default { get; }
 </code></pre>
+<p>A <code>DrawInfo</code> with all default values: white tint, <code>Sort = 0.5</code>, centered origin, no flip, normal blend.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/DrawInfo.html">DrawInfo</a> </p>
 <h4 id="imageflip"><a class="header" href="#imageflip">ImageFlip</a></h4>
 <pre><code class="language-csharp">public ImageFlip ImageFlip { get; public set; }
 </code></pre>
+<p>Horizontal and/or vertical flip flags applied to the sprite. Defaults to <code>ImageFlip.None</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/ImageFlip.html">ImageFlip</a> </p>
 <h4 id="offset"><a class="header" href="#offset">Offset</a></h4>
@@ -210,11 +218,13 @@ Tip: Create a new one like this: <code>new DrawInfo(){ Color = Color.Red, Sort =
 <h4 id="outline"><a class="header" href="#outline">Outline</a></h4>
 <pre><code class="language-csharp">public T? Outline { get; public set; }
 </code></pre>
+<p>Optional solid outline color drawn around the sprite according to <code>OutlineStyle</code>. <code>null</code> disables the outline.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="outlinestyle"><a class="header" href="#outlinestyle">OutlineStyle</a></h4>
 <pre><code class="language-csharp">public OutlineStyle OutlineStyle { get; public set; }
 </code></pre>
+<p>Flags controlling which edges of the sprite receive an outline when <code>Outline</code> is set. Defaults to <code>OutlineStyle.Full</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/OutlineStyle.html">OutlineStyle</a> </p>
 <h4 id="rotation"><a class="header" href="#rotation">Rotation</a></h4>
@@ -226,22 +236,26 @@ Tip: Create a new one like this: <code>new DrawInfo(){ Color = Color.Red, Sort =
 <h4 id="scale"><a class="header" href="#scale">Scale</a></h4>
 <pre><code class="language-csharp">public Vector2 Scale { get; public set; }
 </code></pre>
+<p>Per-axis scale factor applied to the sprite. Defaults to <code>Vector2.One</code> (no scaling).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="shadow"><a class="header" href="#shadow">Shadow</a></h4>
 <pre><code class="language-csharp">public T? Shadow { get; public set; }
 </code></pre>
+<p>Optional drop-shadow color rendered beneath the sprite. <code>null</code> disables the shadow.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="sort"><a class="header" href="#sort">Sort</a></h4>
 <pre><code class="language-csharp">public float Sort { get; public set; }
 </code></pre>
+<p>Depth sort value (0 = front, 1 = back) used to order sprites within the batch when <code>BatchMode</code> is depth-sorted. Defaults to <code>0.5</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="withsortfloat"><a class="header" href="#withsortfloat">WithSort(float)</a></h4>
 <pre><code class="language-csharp">public DrawInfo WithSort(float sort)
 </code></pre>
+<p>Returns a copy of this <code>DrawInfo</code> with <code>Sort</code> replaced by <code>sort</code>; convenient for one-liner sort overrides.</p>
 <p><strong>Parameters</strong> <br />
 <code>sort</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -249,6 +263,7 @@ Tip: Create a new one like this: <code>new DrawInfo(){ Color = Color.Red, Sort =
 <h4 id="getblendmode"><a class="header" href="#getblendmode">GetBlendMode()</a></h4>
 <pre><code class="language-csharp">public Vector3 GetBlendMode()
 </code></pre>
+<p>Returns the <code>BlendMode</code> encoded as a <code>Vector3</code> suitable for passing to a sprite shader uniform.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector3.html">Vector3</a> </p>
 <p>⚡</p>

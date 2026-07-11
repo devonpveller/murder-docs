@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class TypeOfAttribute : Attribute
 </code></pre>
 <p>Attribute for looking on a <a href="../../Murder/Attributes/TypeOfAttribute.html#type">TypeOfAttribute.Type</a> with specific properties.</p>
+<p><strong>Intent:</strong> Mark a <code>Type</code> field so the editor presents a filtered type browser showing only concrete implementations of a given base type.</p>
+<p><strong>Use-case:</strong> Apply to <code>Type</code> fields in components or assets that reference a specific class implementation, such as an AI state machine class or a custom interaction handler. The editor will display a picker restricted to types that inherit from or implement the specified base type.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TypeOfAttribute(Type type)
@@ -162,11 +164,13 @@
 <h4 id="type"><a class="header" href="#type">Type</a></h4>
 <pre><code class="language-csharp">public readonly Type Type;
 </code></pre>
+<p>The base type whose concrete implementations are shown in the editor type picker for the decorated field.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

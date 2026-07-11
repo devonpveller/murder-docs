@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class CameraHelper
 </code></pre>
+<p>Extension methods on <code>Camera2D</code> for computing safe tile-grid cell bounds visible within the camera viewport.</p>
+<p><strong>Intent:</strong> Provides helpers that translate a 2D camera frustum into grid-cell coordinate ranges suitable for tile-map culling.</p>
+<p><strong>Use-case:</strong> Call <code>GetSafeGridBounds</code> from tile-map rendering systems to determine which cells are in view and should be drawn.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getsafegridboundscamera2d-rectangle-int"><a class="header" href="#getsafegridboundscamera2d-rectangle-int">GetSafeGridBounds(Camera2D, Rectangle, int)</a></h4>
 <pre><code class="language-csharp">public ValueTuple&lt;T1, T2, T3, T4&gt; GetSafeGridBounds(Camera2D camera, Rectangle rect, int extraPadding)
 </code></pre>
+<p>Returns the (minX, maxX, minY, maxY) grid cell range visible to the camera, clamped to <code>rect</code> and expanded by <code>extraPadding</code> cells.</p>
 <p><strong>Parameters</strong> <br />
 <code>camera</code> <a href="../../Murder/Core/Graphics/Camera2D.html">Camera2D</a> <br />
 <code>rect</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Rectangle.html">Rectangle</a> <br />
@@ -162,6 +166,7 @@
 <h4 id="getsafegridboundscamera2d-map"><a class="header" href="#getsafegridboundscamera2d-map">GetSafeGridBounds(Camera2D, Map)</a></h4>
 <pre><code class="language-csharp">public ValueTuple&lt;T1, T2, T3, T4&gt; GetSafeGridBounds(Camera2D camera, Map map)
 </code></pre>
+<p>Returns the (minX, maxX, minY, maxY) grid cell range visible to the camera, clamped to the map's dimensions.</p>
 <p><strong>Parameters</strong> <br />
 <code>camera</code> <a href="../../Murder/Core/Graphics/Camera2D.html">Camera2D</a> <br />
 <code>map</code> <a href="../../Murder/Core/Map.html">Map</a> </p>

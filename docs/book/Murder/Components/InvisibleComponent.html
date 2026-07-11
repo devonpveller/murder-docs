@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct InvisibleComponent : IComponent
 </code></pre>
 <p>All render systems are supposed to filter out this component</p>
+<p><strong>Intent:</strong> Mark an entity as invisible so that all render systems skip drawing it.</p>
+<p><strong>Use-case:</strong> Add to an entity that should temporarily or permanently be hidden (e.g. a trigger area, a logic entity, or during a fade-out); remove the component to make the entity visible again.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <p>⚡</p>
 

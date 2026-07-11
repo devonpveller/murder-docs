@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct TouchedGroundMessage : IMessage
 </code></pre>
+<p>A marker message with no payload sent when a falling or airborne entity first makes contact with the ground.</p>
+<p><strong>Intent:</strong> Notify systems that an entity has landed, enabling ground-contact reactions.</p>
+<p><strong>Use-case:</strong> Send this from a physics or movement system when vertical velocity transitions from falling to grounded. Listening systems can play landing sound effects, trigger dust particle effects, reset jump counters, or apply landing-impact logic.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IMessage.html">IMessage</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TouchedGroundMessage()
 </code></pre>
+<p>Creates a ground-contact notification with no additional data.</p>
 <p>⚡</p>
 
                     </main>

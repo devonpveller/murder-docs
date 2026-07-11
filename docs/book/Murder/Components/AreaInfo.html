@@ -149,25 +149,32 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">sealed struct AreaInfo
 </code></pre>
+<p>Snapshot of the movement-modifying properties of a <code>MovementModAreaComponent</code> that an agent is currently inside.</p>
+<p><strong>Intent:</strong> Caches the relevant parameters of a movement-modifier zone so the agent mover system can apply them without re-querying the entity each frame.</p>
+<p><strong>Use-case:</strong> Stored in <code>InsideMovementModAreaComponent.Areas</code> by the movement-mod system when the agent enters a zone; read by <code>AgentMoverSystem</code> to adjust speed and slide forces.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AreaInfo(MovementModAreaComponent area)
 </code></pre>
+<p>Creates an <code>AreaInfo</code> snapshot from the given movement-modifier area component.</p>
 <p><strong>Parameters</strong> <br />
 <code>area</code> <a href="../../Murder/Components/MovementModAreaComponent.html">MovementModAreaComponent</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="orientation"><a class="header" href="#orientation">Orientation</a></h4>
 <pre><code class="language-csharp">public readonly Orientation Orientation;
 </code></pre>
+<p>The axis along which the slide force is applied (horizontal, vertical, or both).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Orientation.html">Orientation</a> </p>
 <h4 id="slide"><a class="header" href="#slide">Slide</a></h4>
 <pre><code class="language-csharp">public readonly float Slide;
 </code></pre>
+<p>Strength and direction of the lateral force pushed onto the agent while inside this area.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="speedmultiplier"><a class="header" href="#speedmultiplier">SpeedMultiplier</a></h4>
 <pre><code class="language-csharp">public readonly float SpeedMultiplier;
 </code></pre>
+<p>Factor by which the agent's speed is multiplied while inside this area; values below <code>1.0</code> slow the agent down.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SpriteEventInfo
 </code></pre>
+<p>Describes an event that fires on a specific frame of a sprite animation, optionally triggering a sound effect and/or a list of interactions.</p>
+<p><strong>Intent:</strong> Map a named animation frame marker to a sound event and/or gameplay interactions.</p>
+<p><strong>Use-case:</strong> Add one <code>SpriteEventInfo</code> per named frame marker in an Aseprite file to an <code>EventListenerEditorComponent</code>; the system fires sounds and interactions automatically when that frame is reached during playback.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SpriteEventInfo(string id, T? sound, bool persist)
 </code></pre>
@@ -169,22 +172,26 @@
 <h4 id="id"><a class="header" href="#id">Id</a></h4>
 <pre><code class="language-csharp">public readonly string Id;
 </code></pre>
+<p>Name of the animation frame marker (as defined in the Aseprite file) that triggers this event.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="persist"><a class="header" href="#persist">Persist</a></h4>
 <pre><code class="language-csharp">public readonly bool Persist;
 </code></pre>
+<p>When true, the triggered sound is treated as a persistent (looping/ambience) layer rather than a one-shot effect.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="sound"><a class="header" href="#sound">Sound</a></h4>
 <pre><code class="language-csharp">public readonly T? Sound;
 </code></pre>
+<p>Optional sound event played when this frame marker is reached.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="withpersistbool"><a class="header" href="#withpersistbool">WithPersist(bool)</a></h4>
 <pre><code class="language-csharp">public SpriteEventInfo WithPersist(bool persist)
 </code></pre>
+<p>Returns a copy of this event info with the <code>Persist</code> flag updated.</p>
 <p><strong>Parameters</strong> <br />
 <code>persist</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <p><strong>Returns</strong> <br />

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class SoundPlayer : ISoundPlayer
 </code></pre>
+<p>The default no-op <code>ISoundPlayer</code> implementation. All methods are stubs that log an error or return safely.</p>
+<p><strong>Intent:</strong> Provide a safe fallback sound player for projects without custom audio integration.</p>
+<p><strong>Use-case:</strong> Murder registers <code>SoundPlayer</code> automatically when no <code>[SoundPlayer]</code> attribute is found. Replace it by implementing <code>ISoundPlayer</code> in your game assembly.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Murder/Core/Sounds/ISoundPlayer.html">ISoundPlayer</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SoundPlayer()

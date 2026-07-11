@@ -149,11 +149,15 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct DestroyAfterSecondsComponent : IComponent
 </code></pre>
+<p>Schedules an entity to be destroyed after a fixed number of seconds.</p>
+<p><strong>Intent:</strong> Auto-expire a temporary entity after a set lifetime without external system logic.</p>
+<p><strong>Use-case:</strong> Attach to projectiles, particles, or temporary effect entities; set <code>Lifespan</code> to the number of seconds before automatic destruction.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="lifespan"><a class="header" href="#lifespan">Lifespan</a></h4>
 <pre><code class="language-csharp">public float Lifespan { get; public set; }
 </code></pre>
+<p>Number of seconds after which the entity is automatically destroyed.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

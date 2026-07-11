@@ -149,30 +149,38 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class Vector2Helper
 </code></pre>
+<p>Static helpers and well-known direction constants for <code>System.Numerics.Vector2</code>.</p>
+<p><strong>Intent:</strong> Provides a set of named direction vectors and utility extension methods that supplement the <code>System.Numerics.Vector2</code> API for game use.</p>
+<p><strong>Use-case:</strong> Use <code>Up</code>, <code>Down</code>, <code>Left</code>, <code>Right</code>, and <code>Center</code> as direction/anchor constants, and the extension methods for smooth lerping, snapping, and projection math.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="center"><a class="header" href="#center">Center</a></h4>
 <pre><code class="language-csharp">public static Vector2 Center { get; }
 </code></pre>
+<p>Returns (0.5, 0.5) — useful as a normalized center anchor for sprites.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="down"><a class="header" href="#down">Down</a></h4>
 <pre><code class="language-csharp">public static Vector2 Down { get; }
 </code></pre>
+<p>Returns (0, 1) — the downward direction in screen space.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="left"><a class="header" href="#left">Left</a></h4>
 <pre><code class="language-csharp">public static Vector2 Left { get; }
 </code></pre>
+<p>Returns (-1, 0) — the leftward direction.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="right"><a class="header" href="#right">Right</a></h4>
 <pre><code class="language-csharp">public static Vector2 Right { get; }
 </code></pre>
+<p>Returns (1, 0) — the rightward direction.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="up"><a class="header" href="#up">Up</a></h4>
 <pre><code class="language-csharp">public static Vector2 Up { get; }
 </code></pre>
+<p>Returns (0, -1) — the upward direction in screen space.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
@@ -193,6 +201,7 @@
 <h4 id="deviationvector2-vector2"><a class="header" href="#deviationvector2-vector2">Deviation(Vector2, Vector2)</a></h4>
 <pre><code class="language-csharp">public float Deviation(Vector2 vec1, Vector2 vec2)
 </code></pre>
+<p>Returns the angular deviation (in radians) between two direction vectors.</p>
 <p><strong>Parameters</strong> <br />
 <code>vec1</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
 <code>vec2</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>

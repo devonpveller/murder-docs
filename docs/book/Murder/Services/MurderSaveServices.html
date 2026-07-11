@@ -149,20 +149,26 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class MurderSaveServices
 </code></pre>
+<p>Helpers for accessing, modifying, and loading game save data.</p>
+<p><strong>Intent:</strong> Provides a uniform API for creating or retrieving the active save, executing blackboard actions, and managing the entity-to-save record relationship.</p>
+<p><strong>Use-case:</strong> Call <code>CreateOrGetSave</code> to safely access save data from any system, <code>DoAction</code> to mutate blackboard variables as part of dialogue or interaction logic, and <code>RecordAndMaybeDestroy</code> to mark a world entity as removed in the persistent save state.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="createorgetsave"><a class="header" href="#createorgetsave">CreateOrGetSave()</a></h4>
 <pre><code class="language-csharp">public SaveData CreateOrGetSave()
 </code></pre>
+<p>Returns the active <code>SaveData</code>, creating a new one if no active save exists.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Assets/SaveData.html">SaveData</a> </p>
 <h4 id="trygetsave"><a class="header" href="#trygetsave">TryGetSave()</a></h4>
 <pre><code class="language-csharp">public SaveData TryGetSave()
 </code></pre>
+<p>Returns the active <code>SaveData</code>, or <code>null</code> if no save is currently loaded.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Assets/SaveData.html">SaveData</a> </p>
 <h4 id="loadsaveandfetchtargetworldint"><a class="header" href="#loadsaveandfetchtargetworldint">LoadSaveAndFetchTargetWorld(int)</a></h4>
 <pre><code class="language-csharp">public T? LoadSaveAndFetchTargetWorld(int slot)
 </code></pre>
+<p>Loads the save in <code>slot</code> as the active save and returns the <code>Guid</code> of the world it was last saved in.</p>
 <p><strong>Parameters</strong> <br />
 <code>slot</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -170,12 +176,14 @@
 <h4 id="doactionblackboardtracker-dialogaction"><a class="header" href="#doactionblackboardtracker-dialogaction">DoAction(BlackboardTracker, DialogAction)</a></h4>
 <pre><code class="language-csharp">public void DoAction(BlackboardTracker tracker, DialogAction action)
 </code></pre>
+<p>Applies a <code>DialogAction</code> (bool, int, float, or string assignment) to the provided <code>BlackboardTracker</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>tracker</code> <a href="../../Murder/Save/BlackboardTracker.html">BlackboardTracker</a> <br />
 <code>action</code> <a href="../../Murder/Core/Dialogs/DialogAction.html">DialogAction</a> </p>
 <h4 id="recordandmaybedestroyentity-world-bool"><a class="header" href="#recordandmaybedestroyentity-world-bool">RecordAndMaybeDestroy(Entity, World, bool)</a></h4>
 <pre><code class="language-csharp">public void RecordAndMaybeDestroy(Entity entity, World world, bool destroy)
 </code></pre>
+<p>Records the entity as removed from the world in the active save; optionally destroys the entity immediately.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />

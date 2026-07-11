@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class CollisionLayerAttribute : Attribute
 </code></pre>
 <p>Use to signal an Int field to use a drop down selector using constant fields of any class deriving from <a href="../../../Murder/Core/Physics/CollisionLayersBase.html">CollisionLayersBase</a></p>
+<p><strong>Intent:</strong> Marks an integer field as a collision layer bitmask.</p>
+<p><strong>Use-case:</strong> Apply to an int field in a component to show a layer-picker dropdown in the editor, drawn from any class derived from <code>CollisionLayersBase</code>.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public CollisionLayerAttribute()
@@ -158,6 +160,7 @@
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique object identity for this attribute type, inherited from <code>Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

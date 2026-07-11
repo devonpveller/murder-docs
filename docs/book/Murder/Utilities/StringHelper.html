@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class StringHelper
 </code></pre>
+<p>String utility methods for fuzzy matching, edit distance, capitalization, and whitespace normalization.</p>
+<p><strong>Intent:</strong> Provides text-processing helpers used by the editor search, dialogue formatting, and display-name generation.</p>
+<p><strong>Use-case:</strong> Use <code>FuzzyMatch</code> for search-box filtering, <code>LevenshteinDistance</code> for spell-checking, <code>CapitalizeFirstLetter</code> for display formatting, and <code>Cleanup</code> to normalize line breaks in imported text.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="fuzzymatchstring-string"><a class="header" href="#fuzzymatchstring-string">FuzzyMatch(string, string)</a></h4>
 <pre><code class="language-csharp">public bool FuzzyMatch(string searchTerm, string target)
 </code></pre>
+<p>Returns <code>true</code> if all characters of <code>searchTerm</code> appear in <code>target</code> in order (case-insensitive fuzzy search).</p>
 <p><strong>Parameters</strong> <br />
 <code>searchTerm</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>target</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
@@ -161,6 +165,7 @@
 <h4 id="levenshteindistancestring-string"><a class="header" href="#levenshteindistancestring-string">LevenshteinDistance(string, string)</a></h4>
 <pre><code class="language-csharp">public int LevenshteinDistance(string s, string t)
 </code></pre>
+<p>Returns the minimum number of single-character edits (insertions, deletions, substitutions) needed to transform <code>s</code> into <code>t</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>s</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
@@ -169,6 +174,7 @@
 <h4 id="capitalizefirstletterstring"><a class="header" href="#capitalizefirstletterstring">CapitalizeFirstLetter(string)</a></h4>
 <pre><code class="language-csharp">public string CapitalizeFirstLetter(string input)
 </code></pre>
+<p>Returns a copy of <code>input</code> with the first character converted to upper-case.</p>
 <p><strong>Parameters</strong> <br />
 <code>input</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />

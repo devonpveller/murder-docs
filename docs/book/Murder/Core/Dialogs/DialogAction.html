@@ -149,11 +149,16 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct DialogAction
 </code></pre>
+<p>Describes a single side-effect to execute when a <code>Dialog</code> node is visited: writing a value to a blackboard fact or applying a component to an entity.</p>
+<p><strong>Intent:</strong> Bundles together the target fact, the operation kind (<code>BlackboardActionKind</code>), and the typed value payload so the dialogue system can mutate world state as dialogue plays.</p>
+<p><strong>Use-case:</strong> Add <code>DialogAction</code> entries to <code>Dialog.Actions</code>; the runtime processes them in order when the node is visited, updating blackboards or entity components accordingly.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DialogAction()
 </code></pre>
+<p>Creates an empty action with default values.</p>
 <pre><code class="language-csharp">public DialogAction(int id, Fact fact, BlackboardActionKind kind, string string, T? int, T? bool, T? float, IComponent component)
 </code></pre>
+<p>Full constructor; only the value field matching <code>fact.Kind</code> is stored — all others are cleared.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>fact</code> <a href="../../../Murder/Core/Dialogs/Fact.html">Fact</a> <br />
@@ -167,47 +172,56 @@
 <h4 id="boolvalue"><a class="header" href="#boolvalue">BoolValue</a></h4>
 <pre><code class="language-csharp">public readonly T? BoolValue;
 </code></pre>
+<p>The boolean value applied to the fact when <code>Kind</code> is <code>Set</code> or <code>Toggle</code> on a <code>Bool</code> fact.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="componentvalue"><a class="header" href="#componentvalue">ComponentValue</a></h4>
 <pre><code class="language-csharp">public readonly IComponent ComponentValue;
 </code></pre>
+<p>The component instance applied to the target entity when <code>Kind</code> is <code>Component</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Bang/Components/IComponent.html">IComponent</a> </p>
 <h4 id="fact"><a class="header" href="#fact">Fact</a></h4>
 <pre><code class="language-csharp">public readonly Fact Fact;
 </code></pre>
+<p>The blackboard variable this action writes to.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/Fact.html">Fact</a> </p>
 <h4 id="floatvalue"><a class="header" href="#floatvalue">FloatValue</a></h4>
 <pre><code class="language-csharp">public readonly T? FloatValue;
 </code></pre>
+<p>The float value applied when the fact is of kind <code>Float</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="id"><a class="header" href="#id">Id</a></h4>
 <pre><code class="language-csharp">public readonly int Id;
 </code></pre>
+<p>Unique identifier for this action within its dialog node, used for editor tracking.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="intvalue"><a class="header" href="#intvalue">IntValue</a></h4>
 <pre><code class="language-csharp">public readonly T? IntValue;
 </code></pre>
+<p>The integer value applied when the fact is of kind <code>Int</code> or <code>Weight</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="kind"><a class="header" href="#kind">Kind</a></h4>
 <pre><code class="language-csharp">public readonly BlackboardActionKind Kind;
 </code></pre>
+<p>The mutation operation to apply (<code>Set</code>, <code>Add</code>, <code>Toggle</code>, <code>Component</code>, etc.).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardActionKind.html">BlackboardActionKind</a> </p>
 <h4 id="strvalue"><a class="header" href="#strvalue">StrValue</a></h4>
 <pre><code class="language-csharp">public readonly string StrValue;
 </code></pre>
+<p>The string value applied when the fact is of kind <code>String</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="withcomponenticomponent"><a class="header" href="#withcomponenticomponent">WithComponent(IComponent)</a></h4>
 <pre><code class="language-csharp">public DialogAction WithComponent(IComponent c)
 </code></pre>
+<p>Returns a copy of this action with the <code>ComponentValue</code> replaced.</p>
 <p><strong>Parameters</strong> <br />
 <code>c</code> <a href="../../../Bang/Components/IComponent.html">IComponent</a> </p>
 <p><strong>Returns</strong> <br />
@@ -215,6 +229,7 @@
 <h4 id="withfactfact"><a class="header" href="#withfactfact">WithFact(Fact)</a></h4>
 <pre><code class="language-csharp">public DialogAction WithFact(Fact fact)
 </code></pre>
+<p>Returns a copy of this action with the <code>Fact</code> replaced.</p>
 <p><strong>Parameters</strong> <br />
 <code>fact</code> <a href="../../../Murder/Core/Dialogs/Fact.html">Fact</a> </p>
 <p><strong>Returns</strong> <br />
@@ -222,6 +237,7 @@
 <h4 id="withkindblackboardactionkind"><a class="header" href="#withkindblackboardactionkind">WithKind(BlackboardActionKind)</a></h4>
 <pre><code class="language-csharp">public DialogAction WithKind(BlackboardActionKind kind)
 </code></pre>
+<p>Returns a copy of this action with the <code>Kind</code> replaced.</p>
 <p><strong>Parameters</strong> <br />
 <code>kind</code> <a href="../../../Murder/Core/Dialogs/BlackboardActionKind.html">BlackboardActionKind</a> </p>
 <p><strong>Returns</strong> <br />

@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct OnInteractExitMessage : IMessage
 </code></pre>
 <p>Generic struct for notifying that an interaction exit has occurred.</p>
+<p><strong>Intent:</strong> Signal to a previously-interacted entity that the interacting entity has ended its interaction or moved away.</p>
+<p><strong>Use-case:</strong> Send this when the player leaves an interactive trigger or explicitly cancels an ongoing interaction. Listening systems can then reset UI prompts, close menus, or deactivate any state that was active during the interaction.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IMessage.html">IMessage</a></em></p>
 <p>⚡</p>
 

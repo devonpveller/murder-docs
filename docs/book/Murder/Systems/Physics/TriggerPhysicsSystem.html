@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class TriggerPhysicsSystem : IReactiveSystem, ISystem
 </code></pre>
+<p>Processes trigger collider overlaps and sends <code>OnCollisionMessage</code> to affected entities.</p>
+<p><strong>Intent:</strong> Detects trigger-collider overlaps and dispatches collision messages to entities.</p>
+<p><strong>Use-case:</strong> Add to worlds that need to react when entities enter or exit trigger zones (e.g., area events, pick-ups).</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Systems/IReactiveSystem.html">IReactiveSystem</a>, <a href="../../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TriggerPhysicsSystem()

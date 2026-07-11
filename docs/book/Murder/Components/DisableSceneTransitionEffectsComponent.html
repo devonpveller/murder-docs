@@ -151,6 +151,8 @@
 </code></pre>
 <p>Component that will disable any transition effects between scenes.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Suppresses the default fade/wipe transition when loading into a new scene, allowing for instant or custom scene switches.</p>
+<p><strong>Use-case:</strong> Attach to the world entity before a scene change when a cutscene or gameplay system needs a seamless transition without fade effects; optionally set <code>OverrideCameraPosition</code> to snap the camera to a specific position on arrival.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DisableSceneTransitionEffectsComponent()
 </code></pre>
@@ -162,6 +164,7 @@
 <h4 id="overridecameraposition"><a class="header" href="#overridecameraposition">OverrideCameraPosition</a></h4>
 <pre><code class="language-csharp">public readonly T? OverrideCameraPosition;
 </code></pre>
+<p>Optional world-space position that the camera should be snapped to when the transition completes, bypassing the normal camera follow initialization.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <p>⚡</p>

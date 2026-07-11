@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct UiDisplayComponent : IComponent
 </code></pre>
+<p>Marks an entity to be rendered in the UI layer, with an optional Y-axis sorting offset.</p>
+<p><strong>Intent:</strong> Ensure an entity is drawn as part of the UI rather than the gameplay world layer, and control its sort order within that layer.</p>
+<p><strong>Use-case:</strong> Add to HUD or overlay entities that should always render on top of the world; set <code>YSort</code> to fine-tune their draw order relative to other UI elements.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public UiDisplayComponent()
@@ -157,6 +160,7 @@
 <h4 id="ysort"><a class="header" href="#ysort">YSort</a></h4>
 <pre><code class="language-csharp">public readonly float YSort;
 </code></pre>
+<p>Sorting offset applied within the UI layer to control draw order relative to other UI entities.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

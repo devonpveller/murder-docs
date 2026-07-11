@@ -150,15 +150,20 @@
 <pre><code class="language-csharp">public sealed struct FrameInfo
 </code></pre>
 <p>A struct representing information about a single animation frame, such as its index in the list and a flag indicating whether the animation is complete</p>
+<p><strong>Intent:</strong> Snapshot of the current playback state for a sprite animation at a given point in time.</p>
+<p><strong>Use-case:</strong> Returned by animation update calls so systems and components can react to frame changes, know the current frame index, or detect when the animation has finished.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FrameInfo()
 </code></pre>
+<p>Creates a default <code>FrameInfo</code> at frame 0 with the animation marked as incomplete.</p>
 <pre><code class="language-csharp">public FrameInfo(Animation animation)
 </code></pre>
+<p>Creates a <code>FrameInfo</code> at frame 0 for the given animation, marking it as incomplete.</p>
 <p><strong>Parameters</strong> <br />
 <code>animation</code> <a href="../../Murder/Core/Graphics/Animation.html">Animation</a> </p>
 <pre><code class="language-csharp">public FrameInfo(int frame, int internalFrame, bool animationComplete, Animation animation)
 </code></pre>
+<p>Creates a fully specified <code>FrameInfo</code> with explicit frame indices, completion state, and associated animation.</p>
 <p><strong>Parameters</strong> <br />
 <code>frame</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>internalFrame</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -168,6 +173,7 @@
 <h4 id="animation"><a class="header" href="#animation">Animation</a></h4>
 <pre><code class="language-csharp">public Animation Animation { get; public set; }
 </code></pre>
+<p>The animation data associated with this frame snapshot.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/Animation.html">Animation</a> </p>
 <h4 id="complete"><a class="header" href="#complete">Complete</a></h4>
@@ -179,11 +185,13 @@
 <h4 id="fail"><a class="header" href="#fail">Fail</a></h4>
 <pre><code class="language-csharp">public static FrameInfo Fail { get; }
 </code></pre>
+<p>A sentinel <code>FrameInfo</code> value whose <code>Failed</code> flag is set to <code>true</code>, used to signal that animation lookup failed.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/FrameInfo.html">FrameInfo</a> </p>
 <h4 id="failed"><a class="header" href="#failed">Failed</a></h4>
 <pre><code class="language-csharp">public bool Failed { get; public set; }
 </code></pre>
+<p>Indicates whether this frame info represents a failed or invalid animation lookup.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="frame"><a class="header" href="#frame">Frame</a></h4>

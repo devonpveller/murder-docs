@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class ParticleRendererSystem : IStartupSystem, ISystem, IMurderRenderSystem, IRenderSystem, IUpdateSystem
 </code></pre>
+<p>Manages the world-unique <code>ParticleSystemWorldTrackerComponent</code>, advances all particle simulations each update, and renders every active particle to its designated sprite batch.</p>
+<p><strong>Intent:</strong> The central system for particle effects — it owns the tracker singleton, steps all simulations, and issues draw calls for every visible particle each frame.</p>
+<p><strong>Use-case:</strong> Required in any world that uses particle systems; include once and configure individual emitters via <code>ParticleSystemComponent</code> on entities.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IStartupSystem.html">IStartupSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a>, <a href="../../Murder/Core/Graphics/IMurderRenderSystem.html">IMurderRenderSystem</a>, <a href="../../Bang/Systems/IRenderSystem.html">IRenderSystem</a>, <a href="../../Bang/Systems/IUpdateSystem.html">IUpdateSystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ParticleRendererSystem()
@@ -157,17 +160,20 @@
 <h4 id="drawrendercontext-context"><a class="header" href="#drawrendercontext-context">Draw(RenderContext, Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Draw(RenderContext render, Context context)
 </code></pre>
+<p>Iterates all active particle trackers and draws each particle's texture, color, scale, and rotation to the appropriate sprite batch.</p>
 <p><strong>Parameters</strong> <br />
 <code>render</code> <a href="../../Murder/Core/Graphics/RenderContext.html">RenderContext</a> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <h4 id="startcontext"><a class="header" href="#startcontext">Start(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Start(Context context)
 </code></pre>
-<p><strong>Parameters</strong> <br />
+<p>Creates the world-unique <code>ParticleSystemWorldTrackerComponent</code> entity that all particle systems register with.
+<strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <h4 id="updatecontext"><a class="header" href="#updatecontext">Update(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Update(Context context)
 </code></pre>
+<p>Advances all tracked particle simulations by one game tick, applying lifetime, velocity, and fade curves to each particle.</p>
 <p><strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <p>⚡</p>

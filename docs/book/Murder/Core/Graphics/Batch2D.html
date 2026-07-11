@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class Batch2D : IDisposable
 </code></pre>
+<p>A sprite batch that collects 2D draw calls for a single render layer and submits them to the GPU in as few draw calls as possible.</p>
+<p><strong>Intent:</strong> Provides the low-level sprite-batching infrastructure used by every <code>IMurderRenderSystem</code>; analogous to MonoGame's <code>SpriteBatch</code> but with depth-sorting and custom shader support.</p>
+<p><strong>Use-case:</strong> Obtain the relevant <code>Batch2D</code> from <code>RenderContext</code> or <code>Batches2D</code>, call <code>Begin</code>, issue <code>Draw</code> calls, then call <code>End</code>. The <code>BatchMode</code> controls whether sprites are sorted by depth or drawn in submission order.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0">IDisposable</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Batch2D(string name, GraphicsDevice graphicsDevice, Effect effect, BatchMode batchMode, BlendState blendState, SamplerState samplerState, DepthStencilState depthStencilState, RasterizerState rasterizerState, bool autoHandleAlphaBlendedSprites)
 </code></pre>
+<p>Creates a <code>Batch2D</code> that applies the active camera transform automatically.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>graphicsDevice</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.GraphicsDevice.html">GraphicsDevice</a> <br />
@@ -165,6 +169,7 @@
 <code>autoHandleAlphaBlendedSprites</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <pre><code class="language-csharp">public Batch2D(string name, GraphicsDevice graphicsDevice, bool followCamera, Effect effect, BatchMode batchMode, BlendState blendState, SamplerState samplerState, DepthStencilState depthStencilState, RasterizerState rasterizerState, bool autoHandleAlphaBlendedSprites)
 </code></pre>
+<p>Creates a <code>Batch2D</code> with explicit control over whether the batch follows the camera transform.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>graphicsDevice</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.GraphicsDevice.html">GraphicsDevice</a> <br />
@@ -180,6 +185,7 @@
 <h4 id="allowibasicshadereffectparameterclone"><a class="header" href="#allowibasicshadereffectparameterclone">AllowIBasicShaderEffectParameterClone</a></h4>
 <pre><code class="language-csharp">public bool AllowIBasicShaderEffectParameterClone { get; public set; }
 </code></pre>
+<p>When <code>true</code>, allows shader effect parameters to be cloned from the base <code>IBasicShaderEffect</code> when drawing; used to propagate shared shader state across batches.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="autohandlealphablendedsprites"><a class="header" href="#autohandlealphablendedsprites">AutoHandleAlphaBlendedSprites</a></h4>
@@ -192,51 +198,61 @@ By drawing first all opaque sprites, with depth write enabled, followed by non-o
 <h4 id="batchmode"><a class="header" href="#batchmode">BatchMode</a></h4>
 <pre><code class="language-csharp">public readonly BatchMode BatchMode;
 </code></pre>
+<p>The sorting and batching strategy used when <code>End()</code> submits draw calls to the GPU.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/BatchMode.html">BatchMode</a> </p>
 <h4 id="blendstate"><a class="header" href="#blendstate">BlendState</a></h4>
 <pre><code class="language-csharp">public readonly BlendState BlendState;
 </code></pre>
+<p>The MonoGame blend state applied when this batch is rendered (e.g., alpha blend, additive).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.BlendState.html">BlendState</a> </p>
 <h4 id="depthstencilstate"><a class="header" href="#depthstencilstate">DepthStencilState</a></h4>
 <pre><code class="language-csharp">public readonly DepthStencilState DepthStencilState;
 </code></pre>
+<p>The MonoGame depth/stencil state applied during rendering; controls depth writes and reads for this batch.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.DepthStencilState.html">DepthStencilState</a> </p>
 <h4 id="effect"><a class="header" href="#effect">Effect</a></h4>
 <pre><code class="language-csharp">public Effect Effect { get; public set; }
 </code></pre>
+<p>The shader effect applied to all sprites in this batch. Can be swapped between frames to change the visual appearance of the entire layer.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Effect.html">Effect</a> </p>
 <h4 id="graphicsdevice"><a class="header" href="#graphicsdevice">GraphicsDevice</a></h4>
 <pre><code class="language-csharp">public GraphicsDevice GraphicsDevice { get; public set; }
 </code></pre>
+<p>The MonoGame graphics device used to create GPU resources and submit draw calls.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.GraphicsDevice.html">GraphicsDevice</a> </p>
 <h4 id="isbatching"><a class="header" href="#isbatching">IsBatching</a></h4>
 <pre><code class="language-csharp">public bool IsBatching { get; private set; }
 </code></pre>
+<p><code>true</code> after <code>Begin()</code> has been called and before <code>End()</code> is called; indicates that draw calls may be queued.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="isdisposed"><a class="header" href="#isdisposed">IsDisposed</a></h4>
 <pre><code class="language-csharp">public bool IsDisposed { get; private set; }
 </code></pre>
+<p><code>true</code> once <code>Dispose()</code> has been called; further draw calls on a disposed batch will throw.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public string Name;
 </code></pre>
+<p>A human-readable label for this batch, used in diagnostics and the editor's batch-preview dropdown.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="rasterizerstate"><a class="header" href="#rasterizerstate">RasterizerState</a></h4>
 <pre><code class="language-csharp">public readonly RasterizerState RasterizerState;
 </code></pre>
+<p>The MonoGame rasterizer state (e.g., culling mode, fill mode) applied when this batch is rendered.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RasterizerState.html">RasterizerState</a> </p>
 <h4 id="samplerstate"><a class="header" href="#samplerstate">SamplerState</a></h4>
 <pre><code class="language-csharp">public readonly SamplerState SamplerState;
 </code></pre>
+<p>The texture sampling mode (e.g., point, linear, anisotropic) applied when drawing atlas textures in this batch.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.SamplerState.html">SamplerState</a> </p>
 <h4 id="spritecount"><a class="header" href="#spritecount">SpriteCount</a></h4>
@@ -248,6 +264,7 @@ By drawing first all opaque sprites, with depth write enabled, followed by non-o
 <h4 id="startbatchitemscount"><a class="header" href="#startbatchitemscount">StartBatchItemsCount</a></h4>
 <pre><code class="language-csharp">public static const int StartBatchItemsCount;
 </code></pre>
+<p>Initial capacity of the internal sprite-item buffer (128). The buffer grows automatically when more items are queued.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="totaldrawcalls"><a class="header" href="#totaldrawcalls">TotalDrawCalls</a></h4>
@@ -259,16 +276,19 @@ By drawing first all opaque sprites, with depth write enabled, followed by non-o
 <h4 id="totalitemcount"><a class="header" href="#totalitemcount">TotalItemCount</a></h4>
 <pre><code class="language-csharp">public int TotalItemCount { get; }
 </code></pre>
+<p>Total number of sprite items currently allocated in the internal buffer (including empty slots).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="totaltransparentitemcount"><a class="header" href="#totaltransparentitemcount">TotalTransparentItemCount</a></h4>
 <pre><code class="language-csharp">public int TotalTransparentItemCount { get; }
 </code></pre>
+<p>Number of queued items that have transparency and are rendered in the second (depth-read-only) pass when <code>AutoHandleAlphaBlendedSprites</code> is enabled.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="transform"><a class="header" href="#transform">Transform</a></h4>
 <pre><code class="language-csharp">public Matrix Transform { get; private set; }
 </code></pre>
+<p>The current camera-to-screen transform matrix applied to all sprites submitted since <code>Begin()</code> was last called.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Matrix.html">Matrix</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
@@ -279,6 +299,7 @@ By drawing first all opaque sprites, with depth write enabled, followed by non-o
 <h4 id="beginmatrix"><a class="header" href="#beginmatrix">Begin(Matrix)</a></h4>
 <pre><code class="language-csharp">public void Begin(Matrix cameraMatrix)
 </code></pre>
+<p>Opens the batch for draw calls, setting the camera transform matrix that will be applied to every subsequent sprite.</p>
 <p><strong>Parameters</strong> <br />
 <code>cameraMatrix</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Matrix.html">Matrix</a> </p>
 <h4 id="drawtexture2d-vector2-vector2-rectangle-float-float-vector2-imageflip-color-vector2-vector3"><a class="header" href="#drawtexture2d-vector2-vector2-rectangle-float-float-vector2-imageflip-color-vector2-vector3">Draw(Texture2D, Vector2, Vector2, Rectangle, float, float, Vector2, ImageFlip, Color, Vector2, Vector3)</a></h4>
@@ -314,6 +335,7 @@ By drawing first all opaque sprites, with depth write enabled, followed by non-o
 <h4 id="drawpolygontexture2d-immutablearray-drawinfo"><a class="header" href="#drawpolygontexture2d-immutablearray-drawinfo">DrawPolygon(Texture2D, ImmutableArray<T>, DrawInfo)</a></h4>
 <pre><code class="language-csharp">public void DrawPolygon(Texture2D texture, ImmutableArray&lt;T&gt; vertices, DrawInfo drawInfo)
 </code></pre>
+<p>Draws a textured convex polygon defined by the supplied vertex array.</p>
 <p><strong>Parameters</strong> <br />
 <code>texture</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a> <br />
 <code>vertices</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> <br />
@@ -321,6 +343,7 @@ By drawing first all opaque sprites, with depth write enabled, followed by non-o
 <h4 id="drawpolygontexture2d-vector2-drawinfo"><a class="header" href="#drawpolygontexture2d-vector2-drawinfo">DrawPolygon(Texture2D, Vector2[], DrawInfo)</a></h4>
 <pre><code class="language-csharp">public void DrawPolygon(Texture2D texture, Vector2[] vertices, DrawInfo drawInfo)
 </code></pre>
+<p>Draws a textured convex polygon defined by the supplied vertex array (mutable overload).</p>
 <p><strong>Parameters</strong> <br />
 <code>texture</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a> <br />
 <code>vertices</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2[]</a> <br />

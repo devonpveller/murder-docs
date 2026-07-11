@@ -151,6 +151,8 @@
 </code></pre>
 <p>A texture atlas, the texture2D can be loaded and unloaded from the GPU at any time
 We will keep the texture lists in memory all the time, though.</p>
+<p><strong>Intent:</strong> Provides a named sprite sheet that maps string identifiers to <code>AtlasCoordinates</code>, allowing efficient batched rendering from a shared GPU texture.</p>
+<p><strong>Use-case:</strong> Retrieve via <code>Game.Data.FetchAtlas()</code> and call <code>Get()</code> to look up <code>AtlasCoordinates</code> for sprite draw calls, or <code>TryGet()</code> when the sprite may not exist.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0">IDisposable</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TextureAtlas(string name, AtlasId id)
@@ -162,22 +164,26 @@ We will keep the texture lists in memory all the time, though.</p>
 <h4 id="countentries"><a class="header" href="#countentries">CountEntries</a></h4>
 <pre><code class="language-csharp">public int CountEntries { get; }
 </code></pre>
+<p>Total number of named sprite entries registered in this atlas.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="id"><a class="header" href="#id">Id</a></h4>
 <pre><code class="language-csharp">public readonly AtlasId Id;
 </code></pre>
+<p>The <code>AtlasId</code> enum value identifying which packed atlas this instance corresponds to.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Data/AtlasId.html">AtlasId</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public readonly string Name;
 </code></pre>
+<p>String identifier used when loading and referencing this atlas on disk.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getstring"><a class="header" href="#getstring">Get(string)</a></h4>
 <pre><code class="language-csharp">public AtlasCoordinates Get(string id)
 </code></pre>
+<p>Returns the <code>AtlasCoordinates</code> for the sprite with the given identifier, or falls back to the <code>missingImage</code> placeholder if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -185,6 +191,7 @@ We will keep the texture lists in memory all the time, though.</p>
 <h4 id="hasidstring"><a class="header" href="#hasidstring">HasId(string)</a></h4>
 <pre><code class="language-csharp">public bool HasId(string id)
 </code></pre>
+<p>Returns true if a sprite is registered under the given identifier in this atlas.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -192,6 +199,7 @@ We will keep the texture lists in memory all the time, though.</p>
 <h4 id="trycreatetexturestring-out-texture2d"><a class="header" href="#trycreatetexturestring-out-texture2d">TryCreateTexture(string, out Texture2D&amp;)</a></h4>
 <pre><code class="language-csharp">public bool TryCreateTexture(string id, Texture2D&amp; texture)
 </code></pre>
+<p>Attempts to extract the named sprite as a standalone <code>Texture2D</code> at 1:1 scale; returns false if the sprite is not found. The returned texture must be manually disposed.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>texture</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D&amp;</a> </p>
@@ -200,6 +208,7 @@ We will keep the texture lists in memory all the time, though.</p>
 <h4 id="trygetstring-out-atlascoordinates"><a class="header" href="#trygetstring-out-atlascoordinates">TryGet(string, out AtlasCoordinates&amp;)</a></h4>
 <pre><code class="language-csharp">public bool TryGet(string id, AtlasCoordinates&amp; coord)
 </code></pre>
+<p>Attempts to retrieve the atlas coordinates for the given identifier without falling back to a placeholder; returns false if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>coord</code> <a href="../../../Murder/Core/Graphics/AtlasCoordinates.html">AtlasCoordinates&amp;</a> </p>
@@ -208,6 +217,7 @@ We will keep the texture lists in memory all the time, though.</p>
 <h4 id="getallentries"><a class="header" href="#getallentries">GetAllEntries()</a></h4>
 <pre><code class="language-csharp">public IEnumerable&lt;T&gt; GetAllEntries()
 </code></pre>
+<p>Returns all registered <code>AtlasCoordinates</code> entries in this atlas.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0">IEnumerable&lt;T&gt;</a> </p>
 <h4 id="createtexturefromatlasatlascoordinates-surfaceformat-float"><a class="header" href="#createtexturefromatlasatlascoordinates-surfaceformat-float">CreateTextureFromAtlas(AtlasCoordinates, SurfaceFormat, float)</a></h4>
@@ -234,17 +244,21 @@ We will keep the texture lists in memory all the time, though.</p>
 <h4 id="dispose"><a class="header" href="#dispose">Dispose()</a></h4>
 <pre><code class="language-csharp">public virtual void Dispose()
 </code></pre>
+<p>Releases all GPU textures held by this atlas.</p>
 <h4 id="loadtextures"><a class="header" href="#loadtextures">LoadTextures()</a></h4>
 <pre><code class="language-csharp">public void LoadTextures()
 </code></pre>
+<p>Loads the packed atlas texture files from disk into GPU memory; called automatically on first access if textures have not been loaded.</p>
 <h4 id="populateatlasienumerable"><a class="header" href="#populateatlasienumerable">PopulateAtlas(IEnumerable<T>)</a></h4>
 <pre><code class="language-csharp">public void PopulateAtlas(IEnumerable&lt;T&gt; entries)
 </code></pre>
+<p>Registers a collection of named sprite coordinates into the atlas lookup table, replacing any previous contents.</p>
 <p><strong>Parameters</strong> <br />
 <code>entries</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0">IEnumerable&lt;T&gt;</a> </p>
 <h4 id="unloadtextures"><a class="header" href="#unloadtextures">UnloadTextures()</a></h4>
 <pre><code class="language-csharp">public void UnloadTextures()
 </code></pre>
+<p>Unloads GPU textures from memory while retaining the coordinate lookup table, allowing textures to be reloaded later.</p>
 <p>⚡</p>
 
                     </main>

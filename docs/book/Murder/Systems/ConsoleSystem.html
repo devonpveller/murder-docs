@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class ConsoleSystem : IStartupSystem, ISystem, IGuiSystem, IRenderSystem
 </code></pre>
+<p>Initializes the in-game <code>GameLogger</code> console on startup and renders it as an overlay GUI each frame, allowing developers to enter and execute commands at runtime.</p>
+<p><strong>Intent:</strong> Provides an in-game debug console that developers can use to inspect and control the game state through typed commands.</p>
+<p><strong>Use-case:</strong> Include in development or debug worlds to enable the command console overlay; typically excluded from release builds.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IStartupSystem.html">IStartupSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a>, <a href="../../Murder/Core/Graphics/IGuiSystem.html">IGuiSystem</a>, <a href="../../Bang/Systems/IRenderSystem.html">IRenderSystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ConsoleSystem()
@@ -157,12 +160,14 @@
 <h4 id="drawguirendercontext-context"><a class="header" href="#drawguirendercontext-context">DrawGui(RenderContext, Context)</a></h4>
 <pre><code class="language-csharp">public virtual void DrawGui(RenderContext render, Context context)
 </code></pre>
+<p>Renders the developer console overlay and routes any submitted command string to <code>CommandServices.Parse</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>render</code> <a href="../../Murder/Core/Graphics/RenderContext.html">RenderContext</a> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <h4 id="startcontext"><a class="header" href="#startcontext">Start(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Start(Context context)
 </code></pre>
+<p>Obtains or creates the singleton <code>GameLogger</code> instance used by the console overlay.</p>
 <p><strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <p>⚡</p>

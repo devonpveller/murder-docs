@@ -151,23 +151,29 @@
 </code></pre>
 <p>Attributes for fields that should always show up in the editor.
 Commonly used for private fields.</p>
+<p><strong>Intent:</strong> Mark an editor system class as enabled by default so it is automatically activated when the Murder editor initializes.</p>
+<p><strong>Use-case:</strong> Apply to editor system classes that provide core edit-mode functionality. Use <code>StartActive = false</code> to register a system that exists but must be manually toggled on by the user.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DefaultEditorSystemAttribute()
 </code></pre>
+<p>Creates a new instance with <code>StartActive</code> set to <code>true</code>.</p>
 <pre><code class="language-csharp">public DefaultEditorSystemAttribute(bool startActive)
 </code></pre>
+<p>Creates a new instance specifying whether the system begins in the active state.</p>
 <p><strong>Parameters</strong> <br />
 <code>startActive</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="startactive"><a class="header" href="#startactive">StartActive</a></h4>
 <pre><code class="language-csharp">public readonly bool StartActive;
 </code></pre>
+<p>Whether the system should begin in the active (enabled) state when the editor loads.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

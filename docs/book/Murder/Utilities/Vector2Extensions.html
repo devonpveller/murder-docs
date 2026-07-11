@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class Vector2Extensions
 </code></pre>
+<p>Extension methods on <code>System.Numerics.Vector2</code> for game-specific operations like angle calculation, Manhattan distance, perpendicular products, and size shorthand.</p>
+<p><strong>Intent:</strong> Adds game-oriented convenience methods to <code>Vector2</code> that are used frequently in physics, animation, and rendering code.</p>
+<p><strong>Use-case:</strong> Use <code>Angle</code> to get a heading, <code>Manhattan</code> for grid distance checks, <code>PerpendicularCounterClockwise</code> for collision math, and <code>Width</code>/<code>Height</code> to treat a vector as a size.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="hasvaluevector2"><a class="header" href="#hasvaluevector2">HasValue(Vector2)</a></h4>
 <pre><code class="language-csharp">public bool HasValue(Vector2 vector)
 </code></pre>
+<p>Returns <code>true</code> if the vector is non-zero (i.e., it has a meaningful direction or magnitude).</p>
 <p><strong>Parameters</strong> <br />
 <code>vector</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -160,6 +164,7 @@
 <h4 id="anglevector2"><a class="header" href="#anglevector2">Angle(Vector2)</a></h4>
 <pre><code class="language-csharp">public float Angle(Vector2 vector)
 </code></pre>
+<p>Returns the angle of the vector in radians, measured from the positive X axis.</p>
 <p><strong>Parameters</strong> <br />
 <code>vector</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -175,6 +180,7 @@
 <h4 id="manhattanvector2"><a class="header" href="#manhattanvector2">Manhattan(Vector2)</a></h4>
 <pre><code class="language-csharp">public float Manhattan(Vector2 vector)
 </code></pre>
+<p>Returns the Manhattan (L1) distance of the vector from the origin (|X| + |Y|).</p>
 <p><strong>Parameters</strong> <br />
 <code>vector</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -182,6 +188,7 @@
 <h4 id="perpendicularcounterclockwisevector2-vector2"><a class="header" href="#perpendicularcounterclockwisevector2-vector2">PerpendicularCounterClockwise(Vector2, Vector2)</a></h4>
 <pre><code class="language-csharp">public float PerpendicularCounterClockwise(Vector2 vector, Vector2 other)
 </code></pre>
+<p>Returns the scalar perpendicular dot product (2D cross product Z component) of the two vectors.</p>
 <p><strong>Parameters</strong> <br />
 <code>vector</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
 <code>other</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
@@ -198,6 +205,7 @@
 <h4 id="ceilingvector2"><a class="header" href="#ceilingvector2">Ceiling(Vector2)</a></h4>
 <pre><code class="language-csharp">public Point Ceiling(Vector2 vector)
 </code></pre>
+<p>Returns the vector rounded up to the nearest integer components as a <code>Point</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>vector</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -205,6 +213,7 @@
 <h4 id="floorvector2"><a class="header" href="#floorvector2">Floor(Vector2)</a></h4>
 <pre><code class="language-csharp">public Point Floor(Vector2 vector)
 </code></pre>
+<p>Returns the vector rounded down to the nearest integer components as a <code>Point</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>vector</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -212,6 +221,7 @@
 <h4 id="pointvector2"><a class="header" href="#pointvector2">Point(Vector2)</a></h4>
 <pre><code class="language-csharp">public Point Point(Vector2 vector)
 </code></pre>
+<p>Converts the vector to an integer <code>Point</code> by truncating each component.</p>
 <p><strong>Parameters</strong> <br />
 <code>vector</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -219,6 +229,7 @@
 <h4 id="roundvector2"><a class="header" href="#roundvector2">Round(Vector2)</a></h4>
 <pre><code class="language-csharp">public Point Round(Vector2 vector)
 </code></pre>
+<p>Returns the vector rounded to the nearest integer components as a <code>Point</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>vector</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -226,6 +237,7 @@
 <h4 id="togridpointvector2"><a class="header" href="#togridpointvector2">ToGridPoint(Vector2)</a></h4>
 <pre><code class="language-csharp">public Point ToGridPoint(Vector2 vector)
 </code></pre>
+<p>Converts a world-space vector to the tile-grid cell coordinate it falls in.</p>
 <p><strong>Parameters</strong> <br />
 <code>vector</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class TilesetAsset : GameAsset
 </code></pre>
+<p>Defines the visual and collision properties of a tileset texture atlas, including per-tile rendering order, collision layer, and optional auto-tile drawing helpers.</p>
+<p><strong>Intent:</strong> Package all the metadata needed to render a tileset — the source sprite, tile dimensions, draw order, sort offset, collision layer, and optional additional tile variants — into one serializable asset.</p>
+<p><strong>Use-case:</strong> Assign a <code>TilesetAsset</code> to a tile layer in the world editor. At runtime the renderer uses <code>DrawTile</code> or <code>CalculateAndDrawAutoTile</code> to blit individual cells from the tileset texture into the world with the correct sorting and collision configuration.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Murder/Assets/GameAsset.html">GameAsset</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TilesetAsset()
@@ -157,86 +160,103 @@
 <h4 id="additionaltiles"><a class="header" href="#additionaltiles">AdditionalTiles</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; AdditionalTiles;
 </code></pre>
+<p>Optional additional <code>TilesetAsset</code> GUIDs layered on top of this tileset for richer visual variation.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="canbecreated"><a class="header" href="#canbecreated">CanBeCreated</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeCreated { get; }
 </code></pre>
+<p>Determines if the asset can be created, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canbedeleted"><a class="header" href="#canbedeleted">CanBeDeleted</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeDeleted { get; }
 </code></pre>
+<p>Determines if the asset can be deleted, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canberenamed"><a class="header" href="#canberenamed">CanBeRenamed</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeRenamed { get; }
 </code></pre>
+<p>Determines if the asset can be renamed, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canbesaved"><a class="header" href="#canbesaved">CanBeSaved</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeSaved { get; }
 </code></pre>
+<p>Determines if the asset can be saved, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="collisionlayer"><a class="header" href="#collisionlayer">CollisionLayer</a></h4>
 <pre><code class="language-csharp">public readonly int CollisionLayer;
 </code></pre>
+<p>Bit-mask collision layer assigned to tiles in this tileset, used for physics queries.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="consideroutsideoccupied"><a class="header" href="#consideroutsideoccupied">ConsiderOutsideOccupied</a></h4>
 <pre><code class="language-csharp">public readonly bool ConsiderOutsideOccupied;
 </code></pre>
+<p>When true, areas outside the map bounds are treated as occupied tiles for auto-tile edge calculations.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="editorcolor"><a class="header" href="#editorcolor">EditorColor</a></h4>
 <pre><code class="language-csharp">public virtual Vector4 EditorColor { get; }
 </code></pre>
+<p>Gets the default color used in the editor for the asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="editorfolder"><a class="header" href="#editorfolder">EditorFolder</a></h4>
 <pre><code class="language-csharp">public virtual string EditorFolder { get; }
 </code></pre>
+<p>Gets the folder path in the editor where this asset is grouped.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="filechanged"><a class="header" href="#filechanged">FileChanged</a></h4>
 <pre><code class="language-csharp">public bool FileChanged { get; public set; }
 </code></pre>
+<p>Indicates whether the asset has unsaved modifications.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="filepath"><a class="header" href="#filepath">FilePath</a></h4>
 <pre><code class="language-csharp">public string FilePath { get; public set; }
 </code></pre>
+<p>Path to this asset file, relative to its base directory.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="guid"><a class="header" href="#guid">Guid</a></h4>
 <pre><code class="language-csharp">public Guid Guid { get; protected set; }
 </code></pre>
+<p>Unique identifier for this asset, used to reference it from other assets and components.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="icon"><a class="header" href="#icon">Icon</a></h4>
 <pre><code class="language-csharp">public virtual char Icon { get; }
 </code></pre>
+<p>FontAwesome character icon displayed next to this asset in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0">char</a> </p>
 <h4 id="image"><a class="header" href="#image">Image</a></h4>
 <pre><code class="language-csharp">public readonly Guid Image;
 </code></pre>
+<p>GUID of the <code>SpriteAsset</code> whose texture atlas contains the tile frames for this tileset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="isstoredinsavedata"><a class="header" href="#isstoredinsavedata">IsStoredInSaveData</a></h4>
 <pre><code class="language-csharp">public virtual bool IsStoredInSaveData { get; }
 </code></pre>
+<p>Whether this file is stored relative to the save path.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public string Name { get; public set; }
 </code></pre>
+<p>Display name of this asset as shown in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="offset"><a class="header" href="#offset">Offset</a></h4>
 <pre><code class="language-csharp">public readonly Point Offset;
 </code></pre>
+<p>Pixel offset applied to all tiles drawn from this tileset.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="order"><a class="header" href="#order">Order</a></h4>
@@ -248,55 +268,66 @@
 <h4 id="properties"><a class="header" href="#properties">Properties</a></h4>
 <pre><code class="language-csharp">public readonly ITileProperties Properties;
 </code></pre>
+<p>Optional tile behaviour properties (e.g. surface type) applied to all tiles in this tileset.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/ITileProperties.html">ITileProperties</a> </p>
 <h4 id="rename"><a class="header" href="#rename">Rename</a></h4>
 <pre><code class="language-csharp">public bool Rename { get; public set; }
 </code></pre>
+<p>Whether the file should be renamed and the previous name deleted on next save.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="savelocation"><a class="header" href="#savelocation">SaveLocation</a></h4>
 <pre><code class="language-csharp">public virtual string SaveLocation { get; }
 </code></pre>
+<p>The folder path where this asset is saved on disk.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="size"><a class="header" href="#size">Size</a></h4>
 <pre><code class="language-csharp">public readonly Point Size;
 </code></pre>
+<p>Size in pixels of each tile cell in the tileset grid.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="sort"><a class="header" href="#sort">Sort</a></h4>
 <pre><code class="language-csharp">public float Sort;
 </code></pre>
+<p>Base sort value used to order this tileset relative to other draw layers (0 to 1).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="storeindatabase"><a class="header" href="#storeindatabase">StoreInDatabase</a></h4>
 <pre><code class="language-csharp">public virtual bool StoreInDatabase { get; }
 </code></pre>
+<p>Whether this asset is stored following the database hierarchy.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="taggedfordeletion"><a class="header" href="#taggedfordeletion">TaggedForDeletion</a></h4>
 <pre><code class="language-csharp">public bool TaggedForDeletion;
 </code></pre>
+<p>Marks this asset for removal on the next save.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="targetbatch"><a class="header" href="#targetbatch">TargetBatch</a></h4>
 <pre><code class="language-csharp">public int TargetBatch;
 </code></pre>
+<p>The sprite batch slot this tileset is drawn into; determines layering relative to other batches.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="ysortoffset"><a class="header" href="#ysortoffset">YSortOffset</a></h4>
 <pre><code class="language-csharp">public readonly int YSortOffset;
 </code></pre>
+<p>Vertical pixel offset added to the tile's world Y position before computing its sort key.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="onmodified"><a class="header" href="#onmodified">OnModified()</a></h4>
 <pre><code class="language-csharp">protected virtual void OnModified()
 </code></pre>
+<p>Called by the editor when the asset is modified; override to clear cached derived data.</p>
 <h4 id="duplicatestring"><a class="header" href="#duplicatestring">Duplicate(string)</a></h4>
 <pre><code class="language-csharp">public GameAsset Duplicate(string name)
 </code></pre>
+<p>Creates a deep copy of this asset with the given new name.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -304,29 +335,35 @@
 <h4 id="assetstobesaved"><a class="header" href="#assetstobesaved">AssetsToBeSaved()</a></h4>
 <pre><code class="language-csharp">public List&lt;T&gt; AssetsToBeSaved()
 </code></pre>
+<p>Returns and clears the list of dependent assets queued to be saved alongside this asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <h4 id="getsimplifiedname"><a class="header" href="#getsimplifiedname">GetSimplifiedName()</a></h4>
 <pre><code class="language-csharp">public string GetSimplifiedName()
 </code></pre>
+<p>Returns the asset name stripped of any editor-folder prefix characters.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="getsplitnamewitheditorpath"><a class="header" href="#getsplitnamewitheditorpath">GetSplitNameWithEditorPath()</a></h4>
 <pre><code class="language-csharp">public String[] GetSplitNameWithEditorPath()
 </code></pre>
+<p>Returns the display name split into path segments following the EditorFolder hierarchy.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string[]</a> </p>
 <h4 id="getproperties"><a class="header" href="#getproperties">GetProperties()</a></h4>
 <pre><code class="language-csharp">public T GetProperties()
 </code></pre>
+<p>Returns the tile properties cast to the requested type <code>T</code>; returns default if the type does not match.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../">T</a> </p>
 <h4 id="afterdeserialized"><a class="header" href="#afterdeserialized">AfterDeserialized()</a></h4>
 <pre><code class="language-csharp">public virtual void AfterDeserialized()
 </code></pre>
+<p>Called after deserialization; override to rebuild caches from deserialized data.</p>
 <h4 id="calculateanddrawautotilerendercontext-int-int-bool-bool-bool-bool-float-color-vector3"><a class="header" href="#calculateanddrawautotilerendercontext-int-int-bool-bool-bool-bool-float-color-vector3">CalculateAndDrawAutoTile(RenderContext, int, int, bool, bool, bool, bool, float, Color, Vector3)</a></h4>
 <pre><code class="language-csharp">public void CalculateAndDrawAutoTile(RenderContext render, int x, int y, bool topLeft, bool topRight, bool botLeft, bool botRight, float alpha, Color color, Vector3 blend)
 </code></pre>
+<p>Selects and draws the correct auto-tile corner piece at grid position (<code>x</code>, <code>y</code>) based on the four neighbour-occupancy flags.</p>
 <p><strong>Parameters</strong> <br />
 <code>render</code> <a href="../../../Murder/Core/Graphics/RenderContext.html">RenderContext</a> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -341,6 +378,7 @@
 <h4 id="drawtilebatch2d-int-int-int-int-float-color-vector3-float"><a class="header" href="#drawtilebatch2d-int-int-int-int-float-color-vector3-float">DrawTile(Batch2D, int, int, int, int, float, Color, Vector3, float)</a></h4>
 <pre><code class="language-csharp">public void DrawTile(Batch2D batch, int x, int y, int tileX, int tileY, float alpha, Color color, Vector3 blend, float sortAdjust)
 </code></pre>
+<p>Draws a single tile from the tileset at world position (<code>x</code>, <code>y</code>) using texture coordinates (<code>tileX</code>, <code>tileY</code>).</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -354,9 +392,11 @@
 <h4 id="makeguid"><a class="header" href="#makeguid">MakeGuid()</a></h4>
 <pre><code class="language-csharp">public void MakeGuid()
 </code></pre>
+<p>Generates and assigns a new GUID to this asset.</p>
 <h4 id="trackassetonsaveguid"><a class="header" href="#trackassetonsaveguid">TrackAssetOnSave(Guid)</a></h4>
 <pre><code class="language-csharp">public void TrackAssetOnSave(Guid g)
 </code></pre>
+<p>Queues a dependent asset by GUID to be saved whenever this asset is saved.</p>
 <p><strong>Parameters</strong> <br />
 <code>g</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p>⚡</p>

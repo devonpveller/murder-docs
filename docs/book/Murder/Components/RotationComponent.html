@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct RotationComponent : IComponent
 </code></pre>
+<p>Stores the rotation of an entity as an angle in radians.</p>
+<p><strong>Intent:</strong> Track a free-rotation angle that is independent of the entity's facing direction.</p>
+<p><strong>Use-case:</strong> Attach to projectiles, particles, or objects that spin freely; read <code>Rotation</code> each frame to apply the angle to the sprite or collider transform.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public RotationComponent()

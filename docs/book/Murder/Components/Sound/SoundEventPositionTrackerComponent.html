@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct SoundEventPositionTrackerComponent : IComponent
 </code></pre>
 <p>This will track the spatial position of an event.</p>
+<p><strong>Intent:</strong> Keep a sound event's 3D position synchronised with the entity's world position each frame.</p>
+<p><strong>Use-case:</strong> Attach to an entity that emits a positional audio event so the audio engine receives updated coordinates as the entity moves.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SoundEventPositionTrackerComponent(SoundEventId sound)
@@ -160,6 +162,7 @@
 <h4 id="sound"><a class="header" href="#sound">Sound</a></h4>
 <pre><code class="language-csharp">public readonly SoundEventId Sound;
 </code></pre>
+<p>Identifier of the sound event whose spatial position is being tracked.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Sounds/SoundEventId.html">SoundEventId</a> </p>
 <p>⚡</p>

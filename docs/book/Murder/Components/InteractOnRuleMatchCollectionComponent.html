@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct InteractOnRuleMatchCollectionComponent : IComponent
 </code></pre>
+<p>Holds an ordered list of <code>InteractOnRuleMatchComponent</code> rules; when blackboard conditions are met, the matching rules trigger their interactions in sequence.</p>
+<p><strong>Intent:</strong> Support multiple independent rule-based interactions on a single entity, each with its own criteria and trigger condition.</p>
+<p><strong>Use-case:</strong> Add to a story entity with multiple conditional outcomes (e.g. different dialogue branches depending on quest state); each entry in <code>Requirements</code> is evaluated independently by the rule-match system.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public InteractOnRuleMatchCollectionComponent()

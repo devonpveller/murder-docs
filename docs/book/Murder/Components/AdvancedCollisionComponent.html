@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AdvancedCollisionComponent : IComponent
 </code></pre>
+<p>Marker component that opts an entity into the advanced (per-entity collision-mask) physics pipeline.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Signals the physics system to use the entity's <code>CustomCollisionMask</code> instead of the world-default layer rules.</p>
+<p><strong>Use-case:</strong> Attach to any entity that needs non-standard collision filtering — for example a projectile that should only collide with enemies but not walls, or a trigger zone that ignores the player.</p>
 <p>⚡</p>
 
                     </main>

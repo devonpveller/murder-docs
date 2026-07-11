@@ -150,10 +150,13 @@
 <pre><code class="language-csharp">public class EditorTupleTooltipAttribute : Attribute
 </code></pre>
 <p>Tooltip that will show up when hovering over a field in the editor.</p>
+<p><strong>Intent:</strong> Attach separate tooltip strings to each element of a two-value (tuple or pair) field in the editor inspector.</p>
+<p><strong>Use-case:</strong> Apply to tuple or vector fields in components where each element has a distinct semantic meaning—for example annotating a <code>(min, max)</code> range with &quot;Minimum value&quot; and &quot;Maximum value&quot; respectively.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public EditorTupleTooltipAttribute(string tooltip1, string tooltip2)
 </code></pre>
+<p>Creates a new instance with tooltip text for each element of the decorated tuple or pair field.</p>
 <p><strong>Parameters</strong> <br />
 <code>tooltip1</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>tooltip2</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
@@ -173,6 +176,7 @@
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

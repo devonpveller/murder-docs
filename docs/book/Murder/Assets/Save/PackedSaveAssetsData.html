@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class PackedSaveAssetsData
 </code></pre>
+<p>Container that holds all serialized <code>GameAsset</code> instances for a single save slot, stored in a compressed file alongside the main save.</p>
+<p><strong>Intent:</strong> Persist the collection of <code>DynamicAsset</code> objects that belong to a save slot so they can be reloaded independently of the main <code>SaveData</code> payload.</p>
+<p><strong>Use-case:</strong> The save system writes a <code>PackedSaveAssetsData</code> to the <code>saved_assets.gz</code> file. Use <code>SaveDataInfo.GetFullPackedAssetsSavePath</code> to locate it on disk and deserialize it when reloading dynamic runtime assets for a given slot.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PackedSaveAssetsData(List&lt;T&gt; assets)
 </code></pre>
@@ -158,11 +161,13 @@
 <h4 id="assets"><a class="header" href="#assets">Assets</a></h4>
 <pre><code class="language-csharp">public readonly List&lt;T&gt; Assets;
 </code></pre>
+<p>The list of serialized <code>GameAsset</code> instances stored in this save slot.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public static const string Name;
 </code></pre>
+<p>Filename used when writing this container to disk (<code>saved_assets.gz</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class SerializationHelper
 </code></pre>
+<p>Utilities for JSON serialization configuration and deep-copying serializable objects using <code>System.Text.Json</code>.</p>
+<p><strong>Intent:</strong> Provides helpers for composing JSON resolver modifier chains and for creating deep clones of serializable objects.</p>
+<p><strong>Use-case:</strong> Use <code>DeepCopy&lt;T&gt;</code> to clone components or assets, <code>WithModifiers</code> to extend a type-info resolver, and <code>ApplyModifierForPrivateFieldsAndGetters</code> to enable private-member serialization.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="withmodifiersijsontypeinforesolver-action1"><a class="header" href="#withmodifiersijsontypeinforesolver-action1">WithModifiers(IJsonTypeInfoResolver, Action`1[])</a></h4>
 <pre><code class="language-csharp">public IJsonTypeInfoResolver WithModifiers(IJsonTypeInfoResolver resolver, Action`1[] modifiers)
 </code></pre>
+<p>Wraps a <code>IJsonTypeInfoResolver</code> with additional modifier delegates that can customize per-type serialization behavior.</p>
 <p><strong>Parameters</strong> <br />
 <code>resolver</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver?view=net-7.0">IJsonTypeInfoResolver</a> <br />
 <code>modifiers</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action-1?view=net-7.0">Action&lt;T&gt;[]</a> </p>
@@ -161,6 +165,7 @@
 <h4 id="deepcopyt"><a class="header" href="#deepcopyt">DeepCopy(T)</a></h4>
 <pre><code class="language-csharp">public T DeepCopy(T c)
 </code></pre>
+<p>Creates a deep copy of the given object by serializing it to JSON and deserializing a fresh instance.</p>
 <p><strong>Parameters</strong> <br />
 <code>c</code> <a href="../../">T</a> </p>
 <p><strong>Returns</strong> <br />
@@ -168,6 +173,7 @@
 <h4 id="applymodifierforprivatefieldsandgettersjsontypeinfo"><a class="header" href="#applymodifierforprivatefieldsandgettersjsontypeinfo">ApplyModifierForPrivateFieldsAndGetters(JsonTypeInfo)</a></h4>
 <pre><code class="language-csharp">public void ApplyModifierForPrivateFieldsAndGetters(JsonTypeInfo jsonTypeInfo)
 </code></pre>
+<p>A <code>System.Text.Json</code> modifier that enables serialization of private fields and getter-only properties on the given type.</p>
 <p><strong>Parameters</strong> <br />
 <code>jsonTypeInfo</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Serialization.Metadata.JsonTypeInfo?view=net-7.0">JsonTypeInfo</a> </p>
 <p>⚡</p>

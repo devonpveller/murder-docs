@@ -149,21 +149,27 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed enum PathfindAlgorithmKind : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Selects which pathfinding algorithm is used when requesting a path via <code>PathfindServices.FindPath</code>.</p>
+<p><strong>Intent:</strong> Enum that lets systems and components specify the desired pathfinding strategy.</p>
+<p><strong>Use-case:</strong> Set on the pathfinding component or pass directly to <code>PathfindServices.FindPath</code> to choose between standard A* and the faster hierarchical HAAstar.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="astar"><a class="header" href="#astar">Astar</a></h4>
 <pre><code class="language-csharp">public static const PathfindAlgorithmKind Astar;
 </code></pre>
+<p>Use standard A* to find the path. Accurate but slower on large maps.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Ai/PathfindAlgorithmKind.html">PathfindAlgorithmKind</a> </p>
 <h4 id="haastar"><a class="header" href="#haastar">HAAstar</a></h4>
 <pre><code class="language-csharp">public static const PathfindAlgorithmKind HAAstar;
 </code></pre>
+<p>Use Hierarchical A* (HAAstar) for faster path queries on large maps.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Ai/PathfindAlgorithmKind.html">PathfindAlgorithmKind</a> </p>
 <h4 id="none"><a class="header" href="#none">None</a></h4>
 <pre><code class="language-csharp">public static const PathfindAlgorithmKind None;
 </code></pre>
+<p>No pathfinding algorithm is applied; the entity will not attempt to navigate.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Ai/PathfindAlgorithmKind.html">PathfindAlgorithmKind</a> </p>
 <p>⚡</p>

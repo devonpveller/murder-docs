@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class ParticleTrackerSystem : IReactiveSystem, ISystem
 </code></pre>
+<p>Responds to <code>ParticleSystemComponent</code> being added, modified, or removed on entities and registers or unregisters them with the <code>WorldParticleSystemTracker</code>.</p>
+<p><strong>Intent:</strong> Keeps the particle tracker synchronized with the ECS world so each entity's emitter is managed exactly for the lifetime of its <code>ParticleSystemComponent</code>.</p>
+<p><strong>Use-case:</strong> Automatically pairs with <code>ParticleRendererSystem</code>; attach <code>ParticleSystemComponent</code> to any entity and this system starts and stops the emitter cleanly.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IReactiveSystem.html">IReactiveSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ParticleTrackerSystem()
@@ -157,30 +160,35 @@
 <h4 id="onactivatedworld-immutablearray"><a class="header" href="#onactivatedworld-immutablearray">OnActivated(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnActivated(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Re-registers the entity's emitter with the tracker when the entity is reactivated.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="onaddedworld-immutablearray"><a class="header" href="#onaddedworld-immutablearray">OnAdded(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnAdded(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Registers the entity's particle emitter with the world tracker when <code>ParticleSystemComponent</code> is added.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="ondeactivatedworld-immutablearray"><a class="header" href="#ondeactivatedworld-immutablearray">OnDeactivated(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnDeactivated(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Unregisters the entity's emitter from the tracker when the entity is deactivated.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="onmodifiedworld-immutablearray"><a class="header" href="#onmodifiedworld-immutablearray">OnModified(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnModified(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Synchronizes updated emitter settings in the world tracker when <code>ParticleSystemComponent</code> is modified.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="onremovedworld-immutablearray"><a class="header" href="#onremovedworld-immutablearray">OnRemoved(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnRemoved(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Unregisters the entity's emitter from the world tracker when <code>ParticleSystemComponent</code> is removed.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>

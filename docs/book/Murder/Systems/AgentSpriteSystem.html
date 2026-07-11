@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class AgentSpriteSystem : IMurderRenderSystem, IRenderSystem, ISystem, IFixedUpdateSystem
 </code></pre>
+<p>Renders the sprite for agent entities by selecting the correct directional animation prefix (idle vs. walk) based on the agent's impulse and facing angle, with support for animation overloads.</p>
+<p><strong>Intent:</strong> Drives the visual representation of agent entities by picking and drawing the correct directional Aseprite animation each frame.</p>
+<p><strong>Use-case:</strong> Required in any world with <code>AgentSpriteComponent</code> entities; it automatically switches between idle and walk animations and applies animation overrides set by other systems.</p>
 <p><strong>Implements:</strong> <em><a href="../../Murder/Core/Graphics/IMurderRenderSystem.html">IMurderRenderSystem</a>, <a href="../../Bang/Systems/IRenderSystem.html">IRenderSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a>, <a href="../../Bang/Systems/IFixedUpdateSystem.html">IFixedUpdateSystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AgentSpriteSystem()
@@ -157,6 +160,7 @@
 <h4 id="setparticlewalkworld-entity-bool"><a class="header" href="#setparticlewalkworld-entity-bool">SetParticleWalk(World, Entity, bool)</a></h4>
 <pre><code class="language-csharp">protected virtual void SetParticleWalk(World world, Entity e, bool isWalking)
 </code></pre>
+<p>Notifies the particle system to activate or deactivate the walk-particle effect on the given entity.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
@@ -164,12 +168,14 @@
 <h4 id="drawrendercontext-context"><a class="header" href="#drawrendercontext-context">Draw(RenderContext, Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Draw(RenderContext render, Context context)
 </code></pre>
+<p>Selects the appropriate animation prefix from facing direction and movement state, then draws the agent sprite with y-sorting and any active animation overload.</p>
 <p><strong>Parameters</strong> <br />
 <code>render</code> <a href="../../Murder/Core/Graphics/RenderContext.html">RenderContext</a> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <h4 id="fixedupdatecontext"><a class="header" href="#fixedupdatecontext">FixedUpdate(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void FixedUpdate(Context context)
 </code></pre>
+<p>Reserved for physics-tick processing on agent sprites; override to add per-physics-step logic.</p>
 <p><strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <p>⚡</p>

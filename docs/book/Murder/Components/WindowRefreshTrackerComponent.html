@@ -150,16 +150,20 @@
 <pre><code class="language-csharp">public sealed struct WindowRefreshTrackerComponent : IModifiableComponent, IComponent
 </code></pre>
 <p>This will watch for rule changes based on the blackboard system.</p>
+<p><strong>Intent:</strong> Notify subscribed systems whenever the game window is resized or refreshed.</p>
+<p><strong>Use-case:</strong> Added once per scene to let UI layout systems re-calculate element positions and sizes whenever the window dimensions change.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IModifiableComponent.html">IModifiableComponent</a>, <a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="subscribeaction"><a class="header" href="#subscribeaction">Subscribe(Action)</a></h4>
 <pre><code class="language-csharp">public virtual void Subscribe(Action notification)
 </code></pre>
+<p>Registers a callback that fires whenever the window is resized or refreshed.</p>
 <p><strong>Parameters</strong> <br />
 <code>notification</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0">Action</a> </p>
 <h4 id="unsubscribeaction"><a class="header" href="#unsubscribeaction">Unsubscribe(Action)</a></h4>
 <pre><code class="language-csharp">public virtual void Unsubscribe(Action notification)
 </code></pre>
+<p>Removes a previously registered window-refresh callback.</p>
 <p><strong>Parameters</strong> <br />
 <code>notification</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0">Action</a> </p>
 <p>⚡</p>

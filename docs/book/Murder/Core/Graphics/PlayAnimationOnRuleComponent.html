@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct PlayAnimationOnRuleComponent : IComponent
 </code></pre>
+<p>Component that stores an ordered list of animation/condition pairs evaluated each frame to select which animation to play.</p>
+<p><strong>Intent:</strong> Provides data-driven animation selection by matching blackboard criteria to named animations without requiring custom code per-entity.</p>
+<p><strong>Use-case:</strong> Attach to a sprite entity; <code>PlayAnimationOnRuleMatchSystem</code> iterates <code>Rules</code> and activates the first animation whose requirements are satisfied.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PlayAnimationOnRuleComponent()
@@ -157,6 +160,7 @@
 <h4 id="rules"><a class="header" href="#rules">Rules</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Rules;
 </code></pre>
+<p>Ordered list of <code>AnimationAndRule</code> entries; the first entry whose criteria are satisfied determines the animation to play.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <p>⚡</p>

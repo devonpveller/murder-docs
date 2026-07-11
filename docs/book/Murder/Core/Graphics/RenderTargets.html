@@ -149,21 +149,27 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">sealed enum RenderTargets : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Enumerates the standard render targets managed by a <code>RenderContext</code> and available for sampling or inspection.</p>
+<p><strong>Intent:</strong> Provides a stable, named handle for each pipeline render target so callers can retrieve the underlying texture without knowing internal field names.</p>
+<p><strong>Use-case:</strong> Pass a <code>RenderTargets</code> value to <code>RenderContext.GetRenderTargetFromEnum()</code> to obtain the corresponding <code>Texture2D</code>, for example to feed the UI layer into a custom shader.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="finaltarget"><a class="header" href="#finaltarget">FinalTarget</a></h4>
 <pre><code class="language-csharp">public static const RenderTargets FinalTarget;
 </code></pre>
+<p>The screen-resolution buffer containing the fully composited frame ready to be blitted to the display.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/RenderTargets.html">RenderTargets</a> </p>
 <h4 id="mainbuffertarget"><a class="header" href="#mainbuffertarget">MainBufferTarget</a></h4>
 <pre><code class="language-csharp">public static const RenderTargets MainBufferTarget;
 </code></pre>
+<p>The game-resolution buffer where all gameplay sprites are drawn before post-processing.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/RenderTargets.html">RenderTargets</a> </p>
 <h4 id="uitarget"><a class="header" href="#uitarget">UiTarget</a></h4>
 <pre><code class="language-csharp">public static const RenderTargets UiTarget;
 </code></pre>
+<p>The render target that holds the UI layer drawn above the gameplay buffer.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/RenderTargets.html">RenderTargets</a> </p>
 <p>⚡</p>

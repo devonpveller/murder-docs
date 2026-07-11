@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public abstract IMonoPreRenderSystem : IRenderSystem, ISystem
 </code></pre>
 <p>System called right before rendering.</p>
+<p><strong>Intent:</strong> Marks an ECS system as a pre-render hook that runs before any <code>SpriteBatch.Begin()</code> call so it can set up render targets, clear buffers, or update shader parameters.</p>
+<p><strong>Use-case:</strong> Implement this interface when your system needs to manipulate GPU state (e.g., switch render targets, update shared uniform buffers) before the sprite-batch render pass begins.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Systems/IRenderSystem.html">IRenderSystem</a>, <a href="../../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="beforedrawcontext"><a class="header" href="#beforedrawcontext">BeforeDraw(Context)</a></h4>

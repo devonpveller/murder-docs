@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class MapInitializerSystem : IStartupSystem, ISystem
 </code></pre>
+<p>Calculates map bounds from all <code>TileGridComponent</code> entities at startup, creates the <code>MapComponent</code> entity, and initializes per-cell tile properties.</p>
+<p><strong>Intent:</strong> Bootstraps the world map on scene load by collecting tile-grid extents and populating the map entity used by physics and pathfinding.</p>
+<p><strong>Use-case:</strong> Include once per scene that uses tile maps; must run before systems that read <code>MapComponent</code> (e.g., <code>CalculatePathfindSystem</code>, <code>MapCarveCollisionSystem</code>).</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IStartupSystem.html">IStartupSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MapInitializerSystem()
@@ -157,6 +160,7 @@
 <h4 id="initializetilemap-int-int-itileproperties"><a class="header" href="#initializetilemap-int-int-itileproperties">InitializeTile(Map, int, int, ITileProperties)</a></h4>
 <pre><code class="language-csharp">protected virtual void InitializeTile(Map map, int x, int y, ITileProperties iProperties)
 </code></pre>
+<p>Called for each tile cell during startup; override to apply custom collision masks or data properties to individual tiles based on their <code>ITileProperties</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>map</code> <a href="../../Murder/Core/Map.html">Map</a> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -165,6 +169,7 @@
 <h4 id="startcontext"><a class="header" href="#startcontext">Start(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Start(Context context)
 </code></pre>
+<p>Calculates the bounding rectangle from all tile grids, creates the <code>MapComponent</code> entity, and calls <code>InitializeTile</code> for each occupied cell.</p>
 <p><strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <p>⚡</p>

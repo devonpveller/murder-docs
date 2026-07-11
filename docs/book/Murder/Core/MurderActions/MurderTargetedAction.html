@@ -149,18 +149,24 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct MurderTargetedAction
 </code></pre>
+<p>An authored action that points to a target entity (by asset GUID) and carries a list of interactions to execute against it.</p>
+<p><strong>Intent:</strong> Design-time data that binds an interaction sequence to a specific target entity, used in rule-based and trigger systems.</p>
+<p><strong>Use-case:</strong> Stored in interaction components or rule assets; at runtime the engine resolves the <code>Target</code> GUID to an entity ID and executes each item in <code>Interaction</code>.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MurderTargetedAction()
 </code></pre>
+<p>Creates an empty <code>MurderTargetedAction</code> with no target and no interactions.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="interaction"><a class="header" href="#interaction">Interaction</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Interaction;
 </code></pre>
+<p>The ordered list of interactions to execute against the target entity.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="target"><a class="header" href="#target">Target</a></h4>
 <pre><code class="language-csharp">public readonly Guid Target;
 </code></pre>
+<p>The asset GUID of the entity that the interactions should be applied to.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p>⚡</p>

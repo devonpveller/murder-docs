@@ -156,6 +156,8 @@
 - Game assets</p>
 <pre><code>        And any private fields that these types have.
 </code></pre>
+<p><strong>Intent:</strong> The AOT-compatible <code>JsonSerializerContext</code> generated for all Murder serializable types.</p>
+<p><strong>Use-case:</strong> Referenced by the Murder serialization system for source-generated, reflection-free JSON serialization of components, assets, and interactions.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Serialization.JsonSerializerContext?view=net-7.0">JsonSerializerContext</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Serialization.Metadata.IJsonTypeInfoResolver?view=net-7.0">IJsonTypeInfoResolver</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Serialization.Metadata.IBuiltInJsonTypeInfoResolver?view=net-7.0">IBuiltInJsonTypeInfoResolver</a>, <a href="../../Murder/Serialization/IMurderSerializer.html">IMurderSerializer</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MurderSourceGenerationContext()

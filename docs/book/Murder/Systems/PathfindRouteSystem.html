@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class PathfindRouteSystem : IFixedUpdateSystem, ISystem, IReactiveSystem
 </code></pre>
+<p>Consumes the <code>RouteComponent</code> produced by <code>CalculatePathfindSystem</code> and issues step-by-step <code>MoveToComponent</code> targets so the agent walks the pre-computed path node by node.</p>
+<p><strong>Intent:</strong> Translates a static route graph into sequential per-cell movement targets so an agent follows the calculated pathfinding route at runtime.</p>
+<p><strong>Use-case:</strong> Include together with <code>CalculatePathfindSystem</code> in AI worlds; this system handles movement execution once a route has been computed.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IFixedUpdateSystem.html">IFixedUpdateSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a>, <a href="../../Bang/Systems/IReactiveSystem.html">IReactiveSystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PathfindRouteSystem()
@@ -157,23 +160,24 @@
 <h4 id="fixedupdatecontext"><a class="header" href="#fixedupdatecontext">FixedUpdate(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void FixedUpdate(Context context)
 </code></pre>
-<p><strong>Parameters</strong> <br />
+<p>Checks each entity's current cell against its pre-computed route and issues the next <code>MoveToComponent</code> waypoint; clears the route when the destination is reached.
+<strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
-<h4 id="onaddedworld-immutablearray"><a class="header" href="#onaddedworld-immutablearray">OnAdded(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnAdded(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>No-op stub; route following begins in the next <code>FixedUpdate</code> tick.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
-<h4 id="onmodifiedworld-immutablearray"><a class="header" href="#onmodifiedworld-immutablearray">OnModified(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnModified(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>No-op stub; route changes are consumed in <code>FixedUpdate</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
-<h4 id="onremovedworld-immutablearray"><a class="header" href="#onremovedworld-immutablearray">OnRemoved(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnRemoved(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Called when a route is removed; no action needed as the entity has already arrived or been rerouted.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>

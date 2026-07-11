@@ -151,45 +151,55 @@
 </code></pre>
 <p>8 directions, enumerated clockwise, starting from right = 0:</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
+<p><strong>Intent:</strong> Encodes facing direction as one of eight compass points for use in movement, animation selection, and spatial queries.</p>
+<p><strong>Use-case:</strong> Use <code>DirectionHelper.FromVector</code> to convert a velocity vector to a <code>Direction</code>, then use the direction to pick the correct animation row or determine flip state.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="down"><a class="header" href="#down">Down</a></h4>
 <pre><code class="language-csharp">public static const Direction Down;
 </code></pre>
+<p>Facing directly downward (south), index 2 in clockwise order.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Helpers/Direction.html">Direction</a> </p>
 <h4 id="downleft"><a class="header" href="#downleft">DownLeft</a></h4>
 <pre><code class="language-csharp">public static const Direction DownLeft;
 </code></pre>
+<p>Facing down-left (south-west), index 3 in clockwise order.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Helpers/Direction.html">Direction</a> </p>
 <h4 id="downright"><a class="header" href="#downright">DownRight</a></h4>
 <pre><code class="language-csharp">public static const Direction DownRight;
 </code></pre>
+<p>Facing down-right (south-east), index 1 in clockwise order.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Helpers/Direction.html">Direction</a> </p>
 <h4 id="left"><a class="header" href="#left">Left</a></h4>
 <pre><code class="language-csharp">public static const Direction Left;
 </code></pre>
+<p>Facing directly left (west), index 4 in clockwise order.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Helpers/Direction.html">Direction</a> </p>
 <h4 id="right"><a class="header" href="#right">Right</a></h4>
 <pre><code class="language-csharp">public static const Direction Right;
 </code></pre>
+<p>Facing directly right (east), the default direction at index 0.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Helpers/Direction.html">Direction</a> </p>
 <h4 id="up"><a class="header" href="#up">Up</a></h4>
 <pre><code class="language-csharp">public static const Direction Up;
 </code></pre>
+<p>Facing directly upward (north), index 6 in clockwise order.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Helpers/Direction.html">Direction</a> </p>
 <h4 id="upleft"><a class="header" href="#upleft">UpLeft</a></h4>
 <pre><code class="language-csharp">public static const Direction UpLeft;
 </code></pre>
+<p>Facing up-left (north-west), index 5 in clockwise order.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Helpers/Direction.html">Direction</a> </p>
 <h4 id="upright"><a class="header" href="#upright">UpRight</a></h4>
 <pre><code class="language-csharp">public static const Direction UpRight;
 </code></pre>
+<p>Facing up-right (north-east), index 7 in clockwise order.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Helpers/Direction.html">Direction</a> </p>
 <p>⚡</p>

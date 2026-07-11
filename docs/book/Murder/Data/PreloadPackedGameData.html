@@ -149,20 +149,26 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class PreloadPackedGameData
 </code></pre>
+<p>Contains the first batch of game assets loaded at startup, before the main content load begins.</p>
+<p><strong>Intent:</strong> Holds the assets that must be available immediately on launch (e.g. loading screens, preload sprites) before the full <code>PackedGameData</code> files are streamed in.</p>
+<p><strong>Use-case:</strong> Deserialized by <code>GameDataManager</code> during <code>PreloadContent()</code> to populate the engine with the minimum set of assets required to show a loading screen.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PreloadPackedGameData(List&lt;T&gt; assets)
 </code></pre>
+<p>Creates a new <code>PreloadPackedGameData</code> with the provided list of preload assets.</p>
 <p><strong>Parameters</strong> <br />
 <code>assets</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="assets"><a class="header" href="#assets">Assets</a></h4>
 <pre><code class="language-csharp">public readonly List&lt;T&gt; Assets;
 </code></pre>
+<p>The list of <code>GameAsset</code> objects included in the preload batch.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public static const string Name;
 </code></pre>
+<p>Filename used for the preload archive on disk (always <code>preload_data.gz</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

@@ -149,26 +149,33 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class RenderServices
 </code></pre>
+<p>Core rendering utility class providing methods for drawing sprites, shapes, text, and UI elements to a <code>Batch2D</code>.</p>
+<p><strong>Intent:</strong> Centralises all 2D drawing operations so game systems and interactions can render content without directly managing batches or atlases.</p>
+<p><strong>Use-case:</strong> Call the <code>DrawSprite</code> family to render animated sprites, <code>DrawText</code>/<code>DrawSimpleText</code> for labels, <code>Draw9Slice</code> for scalable UI panels, and shape primitives (<code>DrawLine</code>, <code>DrawRectangle</code>, etc.) for debug or gameplay overlays.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="blend_color_only"><a class="header" href="#blend_color_only">BLEND_COLOR_ONLY</a></h4>
 <pre><code class="language-csharp">public static Vector3 BLEND_COLOR_ONLY;
 </code></pre>
+<p>Blend vector that applies only the color channel while discarding the original sprite colors (tint-only mode).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector3.html">Vector3</a> </p>
 <h4 id="blend_normal"><a class="header" href="#blend_normal">BLEND_NORMAL</a></h4>
 <pre><code class="language-csharp">public static Vector3 BLEND_NORMAL;
 </code></pre>
+<p>Default blend vector that draws the sprite with its original colors unchanged.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector3.html">Vector3</a> </p>
 <h4 id="blend_wash"><a class="header" href="#blend_wash">BLEND_WASH</a></h4>
 <pre><code class="language-csharp">public static Vector3 BLEND_WASH;
 </code></pre>
+<p>Blend vector that washes the sprite toward the tint color, mixing original and tint hues.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector3.html">Vector3</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="drawverticalmenubatch2d-point-point-drawmenustyle-menuinfo"><a class="header" href="#drawverticalmenubatch2d-point-point-drawmenustyle-menuinfo">DrawVerticalMenu(Batch2D, Point&amp;, Point&amp;, DrawMenuStyle&amp;, MenuInfo&amp;)</a></h4>
 <pre><code class="language-csharp">public DrawMenuInfo DrawVerticalMenu(Batch2D batch, Point&amp; position, Point&amp; textPosition, DrawMenuStyle&amp; style, MenuInfo&amp; menuInfo)
 </code></pre>
+<p>Draws a vertical list of menu options, returning layout info such as the final drawn position and selected item bounds.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>position</code> <a href="../../Murder/Core/Geometry/Point.html">Point&amp;</a> <br />
@@ -180,6 +187,7 @@
 <h4 id="drawverticalmenubatch2d-point-drawmenustyle-menuinfo"><a class="header" href="#drawverticalmenubatch2d-point-drawmenustyle-menuinfo">DrawVerticalMenu(Batch2D, Point&amp;, DrawMenuStyle&amp;, MenuInfo&amp;)</a></h4>
 <pre><code class="language-csharp">public DrawMenuInfo DrawVerticalMenu(Batch2D batch, Point&amp; position, DrawMenuStyle&amp; style, MenuInfo&amp; menuInfo)
 </code></pre>
+<p>Draws a vertical list of menu options with text and selector positions collapsed to a single origin.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>position</code> <a href="../../Murder/Core/Geometry/Point.html">Point&amp;</a> <br />
@@ -198,6 +206,7 @@
 <h4 id="ysortfloat"><a class="header" href="#ysortfloat">YSort(float)</a></h4>
 <pre><code class="language-csharp">public float YSort(float y)
 </code></pre>
+<p>Converts a world-space Y coordinate to a normalized depth-sort value for correct depth ordering in the render batch.</p>
 <p><strong>Parameters</strong> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -205,6 +214,7 @@
 <h4 id="drawportraitbatch2d-portrait-vector2-drawinfo"><a class="header" href="#drawportraitbatch2d-portrait-vector2-drawinfo">DrawPortrait(Batch2D, Portrait, Vector2, DrawInfo)</a></h4>
 <pre><code class="language-csharp">public FrameInfo DrawPortrait(Batch2D batch, Portrait portrait, Vector2 position, DrawInfo drawInfo)
 </code></pre>
+<p>Draws a portrait sprite (a named animation from a sprite asset) at <code>position</code> and returns the rendered frame information.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>portrait</code> <a href="../../Murder/Core/Portrait.html">Portrait</a> <br />
@@ -215,6 +225,7 @@
 <h4 id="drawspritebatch2d-spriteasset-vector2-drawinfo-animationinfo"><a class="header" href="#drawspritebatch2d-spriteasset-vector2-drawinfo-animationinfo">DrawSprite(Batch2D, SpriteAsset, Vector2, DrawInfo, AnimationInfo)</a></h4>
 <pre><code class="language-csharp">public FrameInfo DrawSprite(Batch2D batch, SpriteAsset asset, Vector2 position, DrawInfo drawInfo, AnimationInfo animationInfo)
 </code></pre>
+<p>Draws a sprite asset at <code>position</code> using the specified draw and animation parameters.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>asset</code> <a href="../../Murder/Assets/Graphics/SpriteAsset.html">SpriteAsset</a> <br />
@@ -226,6 +237,7 @@
 <h4 id="drawspritebatch2d-spriteasset-vector2-t"><a class="header" href="#drawspritebatch2d-spriteasset-vector2-t">DrawSprite(Batch2D, SpriteAsset, Vector2, T?)</a></h4>
 <pre><code class="language-csharp">public FrameInfo DrawSprite(Batch2D batch, SpriteAsset asset, Vector2 position, T? drawInfo)
 </code></pre>
+<p>Draws a sprite asset at <code>position</code> using optional draw parameters (null uses defaults).</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>asset</code> <a href="../../Murder/Assets/Graphics/SpriteAsset.html">SpriteAsset</a> <br />
@@ -236,6 +248,7 @@
 <h4 id="drawspritebatch2d-guid-float-float-drawinfo-animationinfo"><a class="header" href="#drawspritebatch2d-guid-float-float-drawinfo-animationinfo">DrawSprite(Batch2D, Guid, float, float, DrawInfo, AnimationInfo)</a></h4>
 <pre><code class="language-csharp">public FrameInfo DrawSprite(Batch2D batch, Guid assetGuid, float x, float y, DrawInfo drawInfo, AnimationInfo animationInfo)
 </code></pre>
+<p>Draws the sprite asset identified by <code>assetGuid</code> at pixel coordinates <code>(x, y)</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>assetGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
@@ -248,6 +261,7 @@
 <h4 id="drawspritebatch2d-guid-vector2-drawinfo-animationinfo"><a class="header" href="#drawspritebatch2d-guid-vector2-drawinfo-animationinfo">DrawSprite(Batch2D, Guid, Vector2, DrawInfo, AnimationInfo)</a></h4>
 <pre><code class="language-csharp">public FrameInfo DrawSprite(Batch2D batch, Guid assetGuid, Vector2 position, DrawInfo drawInfo, AnimationInfo animationInfo)
 </code></pre>
+<p>Draws the sprite asset identified by <code>assetGuid</code> at <code>position</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>assetGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
@@ -259,6 +273,7 @@
 <h4 id="drawspritebatch2d-guid-vector2-t"><a class="header" href="#drawspritebatch2d-guid-vector2-t">DrawSprite(Batch2D, Guid, Vector2, T?)</a></h4>
 <pre><code class="language-csharp">public FrameInfo DrawSprite(Batch2D batch, Guid assetGuid, Vector2 position, T? drawInfo)
 </code></pre>
+<p>Draws the sprite asset identified by <code>assetGuid</code> at <code>position</code> with optional draw parameters.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>assetGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
@@ -393,6 +408,7 @@
 <h4 id="fetchportraitasspriteportrait"><a class="header" href="#fetchportraitasspriteportrait">FetchPortraitAsSprite(Portrait)</a></h4>
 <pre><code class="language-csharp">public T? FetchPortraitAsSprite(Portrait portrait)
 </code></pre>
+<p>Returns the <code>AtlasCoordinates</code> for a portrait's current animation frame, or <code>null</code> if the asset is not loaded.</p>
 <p><strong>Parameters</strong> <br />
 <code>portrait</code> <a href="../../Murder/Core/Portrait.html">Portrait</a> </p>
 <p><strong>Returns</strong> <br />
@@ -407,6 +423,7 @@
 <h4 id="draw3slicebatch2d-atlascoordinates-rectangle-vector2-vector2-vector2-orientation-float"><a class="header" href="#draw3slicebatch2d-atlascoordinates-rectangle-vector2-vector2-vector2-orientation-float">Draw3Slice(Batch2D, AtlasCoordinates, Rectangle, Vector2, Vector2, Vector2, Orientation, float)</a></h4>
 <pre><code class="language-csharp">public void Draw3Slice(Batch2D batch, AtlasCoordinates texture, Rectangle core, Vector2 position, Vector2 size, Vector2 origin, Orientation orientation, float sort)
 </code></pre>
+<p>Draws a three-slice (horizontal or vertical) stretched texture between <code>position</code> and <code>size</code> using <code>core</code> as the fixed center region.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>texture</code> <a href="../../Murder/Core/Graphics/AtlasCoordinates.html">AtlasCoordinates</a> <br />
@@ -419,6 +436,7 @@
 <h4 id="draw9slicebatch2d-atlascoordinates-intrectangle-intrectangle-nineslicestyle-drawinfo"><a class="header" href="#draw9slicebatch2d-atlascoordinates-intrectangle-intrectangle-nineslicestyle-drawinfo">Draw9Slice(Batch2D, AtlasCoordinates, IntRectangle, IntRectangle, NineSliceStyle, DrawInfo)</a></h4>
 <pre><code class="language-csharp">public void Draw9Slice(Batch2D batch, AtlasCoordinates texture, IntRectangle core, IntRectangle target, NineSliceStyle style, DrawInfo info)
 </code></pre>
+<p>Draws a nine-slice scalable UI element stretching <code>texture</code> to fill <code>target</code> while keeping the <code>core</code> corners unstretched.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>texture</code> <a href="../../Murder/Core/Graphics/AtlasCoordinates.html">AtlasCoordinates</a> <br />
@@ -429,6 +447,7 @@
 <h4 id="draw9slicebatch2d-atlascoordinates-rectangle-rectangle-float"><a class="header" href="#draw9slicebatch2d-atlascoordinates-rectangle-rectangle-float">Draw9Slice(Batch2D, AtlasCoordinates, Rectangle, Rectangle, float)</a></h4>
 <pre><code class="language-csharp">public void Draw9Slice(Batch2D batch, AtlasCoordinates texture, Rectangle core, Rectangle target, float sort)
 </code></pre>
+<p>Draws a nine-slice element using float rectangles for the core and target regions.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>texture</code> <a href="../../Murder/Core/Graphics/AtlasCoordinates.html">AtlasCoordinates</a> <br />
@@ -468,6 +487,7 @@
 <h4 id="draw9slicewithtextbatch2d-guid-string-int-rectangle-drawinfo-drawinfo-animationinfo"><a class="header" href="#draw9slicewithtextbatch2d-guid-string-int-rectangle-drawinfo-drawinfo-animationinfo">Draw9SliceWithText(Batch2D, Guid, string, int, Rectangle, DrawInfo, DrawInfo, AnimationInfo)</a></h4>
 <pre><code class="language-csharp">public void Draw9SliceWithText(Batch2D batch, Guid sprite, string text, int font, Rectangle target, DrawInfo textDrawInfo, DrawInfo sliceDrawInfo, AnimationInfo sliceAnimationInfo)
 </code></pre>
+<p>Draws a nine-slice sprite and renders <code>text</code> centered inside it.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>sprite</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
@@ -480,6 +500,7 @@
 <h4 id="drawarrowbatch2d-vector2-vector2-color-float-float-float"><a class="header" href="#drawarrowbatch2d-vector2-vector2-color-float-float-float">DrawArrow(Batch2D, Vector2, Vector2, Color, float, float, float)</a></h4>
 <pre><code class="language-csharp">public void DrawArrow(Batch2D spriteBatch, Vector2 point1, Vector2 point2, Color color, float thickness, float headSize, float sort)
 </code></pre>
+<p>Draws an arrow from <code>point1</code> to <code>point2</code> with a filled arrowhead of size <code>headSize</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>point1</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
@@ -491,6 +512,7 @@
 <h4 id="drawcircleoutlinebatch2d-point-float-int-color-float"><a class="header" href="#drawcircleoutlinebatch2d-point-float-int-color-float">DrawCircleOutline(Batch2D, Point, float, int, Color, float)</a></h4>
 <pre><code class="language-csharp">public void DrawCircleOutline(Batch2D spriteBatch, Point center, float radius, int sides, Color color, float sort)
 </code></pre>
+<p>Draws a wireframe circle centred at <code>center</code> (integer point overload).</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>center</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />
@@ -501,6 +523,7 @@
 <h4 id="drawcircleoutlinebatch2d-rectangle-int-color"><a class="header" href="#drawcircleoutlinebatch2d-rectangle-int-color">DrawCircleOutline(Batch2D, Rectangle, int, Color)</a></h4>
 <pre><code class="language-csharp">public void DrawCircleOutline(Batch2D spriteBatch, Rectangle rectangle, int sides, Color color)
 </code></pre>
+<p>Draws a wireframe ellipse inscribed within <code>rectangle</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>rectangle</code> <a href="../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
@@ -526,6 +549,7 @@
 <h4 id="drawfilledcirclebatch2d-rectangle-int-drawinfo"><a class="header" href="#drawfilledcirclebatch2d-rectangle-int-drawinfo">DrawFilledCircle(Batch2D, Rectangle, int, DrawInfo)</a></h4>
 <pre><code class="language-csharp">public void DrawFilledCircle(Batch2D batch, Rectangle circleRect, int steps, DrawInfo drawInfo)
 </code></pre>
+<p>Draws a filled circle (approximated as a polygon) inscribed within <code>circleRect</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>circleRect</code> <a href="../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
@@ -534,6 +558,7 @@
 <h4 id="drawfilledcirclebatch2d-vector2-float-int-t"><a class="header" href="#drawfilledcirclebatch2d-vector2-float-int-t">DrawFilledCircle(Batch2D, Vector2, float, int, T?)</a></h4>
 <pre><code class="language-csharp">public void DrawFilledCircle(Batch2D batch, Vector2 center, float radius, int steps, T? drawInfo)
 </code></pre>
+<p>Draws a filled circle centred at <code>center</code> with the given <code>radius</code>, approximated with <code>steps</code> polygon vertices.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>center</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
@@ -543,6 +568,7 @@
 <h4 id="drawhorizontallinebatch2d-int-int-int-color-float"><a class="header" href="#drawhorizontallinebatch2d-int-int-int-color-float">DrawHorizontalLine(Batch2D, int, int, int, Color, float)</a></h4>
 <pre><code class="language-csharp">public void DrawHorizontalLine(Batch2D spriteBatch, int x, int y, int length, Color color, float sorting)
 </code></pre>
+<p>Draws a single-pixel horizontal line of <code>length</code> pixels starting at <code>(x, y)</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -553,6 +579,7 @@
 <h4 id="drawindexedverticesmatrix-graphicsdevice-t-int-int16-int-effect-blendstate-texture2d-bool"><a class="header" href="#drawindexedverticesmatrix-graphicsdevice-t-int-int16-int-effect-blendstate-texture2d-bool">DrawIndexedVertices(Matrix, GraphicsDevice, T[], int, Int16[], int, Effect, BlendState, Texture2D, bool)</a></h4>
 <pre><code class="language-csharp">public void DrawIndexedVertices(Matrix matrix, GraphicsDevice graphicsDevice, T[] vertices, int vertexCount, Int16[] indices, int primitiveCount, Effect effect, BlendState blendState, Texture2D texture, bool smoothing)
 </code></pre>
+<p>Submits indexed vertex data directly to the graphics device for custom mesh rendering.</p>
 <p><strong>Parameters</strong> <br />
 <code>matrix</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Matrix.html">Matrix</a> <br />
 <code>graphicsDevice</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.GraphicsDevice.html">GraphicsDevice</a> <br />
@@ -567,6 +594,7 @@
 <h4 id="drawlinebatch2d-point-point-color-float"><a class="header" href="#drawlinebatch2d-point-point-color-float">DrawLine(Batch2D, Point, Point, Color, float)</a></h4>
 <pre><code class="language-csharp">public void DrawLine(Batch2D spriteBatch, Point point1, Point point2, Color color, float sort)
 </code></pre>
+<p>Draws a line segment between two integer-coordinate points.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>point1</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />
@@ -576,6 +604,7 @@
 <h4 id="drawlinebatch2d-vector2-float-float-color-float"><a class="header" href="#drawlinebatch2d-vector2-float-float-color-float">DrawLine(Batch2D, Vector2, float, float, Color, float)</a></h4>
 <pre><code class="language-csharp">public void DrawLine(Batch2D spriteBatch, Vector2 point, float length, float angle, Color color, float sort)
 </code></pre>
+<p>Draws a line of <code>length</code> pixels starting at <code>point</code> and extending in the direction of <code>angle</code> (radians).</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>point</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
@@ -586,6 +615,7 @@
 <h4 id="drawlinebatch2d-vector2-float-float-color-float-float"><a class="header" href="#drawlinebatch2d-vector2-float-float-color-float-float">DrawLine(Batch2D, Vector2, float, float, Color, float, float)</a></h4>
 <pre><code class="language-csharp">public void DrawLine(Batch2D spriteBatch, Vector2 point, float length, float angle, Color color, float thickness, float sort)
 </code></pre>
+<p>Draws a line of <code>length</code> pixels at <code>angle</code> (radians) with a custom <code>thickness</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>point</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
@@ -597,6 +627,7 @@
 <h4 id="drawlinebatch2d-vector2-vector2-color-float"><a class="header" href="#drawlinebatch2d-vector2-vector2-color-float">DrawLine(Batch2D, Vector2, Vector2, Color, float)</a></h4>
 <pre><code class="language-csharp">public void DrawLine(Batch2D spriteBatch, Vector2 point1, Vector2 point2, Color color, float sort)
 </code></pre>
+<p>Draws a line segment between two float-precision world positions.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>point1</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
@@ -606,6 +637,7 @@
 <h4 id="drawlinebatch2d-vector2-vector2-color-float-float"><a class="header" href="#drawlinebatch2d-vector2-vector2-color-float-float">DrawLine(Batch2D, Vector2, Vector2, Color, float, float)</a></h4>
 <pre><code class="language-csharp">public void DrawLine(Batch2D spriteBatch, Vector2 point1, Vector2 point2, Color color, float thickness, float sort)
 </code></pre>
+<p>Draws a line segment between two float-precision positions with a custom <code>thickness</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>point1</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
@@ -616,6 +648,7 @@
 <h4 id="drawpointbatch2d-point-color-float"><a class="header" href="#drawpointbatch2d-point-color-float">DrawPoint(Batch2D, Point, Color, float)</a></h4>
 <pre><code class="language-csharp">public void DrawPoint(Batch2D spriteBatch, Point pos, Color color, float sorting)
 </code></pre>
+<p>Draws a single pixel-sized point at the given coordinates.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>pos</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />
@@ -654,6 +687,7 @@
 <h4 id="drawpolygonbatch2d-immutablearray-t"><a class="header" href="#drawpolygonbatch2d-immutablearray-t">DrawPolygon(Batch2D, ImmutableArray<T>, T?)</a></h4>
 <pre><code class="language-csharp">public void DrawPolygon(Batch2D batch, ImmutableArray&lt;T&gt; vertices, T? drawInfo)
 </code></pre>
+<p>Draws a closed polygon from the given vertex array using the specified draw parameters.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>vertices</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> <br />
@@ -661,18 +695,21 @@
 <h4 id="drawquadrectangle-color"><a class="header" href="#drawquadrectangle-color">DrawQuad(Rectangle, Color)</a></h4>
 <pre><code class="language-csharp">public void DrawQuad(Rectangle rect, Color color)
 </code></pre>
+<p>Fills the full-screen quad with <code>color</code>, ignoring batch sorting; used for full-screen overlays.</p>
 <p><strong>Parameters</strong> <br />
 <code>rect</code> <a href="../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
 <code>color</code> <a href="../../Murder/Core/Graphics/Color.html">Color</a> </p>
 <h4 id="drawquadoutlinerectangle-color"><a class="header" href="#drawquadoutlinerectangle-color">DrawQuadOutline(Rectangle, Color)</a></h4>
 <pre><code class="language-csharp">public void DrawQuadOutline(Rectangle rect, Color color)
 </code></pre>
+<p>Draws an outlined quad (border only) over the specified rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>rect</code> <a href="../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
 <code>color</code> <a href="../../Murder/Core/Graphics/Color.html">Color</a> </p>
 <h4 id="drawrectanglebatch2d-rectangle-color-float"><a class="header" href="#drawrectanglebatch2d-rectangle-color-float">DrawRectangle(Batch2D, Rectangle, Color, float)</a></h4>
 <pre><code class="language-csharp">public void DrawRectangle(Batch2D batch, Rectangle rectangle, Color color, float sorting)
 </code></pre>
+<p>Fills <code>rectangle</code> with <code>color</code> at the given sort depth.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>rectangle</code> <a href="../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
@@ -681,6 +718,7 @@
 <h4 id="drawrectangleoutlinebatch2d-rectangle-color-int-float"><a class="header" href="#drawrectangleoutlinebatch2d-rectangle-color-int-float">DrawRectangleOutline(Batch2D, Rectangle, Color, int, float)</a></h4>
 <pre><code class="language-csharp">public void DrawRectangleOutline(Batch2D spriteBatch, Rectangle rectangle, Color color, int lineWidth, float sorting)
 </code></pre>
+<p>Draws the border of <code>rectangle</code> with <code>lineWidth</code> thickness at <code>sorting</code> depth.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>rectangle</code> <a href="../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
@@ -690,6 +728,7 @@
 <h4 id="drawrectangleoutlinebatch2d-rectangle-color-int"><a class="header" href="#drawrectangleoutlinebatch2d-rectangle-color-int">DrawRectangleOutline(Batch2D, Rectangle, Color, int)</a></h4>
 <pre><code class="language-csharp">public void DrawRectangleOutline(Batch2D spriteBatch, Rectangle rectangle, Color color, int lineWidth)
 </code></pre>
+<p>Draws the border of <code>rectangle</code> with <code>lineWidth</code> thickness.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>rectangle</code> <a href="../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
@@ -698,6 +737,7 @@
 <h4 id="drawrectangleoutlinebatch2d-rectangle-color"><a class="header" href="#drawrectangleoutlinebatch2d-rectangle-color">DrawRectangleOutline(Batch2D, Rectangle, Color)</a></h4>
 <pre><code class="language-csharp">public void DrawRectangleOutline(Batch2D spriteBatch, Rectangle rectangle, Color color)
 </code></pre>
+<p>Draws a single-pixel border around <code>rectangle</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>rectangle</code> <a href="../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
@@ -705,6 +745,7 @@
 <h4 id="drawrepeatingbatch2d-atlascoordinates-rectangle-float"><a class="header" href="#drawrepeatingbatch2d-atlascoordinates-rectangle-float">DrawRepeating(Batch2D, AtlasCoordinates, Rectangle, float)</a></h4>
 <pre><code class="language-csharp">public void DrawRepeating(Batch2D batch, AtlasCoordinates texture, Rectangle area, float sort)
 </code></pre>
+<p>Tiles <code>texture</code> to fill the entire <code>area</code> rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>texture</code> <a href="../../Murder/Core/Graphics/AtlasCoordinates.html">AtlasCoordinates</a> <br />
@@ -713,6 +754,7 @@
 <h4 id="drawtexturebatch2d-texture2d-vector2-drawinfo"><a class="header" href="#drawtexturebatch2d-texture2d-vector2-drawinfo">DrawTexture(Batch2D, Texture2D, Vector2, DrawInfo)</a></h4>
 <pre><code class="language-csharp">public void DrawTexture(Batch2D batch, Texture2D texture, Vector2 position, DrawInfo drawInfo)
 </code></pre>
+<p>Draws a raw <code>Texture2D</code> (not an atlas sprite) at <code>position</code> using the given draw parameters.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>texture</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a> <br />
@@ -721,6 +763,7 @@
 <h4 id="drawtexturequadtexture2d-rectangle-rectangle-matrix-color-blendstate-effect-vector3"><a class="header" href="#drawtexturequadtexture2d-rectangle-rectangle-matrix-color-blendstate-effect-vector3">DrawTextureQuad(Texture2D, Rectangle, Rectangle, Matrix, Color, BlendState, Effect, Vector3)</a></h4>
 <pre><code class="language-csharp">public void DrawTextureQuad(Texture2D texture, Rectangle source, Rectangle destination, Matrix matrix, Color color, BlendState blend, Effect shaderEffect, Vector3 colorBlend)
 </code></pre>
+<p>Blits <code>source</code> region of <code>texture</code> into <code>destination</code> on screen using the given matrix, color, blend state, shader, and color-blend vector.</p>
 <p><strong>Parameters</strong> <br />
 <code>texture</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a> <br />
 <code>source</code> <a href="../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
@@ -733,6 +776,7 @@
 <h4 id="drawtexturequadtexture2d-rectangle-rectangle-matrix-color-blendstate-effect"><a class="header" href="#drawtexturequadtexture2d-rectangle-rectangle-matrix-color-blendstate-effect">DrawTextureQuad(Texture2D, Rectangle, Rectangle, Matrix, Color, BlendState, Effect)</a></h4>
 <pre><code class="language-csharp">public void DrawTextureQuad(Texture2D texture, Rectangle source, Rectangle destination, Matrix matrix, Color color, BlendState blend, Effect shaderEffect)
 </code></pre>
+<p>Blits <code>source</code> region of <code>texture</code> into <code>destination</code> using a shader effect and blend state.</p>
 <p><strong>Parameters</strong> <br />
 <code>texture</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a> <br />
 <code>source</code> <a href="../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
@@ -744,6 +788,7 @@
 <h4 id="drawtexturequadtexture2d-rectangle-rectangle-matrix-color-blendstate"><a class="header" href="#drawtexturequadtexture2d-rectangle-rectangle-matrix-color-blendstate">DrawTextureQuad(Texture2D, Rectangle, Rectangle, Matrix, Color, BlendState)</a></h4>
 <pre><code class="language-csharp">public void DrawTextureQuad(Texture2D texture, Rectangle source, Rectangle destination, Matrix matrix, Color color, BlendState blend)
 </code></pre>
+<p>Blits <code>source</code> region of <code>texture</code> into <code>destination</code> with the given blend state.</p>
 <p><strong>Parameters</strong> <br />
 <code>texture</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a> <br />
 <code>source</code> <a href="../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
@@ -754,6 +799,7 @@
 <h4 id="drawtexturequadtexture2d-rectangle-rectangle-matrix-color-effect-blendstate-bool"><a class="header" href="#drawtexturequadtexture2d-rectangle-rectangle-matrix-color-effect-blendstate-bool">DrawTextureQuad(Texture2D, Rectangle, Rectangle, Matrix, Color, Effect, BlendState, bool)</a></h4>
 <pre><code class="language-csharp">public void DrawTextureQuad(Texture2D texture, Rectangle source, Rectangle destination, Matrix matrix, Color color, Effect effect, BlendState blend, bool smoothing)
 </code></pre>
+<p>Blits <code>source</code> region of <code>texture</code> into <code>destination</code> with smoothing control.</p>
 <p><strong>Parameters</strong> <br />
 <code>texture</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a> <br />
 <code>source</code> <a href="../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
@@ -766,6 +812,7 @@
 <h4 id="drawverticallinebatch2d-int-int-int-color-float"><a class="header" href="#drawverticallinebatch2d-int-int-int-color-float">DrawVerticalLine(Batch2D, int, int, int, Color, float)</a></h4>
 <pre><code class="language-csharp">public void DrawVerticalLine(Batch2D spriteBatch, int x, int y, int length, Color color, float sorting)
 </code></pre>
+<p>Draws a single-pixel vertical line of <code>length</code> pixels starting at <code>(x, y)</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -776,17 +823,20 @@
 <h4 id="messagecompleteanimationsentity-spritecomponent"><a class="header" href="#messagecompleteanimationsentity-spritecomponent">MessageCompleteAnimations(Entity, SpriteComponent)</a></h4>
 <pre><code class="language-csharp">public void MessageCompleteAnimations(Entity e, SpriteComponent s)
 </code></pre>
+<p>Sends an <code>AnimationCompleteMessage</code> for all completed animations on entity <code>e</code> given sprite component <code>s</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>s</code> <a href="../../Murder/Components/SpriteComponent.html">SpriteComponent</a> </p>
 <h4 id="messagecompleteanimationsentity"><a class="header" href="#messagecompleteanimationsentity">MessageCompleteAnimations(Entity)</a></h4>
 <pre><code class="language-csharp">public void MessageCompleteAnimations(Entity e)
 </code></pre>
+<p>Sends animation-complete messages for all finished animations on entity <code>e</code>, reading its current sprite component.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <h4 id="triggereventsifneededentity-renderedspritecachecomponent-bool"><a class="header" href="#triggereventsifneededentity-renderedspritecachecomponent-bool">TriggerEventsIfNeeded(Entity, RenderedSpriteCacheComponent, bool)</a></h4>
 <pre><code class="language-csharp">public void TriggerEventsIfNeeded(Entity e, RenderedSpriteCacheComponent cache, bool useUnscaledTime)
 </code></pre>
+<p>Fires any animation frame events that occurred since the last render for entity <code>e</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>cache</code> <a href="../../Murder/Components/Graphics/RenderedSpriteCacheComponent.html">RenderedSpriteCacheComponent</a> <br />
@@ -794,6 +844,7 @@
 <h4 id="triggereventsifneededentity-renderedspritecachecomponent-float-float"><a class="header" href="#triggereventsifneededentity-renderedspritecachecomponent-float-float">TriggerEventsIfNeeded(Entity, RenderedSpriteCacheComponent, float, float)</a></h4>
 <pre><code class="language-csharp">public void TriggerEventsIfNeeded(Entity e, RenderedSpriteCacheComponent cache, float previousTime, float currentTime)
 </code></pre>
+<p>Fires any animation frame events that fell within the time window <code>[previousTime, currentTime]</code> for entity <code>e</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>cache</code> <a href="../../Murder/Components/Graphics/RenderedSpriteCacheComponent.html">RenderedSpriteCacheComponent</a> <br />

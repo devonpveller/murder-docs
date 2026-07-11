@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SetPositionInteraction : IInteraction
 </code></pre>
+<p>Moves the interacted entity to an absolute world position when the interaction fires.</p>
+<p><strong>Intent:</strong> Teleports or repositions an entity to a fixed coordinate in the world.</p>
+<p><strong>Use-case:</strong> Use to snap an entity to a predetermined location, such as a respawn point or a scripted placement position during a cutscene.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SetPositionInteraction()
@@ -157,12 +160,14 @@
 <h4 id="position"><a class="header" href="#position">Position</a></h4>
 <pre><code class="language-csharp">public readonly Point Position;
 </code></pre>
+<p>The absolute world coordinate the interacted entity will be moved to.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Point.html">Point</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Sets the global position of the interacted entity to <code>Position</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

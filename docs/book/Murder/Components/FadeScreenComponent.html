@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct FadeScreenComponent : IComponent
 </code></pre>
+<p>Drives a full-screen fade effect managed by <code>FadeScreenSystem</code>.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Encapsulates all parameters needed for a screen fade (in, out, flash, or buffered) so the render system can apply it without additional context.</p>
+<p><strong>Use-case:</strong> Added by <code>EffectsServices.FadeIn</code>/<code>FadeOut</code> helpers; do not typically create manually — use the service methods instead to ensure <code>StartedTime</code> is set correctly.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FadeScreenComponent(FadeType fade, float startedTime, float duration, Color color, string customTexture, float sorting, int bufferFrames)
 </code></pre>
@@ -166,36 +169,43 @@
 <h4 id="bufferframes"><a class="header" href="#bufferframes">BufferFrames</a></h4>
 <pre><code class="language-csharp">public int BufferFrames { get; public set; }
 </code></pre>
+<p>Number of extra frames to hold at the peak of the fade before reversing; used by <code>FadeType.OutBuffer</code> to avoid one-frame flickers.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="color"><a class="header" href="#color">Color</a></h4>
 <pre><code class="language-csharp">public readonly Color Color;
 </code></pre>
+<p>Color of the fade overlay (typically black for a normal fade-to-black).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/Color.html">Color</a> </p>
 <h4 id="customtexture"><a class="header" href="#customtexture">CustomTexture</a></h4>
 <pre><code class="language-csharp">public readonly string CustomTexture;
 </code></pre>
+<p>Optional path to a texture used instead of a solid color for the fade overlay (e.g., a vignette or wipe texture).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="duration"><a class="header" href="#duration">Duration</a></h4>
 <pre><code class="language-csharp">public readonly float Duration;
 </code></pre>
+<p>Length of the fade effect in seconds; clamped to a minimum of <code>0.1</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="fade"><a class="header" href="#fade">Fade</a></h4>
 <pre><code class="language-csharp">public readonly FadeType Fade;
 </code></pre>
+<p>The type of fade effect to apply (in, out, flash, or buffered out).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/FadeType.html">FadeType</a> </p>
 <h4 id="sorting"><a class="header" href="#sorting">Sorting</a></h4>
 <pre><code class="language-csharp">public readonly float Sorting;
 </code></pre>
+<p>Sort order for the fade overlay within its render batch; higher values draw on top.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="startedtime"><a class="header" href="#startedtime">StartedTime</a></h4>
 <pre><code class="language-csharp">public float StartedTime { get; public set; }
 </code></pre>
+<p>The game time (in seconds) at which the fade began; used to compute interpolation progress.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

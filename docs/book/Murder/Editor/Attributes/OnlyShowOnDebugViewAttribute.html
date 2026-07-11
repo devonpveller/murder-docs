@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class OnlyShowOnDebugViewAttribute : Attribute
 </code></pre>
 <p>Indicates that a system will only be displayed on debug.</p>
+<p><strong>Intent:</strong> Hides a component or property from the editor inspector unless debug view is enabled.</p>
+<p><strong>Use-case:</strong> Apply to components or properties that should only be visible to developers during debugging, keeping the editor UI clean in normal mode.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public OnlyShowOnDebugViewAttribute()
@@ -158,6 +160,7 @@
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique object identity for this attribute type, inherited from <code>Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

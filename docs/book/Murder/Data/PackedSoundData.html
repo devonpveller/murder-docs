@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class PackedSoundData
 </code></pre>
 <p>This has the data regarding all the sounds that will be loaded in the game.</p>
+<p><strong>Intent:</strong> Packages the sound asset manifest mapping FMOD event names to audio bank references.</p>
+<p><strong>Use-case:</strong> Loaded by the sound system at startup to resolve sound event IDs to the correct FMOD banks for the current platform.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PackedSoundData()
 </code></pre>
@@ -163,11 +165,13 @@
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public static const string Name;
 </code></pre>
+<p>Filename used when writing or reading the packed sound archive (always <code>sounds.gz</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="plugins"><a class="header" href="#plugins">Plugins</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; Plugins { get; public set; }
 </code></pre>
+<p>List of sound-engine plugin filenames required at runtime (e.g. FMOD bank plugins).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <p>⚡</p>

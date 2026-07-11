@@ -149,16 +149,21 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed enum CriterionNodeKind : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Controls how a <code>CriterionNode</code> is logically combined with the preceding nodes in a requirements list.</p>
+<p><strong>Intent:</strong> Provides the <code>And</code> / <code>Or</code> connective for building compound dialogue conditions from a flat list of <code>CriterionNode</code> entries.</p>
+<p><strong>Use-case:</strong> Set <code>CriterionNode.Kind</code> to <code>And</code> when all conditions must hold simultaneously, or <code>Or</code> when any one of them is sufficient to unlock the dialog.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="and"><a class="header" href="#and">And</a></h4>
 <pre><code class="language-csharp">public static const CriterionNodeKind And;
 </code></pre>
+<p>This node's criterion is combined with the previous result using logical AND; all <code>And</code> nodes in the group must pass.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/CriterionNodeKind.html">CriterionNodeKind</a> </p>
 <h4 id="or"><a class="header" href="#or">Or</a></h4>
 <pre><code class="language-csharp">public static const CriterionNodeKind Or;
 </code></pre>
+<p>This node's criterion is combined with the previous result using logical OR; the overall condition passes if any <code>Or</code>-connected node passes.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/CriterionNodeKind.html">CriterionNodeKind</a> </p>
 <p>⚡</p>

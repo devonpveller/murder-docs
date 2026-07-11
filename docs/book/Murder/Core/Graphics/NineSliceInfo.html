@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct NineSliceInfo
 </code></pre>
+<p>Defines a nine-slice sprite by referencing a <code>SpriteAsset</code> and the central stretchable rectangle within it.</p>
+<p><strong>Intent:</strong> Stores the asset GUID and core rectangle needed to render a nine-slice panel, decoupling the data definition from the cached geometry.</p>
+<p><strong>Use-case:</strong> Set on UI components (e.g., button backgrounds, dialog boxes) via the editor; call <code>Draw()</code> at runtime to render the panel stretched to any target size, or call <code>Cache()</code> for repeated draws without repeated asset lookups.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public NineSliceInfo()
 </code></pre>
+<p>Creates an empty <code>NineSliceInfo</code> with no asset or core rectangle.</p>
 <pre><code class="language-csharp">public NineSliceInfo(Rectangle core, Guid image)
 </code></pre>
 <p><strong>Parameters</strong> <br />
@@ -165,27 +169,32 @@
 <h4 id="core"><a class="header" href="#core">Core</a></h4>
 <pre><code class="language-csharp">public readonly Rectangle Core;
 </code></pre>
+<p>The central rectangle (in sprite-local pixels) that defines the stretchable region; outer slices are drawn un-stretched at the corners and edges.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <h4 id="empty"><a class="header" href="#empty">Empty</a></h4>
 <pre><code class="language-csharp">public static NineSliceInfo Empty { get; }
 </code></pre>
+<p>A default-initialised <code>NineSliceInfo</code> with an empty GUID and no core rectangle; safe to use as a null-equivalent sentinel.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/NineSliceInfo.html">NineSliceInfo</a> </p>
 <h4 id="image"><a class="header" href="#image">Image</a></h4>
 <pre><code class="language-csharp">public readonly Guid Image;
 </code></pre>
+<p>GUID of the <code>SpriteAsset</code> used as the source image for nine-slice rendering.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="cache"><a class="header" href="#cache">Cache()</a></h4>
 <pre><code class="language-csharp">public CachedNineSlice Cache()
 </code></pre>
+<p>Resolves the asset GUID and returns a <code>CachedNineSlice</code> that holds a direct reference to the loaded <code>SpriteAsset</code>, avoiding repeated lookups on subsequent draws.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/CachedNineSlice.html">CachedNineSlice</a> </p>
 <h4 id="drawbatch2d-rectangle-drawinfo-animationinfo"><a class="header" href="#drawbatch2d-rectangle-drawinfo-animationinfo">Draw(Batch2D, Rectangle, DrawInfo, AnimationInfo)</a></h4>
 <pre><code class="language-csharp">public void Draw(Batch2D batch, Rectangle target, DrawInfo info, AnimationInfo animationInfo)
 </code></pre>
+<p>Draws the nine-slice stretched to <code>target</code>, selecting the animation frame specified by <code>animationInfo</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>target</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
@@ -194,6 +203,7 @@
 <h4 id="drawbatch2d-rectangle-string-color-float"><a class="header" href="#drawbatch2d-rectangle-string-color-float">Draw(Batch2D, Rectangle, string, Color, float)</a></h4>
 <pre><code class="language-csharp">public void Draw(Batch2D batch, Rectangle target, string animation, Color color, float sort)
 </code></pre>
+<p>Draws the nine-slice stretched to <code>target</code> using the named <code>animation</code> clip and the given tint color and sort depth.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>target</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SetSoundOnInteraction : IInteraction
 </code></pre>
+<p>Applies sound parameter changes and triggers sound events on interaction.</p>
+<p><strong>Intent:</strong> Modifies sound blackboard parameters and fires sound trigger events when an interaction occurs.</p>
+<p><strong>Use-case:</strong> Use to change audio state on interaction, such as adjusting ambient sound levels or triggering a layered sound transition when the player activates an environmental switch.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Interactions/IInteraction.html">IInteraction</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SetSoundOnInteraction()
@@ -157,17 +160,20 @@
 <h4 id="parameters"><a class="header" href="#parameters">Parameters</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Parameters;
 </code></pre>
+<p>Sound parameter actions to apply to the sound middleware on interaction.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="triggers"><a class="header" href="#triggers">Triggers</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Triggers;
 </code></pre>
+<p>Sound events to trigger on interaction.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="interactworld-entity-entity"><a class="header" href="#interactworld-entity-entity">Interact(World, Entity, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void Interact(World world, Entity interactor, Entity interacted)
 </code></pre>
+<p>Applies all configured parameter changes and fires all sound trigger events.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>interactor</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

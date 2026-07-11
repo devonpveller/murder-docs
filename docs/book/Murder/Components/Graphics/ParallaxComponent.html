@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct ParallaxComponent : IComponent
 </code></pre>
+<p>Controls how much an entity's rendered position is offset relative to the camera, creating a depth-based parallax scrolling effect.</p>
+<p><strong>Intent:</strong> Give background and foreground layers a sense of depth by making them move at a different rate than world-space entities.</p>
+<p><strong>Use-case:</strong> Add to background sprite entities and set <code>Factor</code> below 1 (e.g. 0.5) for distant layers that move slowly, or above 1 for foreground layers that move faster than the camera.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ParallaxComponent()

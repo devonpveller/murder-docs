@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct MurderTargetedRuntimeAction
 </code></pre>
+<p>Runtime counterpart of <code>MurderTargetedAction</code> where the target has been resolved to a concrete entity ID.</p>
+<p><strong>Intent:</strong> Stores a live entity ID alongside its interaction list so the interaction system can execute actions without a second GUID-to-entity lookup.</p>
+<p><strong>Use-case:</strong> Created by the interaction system after resolving <code>MurderTargetedAction.Target</code> to an entity ID; consumed each frame by interaction processing systems.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MurderTargetedRuntimeAction(int id, ImmutableArray&lt;T&gt; interaction)
 </code></pre>
+<p>Creates a runtime action targeting the entity with the given <code>id</code> and the specified <code>interaction</code> list.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>interaction</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
@@ -159,11 +163,13 @@
 <h4 id="entityid"><a class="header" href="#entityid">EntityId</a></h4>
 <pre><code class="language-csharp">public readonly int EntityId;
 </code></pre>
+<p>The runtime integer ID of the target entity that the interactions will be applied to.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="interaction"><a class="header" href="#interaction">Interaction</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Interaction;
 </code></pre>
+<p>The ordered list of interactions to execute against the target entity.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <p>⚡</p>

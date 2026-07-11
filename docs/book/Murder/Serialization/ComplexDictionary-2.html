@@ -152,48 +152,58 @@
 <p>When serializing dictionaries, System.Text.Json is not able to resolve custom dictionary keys.
 As a workaround for that, we will implement our own complex dictionary converter that manually deserializes
 each key and value.</p>
+<p><strong>Intent:</strong> A serialization-safe dictionary that supports complex (non-string) keys by deferring custom conversion.</p>
+<p><strong>Use-case:</strong> Use wherever a <code>Dictionary&lt;TKey, TValue&gt;</code> with non-string keys needs to round-trip through <code>System.Text.Json</code> serialization without losing key fidelity.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0">Dictionary&lt;TKey, TValue&gt;</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IDictionary-2?view=net-7.0">IDictionary&lt;TKey, TValue&gt;</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.ICollection-1?view=net-7.0">ICollection&lt;T&gt;</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0">IEnumerable&lt;T&gt;</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.IEnumerable?view=net-7.0">IEnumerable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.IDictionary?view=net-7.0">IDictionary</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.ICollection?view=net-7.0">ICollection</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IReadOnlyDictionary-2?view=net-7.0">IReadOnlyDictionary&lt;TKey, TValue&gt;</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IReadOnlyCollection-1?view=net-7.0">IReadOnlyCollection&lt;T&gt;</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Runtime.Serialization.ISerializable?view=net-7.0">ISerializable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Runtime.Serialization.IDeserializationCallback?view=net-7.0">IDeserializationCallback</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ComplexDictionary&lt;TKey, TValue&gt;()
 </code></pre>
 <pre><code class="language-csharp">public ComplexDictionary&lt;TKey, TValue&gt;(IDictionary&lt;TKey, TValue&gt; dictionary)
 </code></pre>
+<p>Creates a <code>ComplexDictionary</code> pre-populated from an existing dictionary.</p>
 <p><strong>Parameters</strong> <br />
 <code>dictionary</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IDictionary-2?view=net-7.0">IDictionary&lt;TKey, TValue&gt;</a> </p>
 <pre><code class="language-csharp">public ComplexDictionary&lt;TKey, TValue&gt;(IEqualityComparer&lt;T&gt; comparer)
 </code></pre>
+<p>Creates an empty <code>ComplexDictionary</code> using the specified equality comparer for keys.</p>
 <p><strong>Parameters</strong> <br />
 <code>comparer</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEqualityComparer-1?view=net-7.0">IEqualityComparer&lt;T&gt;</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="comparer"><a class="header" href="#comparer">Comparer</a></h4>
 <pre><code class="language-csharp">public IEqualityComparer&lt;T&gt; Comparer { get; }
 </code></pre>
+<p>The equality comparer used to determine key equality in this dictionary.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEqualityComparer-1?view=net-7.0">IEqualityComparer&lt;T&gt;</a> </p>
 <h4 id="count"><a class="header" href="#count">Count</a></h4>
 <pre><code class="language-csharp">public virtual int Count { get; }
 </code></pre>
+<p>The number of key-value pairs currently stored in this dictionary.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="item"><a class="header" href="#item">Item</a></h4>
 <pre><code class="language-csharp">public virtual TValue Item { get; public set; }
 </code></pre>
+<p>Gets or sets the value associated with the specified key.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../">TValue</a> </p>
 <h4 id="keys"><a class="header" href="#keys">Keys</a></h4>
 <pre><code class="language-csharp">public KeyCollection&lt;TKey, TValue&gt; Keys { get; }
 </code></pre>
+<p>The collection of all keys in this dictionary.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.KeyCollection-KeyCollection?view=net-7.0">KeyCollection&lt;TKey, TValue&gt;</a> </p>
 <h4 id="values"><a class="header" href="#values">Values</a></h4>
 <pre><code class="language-csharp">public ValueCollection&lt;TKey, TValue&gt; Values { get; }
 </code></pre>
+<p>The collection of all values in this dictionary.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.ValueCollection-ValueCollection?view=net-7.0">ValueCollection&lt;TKey, TValue&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="containsvaluetvalue"><a class="header" href="#containsvaluetvalue">ContainsValue(TValue)</a></h4>
 <pre><code class="language-csharp">public bool ContainsValue(TValue value)
 </code></pre>
+<p>Returns <code>true</code> if any entry in the dictionary has the given value.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="../../">TValue</a> </p>
 <p><strong>Returns</strong> <br />
@@ -201,6 +211,7 @@ each key and value.</p>
 <h4 id="removetkey-out-tvalue"><a class="header" href="#removetkey-out-tvalue">Remove(TKey, out TValue&amp;)</a></h4>
 <pre><code class="language-csharp">public bool Remove(TKey key, TValue&amp; value)
 </code></pre>
+<p>Removes the entry for <code>key</code> and writes its value to <code>value</code>; returns <code>true</code> if found.</p>
 <p><strong>Parameters</strong> <br />
 <code>key</code> <a href="../../">TKey</a> <br />
 <code>value</code> <a href="../../">TValue&amp;</a> </p>
@@ -209,6 +220,7 @@ each key and value.</p>
 <h4 id="tryaddtkey-tvalue"><a class="header" href="#tryaddtkey-tvalue">TryAdd(TKey, TValue)</a></h4>
 <pre><code class="language-csharp">public bool TryAdd(TKey key, TValue value)
 </code></pre>
+<p>Adds the entry only if <code>key</code> is not already present; returns <code>true</code> if added.</p>
 <p><strong>Parameters</strong> <br />
 <code>key</code> <a href="../../">TKey</a> <br />
 <code>value</code> <a href="../../">TValue</a> </p>
@@ -217,11 +229,13 @@ each key and value.</p>
 <h4 id="getenumerator"><a class="header" href="#getenumerator">GetEnumerator()</a></h4>
 <pre><code class="language-csharp">public Enumerator&lt;TKey, TValue&gt; GetEnumerator()
 </code></pre>
+<p>Returns an enumerator that iterates through the key-value pairs in this dictionary.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Enumerator-Enumerator?view=net-7.0">Enumerator&lt;TKey, TValue&gt;</a> </p>
 <h4 id="ensurecapacityint"><a class="header" href="#ensurecapacityint">EnsureCapacity(int)</a></h4>
 <pre><code class="language-csharp">public int EnsureCapacity(int capacity)
 </code></pre>
+<p>Ensures the dictionary can hold at least <code>capacity</code> entries without resizing; returns the actual capacity.</p>
 <p><strong>Parameters</strong> <br />
 <code>capacity</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -229,6 +243,7 @@ each key and value.</p>
 <h4 id="containskeytkey"><a class="header" href="#containskeytkey">ContainsKey(TKey)</a></h4>
 <pre><code class="language-csharp">public virtual bool ContainsKey(TKey key)
 </code></pre>
+<p>Returns <code>true</code> if the dictionary contains an entry for the given key.</p>
 <p><strong>Parameters</strong> <br />
 <code>key</code> <a href="../../">TKey</a> </p>
 <p><strong>Returns</strong> <br />
@@ -236,6 +251,7 @@ each key and value.</p>
 <h4 id="removetkey"><a class="header" href="#removetkey">Remove(TKey)</a></h4>
 <pre><code class="language-csharp">public virtual bool Remove(TKey key)
 </code></pre>
+<p>Removes the entry for <code>key</code>; returns <code>true</code> if the key was present.</p>
 <p><strong>Parameters</strong> <br />
 <code>key</code> <a href="../../">TKey</a> </p>
 <p><strong>Returns</strong> <br />
@@ -243,6 +259,7 @@ each key and value.</p>
 <h4 id="trygetvaluetkey-out-tvalue"><a class="header" href="#trygetvaluetkey-out-tvalue">TryGetValue(TKey, out TValue&amp;)</a></h4>
 <pre><code class="language-csharp">public virtual bool TryGetValue(TKey key, TValue&amp; value)
 </code></pre>
+<p>Attempts to get the value for <code>key</code>; returns <code>true</code> and writes to <code>value</code> if found.</p>
 <p><strong>Parameters</strong> <br />
 <code>key</code> <a href="../../">TKey</a> <br />
 <code>value</code> <a href="../../">TValue&amp;</a> </p>
@@ -251,29 +268,35 @@ each key and value.</p>
 <h4 id="addtkey-tvalue"><a class="header" href="#addtkey-tvalue">Add(TKey, TValue)</a></h4>
 <pre><code class="language-csharp">public virtual void Add(TKey key, TValue value)
 </code></pre>
+<p>Adds a new key-value pair to the dictionary; throws if <code>key</code> already exists.</p>
 <p><strong>Parameters</strong> <br />
 <code>key</code> <a href="../../">TKey</a> <br />
 <code>value</code> <a href="../../">TValue</a> </p>
 <h4 id="clear"><a class="header" href="#clear">Clear()</a></h4>
 <pre><code class="language-csharp">public virtual void Clear()
 </code></pre>
+<p>Removes all entries from the dictionary.</p>
 <h4 id="getobjectdataserializationinfo-streamingcontext"><a class="header" href="#getobjectdataserializationinfo-streamingcontext">GetObjectData(SerializationInfo, StreamingContext)</a></h4>
 <pre><code class="language-csharp">public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
 </code></pre>
+<p>Populates <code>info</code> with the data needed to serialize this dictionary.</p>
 <p><strong>Parameters</strong> <br />
 <code>info</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Runtime.Serialization.SerializationInfo?view=net-7.0">SerializationInfo</a> <br />
 <code>context</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Runtime.Serialization.StreamingContext?view=net-7.0">StreamingContext</a> </p>
 <h4 id="ondeserializationobject"><a class="header" href="#ondeserializationobject">OnDeserialization(Object)</a></h4>
 <pre><code class="language-csharp">public virtual void OnDeserialization(Object sender)
 </code></pre>
+<p>Called after the dictionary has been deserialized from a serialization stream.</p>
 <p><strong>Parameters</strong> <br />
 <code>sender</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <h4 id="trimexcess"><a class="header" href="#trimexcess">TrimExcess()</a></h4>
 <pre><code class="language-csharp">public void TrimExcess()
 </code></pre>
+<p>Resizes the internal arrays to eliminate any excess capacity.</p>
 <h4 id="trimexcessint"><a class="header" href="#trimexcessint">TrimExcess(int)</a></h4>
 <pre><code class="language-csharp">public void TrimExcess(int capacity)
 </code></pre>
+<p>Resizes the internal arrays to the given <code>capacity</code> if it is smaller than the current capacity.</p>
 <p><strong>Parameters</strong> <br />
 <code>capacity</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

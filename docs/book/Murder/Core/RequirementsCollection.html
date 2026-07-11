@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct RequirementsCollection
 </code></pre>
+<p>An immutable collection of component-type requirements that must be satisfied before an interaction or rule fires.</p>
+<p><strong>Intent:</strong> Groups a set of required component types so rule-based systems can gate interactions on entity state.</p>
+<p><strong>Use-case:</strong> Add to an entity alongside an interaction component; the engine checks <code>Requirements</code> before evaluating the interaction so it only triggers when all listed components are present.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public RequirementsCollection()
 </code></pre>
+<p>Creates an empty requirements collection with no requirements.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="requirements"><a class="header" href="#requirements">Requirements</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Requirements;

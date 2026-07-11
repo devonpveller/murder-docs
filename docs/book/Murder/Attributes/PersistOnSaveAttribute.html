@@ -151,14 +151,18 @@
 </code></pre>
 <p>Overrides any other attribute and make sure this component is persisted in
 the entity serialization.</p>
+<p><strong>Intent:</strong> Force a component to be written to the save file even when other persistence-exclusion attributes are also present on the entity.</p>
+<p><strong>Use-case:</strong> Apply to components that must always be saved regardless of other save-exclusion rules, such as a health component on an entity that otherwise carries a <code>DoNotPersistOnSave</code> attribute.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PersistOnSaveAttribute()
 </code></pre>
+<p>Creates a new instance of <code>PersistOnSaveAttribute</code>.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

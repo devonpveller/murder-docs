@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct LazyShape : IShape
 </code></pre>
+<p>An efficient, approximate circular collision shape represented as an elongated octagon.</p>
+<p><strong>Intent:</strong> Provide a fast collision shape for entities where exact circle or box accuracy is not needed.</p>
+<p><strong>Use-case:</strong> Use <code>LazyShape</code> in a <code>ColliderComponent</code> when performance matters more than shape precision, such as for large numbers of small projectiles or crowds. Its bounding area is slightly wider than tall to account for diagonal movement.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Murder/Core/Geometry/IShape.html">IShape</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public LazyShape(float radius, Point offset)
@@ -160,22 +163,26 @@
 <h4 id="offset"><a class="header" href="#offset">Offset</a></h4>
 <pre><code class="language-csharp">public readonly Point Offset;
 </code></pre>
+<p>Pixel offset of the shape centre relative to the entity's world position.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="radius"><a class="header" href="#radius">Radius</a></h4>
 <pre><code class="language-csharp">public readonly float Radius;
 </code></pre>
+<p>The effective radius of the lazy shape in pixels.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="square_root_of_two"><a class="header" href="#square_root_of_two">SQUARE_ROOT_OF_TWO</a></h4>
 <pre><code class="language-csharp">public static const float SQUARE_ROOT_OF_TWO;
 </code></pre>
+<p>Pre-computed value of √2, used when constructing the octagonal polygon approximation.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="rectanglevector2"><a class="header" href="#rectanglevector2">Rectangle(Vector2)</a></h4>
 <pre><code class="language-csharp">public Rectangle Rectangle(Vector2 addPosition)
 </code></pre>
+<p>Returns the bounding rectangle of this shape translated by <code>addPosition</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>addPosition</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -183,11 +190,13 @@
 <h4 id="getpolygon"><a class="header" href="#getpolygon">GetPolygon()</a></h4>
 <pre><code class="language-csharp">public virtual PolygonShape GetPolygon()
 </code></pre>
+<p>Returns an octagonal polygon approximation of this shape. Result is cached after the first call.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/PolygonShape.html">PolygonShape</a> </p>
 <h4 id="getboundingbox"><a class="header" href="#getboundingbox">GetBoundingBox()</a></h4>
 <pre><code class="language-csharp">public virtual Rectangle GetBoundingBox()
 </code></pre>
+<p>Returns the axis-aligned bounding rectangle for this lazy shape.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <p>⚡</p>

@@ -149,26 +149,33 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class Languages
 </code></pre>
+<p>Static registry of all supported <code>LanguageIdData</code> entries, providing lookup helpers for <code>LanguageId</code>-keyed operations.</p>
+<p><strong>Intent:</strong> Centralise the mapping between <code>LanguageId</code> enum values and their BCP-47 locale strings in one place, avoiding scattered string literals across the codebase.</p>
+<p><strong>Use-case:</strong> Call <code>Languages.Get(LanguageId)</code> to retrieve locale metadata for the active language, or iterate <code>Languages.All</code> to populate a language-selection UI. Use <code>Languages.Next</code> to cycle through available languages.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="all"><a class="header" href="#all">All</a></h4>
 <pre><code class="language-csharp">public static LanguageIdData[] All { get; }
 </code></pre>
+<p>Returns all registered language entries in declaration order.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Assets/Localization/LanguageIdData.html">LanguageIdData[]</a> </p>
 <h4 id="english"><a class="header" href="#english">English</a></h4>
 <pre><code class="language-csharp">public readonly static LanguageIdData English;
 </code></pre>
+<p>Predefined data entry for the English (en-US) locale.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Assets/Localization/LanguageIdData.html">LanguageIdData</a> </p>
 <h4 id="portuguese"><a class="header" href="#portuguese">Portuguese</a></h4>
 <pre><code class="language-csharp">public readonly static LanguageIdData Portuguese;
 </code></pre>
+<p>Predefined data entry for the Portuguese (pt-BR) locale.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Assets/Localization/LanguageIdData.html">LanguageIdData</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getlanguageid"><a class="header" href="#getlanguageid">Get(LanguageId)</a></h4>
 <pre><code class="language-csharp">public LanguageIdData Get(LanguageId id)
 </code></pre>
+<p>Retrieves the <code>LanguageIdData</code> for the given <code>LanguageId</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="../../../Murder/Assets/Localization/LanguageId.html">LanguageId</a> </p>
 <p><strong>Returns</strong> <br />
@@ -176,6 +183,7 @@
 <h4 id="nextlanguageid"><a class="header" href="#nextlanguageid">Next(LanguageId)</a></h4>
 <pre><code class="language-csharp">public LanguageIdData Next(LanguageId id)
 </code></pre>
+<p>Returns the <code>LanguageIdData</code> for the language that follows <code>id</code> in the declared order, wrapping around to the first entry.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="../../../Murder/Assets/Localization/LanguageId.html">LanguageId</a> </p>
 <p><strong>Returns</strong> <br />

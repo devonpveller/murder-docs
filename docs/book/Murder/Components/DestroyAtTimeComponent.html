@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct DestroyAtTimeComponent : IComponent
 </code></pre>
+<p>Schedules an entity for removal (or deactivation) at a specified game time.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Allows any entity to be automatically cleaned up after a timer expires without needing a dedicated system per entity type.</p>
+<p><strong>Use-case:</strong> Attach to temporary effects, projectiles, or UI popups that should disappear after a fixed duration; set <code>TimeToDestroy</code> to the absolute game time of removal and <code>Style</code> to control whether the entity is destroyed, deactivated, or has components removed.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DestroyAtTimeComponent()
 </code></pre>
@@ -167,11 +170,13 @@
 <h4 id="style"><a class="header" href="#style">Style</a></h4>
 <pre><code class="language-csharp">public readonly RemoveStyle Style;
 </code></pre>
+<p>Determines how the entity is removed: destroyed, deactivated, or its components stripped.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/RemoveStyle.html">RemoveStyle</a> </p>
 <h4 id="timetodestroy"><a class="header" href="#timetodestroy">TimeToDestroy</a></h4>
 <pre><code class="language-csharp">public readonly float TimeToDestroy;
 </code></pre>
+<p>The absolute game time (in seconds) at which the entity should be removed; <code>-1</code> means end of current frame.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

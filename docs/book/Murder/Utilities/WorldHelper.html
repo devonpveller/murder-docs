@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class WorldHelper
 </code></pre>
+<p>Conversion helpers for transforming editor-side world data into runtime-ready components.</p>
+<p><strong>Intent:</strong> Provides the translation layer between editor-only component representations and their optimized runtime counterparts.</p>
+<p><strong>Use-case:</strong> Call <code>ToEventListener</code> when building a scene to convert <code>EventListenerEditorComponent</code> (with an array of events) into the runtime <code>EventListenerComponent</code> (with a fast dictionary).</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="toeventlistenereventlistenereditorcomponent"><a class="header" href="#toeventlistenereventlistenereditorcomponent">ToEventListener(EventListenerEditorComponent)</a></h4>
 <pre><code class="language-csharp">public EventListenerComponent ToEventListener(EventListenerEditorComponent c)
 </code></pre>
+<p>Converts an editor event-listener component (with an array of events) to a runtime <code>EventListenerComponent</code> backed by a fast case-insensitive dictionary.</p>
 <p><strong>Parameters</strong> <br />
 <code>c</code> <a href="../../Murder/Components/EventListenerEditorComponent.html">EventListenerEditorComponent</a> </p>
 <p><strong>Returns</strong> <br />

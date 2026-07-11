@@ -149,47 +149,58 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SoundEventId : IEqualityComparer&lt;T&gt;, IEquatable&lt;T&gt;
 </code></pre>
+<p>Identifies a sound event by its 128-bit GUID data and optional path string, compatible with FMOD event GUIDs.</p>
+<p><strong>Intent:</strong> Reference a specific sound event for playback, stopping, or parameter control.</p>
+<p><strong>Use-case:</strong> Obtain a <code>SoundEventId</code> from the editor asset browser and pass it to <code>SoundServices.Play()</code>, <code>ISoundPlayer.Stop()</code>, or <code>ISoundPlayer.SetParameter()</code> to drive audio at runtime.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEqualityComparer-1?view=net-7.0">IEqualityComparer&lt;T&gt;</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0">IEquatable&lt;T&gt;</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="data1"><a class="header" href="#data1">Data1</a></h4>
 <pre><code class="language-csharp">public int Data1 { get; public set; }
 </code></pre>
+<p>First 32-bit component of the FMOD event GUID.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="data2"><a class="header" href="#data2">Data2</a></h4>
 <pre><code class="language-csharp">public int Data2 { get; public set; }
 </code></pre>
+<p>Second 32-bit component of the FMOD event GUID.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="data3"><a class="header" href="#data3">Data3</a></h4>
 <pre><code class="language-csharp">public int Data3 { get; public set; }
 </code></pre>
+<p>Third 32-bit component of the FMOD event GUID.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="data4"><a class="header" href="#data4">Data4</a></h4>
 <pre><code class="language-csharp">public int Data4 { get; public set; }
 </code></pre>
+<p>Fourth 32-bit component of the FMOD event GUID.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="editorname"><a class="header" href="#editorname">EditorName</a></h4>
 <pre><code class="language-csharp">public string EditorName { get; }
 </code></pre>
+<p>Human-readable display name shown in the editor, derived from the event <code>Path</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="isguidempty"><a class="header" href="#isguidempty">IsGuidEmpty</a></h4>
 <pre><code class="language-csharp">public bool IsGuidEmpty { get; }
 </code></pre>
+<p>Returns <code>true</code> when all four data fields are zero (no event assigned).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="path"><a class="header" href="#path">Path</a></h4>
 <pre><code class="language-csharp">public string Path { get; public set; }
 </code></pre>
+<p>The FMOD event path string (e.g. <code>event:/Music/MainTheme</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="withpathstring"><a class="header" href="#withpathstring">WithPath(string)</a></h4>
 <pre><code class="language-csharp">public SoundEventId WithPath(string path)
 </code></pre>
+<p>Returns a copy of this <code>SoundEventId</code> with <code>Path</code> set to <code>path</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />

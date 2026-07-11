@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public abstract ISoundPlayer
 </code></pre>
+<p>Contract for all sound system back-ends. Games replace the default no-op implementation with an FMOD (or other audio library) adapter.</p>
+<p><strong>Intent:</strong> Decouple the engine's audio calls from any specific audio middleware.</p>
+<p><strong>Use-case:</strong> Implement <code>ISoundPlayer</code> in your game project and register it via <code>[SoundPlayer]</code> attribute so Murder routes all audio through your backend. Use <code>PlayEvent()</code>, <code>Stop()</code>, <code>SetParameter()</code>, and <code>UpdateListener()</code> in systems and services.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="stopbool-out-soundeventid"><a class="header" href="#stopbool-out-soundeventid">Stop(bool, out SoundEventId[]&amp;)</a></h4>
 <pre><code class="language-csharp">public abstract bool Stop(bool fadeOut, SoundEventId[]&amp; stoppedEvents)
 </code></pre>
+<p>Stops all currently playing sound events. Returns <code>true</code> if any events were stopped; <code>stoppedEvents</code> receives the list of stopped IDs.</p>
 <p><strong>Parameters</strong> <br />
 <code>fadeOut</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> <br />
 <code>stoppedEvents</code> <a href="../../../Murder/Core/Sounds/SoundEventId.html">SoundEventId[]&amp;</a> </p>
@@ -185,6 +189,7 @@ If <paramref name="fadeOut" /> is set, this will stop with a fadeout.</p>
 <h4 id="getglobalparameterparameterid"><a class="header" href="#getglobalparameterparameterid">GetGlobalParameter(ParameterId)</a></h4>
 <pre><code class="language-csharp">public abstract float GetGlobalParameter(ParameterId parameter)
 </code></pre>
+<p>Returns the current value of a global audio parameter.</p>
 <p><strong>Parameters</strong> <br />
 <code>parameter</code> <a href="../../../Murder/Core/Sounds/ParameterId.html">ParameterId</a> </p>
 <p><strong>Returns</strong> <br />
@@ -218,6 +223,7 @@ If <paramref name="fadeOut" /> is set, this will stop with a fadeout.</p>
 <h4 id="playeventsoundeventid-soundproperties-t"><a class="header" href="#playeventsoundeventid-soundproperties-t">PlayEvent(SoundEventId, SoundProperties, T?)</a></h4>
 <pre><code class="language-csharp">public abstract ValueTask PlayEvent(SoundEventId id, SoundProperties properties, T? attributes)
 </code></pre>
+<p>Plays the sound event identified by <code>id</code> with the given flags and optional spatial attributes.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="../../../Murder/Core/Sounds/SoundEventId.html">SoundEventId</a> <br />
 <code>properties</code> <a href="../../../Murder/Core/Sounds/SoundProperties.html">SoundProperties</a> <br />
@@ -234,12 +240,14 @@ If <paramref name="fadeOut" /> is set, this will stop with a fadeout.</p>
 <h4 id="setglobalparameterparameterid-float"><a class="header" href="#setglobalparameterparameterid-float">SetGlobalParameter(ParameterId, float)</a></h4>
 <pre><code class="language-csharp">public abstract void SetGlobalParameter(ParameterId parameter, float value)
 </code></pre>
+<p>Sets a global audio parameter to <code>value</code> (affects all instances).</p>
 <p><strong>Parameters</strong> <br />
 <code>parameter</code> <a href="../../../Murder/Core/Sounds/ParameterId.html">ParameterId</a> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="setparametersoundeventid-parameterid-float"><a class="header" href="#setparametersoundeventid-parameterid-float">SetParameter(SoundEventId, ParameterId, float)</a></h4>
 <pre><code class="language-csharp">public abstract void SetParameter(SoundEventId instance, ParameterId parameter, float value)
 </code></pre>
+<p>Sets an instance-level audio parameter on a specific playing event.</p>
 <p><strong>Parameters</strong> <br />
 <code>instance</code> <a href="../../../Murder/Core/Sounds/SoundEventId.html">SoundEventId</a> <br />
 <code>parameter</code> <a href="../../../Murder/Core/Sounds/ParameterId.html">ParameterId</a> <br />
@@ -264,6 +272,7 @@ If <paramref name="fadeOut" /> is set, this will stop with a fadeout.</p>
 <h4 id="stopbool-hashset-out-soundeventid"><a class="header" href="#stopbool-hashset-out-soundeventid">Stop(bool, HashSet<T>, out SoundEventId[]&amp;)</a></h4>
 <pre><code class="language-csharp">public virtual bool Stop(bool fadeOut, HashSet&lt;T&gt; exceptForSoundsList, SoundEventId[]&amp; stoppedEvents)
 </code></pre>
+<p>Stops all playing events except those in <code>exceptForSoundsList</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>fadeOut</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> <br />
 <code>exceptForSoundsList</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.HashSet-1?view=net-7.0">HashSet&lt;T&gt;</a> <br />

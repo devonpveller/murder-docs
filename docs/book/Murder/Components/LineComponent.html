@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct LineComponent : IComponent
 </code></pre>
+<p>Holds the dialogue <code>Line</code> data that the entity is currently delivering, along with the time at which delivery started.</p>
+<p><strong>Intent:</strong> Carry a single dialogue line to be displayed by the dialogue render system, with a timestamp for timed text effects.</p>
+<p><strong>Use-case:</strong> Added to the dialogue entity by the dialogue system when a new line begins; read <code>Line</code> to get the text/speaker data and <code>Start</code> to compute how much of the line has elapsed.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public LineComponent(Line line, float start)
@@ -160,11 +163,13 @@
 <h4 id="line"><a class="header" href="#line">Line</a></h4>
 <pre><code class="language-csharp">public readonly Line Line;
 </code></pre>
+<p>The dialogue line data, including speaker and text content.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Dialogs/Line.html">Line</a> </p>
 <h4 id="start"><a class="header" href="#start">Start</a></h4>
 <pre><code class="language-csharp">public readonly float Start;
 </code></pre>
+<p>Absolute game time (in seconds) when this line began playing, used to drive typewriter or timed display effects.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

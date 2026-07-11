@@ -149,24 +149,31 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct DialogLine
 </code></pre>
+<p>A discriminated union returned by <code>CharacterRuntime.NextLine</code> that holds either a regular <code>Line</code> or a <code>ChoiceLine</code>.</p>
+<p><strong>Intent:</strong> Provides a single return type for <code>NextLine</code> that covers both normal narrative lines and player-choice prompts without requiring an interface or base class.</p>
+<p><strong>Use-case:</strong> Check <code>Line</code> or <code>Choice</code> for <code>null</code> to determine which variant was returned, then render accordingly and call <code>DoChoice</code> if a <code>ChoiceLine</code> was received.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public DialogLine(ChoiceLine choice)
 </code></pre>
+<p>Creates a <code>DialogLine</code> wrapping a choice prompt; <code>Line</code> will be <code>null</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>choice</code> <a href="../../../Murder/Core/Dialogs/ChoiceLine.html">ChoiceLine</a> </p>
 <pre><code class="language-csharp">public DialogLine(Line line)
 </code></pre>
+<p>Creates a <code>DialogLine</code> wrapping a narrative line; <code>Choice</code> will be <code>null</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>line</code> <a href="../../../Murder/Core/Dialogs/Line.html">Line</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="choice"><a class="header" href="#choice">Choice</a></h4>
 <pre><code class="language-csharp">public readonly T? Choice;
 </code></pre>
+<p>The choice prompt to present to the player, or <code>null</code> when this line is a plain narrative <code>Line</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="line"><a class="header" href="#line">Line</a></h4>
 <pre><code class="language-csharp">public readonly T? Line;
 </code></pre>
+<p>The narrative line to display, or <code>null</code> when this line is a <code>ChoiceLine</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <p>⚡</p>

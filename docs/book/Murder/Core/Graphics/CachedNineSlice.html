@@ -149,30 +149,38 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct CachedNineSlice
 </code></pre>
+<p>A pre-resolved nine-slice that holds a direct reference to the loaded <code>SpriteAsset</code> and its core rectangle, eliminating asset lookups on every draw call.</p>
+<p><strong>Intent:</strong> Caches the expensive <code>Game.Data.GetAsset&lt;SpriteAsset&gt;()</code> call so that nine-slice UI elements can be drawn each frame without incurring dictionary lookups.</p>
+<p><strong>Use-case:</strong> Call <code>NineSliceInfo.Cache()</code> once (e.g., at component initialization) and store the result; then call <code>CachedNineSlice.Draw()</code> every frame instead of drawing through <code>NineSliceInfo</code> directly.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public CachedNineSlice(NineSliceInfo info)
 </code></pre>
+<p>Creates a cached nine-slice from an existing <code>NineSliceInfo</code>, loading the sprite asset immediately.</p>
 <p><strong>Parameters</strong> <br />
 <code>info</code> <a href="../../../Murder/Core/Graphics/NineSliceInfo.html">NineSliceInfo</a> </p>
 <pre><code class="language-csharp">public CachedNineSlice(Guid SpriteAsset)
 </code></pre>
+<p>Creates a cached nine-slice directly from a sprite asset GUID, using the asset's built-in nine-slice rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>SpriteAsset</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="_core"><a class="header" href="#_core">_core</a></h4>
 <pre><code class="language-csharp">public readonly Rectangle _core;
 </code></pre>
+<p>The central rectangle (in sprite-local pixels) that defines the stretchable region of the nine-slice.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <h4 id="_image"><a class="header" href="#_image">_image</a></h4>
 <pre><code class="language-csharp">public readonly SpriteAsset _image;
 </code></pre>
+<p>The pre-loaded sprite asset whose first animation frame is used as the nine-slice source image.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Assets/Graphics/SpriteAsset.html">SpriteAsset</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="drawbatch2d-rectangle-drawinfo-animationinfo"><a class="header" href="#drawbatch2d-rectangle-drawinfo-animationinfo">Draw(Batch2D, Rectangle, DrawInfo, AnimationInfo)</a></h4>
 <pre><code class="language-csharp">public void Draw(Batch2D batch, Rectangle target, DrawInfo drawInfo, AnimationInfo animationInfo)
 </code></pre>
+<p>Draws the nine-slice stretched to <code>target</code>, using <code>animationInfo</code> to select the correct animation frame.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>target</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
@@ -181,6 +189,7 @@
 <h4 id="drawbatch2d-rectangle-drawinfo"><a class="header" href="#drawbatch2d-rectangle-drawinfo">Draw(Batch2D, Rectangle, DrawInfo)</a></h4>
 <pre><code class="language-csharp">public void Draw(Batch2D batch, Rectangle target, DrawInfo drawInfo)
 </code></pre>
+<p>Draws the nine-slice stretched to <code>target</code> using the default animation frame.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>target</code> <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
@@ -188,6 +197,7 @@
 <h4 id="drawwithtextbatch2d-string-int-color-t-t-rectangle-float"><a class="header" href="#drawwithtextbatch2d-string-int-color-t-t-rectangle-float">DrawWithText(Batch2D, string, int, Color, T?, T?, Rectangle, float)</a></h4>
 <pre><code class="language-csharp">public void DrawWithText(Batch2D batch, string text, int font, Color textColor, T? textOutlineColor, T? textShadowColor, Rectangle target, float sort)
 </code></pre>
+<p>Draws the nine-slice background and overlays centered <code>text</code> on top of it in one call; convenient for labeled buttons and panels.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="../../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />

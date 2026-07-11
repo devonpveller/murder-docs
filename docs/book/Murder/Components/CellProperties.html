@@ -149,31 +149,39 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct CellProperties
 </code></pre>
+<p>Stores the pathfinding properties of a single tile in the navigation grid.</p>
+<p><strong>Intent:</strong> Encodes per-cell overrides for movement cost and collision layer so the pathfinding system can treat individual tiles differently from the map defaults.</p>
+<p><strong>Use-case:</strong> Used internally by <code>PathfindGridComponent.Cells</code> to record which tiles have custom weights or collision masks authored in the editor.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public CellProperties(Point coordinates, int weight, int collisionMask)
 </code></pre>
+<p>Creates a cell entry at <code>coordinates</code> with explicit weight and collision mask.</p>
 <p><strong>Parameters</strong> <br />
 <code>coordinates</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />
 <code>weight</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>collisionMask</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <pre><code class="language-csharp">public CellProperties(Point coordinates)
 </code></pre>
+<p>Creates a cell entry at <code>coordinates</code> with default weight (<code>0</code>) and no collision mask.</p>
 <p><strong>Parameters</strong> <br />
 <code>coordinates</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="collisionmask"><a class="header" href="#collisionmask">CollisionMask</a></h4>
 <pre><code class="language-csharp">public int CollisionMask { get; public set; }
 </code></pre>
+<p>Bitmask of <code>CollisionLayersBase</code> flags that apply to this tile; controls which physics layers treat the cell as blocked.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="point"><a class="header" href="#point">Point</a></h4>
 <pre><code class="language-csharp">public Point Point { get; public set; }
 </code></pre>
+<p>Tile-space grid coordinates of this cell.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="weight"><a class="header" href="#weight">Weight</a></h4>
 <pre><code class="language-csharp">public int Weight { get; public set; }
 </code></pre>
+<p>Pathfinding traversal cost for this cell; higher values make the pathfinder prefer alternative routes.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

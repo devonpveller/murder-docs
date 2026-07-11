@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class ListenKeyboardHelper : IDisposable
 </code></pre>
+<p>A disposable helper that enables raw keyboard text input capture for the duration of its lifetime.</p>
+<p><strong>Intent:</strong> Temporarily enable the keyboard text buffer so you can read typed characters via <code>PlayerInput.GetKeyboardInput()</code>.</p>
+<p><strong>Use-case:</strong> Wrap a text-entry UI widget in a <code>using</code> statement with <code>ListenKeyboardHelper</code> to start capturing keys, then call <code>PlayerInput.GetKeyboardInput()</code> each frame to read the typed text. The listener is automatically disabled when the <code>using</code> block exits.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0">IDisposable</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ListenKeyboardHelper(int maxCharacters)
@@ -162,6 +165,7 @@
 <h4 id="clampint"><a class="header" href="#clampint">Clamp(int)</a></h4>
 <pre><code class="language-csharp">public void Clamp(int length)
 </code></pre>
+<p>Truncates the captured keyboard text buffer to <code>length</code> characters.</p>
 <p><strong>Parameters</strong> <br />
 <code>length</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

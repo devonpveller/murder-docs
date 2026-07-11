@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct GlobalShaderComponent : IComponent
 </code></pre>
+<p>Holds parameters for a shader effect that is applied globally to the entire render context, affecting all rendered output.</p>
+<p><strong>Intent:</strong> Configure world-wide post-processing shader settings (such as dithering) from a single entity.</p>
+<p><strong>Use-case:</strong> Attach to the world or camera entity once and adjust <code>DitherAmount</code> to control the global dither intensity passed to the rendering pipeline.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public GlobalShaderComponent()
@@ -157,6 +160,7 @@
 <h4 id="ditheramount"><a class="header" href="#ditheramount">DitherAmount</a></h4>
 <pre><code class="language-csharp">public readonly float DitherAmount;
 </code></pre>
+<p>Intensity of the global dither effect applied to the render output, ranging from 0 (no dither) to 1 (full dither).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

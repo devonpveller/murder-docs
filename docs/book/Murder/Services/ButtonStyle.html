@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct ButtonStyle
 </code></pre>
+<p>Defines the visual appearance of an interactive button drawn by the UI system.</p>
+<p><strong>Intent:</strong> Bundles all style parameters (sprite, colors, font, padding) needed to render a styled button.</p>
+<p><strong>Use-case:</strong> Pass to <code>MurderUiServices</code> draw methods to control how a menu button looks, including its background sprite, text font and color, outline, shadow, and horizontal padding.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ButtonStyle()
 </code></pre>
@@ -156,41 +159,49 @@
 <h4 id="extrapaddingx"><a class="header" href="#extrapaddingx">ExtraPaddingX</a></h4>
 <pre><code class="language-csharp">public Point ExtraPaddingX { get; public set; }
 </code></pre>
+<p>Extra horizontal padding added on both sides of the button content area.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="font"><a class="header" href="#font">Font</a></h4>
 <pre><code class="language-csharp">public readonly int Font;
 </code></pre>
+<p>Index of the font used for the button label.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="outlinecolor"><a class="header" href="#outlinecolor">OutlineColor</a></h4>
 <pre><code class="language-csharp">public readonly T? OutlineColor;
 </code></pre>
+<p>Optional color for the button border outline; <code>null</code> means no outline is drawn.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="sprite"><a class="header" href="#sprite">Sprite</a></h4>
 <pre><code class="language-csharp">public readonly Portrait Sprite;
 </code></pre>
+<p>The portrait (sprite and animation) used as the button background.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Portrait.html">Portrait</a> </p>
 <h4 id="textalignment"><a class="header" href="#textalignment">TextAlignment</a></h4>
 <pre><code class="language-csharp">public readonly float TextAlignment;
 </code></pre>
+<p>Horizontal alignment of the button label text in the range [0, 1], where 0 is left-aligned and 1 is right-aligned.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="textcolor"><a class="header" href="#textcolor">TextColor</a></h4>
 <pre><code class="language-csharp">public readonly Color TextColor;
 </code></pre>
+<p>Color of the button label text.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/Color.html">Color</a> </p>
 <h4 id="textoutlinecolor"><a class="header" href="#textoutlinecolor">TextOutlineColor</a></h4>
 <pre><code class="language-csharp">public readonly T? TextOutlineColor;
 </code></pre>
+<p>Optional color for the text outline stroke; <code>null</code> means no text outline.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="textshadowcolor"><a class="header" href="#textshadowcolor">TextShadowColor</a></h4>
 <pre><code class="language-csharp">public readonly T? TextShadowColor;
 </code></pre>
+<p>Optional color for the drop shadow beneath the button label; <code>null</code> means no shadow.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <p>⚡</p>

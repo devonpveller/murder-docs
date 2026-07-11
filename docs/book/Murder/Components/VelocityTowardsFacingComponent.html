@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct VelocityTowardsFacingComponent : IComponent
 </code></pre>
+<p>Causes an entity to move at a constant speed in the direction it is currently facing.</p>
+<p><strong>Intent:</strong> Drive forward movement automatically from the entity's facing angle.</p>
+<p><strong>Use-case:</strong> Attach to projectiles, homing objects, or characters that always move forward; set <code>Velocity</code> to the desired forward speed in pixels per second.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public VelocityTowardsFacingComponent()
@@ -157,6 +160,7 @@
 <h4 id="velocity"><a class="header" href="#velocity">Velocity</a></h4>
 <pre><code class="language-csharp">public readonly float Velocity;
 </code></pre>
+<p>Forward speed in pixels per second; the movement system resolves the actual direction from the entity's facing angle.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

@@ -149,14 +149,19 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class SimpleTextureAttribute : Attribute
 </code></pre>
+<p>Marks a string field as a path to a standalone (non-atlas) texture file, enabling the editor to show a texture file picker.</p>
+<p><strong>Intent:</strong> Signal to the editor that a string field holds a reference to a plain texture file not managed through the sprite atlas system.</p>
+<p><strong>Use-case:</strong> Apply to string fields in components or assets that reference loose texture files, such as background images or UI textures loaded directly at runtime outside of the atlas pipeline.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SimpleTextureAttribute()
 </code></pre>
+<p>Creates a new instance of <code>SimpleTextureAttribute</code>.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

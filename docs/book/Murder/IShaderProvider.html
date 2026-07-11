@@ -150,12 +150,13 @@
 <pre><code class="language-csharp">public abstract IShaderProvider
 </code></pre>
 <p>A game that leverages murder and use custom shaders should implement this in their <a href="../Murder/IMurderGame.html">IMurderGame</a>.</p>
+<p><strong>Intent:</strong> Declares the contract for a game that supplies custom GPU shaders to the Murder rendering pipeline. Implement this interface alongside <code>IMurderGame</code> to inject additional GLSL/HLSL shader files that are loaded at startup.</p>
+<p><strong>Use-case:</strong> When your game needs post-processing effects, custom sprite shaders, or any non-default rendering pass, implement <code>IShaderProvider</code> on your <code>IMurderGame</code> class and return the shader filenames from <code>Shaders</code>. The engine resolves those names against the <code>resources/</code> folder and compiles them into the render pipeline.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="shaders"><a class="header" href="#shaders">Shaders</a></h4>
 <pre><code class="language-csharp">public abstract virtual String[] Shaders { get; }
 </code></pre>
-<p>Names of custom shaders that will be provided.
-This is expected to be placed in ./&lt;game_directory /&gt;/../resources</p>
+<p>Names of custom shaders that will be provided. Each name maps to a compiled shader file placed at <code>&lt;game_directory&gt;/../resources</code>. The engine iterates this array at startup to load and register every custom shader effect.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string[]</a> </p>
 <p>⚡</p>

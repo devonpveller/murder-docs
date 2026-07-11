@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class WorldParticleSystemTracker
 </code></pre>
+<p>Manages all <code>ParticleSystemTracker</code> instances currently active in a <code>World</code>, mapping them to their owning entities.</p>
+<p><strong>Intent:</strong> Provide a centralised manager for all particle systems in a game world.</p>
+<p><strong>Use-case:</strong> Retrieve the <code>WorldParticleSystemTracker</code> from the world context. Call <code>Track()</code> when a particle entity is created, <code>Untrack()</code> when it is destroyed, <code>Step()</code> each frame to advance all simulations, and <code>FetchActiveParticleTrackers()</code> to iterate over them for rendering.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public WorldParticleSystemTracker(int seed)
 </code></pre>
@@ -167,6 +170,7 @@
 <h4 id="synchronizeentity"><a class="header" href="#synchronizeentity">Synchronize(Entity)</a></h4>
 <pre><code class="language-csharp">public bool Synchronize(Entity particleEntity)
 </code></pre>
+<p>Synchronises the tracker's particle definition with the latest asset data for the given entity.</p>
 <p><strong>Parameters</strong> <br />
 <code>particleEntity</code> <a href="../../../Bang/Entities/Entity.html">Entity</a> </p>
 <p><strong>Returns</strong> <br />
@@ -174,6 +178,7 @@
 <h4 id="trackentity"><a class="header" href="#trackentity">Track(Entity)</a></h4>
 <pre><code class="language-csharp">public bool Track(Entity particleEntity)
 </code></pre>
+<p>Begins tracking a new particle entity. Returns <code>false</code> if the entity is already tracked or has no valid particle asset.</p>
 <p><strong>Parameters</strong> <br />
 <code>particleEntity</code> <a href="../../../Bang/Entities/Entity.html">Entity</a> </p>
 <p><strong>Returns</strong> <br />
@@ -187,21 +192,25 @@
 <h4 id="activateint"><a class="header" href="#activateint">Activate(int)</a></h4>
 <pre><code class="language-csharp">public void Activate(int id)
 </code></pre>
+<p>Marks the particle system associated with entity <code>id</code> as active, allowing it to spawn new particles.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="deactivateint"><a class="header" href="#deactivateint">Deactivate(int)</a></h4>
 <pre><code class="language-csharp">public void Deactivate(int id)
 </code></pre>
+<p>Marks the particle system associated with entity <code>id</code> as inactive, pausing new particle spawning.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="stepworld"><a class="header" href="#stepworld">Step(World)</a></h4>
 <pre><code class="language-csharp">public void Step(World world)
 </code></pre>
+<p>Advances all active particle trackers by one frame, stepping their simulations.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../../Bang/World.html">World</a> </p>
 <h4 id="untrackentity"><a class="header" href="#untrackentity">Untrack(Entity)</a></h4>
 <pre><code class="language-csharp">public void Untrack(Entity particleEntity)
 </code></pre>
+<p>Removes the given entity from tracking and returns its slot to the pool.</p>
 <p><strong>Parameters</strong> <br />
 <code>particleEntity</code> <a href="../../../Bang/Entities/Entity.html">Entity</a> </p>
 <p>⚡</p>

@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct ColliderComponent : IComponent
 </code></pre>
+<p>Defines the collision shapes and physics layer for an entity in the physics simulation.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Provides the geometry and layer information that the physics system uses to test overlaps and collisions between entities.</p>
+<p><strong>Use-case:</strong> Attach to any entity that should participate in physics queries; configure <code>Shapes</code> with one or more <code>IShape</code> instances and set <code>Layer</code> to the appropriate <code>CollisionLayersBase</code> flag.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ColliderComponent()
 </code></pre>
@@ -169,6 +172,7 @@
 <h4 id="debugcolor"><a class="header" href="#debugcolor">DebugColor</a></h4>
 <pre><code class="language-csharp">public readonly Color DebugColor;
 </code></pre>
+<p>Color used to draw the collider shape in debug/editor mode.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/Color.html">Color</a> </p>
 <h4 id="layer"><a class="header" href="#layer">Layer</a></h4>
@@ -180,6 +184,7 @@
 <h4 id="shapes"><a class="header" href="#shapes">Shapes</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Shapes;
 </code></pre>
+<p>The list of collision shapes (boxes, circles, polygons) that make up this entity's collider.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>

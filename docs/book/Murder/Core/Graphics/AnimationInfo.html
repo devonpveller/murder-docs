@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AnimationInfo
 </code></pre>
+<p>Encapsulates the playback parameters used to evaluate a sprite animation each frame.</p>
+<p><strong>Intent:</strong> Carries the clip name, start time, loop flag, and timing mode needed to look up the correct animation frame without storing mutable state.</p>
+<p><strong>Use-case:</strong> Pass an <code>AnimationInfo</code> to sprite-rendering helpers (e.g., <code>NineSliceInfo.Draw</code>, <code>CachedNineSlice.Draw</code>) to control which animation plays and whether it loops.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AnimationInfo()
 </code></pre>
+<p>Creates an <code>AnimationInfo</code> with default values (empty name, looping, unscaled time).</p>
 <pre><code class="language-csharp">public AnimationInfo(string name, float start)
 </code></pre>
 <p><strong>Parameters</strong> <br />
@@ -165,21 +169,25 @@
 <h4 id="default"><a class="header" href="#default">Default</a></h4>
 <pre><code class="language-csharp">public readonly static AnimationInfo Default;
 </code></pre>
+<p>A ready-made <code>AnimationInfo</code> with all default settings (empty name, looping, unscaled time).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/AnimationInfo.html">AnimationInfo</a> </p>
 <h4 id="duration"><a class="header" href="#duration">Duration</a></h4>
 <pre><code class="language-csharp">public float Duration { get; public set; }
 </code></pre>
+<p>Override duration in seconds. When set to <code>-1</code> the animation's own duration is used.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="loop"><a class="header" href="#loop">Loop</a></h4>
 <pre><code class="language-csharp">public bool Loop { get; public set; }
 </code></pre>
+<p>Whether the animation should loop continuously. Defaults to <code>true</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public string Name { get; public set; }
 </code></pre>
+<p>The key of the animation clip to play, as defined in the sprite asset's <code>Animations</code> dictionary.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="overridecurrenttime"><a class="header" href="#overridecurrenttime">OverrideCurrentTime</a></h4>
@@ -192,16 +200,19 @@ time specified in this field.</p>
 <h4 id="start"><a class="header" href="#start">Start</a></h4>
 <pre><code class="language-csharp">public float Start { get; public set; }
 </code></pre>
+<p>The game-time (seconds) at which playback of this animation began; used to compute the current frame offset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="ui"><a class="header" href="#ui">Ui</a></h4>
 <pre><code class="language-csharp">public readonly static AnimationInfo Ui;
 </code></pre>
+<p>A ready-made <code>AnimationInfo</code> pre-configured with <code>UseScaledTime = true</code>, suitable for UI animations that respect game speed scaling.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/AnimationInfo.html">AnimationInfo</a> </p>
 <h4 id="usescaledtime"><a class="header" href="#usescaledtime">UseScaledTime</a></h4>
 <pre><code class="language-csharp">public bool UseScaledTime { get; public set; }
 </code></pre>
+<p>When <code>true</code>, the animation uses <code>Game.Now</code> (scaled by game speed); when <code>false</code> it uses <code>Game.NowUnscaled</code>. Defaults to <code>false</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <p>⚡</p>

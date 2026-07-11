@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct HighlightOnChildrenComponent : IComponent
 </code></pre>
 <p>Component that specifies that any highlight should be applied on the children (instead of self).</p>
+<p><strong>Intent:</strong> Redirect highlight effects (such as <code>HighlightSpriteComponent</code>) from the parent entity to all of its children.</p>
+<p><strong>Use-case:</strong> Add to a composite entity (e.g. a multi-part character or door) so that hovering or selecting it highlights the child sprites rather than the root entity.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <p>⚡</p>
 

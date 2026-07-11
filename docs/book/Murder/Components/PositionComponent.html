@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct PositionComponent : IMurderTransformComponent, ITransformComponent, IParentRelativeComponent, IComponent, IEquatable&lt;T&gt;
 </code></pre>
 <p>Position component used to track entities positions within a grid.</p>
+<p><strong>Intent:</strong> Store the 2D world-space position (X, Y) of an entity, optionally relative to a parent transform.</p>
+<p><strong>Use-case:</strong> Attach to every entity that occupies a position in the game world; systems that move, render, or collide entities all read or write this component.</p>
 <p><strong>Implements:</strong> <em><a href="../../Murder/Components/IMurderTransformComponent.html">IMurderTransformComponent</a>, <a href="../../Bang/Components/ITransformComponent.html">ITransformComponent</a>, <a href="../../Bang/Components/IParentRelativeComponent.html">IParentRelativeComponent</a>, <a href="../../Bang/Components/IComponent.html">IComponent</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0">IEquatable&lt;T&gt;</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PositionComponent(Point p)
@@ -160,6 +162,7 @@
 </p>
 <pre><code class="language-csharp">public PositionComponent(float x, float y, IMurderTransformComponent parent)
 </code></pre>
+<p>Create a new <a href="../../Murder/Components/PositionComponent.html">PositionComponent</a> with an explicit parent transform.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
@@ -180,6 +183,7 @@
 <h4 id="angle"><a class="header" href="#angle">Angle</a></h4>
 <pre><code class="language-csharp">public virtual float Angle { get; }
 </code></pre>
+<p>Rotation angle of the transform, in radians. Always 0 for a plain position component.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="hasparent"><a class="header" href="#hasparent">HasParent</a></h4>
@@ -191,6 +195,7 @@
 <h4 id="scale"><a class="header" href="#scale">Scale</a></h4>
 <pre><code class="language-csharp">public virtual Vector2 Scale { get; }
 </code></pre>
+<p>Scale of the transform. Always (1, 1) for a plain position component.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="x"><a class="header" href="#x">X</a></h4>
@@ -217,6 +222,7 @@
 <h4 id="equalsobject"><a class="header" href="#equalsobject">Equals(Object)</a></h4>
 <pre><code class="language-csharp">public virtual bool Equals(Object obj)
 </code></pre>
+<p>Checks equality with an arbitrary object.</p>
 <p><strong>Parameters</strong> <br />
 <code>obj</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p><strong>Returns</strong> <br />
@@ -224,6 +230,7 @@
 <h4 id="addimurdertransformcomponent"><a class="header" href="#addimurdertransformcomponent">Add(IMurderTransformComponent)</a></h4>
 <pre><code class="language-csharp">public virtual IMurderTransformComponent Add(IMurderTransformComponent r)
 </code></pre>
+<p>Returns a new transform that is the sum of this position and <code>r</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>r</code> <a href="../../Murder/Components/IMurderTransformComponent.html">IMurderTransformComponent</a> </p>
 <p><strong>Returns</strong> <br />
@@ -231,6 +238,7 @@
 <h4 id="addvector2"><a class="header" href="#addvector2">Add(Vector2)</a></h4>
 <pre><code class="language-csharp">public virtual IMurderTransformComponent Add(Vector2 r)
 </code></pre>
+<p>Returns a new transform offset by the given vector.</p>
 <p><strong>Parameters</strong> <br />
 <code>r</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -244,6 +252,7 @@
 <h4 id="subtractimurdertransformcomponent"><a class="header" href="#subtractimurdertransformcomponent">Subtract(IMurderTransformComponent)</a></h4>
 <pre><code class="language-csharp">public virtual IMurderTransformComponent Subtract(IMurderTransformComponent r)
 </code></pre>
+<p>Returns a new transform that is the difference between this position and <code>r</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>r</code> <a href="../../Murder/Components/IMurderTransformComponent.html">IMurderTransformComponent</a> </p>
 <p><strong>Returns</strong> <br />
@@ -251,6 +260,7 @@
 <h4 id="subtractvector2"><a class="header" href="#subtractvector2">Subtract(Vector2)</a></h4>
 <pre><code class="language-csharp">public virtual IMurderTransformComponent Subtract(Vector2 r)
 </code></pre>
+<p>Returns a new transform with the given vector subtracted from this position.</p>
 <p><strong>Parameters</strong> <br />
 <code>r</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -258,6 +268,7 @@
 <h4 id="withfloat-float"><a class="header" href="#withfloat-float">With(float, float)</a></h4>
 <pre><code class="language-csharp">public virtual IMurderTransformComponent With(float x, float y)
 </code></pre>
+<p>Returns a new transform at the specified absolute X and Y coordinates.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
@@ -266,6 +277,7 @@
 <h4 id="gethashcode"><a class="header" href="#gethashcode">GetHashCode()</a></h4>
 <pre><code class="language-csharp">public virtual int GetHashCode()
 </code></pre>
+<p>Returns a hash code based on X and Y coordinates.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="withoutparent"><a class="header" href="#withoutparent">WithoutParent()</a></h4>

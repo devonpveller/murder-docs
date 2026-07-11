@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class GameProfile : GameAsset
 </code></pre>
 <p>Represents the game profile asset containing configuration and resource paths.</p>
+<p><strong>Intent:</strong> Serve as the single root configuration asset for the entire game: define viewport dimensions, asset directory paths, the starting scene, localization resources, and editor visual settings.</p>
+<p><strong>Use-case:</strong> Access via <code>Game.Profile</code> at runtime to read game-wide settings such as <code>GameWidth</code>, <code>GameHeight</code>, <code>StartingScene</code>, or <code>Theme</code>. Override fields in the editor to configure a new game project without touching code.</p>
 <p><strong>Implements:</strong> <em><a href="../../Murder/Assets/GameAsset.html">GameAsset</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public GameProfile()
@@ -185,21 +187,25 @@ atlas/</p>
 <h4 id="canbecreated"><a class="header" href="#canbecreated">CanBeCreated</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeCreated { get; }
 </code></pre>
+<p>Determines if the asset can be created, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canbedeleted"><a class="header" href="#canbedeleted">CanBeDeleted</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeDeleted { get; }
 </code></pre>
+<p>Determines if the asset can be deleted, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canberenamed"><a class="header" href="#canberenamed">CanBeRenamed</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeRenamed { get; }
 </code></pre>
+<p>Determines if the asset can be renamed, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canbesaved"><a class="header" href="#canbesaved">CanBeSaved</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeSaved { get; }
 </code></pre>
+<p>Determines if the asset can be saved, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="contentasepritepath"><a class="header" href="#contentasepritepath">ContentAsepritePath</a></h4>
@@ -224,6 +230,7 @@ ecs/</p>
 <h4 id="defaultgridcellsize"><a class="header" href="#defaultgridcellsize">DefaultGridCellSize</a></h4>
 <pre><code class="language-csharp">public readonly int DefaultGridCellSize;
 </code></pre>
+<p>Default grid cell size in pixels used by the world editor's tile grid.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="dialoguespath"><a class="header" href="#dialoguespath">DialoguesPath</a></h4>
@@ -238,26 +245,31 @@ dialogues/</p>
 <h4 id="editorassets"><a class="header" href="#editorassets">EditorAssets</a></h4>
 <pre><code class="language-csharp">public readonly EditorAssets EditorAssets;
 </code></pre>
+<p>Collection of sprite GUIDs used by the editor UI (cursors, dialogue icons, box backgrounds).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Assets/EditorAssets.html">EditorAssets</a> </p>
 <h4 id="editorcolor"><a class="header" href="#editorcolor">EditorColor</a></h4>
 <pre><code class="language-csharp">public virtual Vector4 EditorColor { get; }
 </code></pre>
+<p>Gets the default color used in the editor for this asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="editorfolder"><a class="header" href="#editorfolder">EditorFolder</a></h4>
 <pre><code class="language-csharp">public virtual string EditorFolder { get; }
 </code></pre>
+<p>Gets the folder path in the editor where this asset is grouped.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="exploration"><a class="header" href="#exploration">Exploration</a></h4>
 <pre><code class="language-csharp">public readonly Exploration Exploration;
 </code></pre>
+<p>Configuration for the map exploration/fog-of-war system, including tint colors and animation durations.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Assets/Exploration.html">Exploration</a> </p>
 <h4 id="feedbackkey"><a class="header" href="#feedbackkey">FeedbackKey</a></h4>
 <pre><code class="language-csharp">public readonly string FeedbackKey;
 </code></pre>
+<p>API key used to authenticate feedback or bug-report submissions.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="feedbackurl"><a class="header" href="#feedbackurl">FeedbackUrl</a></h4>
@@ -269,16 +281,19 @@ dialogues/</p>
 <h4 id="filechanged"><a class="header" href="#filechanged">FileChanged</a></h4>
 <pre><code class="language-csharp">public bool FileChanged { get; public set; }
 </code></pre>
+<p>Indicates whether the asset has unsaved modifications.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="filepath"><a class="header" href="#filepath">FilePath</a></h4>
 <pre><code class="language-csharp">public string FilePath { get; public set; }
 </code></pre>
+<p>Path to this asset file, relative to its base directory.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="fixedupdatefactor"><a class="header" href="#fixedupdatefactor">FixedUpdateFactor</a></h4>
 <pre><code class="language-csharp">public readonly float FixedUpdateFactor;
 </code></pre>
+<p>Multiplier applied to the fixed-update timestep, allowing the physics/game simulation to run slower or faster.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="fontpath"><a class="header" href="#fontpath">FontPath</a></h4>
@@ -302,6 +317,7 @@ fonts/</p>
 <h4 id="fullscreen"><a class="header" href="#fullscreen">Fullscreen</a></h4>
 <pre><code class="language-csharp">public bool Fullscreen;
 </code></pre>
+<p>Whether the game starts in fullscreen mode.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="gameheight"><a class="header" href="#gameheight">GameHeight</a></h4>
@@ -335,6 +351,7 @@ data/</p>
 <h4 id="guid"><a class="header" href="#guid">Guid</a></h4>
 <pre><code class="language-csharp">public Guid Guid { get; protected set; }
 </code></pre>
+<p>Unique identifier for this asset, used to reference it from other assets and components.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="hirespath"><a class="header" href="#hirespath">HiResPath</a></h4>
@@ -349,16 +366,19 @@ shaders/</p>
 <h4 id="icon"><a class="header" href="#icon">Icon</a></h4>
 <pre><code class="language-csharp">public virtual char Icon { get; }
 </code></pre>
+<p>FontAwesome character icon displayed next to this asset in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0">char</a> </p>
 <h4 id="isstoredinsavedata"><a class="header" href="#isstoredinsavedata">IsStoredInSaveData</a></h4>
 <pre><code class="language-csharp">public virtual bool IsStoredInSaveData { get; }
 </code></pre>
+<p>Whether this file is stored relative to the save path.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="isvsyncenabled"><a class="header" href="#isvsyncenabled">IsVSyncEnabled</a></h4>
 <pre><code class="language-csharp">public readonly bool IsVSyncEnabled;
 </code></pre>
+<p>Whether vertical synchronization is enabled; turning this off may cause screen tearing.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="localizationpath"><a class="header" href="#localizationpath">LocalizationPath</a></h4>
@@ -384,6 +404,7 @@ root/resources</p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public string Name { get; public set; }
 </code></pre>
+<p>Display name of this asset as shown in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="preloadtextures"><a class="header" href="#preloadtextures">PreloadTextures</a></h4>
@@ -396,11 +417,13 @@ actual game will be faster.</p>
 <h4 id="pushawayinterval"><a class="header" href="#pushawayinterval">PushAwayInterval</a></h4>
 <pre><code class="language-csharp">public readonly float PushAwayInterval;
 </code></pre>
+<p>Minimum time interval in seconds between successive push-away collision resolution steps.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="rename"><a class="header" href="#rename">Rename</a></h4>
 <pre><code class="language-csharp">public bool Rename { get; public set; }
 </code></pre>
+<p>Whether the file should be renamed and the previous name deleted on next save.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="resizestyle"><a class="header" href="#resizestyle">ResizeStyle</a></h4>
@@ -411,6 +434,7 @@ actual game will be faster.</p>
 <h4 id="savelocation"><a class="header" href="#savelocation">SaveLocation</a></h4>
 <pre><code class="language-csharp">public virtual string SaveLocation { get; }
 </code></pre>
+<p>The folder path where this asset is saved on disk.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="scalingfilter"><a class="header" href="#scalingfilter">ScalingFilter</a></h4>
@@ -431,6 +455,7 @@ shaders/</p>
 <h4 id="showuidebug"><a class="header" href="#showuidebug">ShowUiDebug</a></h4>
 <pre><code class="language-csharp">public readonly bool ShowUiDebug;
 </code></pre>
+<p>When true, enables UI debug overlays showing layout bounds and widget identifiers.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="soundspath"><a class="header" href="#soundspath">SoundsPath</a></h4>
@@ -445,35 +470,42 @@ sounds/</p>
 <h4 id="startingscene"><a class="header" href="#startingscene">StartingScene</a></h4>
 <pre><code class="language-csharp">public readonly Guid StartingScene;
 </code></pre>
+<p>GUID of the <code>WorldAsset</code> that is loaded when the game first starts.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="storeindatabase"><a class="header" href="#storeindatabase">StoreInDatabase</a></h4>
 <pre><code class="language-csharp">public virtual bool StoreInDatabase { get; }
 </code></pre>
+<p>Whether this asset is stored following the database hierarchy.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="taggedfordeletion"><a class="header" href="#taggedfordeletion">TaggedForDeletion</a></h4>
 <pre><code class="language-csharp">public bool TaggedForDeletion;
 </code></pre>
+<p>Marks this asset for removal on the next save.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="targetfps"><a class="header" href="#targetfps">TargetFps</a></h4>
 <pre><code class="language-csharp">public readonly int TargetFps;
 </code></pre>
+<p>Desired frame rate; the game loop targets this many frames per second.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="theme"><a class="header" href="#theme">Theme</a></h4>
 <pre><code class="language-csharp">public readonly Theme Theme;
 </code></pre>
+<p>The color palette used by the editor and in-game UI; override to apply a custom visual theme.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Assets/Theme.html">Theme</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="onmodified"><a class="header" href="#onmodified">OnModified()</a></h4>
 <pre><code class="language-csharp">protected virtual void OnModified()
 </code></pre>
+<p>Called by the editor when the asset is modified; override to clear cached derived data.</p>
 <h4 id="duplicatestring"><a class="header" href="#duplicatestring">Duplicate(string)</a></h4>
 <pre><code class="language-csharp">public GameAsset Duplicate(string name)
 </code></pre>
+<p>Creates a deep copy of this asset with the given new name.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -481,27 +513,33 @@ sounds/</p>
 <h4 id="assetstobesaved"><a class="header" href="#assetstobesaved">AssetsToBeSaved()</a></h4>
 <pre><code class="language-csharp">public List&lt;T&gt; AssetsToBeSaved()
 </code></pre>
+<p>Returns and clears the list of dependent assets queued to be saved alongside this asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <h4 id="getsimplifiedname"><a class="header" href="#getsimplifiedname">GetSimplifiedName()</a></h4>
 <pre><code class="language-csharp">public string GetSimplifiedName()
 </code></pre>
+<p>Returns the asset name stripped of any editor-folder prefix characters.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="getsplitnamewitheditorpath"><a class="header" href="#getsplitnamewitheditorpath">GetSplitNameWithEditorPath()</a></h4>
 <pre><code class="language-csharp">public String[] GetSplitNameWithEditorPath()
 </code></pre>
+<p>Returns the display name split into path segments following the EditorFolder hierarchy.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string[]</a> </p>
 <h4 id="afterdeserialized"><a class="header" href="#afterdeserialized">AfterDeserialized()</a></h4>
 <pre><code class="language-csharp">public virtual void AfterDeserialized()
 </code></pre>
+<p>Called after deserialization; override to rebuild caches from deserialized data.</p>
 <h4 id="makeguid"><a class="header" href="#makeguid">MakeGuid()</a></h4>
 <pre><code class="language-csharp">public void MakeGuid()
 </code></pre>
+<p>Generates and assigns a new GUID to this asset.</p>
 <h4 id="trackassetonsaveguid"><a class="header" href="#trackassetonsaveguid">TrackAssetOnSave(Guid)</a></h4>
 <pre><code class="language-csharp">public void TrackAssetOnSave(Guid g)
 </code></pre>
+<p>Queues a dependent asset by GUID to be saved whenever this asset is saved.</p>
 <p><strong>Parameters</strong> <br />
 <code>g</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p>⚡</p>

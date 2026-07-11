@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Line
 </code></pre>
+<p>A single authored line of dialogue, holding the speaker identity, optional portrait key, display text, optional timing delay, and an optional pre-line action.</p>
+<p><strong>Intent:</strong> Represents the smallest displayable unit in a dialogue script: who says what, which portrait to show, and how long to pause before or after it.</p>
+<p><strong>Use-case:</strong> Stored in <code>Dialog.Lines</code>; the dialogue system iterates them in order via <code>CharacterRuntime.NextLine</code> and passes each to the game's UI layer for display.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Line()
 </code></pre>
+<p>Creates an empty line with no speaker, text, or delay.</p>
 <pre><code class="language-csharp">public Line(LocalizedString text)
 </code></pre>
 <p>Create a line with a text without any speaker.</p>
@@ -165,11 +169,13 @@
 <code>text</code> <a href="../../../Murder/Assets/LocalizedString.html">LocalizedString</a> </p>
 <pre><code class="language-csharp">public Line(T? speaker, float delay)
 </code></pre>
+<p>Creates a timer-only line that pauses dialogue for <code>delay</code> seconds with no text.</p>
 <p><strong>Parameters</strong> <br />
 <code>speaker</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> <br />
 <code>delay</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <pre><code class="language-csharp">public Line(T? speaker, string portrait, T? text, T? delay)
 </code></pre>
+<p>Full constructor that sets every field; any field may be <code>null</code> to use the speaker's defaults.</p>
 <p><strong>Parameters</strong> <br />
 <code>speaker</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> <br />
 <code>portrait</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -177,6 +183,7 @@
 <code>delay</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <pre><code class="language-csharp">public Line(T? speaker)
 </code></pre>
+<p>Creates a line with only a speaker set; text and delay are left unset.</p>
 <p><strong>Parameters</strong> <br />
 <code>speaker</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
@@ -189,16 +196,19 @@
 <h4 id="istext"><a class="header" href="#istext">IsText</a></h4>
 <pre><code class="language-csharp">public bool IsText { get; }
 </code></pre>
+<p>Returns <code>true</code> when <code>Text</code> is non-null, indicating this line carries displayable content.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="portrait"><a class="header" href="#portrait">Portrait</a></h4>
 <pre><code class="language-csharp">public readonly string Portrait;
 </code></pre>
+<p>Optional portrait key overriding the speaker's default; <code>null</code> means use the speaker's default portrait.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="speaker"><a class="header" href="#speaker">Speaker</a></h4>
 <pre><code class="language-csharp">public readonly T? Speaker;
 </code></pre>
+<p>GUID of the <code>SpeakerAsset</code> delivering this line; <code>null</code> if no speaker is associated.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="text"><a class="header" href="#text">Text</a></h4>
@@ -211,6 +221,7 @@
 <h4 id="withdelayfloat"><a class="header" href="#withdelayfloat">WithDelay(float)</a></h4>
 <pre><code class="language-csharp">public Line WithDelay(float delay)
 </code></pre>
+<p>Returns a copy of this line with the <code>Delay</code> replaced.</p>
 <p><strong>Parameters</strong> <br />
 <code>delay</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -218,6 +229,7 @@
 <h4 id="withportraitstring"><a class="header" href="#withportraitstring">WithPortrait(string)</a></h4>
 <pre><code class="language-csharp">public Line WithPortrait(string portrait)
 </code></pre>
+<p>Returns a copy of this line with the <code>Portrait</code> replaced.</p>
 <p><strong>Parameters</strong> <br />
 <code>portrait</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -225,6 +237,7 @@
 <h4 id="withspeakerguid"><a class="header" href="#withspeakerguid">WithSpeaker(Guid)</a></h4>
 <pre><code class="language-csharp">public Line WithSpeaker(Guid speaker)
 </code></pre>
+<p>Returns a copy of this line with the <code>Speaker</code> replaced.</p>
 <p><strong>Parameters</strong> <br />
 <code>speaker</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -232,6 +245,7 @@
 <h4 id="withspeakerandportraitguid-string"><a class="header" href="#withspeakerandportraitguid-string">WithSpeakerAndPortrait(Guid, string)</a></h4>
 <pre><code class="language-csharp">public Line WithSpeakerAndPortrait(Guid speaker, string portrait)
 </code></pre>
+<p>Returns a copy of this line with both <code>Speaker</code> and <code>Portrait</code> replaced.</p>
 <p><strong>Parameters</strong> <br />
 <code>speaker</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
 <code>portrait</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
@@ -240,6 +254,7 @@
 <h4 id="withtextlocalizedstring"><a class="header" href="#withtextlocalizedstring">WithText(LocalizedString)</a></h4>
 <pre><code class="language-csharp">public Line WithText(LocalizedString text)
 </code></pre>
+<p>Returns a copy of this line with the <code>Text</code> replaced.</p>
 <p><strong>Parameters</strong> <br />
 <code>text</code> <a href="../../../Murder/Assets/LocalizedString.html">LocalizedString</a> </p>
 <p><strong>Returns</strong> <br />

@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class InputHelpers
 </code></pre>
+<p>Utilities for text fitting, line counting, and D-pad slot label formatting used by input display systems.</p>
+<p><strong>Intent:</strong> Provides helpers for measuring and wrapping text within a pixel width, and for converting numeric input slot indices to display strings.</p>
+<p><strong>Use-case:</strong> Use <code>FitToWidth</code> and <code>GetAmountOfLines</code> for dialogue text layout, and <code>IntToDPad</code> to render controller button labels.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="fittowidthreadonlyspan1-int"><a class="header" href="#fittowidthreadonlyspan1-int">FitToWidth(ReadOnlySpan`1&amp;, int)</a></h4>
 <pre><code class="language-csharp">public bool FitToWidth(ReadOnlySpan`1&amp; text, int width)
 </code></pre>
+<p>Truncates or word-wraps the text span to fit within the given pixel width; returns <code>true</code> if the text was modified.</p>
 <p><strong>Parameters</strong> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ReadOnlySpan-1?view=net-7.0">ReadOnlySpan&lt;T&gt;&amp;</a> <br />
 <code>width</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -161,6 +165,7 @@
 <h4 id="getamountoflinesreadonlyspan-int"><a class="header" href="#getamountoflinesreadonlyspan-int">GetAmountOfLines(ReadOnlySpan<T>, int)</a></h4>
 <pre><code class="language-csharp">public int GetAmountOfLines(ReadOnlySpan&lt;T&gt; text, int width)
 </code></pre>
+<p>Returns the number of display lines the text would occupy when rendered at the given pixel width.</p>
 <p><strong>Parameters</strong> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ReadOnlySpan-1?view=net-7.0">ReadOnlySpan&lt;T&gt;</a> <br />
 <code>width</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -169,6 +174,7 @@
 <h4 id="inttodpadint"><a class="header" href="#inttodpadint">IntToDPad(int)</a></h4>
 <pre><code class="language-csharp">public string IntToDPad(int slot)
 </code></pre>
+<p>Converts a numeric input slot index to its corresponding D-pad button label string.</p>
 <p><strong>Parameters</strong> <br />
 <code>slot</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -176,6 +182,7 @@
 <h4 id="clampint"><a class="header" href="#clampint">Clamp(int)</a></h4>
 <pre><code class="language-csharp">public void Clamp(int length)
 </code></pre>
+<p>Clamps the current input or text value to the given maximum character length.</p>
 <p><strong>Parameters</strong> <br />
 <code>length</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

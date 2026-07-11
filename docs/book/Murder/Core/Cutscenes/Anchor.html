@@ -149,23 +149,30 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Anchor
 </code></pre>
+<p>A named 2D world-space position used to place entities and camera targets during cutscenes.</p>
+<p><strong>Intent:</strong> Immutable position value that designates a specific point in the world for cutscene staging or entity spawning.</p>
+<p><strong>Use-case:</strong> Reference an <code>Anchor</code> on a cutscene entity to set where actors should move to or where the camera should focus during a scripted sequence.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Anchor()
 </code></pre>
+<p>Creates an <code>Anchor</code> at position <code>Vector2.Zero</code>.</p>
 <pre><code class="language-csharp">public Anchor(Vector2 position)
 </code></pre>
+<p>Creates an <code>Anchor</code> at the specified world-space <code>position</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="position"><a class="header" href="#position">Position</a></h4>
 <pre><code class="language-csharp">public readonly Vector2 Position;
 </code></pre>
+<p>The world-space position of this anchor point.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="withpositionvector2"><a class="header" href="#withpositionvector2">WithPosition(Vector2)</a></h4>
 <pre><code class="language-csharp">public Anchor WithPosition(Vector2 position)
 </code></pre>
+<p>Returns a copy of this anchor with <code>Position</code> replaced by the given <code>position</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />

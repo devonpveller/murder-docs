@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct EmitterShape
 </code></pre>
+<p>Defines the geometric area from which particles are spawned, along with the shape-specific data (rectangle, line, or circle).</p>
+<p><strong>Intent:</strong> Describe the spatial origin of a particle emitter.</p>
+<p><strong>Use-case:</strong> Set <code>Kind</code> to the desired <code>EmitterShapeKind</code> and populate the corresponding geometry field (<code>Rectangle</code>, <code>Line</code>, or <code>Circle</code>) on the emitter asset. Call <code>GetRandomPosition()</code> at runtime to obtain a spawn origin for each particle.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public EmitterShape()
 </code></pre>
@@ -156,27 +159,32 @@
 <h4 id="circle"><a class="header" href="#circle">Circle</a></h4>
 <pre><code class="language-csharp">public readonly Circle Circle;
 </code></pre>
+<p>The circle used when <code>Kind</code> is <code>EmitterShapeKind.Circle</code> or <code>EmitterShapeKind.CircleOutline</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Circle.html">Circle</a> </p>
 <h4 id="kind"><a class="header" href="#kind">Kind</a></h4>
 <pre><code class="language-csharp">public readonly EmitterShapeKind Kind;
 </code></pre>
+<p>The type of shape from which particles originate.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/EmitterShapeKind.html">EmitterShapeKind</a> </p>
 <h4 id="line"><a class="header" href="#line">Line</a></h4>
 <pre><code class="language-csharp">public readonly Line2 Line;
 </code></pre>
+<p>The line segment used when <code>Kind</code> is <code>EmitterShapeKind.Line</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Line2.html">Line2</a> </p>
 <h4 id="rectangle"><a class="header" href="#rectangle">Rectangle</a></h4>
 <pre><code class="language-csharp">public readonly Rectangle Rectangle;
 </code></pre>
+<p>The rectangle used when <code>Kind</code> is <code>EmitterShapeKind.Rectangle</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getrandompositionrandom"><a class="header" href="#getrandompositionrandom">GetRandomPosition(Random)</a></h4>
 <pre><code class="language-csharp">public Vector2 GetRandomPosition(Random random)
 </code></pre>
+<p>Returns a random spawn position within or along this emitter shape.</p>
 <p><strong>Parameters</strong> <br />
 <code>random</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Random?view=net-7.0">Random</a> </p>
 <p><strong>Returns</strong> <br />

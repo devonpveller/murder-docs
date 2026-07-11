@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SquishComponent : IComponent
 </code></pre>
+<p>Drives a short squash-and-stretch animation on an entity's scale, typically used as a hit-reaction or bounce effect.</p>
+<p><strong>Intent:</strong> Play a timed scale squish animation without needing a dedicated animation asset.</p>
+<p><strong>Use-case:</strong> Add to an entity when it takes a hit or lands a jump; the system interpolates the scale using the specified ease curves over <code>Duration</code> seconds, then removes the component.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SquishComponent(EaseKind easeIn, EaseKind easeOut, float start, float duration, float amount)
@@ -170,31 +173,37 @@
 <h4 id="amount"><a class="header" href="#amount">Amount</a></h4>
 <pre><code class="language-csharp">public readonly float Amount;
 </code></pre>
+<p>Peak squish/stretch magnitude; positive values stretch, negative values compress.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="duration"><a class="header" href="#duration">Duration</a></h4>
 <pre><code class="language-csharp">public readonly float Duration;
 </code></pre>
+<p>Total duration of the squish animation in seconds.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="easein"><a class="header" href="#easein">EaseIn</a></h4>
 <pre><code class="language-csharp">public readonly T? EaseIn;
 </code></pre>
+<p>Optional ease curve for the first half of the squish animation. Null uses a single ease-out curve for the whole animation.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="easeout"><a class="header" href="#easeout">EaseOut</a></h4>
 <pre><code class="language-csharp">public readonly T? EaseOut;
 </code></pre>
+<p>Ease curve applied to the recovery (or the full animation if <code>EaseIn</code> is null).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="scaledtime"><a class="header" href="#scaledtime">ScaledTime</a></h4>
 <pre><code class="language-csharp">public bool ScaledTime { get; public set; }
 </code></pre>
+<p>When true, the animation advances using game-scaled time; when false, it uses unscaled real time.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="start"><a class="header" href="#start">Start</a></h4>
 <pre><code class="language-csharp">public readonly float Start;
 </code></pre>
+<p>Game time (in seconds) at which the squish animation begins.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

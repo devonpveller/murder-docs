@@ -151,6 +151,8 @@
 </code></pre>
 <p>This is a struct that points to a singleton class.
 Reactive systems won't be able to subscribe to this component.</p>
+<p><strong>Intent:</strong> Hold the shared Hierarchical A* pathfinding data structure for the world, allowing agents to query pre-computed path hierarchies.</p>
+<p><strong>Use-case:</strong> Added once to the world entity (it is <code>[Unique]</code>); pathfinding systems read <code>Data</code> to perform HA* queries without rebuilding the hierarchy each frame.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IModifiableComponent.html">IModifiableComponent</a>, <a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public HAAStarPathfindComponent(int width, int height)
@@ -162,17 +164,20 @@ Reactive systems won't be able to subscribe to this component.</p>
 <h4 id="data"><a class="header" href="#data">Data</a></h4>
 <pre><code class="language-csharp">public readonly HAAStar Data;
 </code></pre>
+<p>The shared Hierarchical A* data structure used by pathfinding systems to compute optimal paths.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Ai/HAAStar.html">HAAStar</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="subscribeaction"><a class="header" href="#subscribeaction">Subscribe(Action)</a></h4>
 <pre><code class="language-csharp">public virtual void Subscribe(Action _)
 </code></pre>
+<p>No-op implementation; reactive subscriptions are not supported for this component.</p>
 <p><strong>Parameters</strong> <br />
 <code>_</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0">Action</a> </p>
 <h4 id="unsubscribeaction"><a class="header" href="#unsubscribeaction">Unsubscribe(Action)</a></h4>
 <pre><code class="language-csharp">public virtual void Unsubscribe(Action _)
 </code></pre>
+<p>No-op implementation; reactive subscriptions are not supported for this component.</p>
 <p><strong>Parameters</strong> <br />
 <code>_</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0">Action</a> </p>
 <p>⚡</p>

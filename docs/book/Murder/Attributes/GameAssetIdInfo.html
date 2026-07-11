@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct GameAssetIdInfo
 </code></pre>
+<p>Bundles the target <code>GameAsset</code> type and the inheritance flag from a <code>GameAssetIdAttribute</code> into a single value object for editor use.</p>
+<p><strong>Intent:</strong> Aggregate the asset-type metadata from <code>GameAssetIdAttribute</code> into a convenient struct that editor rendering code can query.</p>
+<p><strong>Use-case:</strong> Typically created internally when the editor reads a <code>GameAssetIdAttribute</code> from a field. Pass it to editor systems that need both the allowed asset type and whether derived types are also accepted.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public GameAssetIdInfo(Type t, bool allowInheritance)
 </code></pre>
+<p>Creates a new info record with the specified asset type and inheritance flag.</p>
 <p><strong>Parameters</strong> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> <br />
 <code>allowInheritance</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>

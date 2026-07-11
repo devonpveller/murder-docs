@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SituationComponent : IComponent
 </code></pre>
+<p>Links an entity to a specific dialogue situation within a <a href="../../Murder/Assets/Dialogs/CharacterAsset.html">CharacterAsset</a>, allowing it to start a conversation at a defined entry point.</p>
+<p><strong>Intent:</strong> Store which character and which dialogue branch an interactable entity will trigger.</p>
+<p><strong>Use-case:</strong> Attach to NPC or interactive objects; when a player interacts, the dialogue system reads <code>Character</code> and <code>Situation</code> to find the correct script to execute.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SituationComponent()
@@ -162,11 +165,13 @@
 <h4 id="character"><a class="header" href="#character">Character</a></h4>
 <pre><code class="language-csharp">public readonly Guid Character;
 </code></pre>
+<p>GUID of the <a href="../../Murder/Assets/Dialogs/CharacterAsset.html">CharacterAsset</a> whose dialogue this entity triggers.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="empty"><a class="header" href="#empty">Empty</a></h4>
 <pre><code class="language-csharp">public bool Empty { get; }
 </code></pre>
+<p>Returns true when no character has been assigned to this situation.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="situation"><a class="header" href="#situation">Situation</a></h4>
@@ -179,6 +184,7 @@
 <h4 id="withsituationint"><a class="header" href="#withsituationint">WithSituation(int)</a></h4>
 <pre><code class="language-csharp">public SituationComponent WithSituation(int situation)
 </code></pre>
+<p>Returns a new component with the situation identifier replaced by the given value.</p>
 <p><strong>Parameters</strong> <br />
 <code>situation</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />

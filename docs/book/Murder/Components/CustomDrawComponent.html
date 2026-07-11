@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct CustomDrawComponent : IComponent
 </code></pre>
+<p>Holds a delegate that is invoked each render frame to perform arbitrary custom drawing for this entity.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Lets code-driven entities supply their own render logic without needing a dedicated system or sprite asset.</p>
+<p><strong>Use-case:</strong> Attach at runtime and pass a lambda that calls <code>RenderContext</code> drawing methods; the render system will invoke it each frame for the owning entity.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public CustomDrawComponent(Action&lt;T&gt; draw)
 </code></pre>
@@ -159,6 +162,7 @@
 <h4 id="draw"><a class="header" href="#draw">Draw</a></h4>
 <pre><code class="language-csharp">public readonly Action&lt;T&gt; Draw;
 </code></pre>
+<p>Delegate invoked with the current <code>RenderContext</code> to perform this entity's custom rendering.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action-1?view=net-7.0">Action&lt;T&gt;</a> </p>
 <p>⚡</p>

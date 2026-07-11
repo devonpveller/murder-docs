@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct GenericMenuInfo&lt;T&gt;
 </code></pre>
+<p>State container for a typed menu with keyboard/gamepad navigation — tracks selection, scroll, overflow, and cancel state.</p>
+<p><strong>Intent:</strong> Drive strongly-typed menu navigation with <code>PlayerInput.VerticalMenu&lt;T&gt;()</code>.</p>
+<p><strong>Use-case:</strong> Declare a <code>GenericMenuInfo&lt;MyOption&gt;</code> field in your UI state. Pass it by reference to <code>PlayerInput.VerticalMenu&lt;T&gt;()</code> or <code>GridMenu&lt;T&gt;()</code> each frame to receive selection updates and pressed/canceled flags.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public GenericMenuInfo&lt;T&gt;(T[] options)
 </code></pre>
@@ -189,31 +192,37 @@
 <h4 id="options"><a class="header" href="#options">Options</a></h4>
 <pre><code class="language-csharp">public T[] Options;
 </code></pre>
+<p>The array of options available in this menu.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../">T[]</a> </p>
 <h4 id="overflow"><a class="header" href="#overflow">Overflow</a></h4>
 <pre><code class="language-csharp">public int Overflow;
 </code></pre>
+<p>Direction the cursor tried to move beyond the menu's bounds (−1, 0, or +1).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="previousselection"><a class="header" href="#previousselection">PreviousSelection</a></h4>
 <pre><code class="language-csharp">public int PreviousSelection;
 </code></pre>
+<p>The index that was selected before the most recent navigation.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="scroll"><a class="header" href="#scroll">Scroll</a></h4>
 <pre><code class="language-csharp">public int Scroll;
 </code></pre>
+<p>The index of the first visible option when the list is taller than <code>VisibleItems</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="selection"><a class="header" href="#selection">Selection</a></h4>
 <pre><code class="language-csharp">public int Selection { get; private set; }
 </code></pre>
+<p>The currently highlighted option index.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="sounds"><a class="header" href="#sounds">Sounds</a></h4>
 <pre><code class="language-csharp">public MenuSounds Sounds;
 </code></pre>
+<p>Sound events played on selection change, submit, and cancel.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Sounds/MenuSounds.html">MenuSounds</a> </p>
 <h4 id="visibleitems"><a class="header" href="#visibleitems">VisibleItems</a></h4>
@@ -226,6 +235,7 @@
 <h4 id="nextavailableoptionint-int"><a class="header" href="#nextavailableoptionint-int">NextAvailableOption(int, int)</a></h4>
 <pre><code class="language-csharp">public int NextAvailableOption(int option, int direction)
 </code></pre>
+<p>Returns the next selectable option index starting from <code>option</code> and moving in <code>direction</code> (+1 or −1), wrapping around.</p>
 <p><strong>Parameters</strong> <br />
 <code>option</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <br />
@@ -237,12 +247,14 @@
 <h4 id="selectint-float"><a class="header" href="#selectint-float">Select(int, float)</a></h4>
 <pre><code class="language-csharp">public void Select(int index, float now)
 </code></pre>
+<p>Moves the selection to <code>index</code>, plays the selection-change sound if the index changed, and records the move timestamp.</p>
 <p><strong>Parameters</strong> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>now</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="selectint"><a class="header" href="#selectint">Select(int)</a></h4>
 <pre><code class="language-csharp">public void Select(int index)
 </code></pre>
+<p>Moves the selection to <code>index</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

@@ -151,6 +151,8 @@
 </code></pre>
 <p>For now, this is only supported for aseprite components.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Fades an entity's sprite in or out when another entity (typically the player) enters or exits this entity's collision area.</p>
+<p><strong>Use-case:</strong> Attach to foliage, walls, or foreground elements that should become transparent when the player walks behind them; configure <code>Style</code>, <code>Duration</code>, and <code>AppliesTo</code> to control which entities trigger the fade and how quickly.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FadeWhenInAreaComponent()
 </code></pre>
@@ -158,21 +160,25 @@
 <h4 id="appliesto"><a class="header" href="#appliesto">AppliesTo</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; AppliesTo;
 </code></pre>
+<p>Names of the child entities or tags that trigger this fade when they enter the area; an empty list applies to all entities.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="duration"><a class="header" href="#duration">Duration</a></h4>
 <pre><code class="language-csharp">public readonly float Duration;
 </code></pre>
+<p>Time in seconds over which the fade transition completes.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="fadechildren"><a class="header" href="#fadechildren">FadeChildren</a></h4>
 <pre><code class="language-csharp">public readonly bool FadeChildren;
 </code></pre>
+<p>When <code>true</code>, child entities of this entity are also faded along with the parent.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="style"><a class="header" href="#style">Style</a></h4>
 <pre><code class="language-csharp">public readonly FadeWhenInAreaStyle Style;
 </code></pre>
+<p>Controls whether the entity hides when inside the area, shows when inside it, or permanently hides after the first entry.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/FadeWhenInAreaStyle.html">FadeWhenInAreaStyle</a> </p>
 <p>⚡</p>

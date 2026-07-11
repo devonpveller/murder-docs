@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct MenuInfo
 </code></pre>
+<p>State container for a <code>MenuOption</code>-based menu with keyboard/gamepad navigation, scroll, and per-option availability.</p>
+<p><strong>Intent:</strong> Drive a simple navigable menu backed by <code>MenuOption</code> entries.</p>
+<p><strong>Use-case:</strong> Declare a <code>MenuInfo</code> and pass it by reference to <code>PlayerInput.VerticalMenu()</code> or <code>HorizontalMenu()</code> each frame. Read <code>Selection</code> for the highlighted index and check the return value for a confirmed press.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MenuInfo()
 </code></pre>
@@ -172,16 +175,19 @@
 <h4 id="canceled"><a class="header" href="#canceled">Canceled</a></h4>
 <pre><code class="language-csharp">public bool Canceled;
 </code></pre>
+<p>Set to <code>true</code> this frame if the cancel button was pressed.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="disabled"><a class="header" href="#disabled">Disabled</a></h4>
 <pre><code class="language-csharp">public bool Disabled;
 </code></pre>
+<p>When <code>true</code>, navigation input is ignored and the menu will not move.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="hasoptions"><a class="header" href="#hasoptions">HasOptions</a></h4>
 <pre><code class="language-csharp">public bool HasOptions { get; }
 </code></pre>
+<p>Returns <code>true</code> if <code>Options</code> is non-null and non-empty.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="icons"><a class="header" href="#icons">Icons</a></h4>
@@ -193,21 +199,25 @@
 <h4 id="justmoved"><a class="header" href="#justmoved">JustMoved</a></h4>
 <pre><code class="language-csharp">public bool JustMoved;
 </code></pre>
+<p><code>true</code> for the frame when the selection index changed.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="largestoptiontext"><a class="header" href="#largestoptiontext">LargestOptionText</a></h4>
 <pre><code class="language-csharp">public float LargestOptionText { get; }
 </code></pre>
+<p>The pixel width of the widest option text label, used for sizing the menu container.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="lastmoved"><a class="header" href="#lastmoved">LastMoved</a></h4>
 <pre><code class="language-csharp">public float LastMoved;
 </code></pre>
+<p>Timestamp (unscaled time) of the most recent selection change.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="lastpressed"><a class="header" href="#lastpressed">LastPressed</a></h4>
 <pre><code class="language-csharp">public float LastPressed;
 </code></pre>
+<p>Timestamp (unscaled time) of the most recent submit press.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="length"><a class="header" href="#length">Length</a></h4>
@@ -219,31 +229,37 @@
 <h4 id="options"><a class="header" href="#options">Options</a></h4>
 <pre><code class="language-csharp">public MenuOption[] Options;
 </code></pre>
+<p>The array of selectable options in this menu.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Services/MenuOption.html">MenuOption[]</a> </p>
 <h4 id="overflow"><a class="header" href="#overflow">Overflow</a></h4>
 <pre><code class="language-csharp">public int Overflow;
 </code></pre>
+<p>Direction the cursor tried to move beyond the menu's bounds (−1, 0, or +1).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="previousselection"><a class="header" href="#previousselection">PreviousSelection</a></h4>
 <pre><code class="language-csharp">public int PreviousSelection;
 </code></pre>
+<p>The index that was selected before the most recent navigation.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="scroll"><a class="header" href="#scroll">Scroll</a></h4>
 <pre><code class="language-csharp">public int Scroll;
 </code></pre>
+<p>The index of the first visible option when the list is taller than <code>VisibleItems</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="selection"><a class="header" href="#selection">Selection</a></h4>
 <pre><code class="language-csharp">public int Selection { get; private set; }
 </code></pre>
+<p>The currently highlighted option index.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="sounds"><a class="header" href="#sounds">Sounds</a></h4>
 <pre><code class="language-csharp">public MenuSounds Sounds;
 </code></pre>
+<p>Sound events played on selection change, submit, and cancel.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Sounds/MenuSounds.html">MenuSounds</a> </p>
 <h4 id="visibleitems"><a class="header" href="#visibleitems">VisibleItems</a></h4>
@@ -256,6 +272,7 @@
 <h4 id="isoptionavailableint"><a class="header" href="#isoptionavailableint">IsOptionAvailable(int)</a></h4>
 <pre><code class="language-csharp">public bool IsOptionAvailable(int option)
 </code></pre>
+<p>Returns <code>true</code> if the option at <code>option</code> is currently selectable.</p>
 <p><strong>Parameters</strong> <br />
 <code>option</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -263,6 +280,7 @@
 <h4 id="nextavailableoptionint-int"><a class="header" href="#nextavailableoptionint-int">NextAvailableOption(int, int)</a></h4>
 <pre><code class="language-csharp">public int NextAvailableOption(int option, int direction)
 </code></pre>
+<p>Returns the next selectable option index starting from <code>option</code> moving in <code>direction</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>option</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <br />
@@ -274,6 +292,7 @@
 <h4 id="disablebool"><a class="header" href="#disablebool">Disable(bool)</a></h4>
 <pre><code class="language-csharp">public MenuInfo Disable(bool disabled)
 </code></pre>
+<p>Returns a copy of this <code>MenuInfo</code> with <code>Disabled</code> set to <code>disabled</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>disabled</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <p><strong>Returns</strong> <br />
@@ -281,6 +300,7 @@
 <h4 id="getoptiontextint"><a class="header" href="#getoptiontextint">GetOptionText(int)</a></h4>
 <pre><code class="language-csharp">public string GetOptionText(int index)
 </code></pre>
+<p>Returns the display text for the option at <code>index</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -288,19 +308,23 @@
 <h4 id="getselectedoptiontext"><a class="header" href="#getselectedoptiontext">GetSelectedOptionText()</a></h4>
 <pre><code class="language-csharp">public string GetSelectedOptionText()
 </code></pre>
+<p>Returns the display text for the currently selected option.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="cancel"><a class="header" href="#cancel">Cancel()</a></h4>
 <pre><code class="language-csharp">public void Cancel()
 </code></pre>
+<p>Marks this menu as canceled.</p>
 <h4 id="clampint"><a class="header" href="#clampint">Clamp(int)</a></h4>
 <pre><code class="language-csharp">public void Clamp(int max)
 </code></pre>
+<p>Clamps <code>Selection</code> to be within [0, <code>max</code>-1].</p>
 <p><strong>Parameters</strong> <br />
 <code>max</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="pressfloat"><a class="header" href="#pressfloat">Press(float)</a></h4>
 <pre><code class="language-csharp">public void Press(float now)
 </code></pre>
+<p>Records a submit press at time <code>now</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>now</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="reset"><a class="header" href="#reset">Reset()</a></h4>
@@ -310,27 +334,32 @@
 <h4 id="resizeint"><a class="header" href="#resizeint">Resize(int)</a></h4>
 <pre><code class="language-csharp">public void Resize(int size)
 </code></pre>
+<p>Resizes the options array to <code>size</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>size</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="selectint-float"><a class="header" href="#selectint-float">Select(int, float)</a></h4>
 <pre><code class="language-csharp">public void Select(int index, float now)
 </code></pre>
+<p>Moves selection to <code>index</code> and records the timestamp <code>now</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>now</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="selectint"><a class="header" href="#selectint">Select(int)</a></h4>
 <pre><code class="language-csharp">public void Select(int index)
 </code></pre>
+<p>Moves selection to <code>index</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="snapleftint"><a class="header" href="#snapleftint">SnapLeft(int)</a></h4>
 <pre><code class="language-csharp">public void SnapLeft(int width)
 </code></pre>
+<p>Snaps the selection to the leftmost column in a grid menu of <code>width</code> columns.</p>
 <p><strong>Parameters</strong> <br />
 <code>width</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="snaprightint"><a class="header" href="#snaprightint">SnapRight(int)</a></h4>
 <pre><code class="language-csharp">public void SnapRight(int width)
 </code></pre>
+<p>Snaps the selection to the rightmost column in a grid menu of <code>width</code> columns.</p>
 <p><strong>Parameters</strong> <br />
 <code>width</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

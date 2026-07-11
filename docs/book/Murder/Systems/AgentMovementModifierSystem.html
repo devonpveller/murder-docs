@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class AgentMovementModifierSystem : IMessagerSystem, ISystem
 </code></pre>
+<p>Listens for <code>OnCollisionMessage</code> events on entities with <code>MovementModAreaComponent</code> and applies or removes movement-speed modifiers to agents as they enter or exit the area.</p>
+<p><strong>Intent:</strong> Applies area-based movement modifiers to agents when they enter or exit a designated movement-modification zone.</p>
+<p><strong>Use-case:</strong> Add to any world where you want environmental areas (e.g., mud, water, wind corridors) to dynamically alter agent movement speed.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IMessagerSystem.html">IMessagerSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AgentMovementModifierSystem()
@@ -157,6 +160,7 @@
 <h4 id="onmessageworld-entity-imessage"><a class="header" href="#onmessageworld-entity-imessage">OnMessage(World, Entity, IMessage)</a></h4>
 <pre><code class="language-csharp">public virtual void OnMessage(World world, Entity entity, IMessage message)
 </code></pre>
+<p>Routes the collision message to <code>OnEnter</code> or <code>OnExit</code> depending on the collision direction, updating the <code>InsideMovementModAreaComponent</code> on the colliding entity.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

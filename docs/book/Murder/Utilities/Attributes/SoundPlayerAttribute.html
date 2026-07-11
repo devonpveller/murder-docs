@@ -151,6 +151,8 @@
 </code></pre>
 <p>Attribute used for IComponent structs that will change according to 
 a &quot;story&quot;. This is used for debugging and filtering in editor.</p>
+<p><strong>Intent:</strong> Marks a field as a sound player or bank reference.</p>
+<p><strong>Use-case:</strong> Apply to a string field in a component to display a sound player or bank selector in the editor.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SoundPlayerAttribute()
@@ -159,6 +161,7 @@ a &quot;story&quot;. This is used for debugging and filtering in editor.</p>
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique object identity for this attribute type, inherited from <code>Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

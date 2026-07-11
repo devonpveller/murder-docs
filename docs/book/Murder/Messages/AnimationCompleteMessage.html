@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AnimationCompleteMessage : IMessage
 </code></pre>
+<p>Sent by sprite systems when an animation finishes playing, carrying information about how it completed.</p>
+<p><strong>Intent:</strong> Notify listening systems that an entity's current animation has reached its last frame.</p>
+<p><strong>Use-case:</strong> Listen for this message in gameplay systems to trigger follow-up logic—such as destroying a projectile after its impact animation completes, or chaining a walk animation into an idle animation once a movement sequence finishes.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IMessage.html">IMessage</a></em></p>
 <p>⚡</p>
 

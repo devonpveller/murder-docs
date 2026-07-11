@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class PixelFontCharacter
 </code></pre>
+<p>Stores per-glyph metrics for a single character in a bitmap font.</p>
+<p><strong>Intent:</strong> Represents one character's position in the atlas texture along with its draw offsets, advance width, and optional kerning pairs.</p>
+<p><strong>Use-case:</strong> Used internally by <code>PixelFontSize</code> during text layout; inspect directly when building custom text rendering or measuring individual glyphs.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PixelFontCharacter()
 </code></pre>
@@ -164,36 +167,43 @@
 <h4 id="character"><a class="header" href="#character">Character</a></h4>
 <pre><code class="language-csharp">public int Character;
 </code></pre>
+<p>Unicode codepoint of this glyph.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="glyph"><a class="header" href="#glyph">Glyph</a></h4>
 <pre><code class="language-csharp">public Rectangle Glyph;
 </code></pre>
+<p>Source rectangle within the atlas texture that contains this glyph's bitmap.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <h4 id="kerning"><a class="header" href="#kerning">Kerning</a></h4>
 <pre><code class="language-csharp">public ImmutableDictionary&lt;TKey, TValue&gt; Kerning;
 </code></pre>
+<p>Optional per-following-character horizontal adjustments applied after this glyph; keys are the next character's codepoint and values are pixel offsets.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0">ImmutableDictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="page"><a class="header" href="#page">Page</a></h4>
 <pre><code class="language-csharp">public int Page;
 </code></pre>
+<p>Index of the atlas texture page that contains this glyph.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="xadvance"><a class="header" href="#xadvance">XAdvance</a></h4>
 <pre><code class="language-csharp">public int XAdvance;
 </code></pre>
+<p>Horizontal advance in pixels — how far the cursor moves right after drawing this glyph.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="xoffset"><a class="header" href="#xoffset">XOffset</a></h4>
 <pre><code class="language-csharp">public int XOffset;
 </code></pre>
+<p>Horizontal draw offset in pixels applied relative to the current cursor position before rendering the glyph.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="yoffset"><a class="header" href="#yoffset">YOffset</a></h4>
 <pre><code class="language-csharp">public int YOffset;
 </code></pre>
+<p>Vertical draw offset in pixels applied relative to the baseline before rendering the glyph.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

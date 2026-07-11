@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct PersistStageInfo
 </code></pre>
+<p>Stores the last-known camera state for an editor stage so it can be restored on next open.</p>
+<p><strong>Intent:</strong> Persists the editor camera's position, viewport size, and zoom level per-stage so the developer returns to the same view after reopening a scene.</p>
+<p><strong>Use-case:</strong> Saved automatically by the editor into <code>EditorSettingsAsset.CameraPositions</code> whenever the user navigates the stage view.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PersistStageInfo(Point position, Point size, int zoom)
 </code></pre>
+<p>Creates a snapshot of the current camera position, viewport size, and zoom level.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> <br />
 <code>size</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> <br />
@@ -160,6 +164,7 @@
 <h4 id="position"><a class="header" href="#position">Position</a></h4>
 <pre><code class="language-csharp">public readonly Point Position;
 </code></pre>
+<p>World-space pixel position of the camera when this snapshot was taken.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="size"><a class="header" href="#size">Size</a></h4>
@@ -171,6 +176,7 @@
 <h4 id="zoom"><a class="header" href="#zoom">Zoom</a></h4>
 <pre><code class="language-csharp">public readonly int Zoom;
 </code></pre>
+<p>Zoom level of the editor camera when this snapshot was taken.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

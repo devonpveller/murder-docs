@@ -149,21 +149,27 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class TextureServices
 </code></pre>
+<p>Utilities for loading <code>Texture2D</code> assets from disk, supporting both PNG and QOI+GZ formats.</p>
+<p><strong>Intent:</strong> Abstracts format-aware texture loading so game code can load images without knowing the underlying file format.</p>
+<p><strong>Use-case:</strong> Call <code>FromFile</code> to load any supported texture from a file path during asset loading or hot-reload operations.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="png_extension"><a class="header" href="#png_extension">PNG_EXTENSION</a></h4>
 <pre><code class="language-csharp">public static const string PNG_EXTENSION;
 </code></pre>
+<p>File extension constant for PNG images (<code>.png</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="qoi_gz_extension"><a class="header" href="#qoi_gz_extension">QOI_GZ_EXTENSION</a></h4>
 <pre><code class="language-csharp">public static const string QOI_GZ_EXTENSION;
 </code></pre>
+<p>File extension constant for gzip-compressed QOI images (<code>.qoi.gz</code>), the engine's preferred packed texture format.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="fromfilegraphicsdevice-string"><a class="header" href="#fromfilegraphicsdevice-string">FromFile(GraphicsDevice, string)</a></h4>
 <pre><code class="language-csharp">public Texture2D FromFile(GraphicsDevice graphicsDevice, string path)
 </code></pre>
+<p>Loads a <code>Texture2D</code> from <code>path</code>, automatically detecting whether the file is PNG or QOI+GZ format.</p>
 <p><strong>Parameters</strong> <br />
 <code>graphicsDevice</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.GraphicsDevice.html">GraphicsDevice</a> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Emitter
 </code></pre>
+<p>Data-driven definition of how a particle system spawns particles — rate, burst count, speed, angle, shape, and pool size.</p>
+<p><strong>Intent:</strong> Describe the spawning behaviour of a particle system.</p>
+<p><strong>Use-case:</strong> Configure an <code>Emitter</code> in a <code>ParticleSystemAsset</code> to control how many particles spawn per second (<code>ParticlesPerSecond</code>), at what angle and speed they fire, and from which shape they originate. Pair it with a <code>Particle</code> to define the full system.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Emitter()
 </code></pre>
@@ -165,42 +168,50 @@
 <h4 id="angle"><a class="header" href="#angle">Angle</a></h4>
 <pre><code class="language-csharp">public readonly ParticleValueProperty Angle;
 </code></pre>
+<p>The firing angle (in radians) of emitted particles. Supports constant values, ranges, and curves.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/ParticleValueProperty.html">ParticleValueProperty</a> </p>
 <h4 id="burst"><a class="header" href="#burst">Burst</a></h4>
 <pre><code class="language-csharp">public readonly ParticleIntValueProperty Burst;
 </code></pre>
+<p>Number of particles to spawn all at once when the emitter triggers a burst.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/ParticleIntValueProperty.html">ParticleIntValueProperty</a> </p>
 <h4 id="maxparticlespool"><a class="header" href="#maxparticlespool">MaxParticlesPool</a></h4>
 <pre><code class="language-csharp">public readonly int MaxParticlesPool;
 </code></pre>
+<p>Maximum number of simultaneously active particles this emitter can hold.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="particlespersecond"><a class="header" href="#particlespersecond">ParticlesPerSecond</a></h4>
 <pre><code class="language-csharp">public readonly ParticleValueProperty ParticlesPerSecond;
 </code></pre>
+<p>Continuous spawn rate in particles per second.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/ParticleValueProperty.html">ParticleValueProperty</a> </p>
 <h4 id="scaledtime"><a class="header" href="#scaledtime">ScaledTime</a></h4>
 <pre><code class="language-csharp">public readonly bool ScaledTime;
 </code></pre>
+<p>When <code>true</code>, the emitter uses the game's scaled delta time, so it respects time-scale (e.g., slow-motion).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="shape"><a class="header" href="#shape">Shape</a></h4>
 <pre><code class="language-csharp">public readonly EmitterShape Shape;
 </code></pre>
+<p>The geometric shape from which particles are spawned.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/EmitterShape.html">EmitterShape</a> </p>
 <h4 id="speed"><a class="header" href="#speed">Speed</a></h4>
 <pre><code class="language-csharp">public readonly ParticleValueProperty Speed;
 </code></pre>
+<p>Initial launch speed applied to particles when they are emitted.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/ParticleValueProperty.html">ParticleValueProperty</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="withshapeemittershape"><a class="header" href="#withshapeemittershape">WithShape(EmitterShape)</a></h4>
 <pre><code class="language-csharp">public Emitter WithShape(EmitterShape shape)
 </code></pre>
+<p>Returns a copy of this emitter with its <code>Shape</code> replaced by <code>shape</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>shape</code> <a href="../../../Murder/Core/Particles/EmitterShape.html">EmitterShape</a> </p>
 <p><strong>Returns</strong> <br />

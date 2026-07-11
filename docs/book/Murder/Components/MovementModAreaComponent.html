@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct MovementModAreaComponent : IComponent
 </code></pre>
+<p>Defines a collision area that modifies agent movement by applying a speed multiplier and/or a directional slide force to agents inside it.</p>
+<p><strong>Intent:</strong> Create environmental zones (e.g. mud, ice, conveyor belts, water currents) that alter how fast or in what direction agents move while inside.</p>
+<p><strong>Use-case:</strong> Add to a trigger entity that represents the zone; configure <code>SpeedMultiplier</code> (0 = stop, &gt;1 = accelerate) and <code>Slide</code> with an <code>Orientation</code> to push agents in a set direction.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MovementModAreaComponent()
@@ -157,26 +160,31 @@
 <h4 id="affectonly"><a class="header" href="#affectonly">AffectOnly</a></h4>
 <pre><code class="language-csharp">public readonly Tags AffectOnly;
 </code></pre>
+<p>Tag filter restricting which agents are affected by this area; an empty tag set means all agents are affected.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Tags.html">Tags</a> </p>
 <h4 id="groundedonly"><a class="header" href="#groundedonly">GroundedOnly</a></h4>
 <pre><code class="language-csharp">public readonly bool GroundedOnly;
 </code></pre>
+<p>When <code>true</code>, the movement modifier is applied only to agents that are currently grounded.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="orientation"><a class="header" href="#orientation">Orientation</a></h4>
 <pre><code class="language-csharp">public readonly Orientation Orientation;
 </code></pre>
+<p>Axis along which the <code>Slide</code> force is applied to agents inside this area.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Orientation.html">Orientation</a> </p>
 <h4 id="slide"><a class="header" href="#slide">Slide</a></h4>
 <pre><code class="language-csharp">public readonly float Slide;
 </code></pre>
+<p>Constant force (in units/second) applied along the <code>Orientation</code> axis to push agents through the area.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="speedmultiplier"><a class="header" href="#speedmultiplier">SpeedMultiplier</a></h4>
 <pre><code class="language-csharp">public readonly float SpeedMultiplier;
 </code></pre>
+<p>Multiplier applied to the agent's movement speed while inside this area (0 = stop, 1 = normal speed, &gt;1 = faster).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

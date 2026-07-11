@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class PlayerInput
 </code></pre>
+<p>The central input manager that tracks button and axis state for keyboard, mouse, and gamepad each frame.</p>
+<p><strong>Intent:</strong> Provide a single, game-accessible object for registering bindings and querying input state.</p>
+<p><strong>Use-case:</strong> Access <code>Game.Input</code> (a <code>PlayerInput</code> instance) in any system or service. Call <code>Register()</code> at startup to bind keys/buttons to logical IDs, then call <code>Pressed()</code>, <code>Down()</code>, <code>GetAxis()</code>, and <code>VerticalMenu()</code> each frame to drive gameplay and UI.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PlayerInput()
 </code></pre>
@@ -156,11 +159,13 @@
 <h4 id="allaxis"><a class="header" href="#allaxis">AllAxis</a></h4>
 <pre><code class="language-csharp">public Int32[] AllAxis { get; }
 </code></pre>
+<p>All registered axis IDs (debug only).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int[]</a> </p>
 <h4 id="allbuttons"><a class="header" href="#allbuttons">AllButtons</a></h4>
 <pre><code class="language-csharp">public Int32[] AllButtons { get; }
 </code></pre>
+<p>All registered button IDs (debug only).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int[]</a> </p>
 <h4 id="cursorposition"><a class="header" href="#cursorposition">CursorPosition</a></h4>
@@ -178,6 +183,7 @@
 <h4 id="mouseconsumed"><a class="header" href="#mouseconsumed">MouseConsumed</a></h4>
 <pre><code class="language-csharp">public bool MouseConsumed;
 </code></pre>
+<p>When <code>true</code>, mouse input is suppressed for this frame (e.g., the ImGui window has focus).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="scrollwheel"><a class="header" href="#scrollwheel">ScrollWheel</a></h4>
@@ -196,6 +202,7 @@
 <h4 id="downkeys"><a class="header" href="#downkeys">Down(Keys)</a></h4>
 <pre><code class="language-csharp">public bool Down(Keys key)
 </code></pre>
+<p>Returns <code>true</code> if <code>key</code> is currently held.</p>
 <p><strong>Parameters</strong> <br />
 <code>key</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Input.Keys.html">Keys</a> </p>
 <p><strong>Returns</strong> <br />
@@ -203,6 +210,7 @@
 <h4 id="downint-bool"><a class="header" href="#downint-bool">Down(int, bool)</a></h4>
 <pre><code class="language-csharp">public bool Down(int button, bool raw)
 </code></pre>
+<p>Returns <code>true</code> if the virtual button <code>button</code> is currently held. When <code>raw</code> is <code>true</code>, ignores the consumed flag.</p>
 <p><strong>Parameters</strong> <br />
 <code>button</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>raw</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
@@ -211,6 +219,7 @@
 <h4 id="gridmenugenericmenuinfo1-int-int-gridmenuflags"><a class="header" href="#gridmenugenericmenuinfo1-int-int-gridmenuflags">GridMenu(GenericMenuInfo`1&amp;, int, int, GridMenuFlags)</a></h4>
 <pre><code class="language-csharp">public bool GridMenu(GenericMenuInfo`1&amp; currentInfo, int width, int size, GridMenuFlags gridMenuFlags)
 </code></pre>
+<p>Advances a typed grid menu by one frame and returns <code>true</code> if the submit button was pressed.</p>
 <p><strong>Parameters</strong> <br />
 <code>currentInfo</code> <a href="../../../Murder/Core/Input/GenericMenuInfo-1.html">GenericMenuInfo&lt;T&gt;&amp;</a> <br />
 <code>width</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -221,6 +230,7 @@
 <h4 id="gridmenumenuinfo-int-int-int-gridmenuflags"><a class="header" href="#gridmenumenuinfo-int-int-int-gridmenuflags">GridMenu(MenuInfo&amp;, int, int, int, GridMenuFlags)</a></h4>
 <pre><code class="language-csharp">public bool GridMenu(MenuInfo&amp; currentInfo, int width, int _, int size, GridMenuFlags gridMenuFlags)
 </code></pre>
+<p>Advances a <code>MenuInfo</code> grid menu by one frame and returns <code>true</code> if the submit button was pressed.</p>
 <p><strong>Parameters</strong> <br />
 <code>currentInfo</code> <a href="../../../Murder/Core/Input/MenuInfo.html">MenuInfo&amp;</a> <br />
 <code>width</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -232,6 +242,7 @@
 <h4 id="horizontalmenumenuinfo"><a class="header" href="#horizontalmenumenuinfo">HorizontalMenu(MenuInfo&amp;)</a></h4>
 <pre><code class="language-csharp">public bool HorizontalMenu(MenuInfo&amp; currentInfo)
 </code></pre>
+<p>Advances a horizontal <code>MenuInfo</code> by one frame and returns <code>true</code> if the submit button was pressed.</p>
 <p><strong>Parameters</strong> <br />
 <code>currentInfo</code> <a href="../../../Murder/Core/Input/MenuInfo.html">MenuInfo&amp;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -239,6 +250,7 @@
 <h4 id="horizontalmenuint32-int"><a class="header" href="#horizontalmenuint32-int">HorizontalMenu(Int32&amp;, int)</a></h4>
 <pre><code class="language-csharp">public bool HorizontalMenu(Int32&amp; selectedOption, int length)
 </code></pre>
+<p>Navigates a simple horizontal list of <code>length</code> items and returns <code>true</code> if submit was pressed.</p>
 <p><strong>Parameters</strong> <br />
 <code>selectedOption</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int&amp;</a> <br />
 <code>length</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -247,6 +259,7 @@
 <h4 id="pressedkeys"><a class="header" href="#pressedkeys">Pressed(Keys)</a></h4>
 <pre><code class="language-csharp">public bool Pressed(Keys enter)
 </code></pre>
+<p>Returns <code>true</code> if <code>enter</code> was just pressed this frame.</p>
 <p><strong>Parameters</strong> <br />
 <code>enter</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Input.Keys.html">Keys</a> </p>
 <p><strong>Returns</strong> <br />
@@ -254,6 +267,7 @@
 <h4 id="pressedint-bool"><a class="header" href="#pressedint-bool">Pressed(int, bool)</a></h4>
 <pre><code class="language-csharp">public bool Pressed(int button, bool raw)
 </code></pre>
+<p>Returns <code>true</code> if the virtual button <code>button</code> was just pressed this frame. When <code>raw</code> is <code>true</code>, ignores the consumed flag.</p>
 <p><strong>Parameters</strong> <br />
 <code>button</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>raw</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
@@ -262,6 +276,7 @@
 <h4 id="pressedandconsumeint"><a class="header" href="#pressedandconsumeint">PressedAndConsume(int)</a></h4>
 <pre><code class="language-csharp">public bool PressedAndConsume(int button)
 </code></pre>
+<p>Returns <code>true</code> if <code>button</code> was just pressed, and immediately consumes it so subsequent reads return <code>false</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>button</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -269,6 +284,7 @@
 <h4 id="releasedint"><a class="header" href="#releasedint">Released(int)</a></h4>
 <pre><code class="language-csharp">public bool Released(int button)
 </code></pre>
+<p>Returns <code>true</code> if <code>button</code> was released this frame.</p>
 <p><strong>Parameters</strong> <br />
 <code>button</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -276,6 +292,7 @@
 <h4 id="shortcutkeys-keys"><a class="header" href="#shortcutkeys-keys">Shortcut(Keys, Keys[])</a></h4>
 <pre><code class="language-csharp">public bool Shortcut(Keys key, Keys[] modifiers)
 </code></pre>
+<p>Returns <code>true</code> if <code>key</code> was just pressed while all <code>modifiers</code> are held.</p>
 <p><strong>Parameters</strong> <br />
 <code>key</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Input.Keys.html">Keys</a> <br />
 <code>modifiers</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Input.Keys.html">Keys[]</a> </p>
@@ -284,6 +301,7 @@
 <h4 id="shortcutchord"><a class="header" href="#shortcutchord">Shortcut(Chord)</a></h4>
 <pre><code class="language-csharp">public bool Shortcut(Chord chord)
 </code></pre>
+<p>Returns <code>true</code> if <code>chord</code> (key + modifiers) was just activated this frame.</p>
 <p><strong>Parameters</strong> <br />
 <code>chord</code> <a href="../../../Murder/Core/Input/Chord.html">Chord</a> </p>
 <p><strong>Returns</strong> <br />
@@ -291,6 +309,7 @@
 <h4 id="simpleverticalmenuint32-int"><a class="header" href="#simpleverticalmenuint32-int">SimpleVerticalMenu(Int32&amp;, int)</a></h4>
 <pre><code class="language-csharp">public bool SimpleVerticalMenu(Int32&amp; selectedOption, int length)
 </code></pre>
+<p>Navigates a simple vertical list of <code>length</code> items and returns <code>true</code> if submit was pressed.</p>
 <p><strong>Parameters</strong> <br />
 <code>selectedOption</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int&amp;</a> <br />
 <code>length</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -299,6 +318,7 @@
 <h4 id="verticalmenugenericmenuinfo1"><a class="header" href="#verticalmenugenericmenuinfo1">VerticalMenu(GenericMenuInfo`1&amp;)</a></h4>
 <pre><code class="language-csharp">public bool VerticalMenu(GenericMenuInfo`1&amp; currentInfo)
 </code></pre>
+<p>Advances a typed vertical menu by one frame and returns <code>true</code> if the submit button was pressed.</p>
 <p><strong>Parameters</strong> <br />
 <code>currentInfo</code> <a href="../../../Murder/Core/Input/GenericMenuInfo-1.html">GenericMenuInfo&lt;T&gt;&amp;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -306,6 +326,7 @@
 <h4 id="verticalmenumenuinfo"><a class="header" href="#verticalmenumenuinfo">VerticalMenu(MenuInfo&amp;)</a></h4>
 <pre><code class="language-csharp">public bool VerticalMenu(MenuInfo&amp; currentInfo)
 </code></pre>
+<p>Advances a vertical <code>MenuInfo</code> by one frame and returns <code>true</code> if the submit button was pressed.</p>
 <p><strong>Parameters</strong> <br />
 <code>currentInfo</code> <a href="../../../Murder/Core/Input/MenuInfo.html">MenuInfo&amp;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -313,6 +334,7 @@
 <h4 id="getaxisdescriptorint"><a class="header" href="#getaxisdescriptorint">GetAxisDescriptor(int)</a></h4>
 <pre><code class="language-csharp">public string GetAxisDescriptor(int axis)
 </code></pre>
+<p>Returns a human-readable description of the bindings registered for axis <code>axis</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>axis</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -320,6 +342,7 @@
 <h4 id="getbuttondescriptorint"><a class="header" href="#getbuttondescriptorint">GetButtonDescriptor(int)</a></h4>
 <pre><code class="language-csharp">public string GetButtonDescriptor(int button)
 </code></pre>
+<p>Returns a human-readable description of the bindings registered for button <code>button</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>button</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -327,11 +350,13 @@
 <h4 id="getkeyboardinput"><a class="header" href="#getkeyboardinput">GetKeyboardInput()</a></h4>
 <pre><code class="language-csharp">public string GetKeyboardInput()
 </code></pre>
+<p>Returns the accumulated typed text from keyboard input since the last frame.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="getaxisint"><a class="header" href="#getaxisint">GetAxis(int)</a></h4>
 <pre><code class="language-csharp">public VirtualAxis GetAxis(int axis)
 </code></pre>
+<p>Returns the <code>VirtualAxis</code> registered under <code>axis</code>. Throws if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>axis</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -339,6 +364,7 @@
 <h4 id="getorcreateaxisint"><a class="header" href="#getorcreateaxisint">GetOrCreateAxis(int)</a></h4>
 <pre><code class="language-csharp">public VirtualAxis GetOrCreateAxis(int axis)
 </code></pre>
+<p>Returns an existing <code>VirtualAxis</code> for <code>axis</code>, or creates and registers a new one.</p>
 <p><strong>Parameters</strong> <br />
 <code>axis</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -346,6 +372,7 @@
 <h4 id="getorcreatebuttonint"><a class="header" href="#getorcreatebuttonint">GetOrCreateButton(int)</a></h4>
 <pre><code class="language-csharp">public VirtualButton GetOrCreateButton(int button)
 </code></pre>
+<p>Returns an existing <code>VirtualButton</code> for <code>button</code>, or creates and registers a new one.</p>
 <p><strong>Parameters</strong> <br />
 <code>button</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -353,12 +380,14 @@
 <h4 id="bindint-action"><a class="header" href="#bindint-action">Bind(int, Action<T>)</a></h4>
 <pre><code class="language-csharp">public void Bind(int button, Action&lt;T&gt; action)
 </code></pre>
+<p>Registers <code>action</code> to be called every time <code>button</code> is pressed.</p>
 <p><strong>Parameters</strong> <br />
 <code>button</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>action</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action-1?view=net-7.0">Action&lt;T&gt;</a> </p>
 <h4 id="clamptextint"><a class="header" href="#clamptextint">ClampText(int)</a></h4>
 <pre><code class="language-csharp">public void ClampText(int size)
 </code></pre>
+<p>Truncates the current keyboard text buffer to <code>size</code> characters.</p>
 <p><strong>Parameters</strong> <br />
 <code>size</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="clearbindsint"><a class="header" href="#clearbindsint">ClearBinds(int)</a></h4>
@@ -377,9 +406,11 @@
 <h4 id="consumeall"><a class="header" href="#consumeall">ConsumeAll()</a></h4>
 <pre><code class="language-csharp">public void ConsumeAll()
 </code></pre>
+<p>Marks all registered buttons and axes as consumed for the current frame.</p>
 <h4 id="listentokeyboardinputbool-int"><a class="header" href="#listentokeyboardinputbool-int">ListenToKeyboardInput(bool, int)</a></h4>
 <pre><code class="language-csharp">public void ListenToKeyboardInput(bool enable, int maxCharacters)
 </code></pre>
+<p>Enables or disables raw keyboard text capture, limiting input to <code>maxCharacters</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>enable</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> <br />
 <code>maxCharacters</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -407,6 +438,7 @@
 <h4 id="registerint-mousebuttons"><a class="header" href="#registerint-mousebuttons">Register(int, MouseButtons[])</a></h4>
 <pre><code class="language-csharp">public void Register(int button, MouseButtons[] buttons)
 </code></pre>
+<p>Registers mouse buttons as bindings for virtual button <code>button</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>button</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>buttons</code> <a href="../../../Murder/Core/Input/MouseButtons.html">MouseButtons[]</a> </p>
@@ -427,6 +459,7 @@
 <h4 id="update"><a class="header" href="#update">Update()</a></h4>
 <pre><code class="language-csharp">public void Update()
 </code></pre>
+<p>Pulls new device state each frame and updates all registered buttons and axes.</p>
 <p>⚡</p>
 
                     </main>

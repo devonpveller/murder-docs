@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public abstract IMurderSerializer
 </code></pre>
+<p>Marker interface implemented by JSON source-generation contexts that provide type metadata for Murder's serialization pipeline.</p>
+<p><strong>Intent:</strong> Identifies serialization context classes so the engine can discover and combine multiple JSON type info resolvers at runtime.</p>
+<p><strong>Use-case:</strong> Implement in a <code>JsonSerializerContext</code> subclass (alongside <code>[JsonSerializable]</code> attributes) and register it with the Murder serializer options to extend serialization support for game-specific types.</p>
 <p>⚡</p>
 
                     </main>

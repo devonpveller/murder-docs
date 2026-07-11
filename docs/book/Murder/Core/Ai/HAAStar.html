@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class HAAStar
 </code></pre>
+<p>Hierarchical A* (HAAstar) pathfinding implementation that divides the map into clusters and builds an abstract graph for fast long-distance path queries.</p>
+<p><strong>Intent:</strong> A faster alternative to plain A* for large tile maps — it pre-builds a cluster-based hierarchy so searches avoid exploring the entire map.</p>
+<p><strong>Use-case:</strong> Instantiate with map dimensions, call <code>Refresh</code> when the map changes, then call <code>Search</code> to find a path between two grid positions.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public HAAStar(int width, int height)
 </code></pre>
+<p>Creates an <code>HAAStar</code> instance sized for a map of <code>width</code> × <code>height</code> tiles.</p>
 <p><strong>Parameters</strong> <br />
 <code>width</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>height</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -159,27 +163,32 @@
 <h4 id="cluster_size"><a class="header" href="#cluster_size">CLUSTER_SIZE</a></h4>
 <pre><code class="language-csharp">public static const int CLUSTER_SIZE;
 </code></pre>
+<p>The side length (in tiles) of each cluster used by the hierarchical search.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="clusterheight"><a class="header" href="#clusterheight">ClusterHeight</a></h4>
 <pre><code class="language-csharp">public readonly int ClusterHeight;
 </code></pre>
+<p>The number of clusters along the vertical axis.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="clusterwidth"><a class="header" href="#clusterwidth">ClusterWidth</a></h4>
 <pre><code class="language-csharp">public readonly int ClusterWidth;
 </code></pre>
+<p>The number of clusters along the horizontal axis.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="debugnodes"><a class="header" href="#debugnodes">DebugNodes</a></h4>
 <pre><code class="language-csharp">public ImmutableDictionary&lt;TKey, TValue&gt; DebugNodes;
 </code></pre>
+<p>The abstract graph nodes built by the last <code>Refresh</code> call, exposed for editor visualization and debugging.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0">ImmutableDictionary&lt;TKey, TValue&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="searchmap-point-point"><a class="header" href="#searchmap-point-point">Search(Map, Point, Point)</a></h4>
 <pre><code class="language-csharp">public ImmutableDictionary&lt;TKey, TValue&gt; Search(Map map, Point initial, Point target)
 </code></pre>
+<p>Searches for a path from <code>initial</code> to <code>target</code> using the pre-built cluster graph. Returns a dictionary mapping each step to the next point on the path.</p>
 <p><strong>Parameters</strong> <br />
 <code>map</code> <a href="../../../Murder/Core/Map.html">Map</a> <br />
 <code>initial</code> <a href="../../../Murder/Core/Geometry/Point.html">Point</a> <br />
@@ -189,6 +198,7 @@
 <h4 id="refreshmap"><a class="header" href="#refreshmap">Refresh(Map)</a></h4>
 <pre><code class="language-csharp">public void Refresh(Map map)
 </code></pre>
+<p>Rebuilds the cluster graph and abstract nodes from the current state of <code>map</code>. Call this whenever the map changes.</p>
 <p><strong>Parameters</strong> <br />
 <code>map</code> <a href="../../../Murder/Core/Map.html">Map</a> </p>
 <p>⚡</p>

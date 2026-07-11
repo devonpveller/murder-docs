@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class Map
 </code></pre>
+<p>Runtime tile-based map that stores per-cell collision masks and floor-type data for a level.</p>
+<p><strong>Intent:</strong> The authoritative spatial data structure for tile collision, pathfinding weights, and floor properties within a scene.</p>
+<p><strong>Use-case:</strong> Systems that move actors, cast rays, or run pathfinding query this map to determine whether a cell is solid, a trigger, a hole, or passable.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Map(int width, int height)
 </code></pre>
+<p>Creates a map with the specified tile dimensions, initializing all cells to empty.</p>
 <p><strong>Parameters</strong> <br />
 <code>width</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>height</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -159,17 +163,20 @@
 <h4 id="height"><a class="header" href="#height">Height</a></h4>
 <pre><code class="language-csharp">public readonly int Height;
 </code></pre>
+<p>The height of the map in tile units.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="width"><a class="header" href="#width">Width</a></h4>
 <pre><code class="language-csharp">public readonly int Width;
 </code></pre>
+<p>The width of the map in tile units.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="hascollisionint-int-int"><a class="header" href="#hascollisionint-int-int">HasCollision(int, int, int)</a></h4>
 <pre><code class="language-csharp">public bool HasCollision(int x, int y, int layer)
 </code></pre>
+<p>Returns <code>true</code> when the tile at <code>(x, y)</code> has the specified collision layer bit set.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -179,6 +186,7 @@
 <h4 id="hascollisionint-int-int-int-int"><a class="header" href="#hascollisionint-int-int-int-int">HasCollision(int, int, int, int, int)</a></h4>
 <pre><code class="language-csharp">public bool HasCollision(int x, int y, int width, int height, int mask)
 </code></pre>
+<p>Returns <code>true</code> when any tile within the axis-aligned rectangle <code>(x, y, width, height)</code> matches the given collision <code>mask</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -207,6 +215,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="isinsidegridint-int"><a class="header" href="#isinsidegridint-int">IsInsideGrid(int, int)</a></h4>
 <pre><code class="language-csharp">public bool IsInsideGrid(int x, int y)
 </code></pre>
+<p>Returns <code>true</code> when the tile coordinates <code>(x, y)</code> fall within the map bounds.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -215,6 +224,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="isobstaclepoint"><a class="header" href="#isobstaclepoint">IsObstacle(Point)</a></h4>
 <pre><code class="language-csharp">public bool IsObstacle(Point p)
 </code></pre>
+<p>Returns <code>true</code> when the tile at <code>p</code> has the <code>SOLID</code> collision layer set, making it impassable.</p>
 <p><strong>Parameters</strong> <br />
 <code>p</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />
@@ -222,6 +232,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="isobstacleorblockvisionpoint"><a class="header" href="#isobstacleorblockvisionpoint">IsObstacleOrBlockVision(Point)</a></h4>
 <pre><code class="language-csharp">public bool IsObstacleOrBlockVision(Point p)
 </code></pre>
+<p>Returns <code>true</code> when the tile at <code>p</code> is either a solid obstacle or marked as vision-blocking.</p>
 <p><strong>Parameters</strong> <br />
 <code>p</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />
@@ -229,6 +240,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="getstaticcollisionsintrectangle"><a class="header" href="#getstaticcollisionsintrectangle">GetStaticCollisions(IntRectangle)</a></h4>
 <pre><code class="language-csharp">public IEnumerable&lt;T&gt; GetStaticCollisions(IntRectangle rect)
 </code></pre>
+<p>Enumerates all static collision entries whose bounds overlap the given rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>rect</code> <a href="../../Murder/Core/Geometry/IntRectangle.html">IntRectangle</a> </p>
 <p><strong>Returns</strong> <br />
@@ -236,6 +248,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="flooratpoint"><a class="header" href="#flooratpoint">FloorAt(Point)</a></h4>
 <pre><code class="language-csharp">public int FloorAt(Point p)
 </code></pre>
+<p>Returns the floor-type identifier stored in the floor map at tile position <code>p</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>p</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />
@@ -243,6 +256,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="getcollisionint-int"><a class="header" href="#getcollisionint-int">GetCollision(int, int)</a></h4>
 <pre><code class="language-csharp">public int GetCollision(int x, int y)
 </code></pre>
+<p>Returns the raw collision bitmask for the tile at <code>(x, y)</code>, or <code>SOLID</code> if the position is outside the grid.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -251,6 +265,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="weightatpoint"><a class="header" href="#weightatpoint">WeightAt(Point)</a></h4>
 <pre><code class="language-csharp">public int WeightAt(Point p)
 </code></pre>
+<p>Returns the pathfinding traversal weight for the tile at position <code>p</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>p</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />
@@ -258,6 +273,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="weightatint-int"><a class="header" href="#weightatint-int">WeightAt(int, int)</a></h4>
 <pre><code class="language-csharp">public int WeightAt(int x, int y)
 </code></pre>
+<p>Returns the pathfinding traversal weight for the tile at <code>(x, y)</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -266,6 +282,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="getgridmapint-int"><a class="header" href="#getgridmapint-int">GetGridMap(int, int)</a></h4>
 <pre><code class="language-csharp">public MapTile GetGridMap(int x, int y)
 </code></pre>
+<p>Returns the <code>MapTile</code> data stored at <code>(x, y)</code>. Returns a solid tile for out-of-bounds coordinates.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -274,6 +291,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="hascollisionatintrectangle-int"><a class="header" href="#hascollisionatintrectangle-int">HasCollisionAt(IntRectangle, int)</a></h4>
 <pre><code class="language-csharp">public T? HasCollisionAt(IntRectangle rect, int mask)
 </code></pre>
+<p>Checks whether any tile within <code>rect</code> matches the collision <code>mask</code>, returning the first matching tile info or null.</p>
 <p><strong>Parameters</strong> <br />
 <code>rect</code> <a href="../../Murder/Core/Geometry/IntRectangle.html">IntRectangle</a> <br />
 <code>mask</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -294,6 +312,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="overridevalueatpoint-int-int"><a class="header" href="#overridevalueatpoint-int-int">OverrideValueAt(Point, int, int)</a></h4>
 <pre><code class="language-csharp">public void OverrideValueAt(Point p, int collisionMask, int weight)
 </code></pre>
+<p>Force-sets the collision mask and pathfinding weight for the tile at <code>p</code>, replacing whatever was there.</p>
 <p><strong>Parameters</strong> <br />
 <code>p</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />
 <code>collisionMask</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -301,12 +320,14 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="setflooratintrectangle-int"><a class="header" href="#setflooratintrectangle-int">SetFloorAt(IntRectangle, int)</a></h4>
 <pre><code class="language-csharp">public void SetFloorAt(IntRectangle rect, int type)
 </code></pre>
+<p>Sets the floor-type identifier for every tile within the given rectangle.</p>
 <p><strong>Parameters</strong> <br />
 <code>rect</code> <a href="../../Murder/Core/Geometry/IntRectangle.html">IntRectangle</a> <br />
 <code>type</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="setflooratint-int-int"><a class="header" href="#setflooratint-int-int">SetFloorAt(int, int, int)</a></h4>
 <pre><code class="language-csharp">public void SetFloorAt(int x, int y, int type)
 </code></pre>
+<p>Sets the floor-type identifier for the single tile at <code>(x, y)</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -314,6 +335,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="setoccupiedpoint-int-int"><a class="header" href="#setoccupiedpoint-int-int">SetOccupied(Point, int, int)</a></h4>
 <pre><code class="language-csharp">public void SetOccupied(Point p, int collisionMask, int weight)
 </code></pre>
+<p>Marks the tile at <code>p</code> as occupied by OR-ing in the given <code>collisionMask</code> and setting its traversal weight.</p>
 <p><strong>Parameters</strong> <br />
 <code>p</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />
 <code>collisionMask</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -321,6 +343,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="setoccupiedascarveintrectangle-bool-bool-bool-int"><a class="header" href="#setoccupiedascarveintrectangle-bool-bool-bool-int">SetOccupiedAsCarve(IntRectangle, bool, bool, bool, int)</a></h4>
 <pre><code class="language-csharp">public void SetOccupiedAsCarve(IntRectangle rect, bool blockVision, bool isObstacle, bool isClearPath, int weight)
 </code></pre>
+<p>Applies carve-layer collision flags to all tiles in <code>rect</code>, controlling whether they block vision, act as obstacles, or clear the path.</p>
 <p><strong>Parameters</strong> <br />
 <code>rect</code> <a href="../../Murder/Core/Geometry/IntRectangle.html">IntRectangle</a> <br />
 <code>blockVision</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> <br />
@@ -330,6 +353,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="setoccupiedasstaticint-int-int"><a class="header" href="#setoccupiedasstaticint-int-int">SetOccupiedAsStatic(int, int, int)</a></h4>
 <pre><code class="language-csharp">public void SetOccupiedAsStatic(int x, int y, int layer)
 </code></pre>
+<p>Marks a single tile as statically occupied on the given collision layer (used for tilemap geometry baked at load time).</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -337,6 +361,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="setunoccupiedpoint-int-int"><a class="header" href="#setunoccupiedpoint-int-int">SetUnoccupied(Point, int, int)</a></h4>
 <pre><code class="language-csharp">public void SetUnoccupied(Point p, int collisionMask, int weight)
 </code></pre>
+<p>Clears the given <code>collisionMask</code> bits from the tile at <code>p</code> and resets its traversal weight.</p>
 <p><strong>Parameters</strong> <br />
 <code>p</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />
 <code>collisionMask</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -344,6 +369,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="setunoccupiedcarveintrectangle-bool-bool-int"><a class="header" href="#setunoccupiedcarveintrectangle-bool-bool-int">SetUnoccupiedCarve(IntRectangle, bool, bool, int)</a></h4>
 <pre><code class="language-csharp">public void SetUnoccupiedCarve(IntRectangle rect, bool blockVision, bool isObstacle, int weight)
 </code></pre>
+<p>Removes carve-layer collision flags from all tiles in <code>rect</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>rect</code> <a href="../../Murder/Core/Geometry/IntRectangle.html">IntRectangle</a> <br />
 <code>blockVision</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> <br />
@@ -352,6 +378,7 @@ It is not exact by any means, just tries to draw A line of tiles between start a
 <h4 id="zeroall"><a class="header" href="#zeroall">ZeroAll()</a></h4>
 <pre><code class="language-csharp">public void ZeroAll()
 </code></pre>
+<p>Resets all tile collision masks and pathfinding weights to zero, effectively clearing the entire map.</p>
 <p>⚡</p>
 
                     </main>

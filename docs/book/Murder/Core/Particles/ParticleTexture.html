@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct ParticleTexture
 </code></pre>
+<p>Describes the texture or primitive shape used to draw individual particles (point, rectangle, circle, asset, or named texture).</p>
+<p><strong>Intent:</strong> Configure the visual representation of a particle.</p>
+<p><strong>Use-case:</strong> Set <code>Kind</code> to <code>Asset</code> and provide a <code>Guid</code> to render a sprite-based particle, or use <code>Point</code>, <code>Rectangle</code>, or <code>Circle</code> for procedurally drawn primitives.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ParticleTexture()
 </code></pre>
@@ -172,26 +175,31 @@
 <h4 id="asset"><a class="header" href="#asset">Asset</a></h4>
 <pre><code class="language-csharp">public readonly Guid Asset;
 </code></pre>
+<p>GUID of the sprite asset used when <code>Kind</code> is <code>ParticleTextureKind.Asset</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="circle"><a class="header" href="#circle">Circle</a></h4>
 <pre><code class="language-csharp">public readonly Circle Circle;
 </code></pre>
+<p>Circle geometry used when <code>Kind</code> is <code>ParticleTextureKind.Circle</code> or <code>ParticleTextureKind.CircleOutline</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Circle.html">Circle</a> </p>
 <h4 id="kind"><a class="header" href="#kind">Kind</a></h4>
 <pre><code class="language-csharp">public readonly ParticleTextureKind Kind;
 </code></pre>
+<p>Determines which visual representation is used for rendering this particle.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Particles/ParticleTextureKind.html">ParticleTextureKind</a> </p>
 <h4 id="rectangle"><a class="header" href="#rectangle">Rectangle</a></h4>
 <pre><code class="language-csharp">public readonly Rectangle Rectangle;
 </code></pre>
+<p>Rectangle geometry used when <code>Kind</code> is <code>ParticleTextureKind.Rectangle</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <h4 id="texture"><a class="header" href="#texture">Texture</a></h4>
 <pre><code class="language-csharp">public readonly string Texture;
 </code></pre>
+<p>Named texture path used when <code>Kind</code> is <code>ParticleTextureKind.Texture</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

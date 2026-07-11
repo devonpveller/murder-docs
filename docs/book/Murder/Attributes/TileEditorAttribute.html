@@ -150,14 +150,18 @@
 <pre><code class="language-csharp">public class TileEditorAttribute : Attribute
 </code></pre>
 <p>Attribute for systems which will show up in the &quot;Tile Editor&quot; mode.</p>
+<p><strong>Intent:</strong> Mark an editor system class as belonging to the Tile Editor mode so it is only active when the user is painting or editing tile maps.</p>
+<p><strong>Use-case:</strong> Apply to tile-painting, tile-selection, or tile-preview systems that should only run while the Tile Editor mode is active, preventing them from interfering with other editor contexts such as the standard entity editor.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TileEditorAttribute()
 </code></pre>
+<p>Creates a new instance of <code>TileEditorAttribute</code>.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

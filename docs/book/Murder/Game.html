@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class Game : Game, IDisposable
 </code></pre>
 <p><strong>Implements:</strong> <em><a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Game.html">Game</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0">IDisposable</a></em></p>
+<p><strong>Intent:</strong> <code>Game</code> is the singleton root of the Murder engine. It owns the MonoGame game loop, the active scene/world, all timing state, and top-level subsystem references (input, sound, data, graphics). Every game built on Murder instantiates exactly one <code>Game</code> (or a derived editor <code>Architect</code> subclass).</p>
+<p><strong>Use-case:</strong> Instantiate <code>Game</code> with your <code>IMurderGame</code> implementation and call <code>Run()</code>. Access global state via static helpers such as <code>Game.Data</code>, <code>Game.Input</code>, <code>Game.Sound</code>, <code>Game.Now</code>, and <code>Game.Profile</code>. To switch levels call <code>QueueWorldTransition(Guid)</code>. Pause/resume timing with <code>Pause()</code> / <code>Resume()</code>. Use <code>FreezeFrames(n)</code> for screen-shake or hit-stop effects.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Game(IMurderGame game, GameDataManager dataManager)
 </code></pre>
@@ -166,16 +168,19 @@ If <paramref name="dataManager" /> is not initialized, it will create the starti
 <h4 id="_disposependingworld"><a class="header" href="#_disposependingworld">_disposePendingWorld</a></h4>
 <pre><code class="language-csharp">protected bool _disposePendingWorld;
 </code></pre>
+<p>When <code>true</code>, the world stored in <code>_pendingWorld</code> will be disposed (rather than recycled) once it is replaced by the next pending world. Set automatically during world transitions.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="_gamedata"><a class="header" href="#_gamedata">_gameData</a></h4>
 <pre><code class="language-csharp">protected readonly GameDataManager _gameData;
 </code></pre>
+<p>The central asset and save-data manager for this game instance. Accessible publicly via the static <code>Game.Data</code> shortcut.</p>
 <p><strong>Returns</strong> <br />
 <a href="../Murder/Data/GameDataManager.html">GameDataManager</a> </p>
 <h4 id="_graphics"><a class="header" href="#_graphics">_graphics</a></h4>
 <pre><code class="language-csharp">protected readonly GraphicsDeviceManager _graphics;
 </code></pre>
+<p>MonoGame's <code>GraphicsDeviceManager</code> used to configure resolution, fullscreen mode, and V-sync. Exposed publicly via the <code>GraphicsDeviceManager</code> property and statically via <code>Game.GraphicsDevice</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.GraphicsDeviceManager.html">GraphicsDeviceManager</a> </p>
 <h4 id="_logger"><a class="header" href="#_logger">_logger</a></h4>
@@ -187,11 +192,13 @@ If <paramref name="dataManager" /> is not initialized, it will create the starti
 <h4 id="_pendingexit"><a class="header" href="#_pendingexit">_pendingExit</a></h4>
 <pre><code class="language-csharp">protected bool _pendingExit;
 </code></pre>
+<p>Set to <code>true</code> by <code>QueueExitGame()</code>. The game loop checks this flag at the end of each update and calls <code>ExitGame()</code> safely, avoiding disposal of a world that is mid-update.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="_pendingworld"><a class="header" href="#_pendingworld">_pendingWorld</a></h4>
 <pre><code class="language-csharp">protected MonoWorld _pendingWorld;
 </code></pre>
+<p>A fully-initialized <code>MonoWorld</code> that is waiting to replace the current active world at the start of the next frame. Populated by <code>QueueReplaceWorldOnCurrentScene</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../Murder/Core/MonoWorld.html">MonoWorld</a> </p>
 <h4 id="_pendingworldtransition"><a class="header" href="#_pendingworldtransition">_pendingWorldTransition</a></h4>
@@ -202,6 +209,7 @@ If <paramref name="dataManager" /> is not initialized, it will create the starti
 <h4 id="_playerinput"><a class="header" href="#_playerinput">_playerInput</a></h4>
 <pre><code class="language-csharp">protected readonly PlayerInput _playerInput;
 </code></pre>
+<p>The engine-wide input manager that tracks keyboard, mouse, and gamepad state. Accessible via the static <code>Game.Input</code> shortcut.</p>
 <p><strong>Returns</strong> <br />
 <a href="../Murder/Core/Input/PlayerInput.html">PlayerInput</a> </p>
 <h4 id="_sceneloader"><a class="header" href="#_sceneloader">_sceneLoader</a></h4>
@@ -224,11 +232,13 @@ If <paramref name="dataManager" /> is not initialized, it will create the starti
 <h4 id="components"><a class="header" href="#components">Components</a></h4>
 <pre><code class="language-csharp">public GameComponentCollection Components { get; }
 </code></pre>
+<p>MonoGame's collection of <code>IGameComponent</code> objects that receive automatic <code>Initialize</code>, <code>Update</code>, and <code>Draw</code> calls. Rarely used directly in Murder; prefer ECS systems instead.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.GameComponentCollection.html">GameComponentCollection</a> </p>
 <h4 id="content"><a class="header" href="#content">Content</a></h4>
 <pre><code class="language-csharp">public ContentManager Content { get; public set; }
 </code></pre>
+<p>MonoGame's <code>ContentManager</code> for loading XNB-compiled assets. Murder uses its own <code>GameDataManager</code> for most asset loading; this property is inherited from <code>Microsoft.Xna.Framework.Game</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Content.ContentManager.html">ContentManager</a> </p>
 <h4 id="data"><a class="header" href="#data">Data</a></h4>
@@ -252,6 +262,7 @@ If <paramref name="dataManager" /> is not initialized, it will create the starti
 <h4 id="downsample"><a class="header" href="#downsample">Downsample</a></h4>
 <pre><code class="language-csharp">public float Downsample;
 </code></pre>
+<p>Render-resolution scaling factor. A value of <code>1</code> renders at full resolution; values below <code>1</code> render to a smaller target and upscale, improving performance at the cost of quality. Modify before the scene loads to apply at startup.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="fixeddeltatime"><a class="header" href="#fixeddeltatime">FixedDeltaTime</a></h4>
@@ -283,6 +294,7 @@ Returns Vector2.One if the window has invalid dimensions.</p>
 <h4 id="graphicsdevicemanager"><a class="header" href="#graphicsdevicemanager">GraphicsDeviceManager</a></h4>
 <pre><code class="language-csharp">public GraphicsDeviceManager GraphicsDeviceManager { get; }
 </code></pre>
+<p>Public accessor for the <code>_graphics</code> field. Use this to query or change graphics settings such as preferred back-buffer dimensions or fullscreen state.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.GraphicsDeviceManager.html">GraphicsDeviceManager</a> </p>
 <h4 id="graphlogger"><a class="header" href="#graphlogger">GraphLogger</a></h4>
@@ -300,6 +312,7 @@ Returns Vector2.One if the window has invalid dimensions.</p>
 <h4 id="hascursor"><a class="header" href="#hascursor">HasCursor</a></h4>
 <pre><code class="language-csharp">protected virtual bool HasCursor { get; }
 </code></pre>
+<p>Whether this game renders a visible cursor. Defaults to <code>false</code> in the base <code>Game</code>; the <code>IMurderGame</code> implementation controls this and the base class reads it to set <code>IsMouseVisible</code>. Override in a subclass if cursor visibility depends on runtime state.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="height"><a class="header" href="#height">Height</a></h4>
@@ -311,11 +324,13 @@ Returns Vector2.One if the window has invalid dimensions.</p>
 <h4 id="inactivesleeptime"><a class="header" href="#inactivesleeptime">InactiveSleepTime</a></h4>
 <pre><code class="language-csharp">public TimeSpan InactiveSleepTime { get; public set; }
 </code></pre>
+<p>The duration the game sleeps per frame when the window is not the foreground application. Inherited from <code>Microsoft.Xna.Framework.Game</code>; increase to reduce CPU usage when the game is in the background.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.TimeSpan?view=net-7.0">TimeSpan</a> </p>
 <h4 id="initialscene"><a class="header" href="#initialscene">InitialScene</a></h4>
 <pre><code class="language-csharp">protected virtual Scene InitialScene { get; }
 </code></pre>
+<p>The first <code>Scene</code> the engine creates when the game starts. Defaults to a <code>GameScene</code> loaded from <code>GameProfile.StartingScene</code>. Override in a subclass to launch with a different or custom scene.</p>
 <p><strong>Returns</strong> <br />
 <a href="../Murder/Core/Scene.html">Scene</a> </p>
 <h4 id="input"><a class="header" href="#input">Input</a></h4>
@@ -333,26 +348,31 @@ Returns Vector2.One if the window has invalid dimensions.</p>
 <h4 id="isactive"><a class="header" href="#isactive">IsActive</a></h4>
 <pre><code class="language-csharp">public bool IsActive { get; internal set; }
 </code></pre>
+<p><code>true</code> while the game window has OS focus. When <code>false</code> the game may sleep for <code>InactiveSleepTime</code> per frame. Fires <code>Activated</code> / <code>Deactivated</code> events on change.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="isdiagnosticenabled"><a class="header" href="#isdiagnosticenabled">IsDiagnosticEnabled</a></h4>
 <pre><code class="language-csharp">protected virtual bool IsDiagnosticEnabled { get; }
 </code></pre>
+<p>Whether the in-game diagnostic overlay is active. When <code>true</code>, per-system timing data is collected and displayed. The editor (<code>Architect</code>) overrides this to <code>true</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="isfixedtimestep"><a class="header" href="#isfixedtimestep">IsFixedTimeStep</a></h4>
 <pre><code class="language-csharp">public bool IsFixedTimeStep { get; public set; }
 </code></pre>
+<p>When <code>true</code>, MonoGame attempts to call <code>Update</code> at exactly <code>TargetElapsedTime</code> intervals. Murder overrides timing internally, so this is typically left at its default. Inherited from <code>Microsoft.Xna.Framework.Game</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="ismousevisible"><a class="header" href="#ismousevisible">IsMouseVisible</a></h4>
 <pre><code class="language-csharp">public bool IsMouseVisible { get; public set; }
 </code></pre>
+<p>Controls OS-level mouse cursor visibility. Murder sets this automatically from <code>HasCursor</code> during initialization. Inherited from <code>Microsoft.Xna.Framework.Game</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="ispaused"><a class="header" href="#ispaused">IsPaused</a></h4>
 <pre><code class="language-csharp">public bool IsPaused { get; private set; }
 </code></pre>
+<p><code>true</code> when the game has been paused via <code>Pause()</code>. While paused, <code>DeltaTime</code> is effectively zero and time does not advance. Resume normal play with <code>Resume()</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="isskippingdeltatimeonupdate"><a class="header" href="#isskippingdeltatimeonupdate">IsSkippingDeltaTimeOnUpdate</a></h4>
@@ -365,11 +385,13 @@ the time while calling update methods.</p>
 <h4 id="launchparameters"><a class="header" href="#launchparameters">LaunchParameters</a></h4>
 <pre><code class="language-csharp">public LaunchParameters LaunchParameters { get; }
 </code></pre>
+<p>Command-line arguments parsed by MonoGame at startup. Use to implement launch flags such as <code>-fullscreen</code> or <code>-nosound</code>. Inherited from <code>Microsoft.Xna.Framework.Game</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.LaunchParameters.html">LaunchParameters</a> </p>
 <h4 id="longest_time_reset"><a class="header" href="#longest_time_reset">LONGEST_TIME_RESET</a></h4>
 <pre><code class="language-csharp">public static const float LONGEST_TIME_RESET;
 </code></pre>
+<p>The number of seconds after which <code>LongestUpdateTime</code> and <code>LongestRenderTime</code> are automatically reset. Prevents stale spikes from dominating the diagnostic display indefinitely.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="longestrendertime"><a class="header" href="#longestrendertime">LongestRenderTime</a></h4>
@@ -381,6 +403,7 @@ the time while calling update methods.</p>
 <h4 id="longestupdatetime"><a class="header" href="#longestupdatetime">LongestUpdateTime</a></h4>
 <pre><code class="language-csharp">public float LongestUpdateTime { get; private set; }
 </code></pre>
+<p>The largest <code>UpdateTime</code> value ever recorded since the last <code>LONGEST_TIME_RESET</code> interval. Useful for identifying frame spikes in diagnostics.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="now"><a class="header" href="#now">Now</a></h4>
@@ -452,6 +475,7 @@ the time while calling update methods.</p>
 <h4 id="services"><a class="header" href="#services">Services</a></h4>
 <pre><code class="language-csharp">public GameServiceContainer Services { get; }
 </code></pre>
+<p>MonoGame's service-locator container for sharing objects between game components. Murder uses its own dependency-injection patterns (static accessors, <code>Game.Data</code>, etc.); this is primarily an inherited MonoGame surface.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.GameServiceContainer.html">GameServiceContainer</a> </p>
 <h4 id="sound"><a class="header" href="#sound">Sound</a></h4>
@@ -463,6 +487,7 @@ the time while calling update methods.</p>
 <h4 id="soundplayer"><a class="header" href="#soundplayer">SoundPlayer</a></h4>
 <pre><code class="language-csharp">public readonly ISoundPlayer SoundPlayer;
 </code></pre>
+<p>The concrete sound subsystem instance for this game. Created during <code>LoadContent</code> via <code>IMurderGame.CreateSoundPlayer()</code>. Access it globally via the <code>Game.Sound</code> static shortcut.</p>
 <p><strong>Returns</strong> <br />
 <a href="../Murder/Core/Sounds/ISoundPlayer.html">ISoundPlayer</a> </p>
 <h4 id="startedskippingcutscene"><a class="header" href="#startedskippingcutscene">StartedSkippingCutscene</a></h4>
@@ -474,11 +499,13 @@ the time while calling update methods.</p>
 <h4 id="targetelapsedtime"><a class="header" href="#targetelapsedtime">TargetElapsedTime</a></h4>
 <pre><code class="language-csharp">public TimeSpan TargetElapsedTime { get; public set; }
 </code></pre>
+<p>Desired duration between frames when <code>IsFixedTimeStep</code> is <code>true</code>. Inherited from MonoGame. Murder uses its own delta-time accumulation independently of this.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.TimeSpan?view=net-7.0">TimeSpan</a> </p>
 <h4 id="timescale"><a class="header" href="#timescale">TimeScale</a></h4>
 <pre><code class="language-csharp">public float TimeScale;
 </code></pre>
+<p>Multiplier applied to raw delta time before it is exposed as <code>DeltaTime</code> and <code>Now</code>. Set to values less than <code>1</code> for slow-motion, greater than <code>1</code> for fast-forward. Does not affect <code>UnscaledDeltaTime</code> or <code>NowUnscaled</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="timetrackerdiagnoostics"><a class="header" href="#timetrackerdiagnoostics">TimeTrackerDiagnoostics</a></h4>
@@ -496,6 +523,7 @@ the time while calling update methods.</p>
 <h4 id="updatetime"><a class="header" href="#updatetime">UpdateTime</a></h4>
 <pre><code class="language-csharp">public float UpdateTime { get; private set; }
 </code></pre>
+<p>Wall-clock seconds the last <code>Update()</code> invocation consumed, including all ECS system updates. Compare against <code>DeltaTime</code> to detect performance bottlenecks.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="width"><a class="header" href="#width">Width</a></h4>
@@ -507,38 +535,45 @@ the time while calling update methods.</p>
 <h4 id="window"><a class="header" href="#window">Window</a></h4>
 <pre><code class="language-csharp">public GameWindow Window { get; }
 </code></pre>
+<p>The MonoGame game window handle. Use to set the title (<code>Window.Title</code>), allow resizing (<code>Window.AllowUserResizing</code>), or listen to <code>ClientSizeChanged</code> events. Inherited from <code>Microsoft.Xna.Framework.Game</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.GameWindow.html">GameWindow</a> </p>
 <h3 id="-events"><a class="header" href="#-events">⭐ Events</a></h3>
 <h4 id="activated"><a class="header" href="#activated">Activated</a></h4>
 <pre><code class="language-csharp">public event EventHandler&lt;TEventArgs&gt; Activated;
 </code></pre>
+<p>Fired when the game window regains OS focus after being inactive. Use to resume audio, timers, or other focus-sensitive logic. Inherited from MonoGame.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.EventHandler-1?view=net-7.0">EventHandler&lt;TEventArgs&gt;</a> </p>
 <h4 id="deactivated"><a class="header" href="#deactivated">Deactivated</a></h4>
 <pre><code class="language-csharp">public event EventHandler&lt;TEventArgs&gt; Deactivated;
 </code></pre>
+<p>Fired when the game window loses OS focus. Use to pause audio or lower frame-rate to conserve CPU. Inherited from MonoGame.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.EventHandler-1?view=net-7.0">EventHandler&lt;TEventArgs&gt;</a> </p>
 <h4 id="disposed"><a class="header" href="#disposed">Disposed</a></h4>
 <pre><code class="language-csharp">public event EventHandler&lt;TEventArgs&gt; Disposed;
 </code></pre>
+<p>Fired when the game's <code>Dispose()</code> method completes. Useful for cleanup hooks that must run after the game's own disposal logic. Inherited from MonoGame.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.EventHandler-1?view=net-7.0">EventHandler&lt;TEventArgs&gt;</a> </p>
 <h4 id="exiting"><a class="header" href="#exiting">Exiting</a></h4>
 <pre><code class="language-csharp">public event EventHandler&lt;TEventArgs&gt; Exiting;
 </code></pre>
+<p>Fired just before the game loop ends and the process exits. Subscribe to perform any last-moment cleanup or analytics flushing. Inherited from MonoGame.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.EventHandler-1?view=net-7.0">EventHandler&lt;TEventArgs&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="begindraw"><a class="header" href="#begindraw">BeginDraw()</a></h4>
 <pre><code class="language-csharp">protected virtual bool BeginDraw()
 </code></pre>
+<p>Called by MonoGame immediately before <code>Draw()</code>. Returns <code>false</code> to skip the current draw call. Overriding allows insertion of pre-draw logic or conditional suppression of rendering. Inherited from <code>Microsoft.Xna.Framework.Game</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="showmissingrequirementmessageexception"><a class="header" href="#showmissingrequirementmessageexception">ShowMissingRequirementMessage(Exception)</a></h4>
 <pre><code class="language-csharp">protected virtual bool ShowMissingRequirementMessage(Exception exception)
 </code></pre>
+<p>Shows a platform-specific dialog when a required runtime dependency (e.g. a missing graphics feature) is absent. Returns <code>true</code> if the message was shown and the game should exit gracefully. Inherited from MonoGame.</p>
 <p><strong>Parameters</strong> <br />
 <code>exception</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Exception?view=net-7.0">Exception</a> </p>
 <p><strong>Returns</strong> <br />
@@ -559,9 +594,11 @@ the time while calling update methods.</p>
 <h4 id="beginrun"><a class="header" href="#beginrun">BeginRun()</a></h4>
 <pre><code class="language-csharp">protected virtual void BeginRun()
 </code></pre>
+<p>Called by MonoGame once, immediately before the main game loop starts. Override to perform one-time setup that must occur after <code>Initialize</code> and <code>LoadContent</code> but before the first <code>Update</code>. Inherited from <code>Microsoft.Xna.Framework.Game</code>.</p>
 <h4 id="disposebool"><a class="header" href="#disposebool">Dispose(bool)</a></h4>
 <pre><code class="language-csharp">protected virtual void Dispose(bool isDisposing)
 </code></pre>
+<p>Core disposal implementation. When <code>isDisposing</code> is <code>true</code>, managed resources (sound, data manager, scenes) are released. Call via <code>Dispose()</code> or the finalizer; do not call directly. Inherited pattern from <code>IDisposable</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>isDisposing</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="drawgametime"><a class="header" href="#drawgametime">Draw(GameTime)</a></h4>
@@ -579,9 +616,11 @@ the time while calling update methods.</p>
 <h4 id="enddraw"><a class="header" href="#enddraw">EndDraw()</a></h4>
 <pre><code class="language-csharp">protected virtual void EndDraw()
 </code></pre>
+<p>Called by MonoGame after <code>Draw()</code> completes. Presents the back buffer to the screen. Inherited from <code>Microsoft.Xna.Framework.Game</code>; override only if you need to insert post-present logic.</p>
 <h4 id="endrun"><a class="header" href="#endrun">EndRun()</a></h4>
 <pre><code class="language-csharp">protected virtual void EndRun()
 </code></pre>
+<p>Called by MonoGame after the main game loop exits. Override to add post-loop cleanup. Inherited from <code>Microsoft.Xna.Framework.Game</code>.</p>
 <h4 id="exitgame"><a class="header" href="#exitgame">ExitGame()</a></h4>
 <pre><code class="language-csharp">protected virtual void ExitGame()
 </code></pre>
@@ -605,18 +644,21 @@ Typically overridden by the game implementation.</p>
 <h4 id="onactivatedobject-eventargs"><a class="header" href="#onactivatedobject-eventargs">OnActivated(Object, EventArgs)</a></h4>
 <pre><code class="language-csharp">protected virtual void OnActivated(Object sender, EventArgs args)
 </code></pre>
+<p>Raised when the game window gains focus. Fires the <code>Activated</code> event and may resume background operations. Inherited from MonoGame; override to add custom focus-gained behavior.</p>
 <p><strong>Parameters</strong> <br />
 <code>sender</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> <br />
 <code>args</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.EventArgs?view=net-7.0">EventArgs</a> </p>
 <h4 id="ondeactivatedobject-eventargs"><a class="header" href="#ondeactivatedobject-eventargs">OnDeactivated(Object, EventArgs)</a></h4>
 <pre><code class="language-csharp">protected virtual void OnDeactivated(Object sender, EventArgs args)
 </code></pre>
+<p>Raised when the game window loses focus. Fires the <code>Deactivated</code> event. Override to pause audio or lower simulation fidelity when the player alt-tabs.</p>
 <p><strong>Parameters</strong> <br />
 <code>sender</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> <br />
 <code>args</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.EventArgs?view=net-7.0">EventArgs</a> </p>
 <h4 id="onexitingobject-eventargs"><a class="header" href="#onexitingobject-eventargs">OnExiting(Object, EventArgs)</a></h4>
 <pre><code class="language-csharp">protected virtual void OnExiting(Object sender, EventArgs args)
 </code></pre>
+<p>Called by MonoGame just before the process exits. Murder uses this to call <code>IMurderGame.OnClose()</code>. Override to perform shutdown logic after the normal game teardown.</p>
 <p><strong>Parameters</strong> <br />
 <code>sender</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> <br />
 <code>args</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.EventArgs?view=net-7.0">EventArgs</a> </p>
@@ -636,6 +678,7 @@ Typically overridden by the game implementation.</p>
 <h4 id="unloadcontent"><a class="header" href="#unloadcontent">UnloadContent()</a></h4>
 <pre><code class="language-csharp">protected virtual void UnloadContent()
 </code></pre>
+<p>Called by MonoGame to unload all managed content before the game exits. Override to release custom textures, audio, or other <code>IDisposable</code> assets that Murder does not own. Inherited from <code>Microsoft.Xna.Framework.Game</code>.</p>
 <h4 id="updategametime"><a class="header" href="#updategametime">Update(GameTime)</a></h4>
 <pre><code class="language-csharp">protected virtual void Update(GameTime gameTime)
 </code></pre>
@@ -649,9 +692,11 @@ Typically overridden by the game implementation.</p>
 <h4 id="dopendingexitgame"><a class="header" href="#dopendingexitgame">DoPendingExitGame()</a></h4>
 <pre><code class="language-csharp">protected void DoPendingExitGame()
 </code></pre>
+<p>Executes the deferred exit logic set by <code>QueueExitGame()</code>. Called at the end of an update tick once <code>_pendingExit</code> is <code>true</code>, ensuring the world is not mid-update when disposal occurs.</p>
 <h4 id="dopendingworldtransition"><a class="header" href="#dopendingworldtransition">DoPendingWorldTransition()</a></h4>
 <pre><code class="language-csharp">protected void DoPendingWorldTransition()
 </code></pre>
+<p>Applies a pending world switch that was queued via <code>QueueWorldTransition</code> or <code>QueueReplaceWorldOnCurrentScene</code>. Swaps out the active world, optionally disposing the old one, and triggers the new world's start logic.</p>
 <h4 id="updateimplgametime"><a class="header" href="#updateimplgametime">UpdateImpl(GameTime)</a></h4>
 <pre><code class="language-csharp">protected void UpdateImpl(GameTime gameTime)
 </code></pre>
@@ -678,6 +723,7 @@ Happened when transition from two different scenes (already loaded) as a world.<
 <h4 id="queueworldtransitionguid"><a class="header" href="#queueworldtransitionguid">QueueWorldTransition(Guid)</a></h4>
 <pre><code class="language-csharp">public bool QueueWorldTransition(Guid world)
 </code></pre>
+<p>Schedules a transition to the world asset identified by <code>world</code> (a <code>WorldAsset</code> GUID). The actual swap happens at the start of the next frame so the current update completes cleanly. Returns <code>true</code> if the transition was accepted.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -707,14 +753,14 @@ Optionally implement this interface for using your custom RenderContext.</p>
 <h4 id="beginimguitheme"><a class="header" href="#beginimguitheme">BeginImGuiTheme()</a></h4>
 <pre><code class="language-csharp">public virtual void BeginImGuiTheme()
 </code></pre>
-<p>Placeholder for setting up a custom ImGui theme, to be extended in game editor.</p>
+<p>Placeholder called before each ImGui draw pass. Override in an editor subclass (e.g. <code>Architect</code>) to push custom style colors and variables onto the ImGui style stack.</p>
 <h4 id="dispose"><a class="header" href="#dispose">Dispose()</a></h4>
 <pre><code class="language-csharp">public virtual void Dispose()
 </code></pre>
 <h4 id="endimguitheme"><a class="header" href="#endimguitheme">EndImGuiTheme()</a></h4>
 <pre><code class="language-csharp">public virtual void EndImGuiTheme()
 </code></pre>
-<p>Placeholder for finalizing a custom ImGui theme, to be extended in game editor.</p>
+<p>Called after each ImGui draw pass. Override alongside <code>BeginImGuiTheme()</code> to pop any custom style colors and variables from the ImGui style stack.</p>
 <h4 id="refreshwindow"><a class="header" href="#refreshwindow">RefreshWindow()</a></h4>
 <pre><code class="language-csharp">public virtual void RefreshWindow()
 </code></pre>
@@ -722,6 +768,7 @@ Optionally implement this interface for using your custom RenderContext.</p>
 <h4 id="exit"><a class="header" href="#exit">Exit()</a></h4>
 <pre><code class="language-csharp">public void Exit()
 </code></pre>
+<p>Immediately signals MonoGame to stop the game loop and exit the process. Prefer <code>QueueExitGame()</code> over calling this directly to avoid disposing the world while it is actively being updated.</p>
 <h4 id="freezeframesint"><a class="header" href="#freezeframesint">FreezeFrames(int)</a></h4>
 <pre><code class="language-csharp">public void FreezeFrames(int amount)
 </code></pre>
@@ -740,6 +787,7 @@ We wait until the end of the update to avoid any access to a world that has been
 <h4 id="resetelapsedtime"><a class="header" href="#resetelapsedtime">ResetElapsedTime()</a></h4>
 <pre><code class="language-csharp">public void ResetElapsedTime()
 </code></pre>
+<p>Resets the elapsed-time accumulator so the next frame receives a delta of zero. Useful after long loading pauses or debugging breaks to prevent a huge first-frame spike.</p>
 <h4 id="resume"><a class="header" href="#resume">Resume()</a></h4>
 <pre><code class="language-csharp">public void Resume()
 </code></pre>
@@ -747,9 +795,11 @@ We wait until the end of the update to avoid any access to a world that has been
 <h4 id="run"><a class="header" href="#run">Run()</a></h4>
 <pre><code class="language-csharp">public void Run()
 </code></pre>
+<p>Starts the MonoGame event loop. Calls <code>Initialize</code>, <code>LoadContent</code>, then continuously calls <code>Update</code> and <code>Draw</code> until <code>Exit</code> is called. This is a blocking call — it returns only when the game closes.</p>
 <h4 id="runoneframe"><a class="header" href="#runoneframe">RunOneFrame()</a></h4>
 <pre><code class="language-csharp">public void RunOneFrame()
 </code></pre>
+<p>Advances the game by a single <code>Update</code>+<code>Draw</code> cycle. Used for unit tests or deterministic replay scenarios where the caller drives the game loop manually. Inherited from MonoGame.</p>
 <h4 id="setwaitforsavecomplete"><a class="header" href="#setwaitforsavecomplete">SetWaitForSaveComplete()</a></h4>
 <pre><code class="language-csharp">public void SetWaitForSaveComplete()
 </code></pre>
@@ -762,9 +812,11 @@ until <a href="../Murder/Game.html#resumedeltatimeonupdate">Game.ResumeDeltaTime
 <h4 id="suppressdraw"><a class="header" href="#suppressdraw">SuppressDraw()</a></h4>
 <pre><code class="language-csharp">public void SuppressDraw()
 </code></pre>
+<p>Tells MonoGame to skip the <code>Draw</code> call for the current frame. Use when the scene state hasn't changed and redrawing would be wasteful. Inherited from <code>Microsoft.Xna.Framework.Game</code>.</p>
 <h4 id="tick"><a class="header" href="#tick">Tick()</a></h4>
 <pre><code class="language-csharp">public void Tick()
 </code></pre>
+<p>Manually ticks one frame of the game loop (equivalent to a single <code>Update</code>+<code>Draw</code> step). Intended for headless testing or tooling scenarios where you control the loop. Inherited from MonoGame.</p>
 <p>⚡</p>
 
                     </main>

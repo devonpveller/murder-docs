@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct Matrix : IEquatable&lt;T&gt;
 </code></pre>
 <p>Implements a matrix within our engine. It can be converted to other matrix data types.</p>
+<p><strong>Intent:</strong> Murder's 2D transformation matrix, wrapping XNA's <code>Matrix</code> for camera and world-to-screen transforms.</p>
+<p><strong>Use-case:</strong> Used primarily by <code>Camera2D</code> for world-to-screen coordinate transformations; prefer the helper methods over manipulating matrix elements directly.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0">IEquatable&lt;T&gt;</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="identity"><a class="header" href="#identity">Identity</a></h4>

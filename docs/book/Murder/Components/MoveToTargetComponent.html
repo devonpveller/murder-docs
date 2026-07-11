@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct MoveToTargetComponent : IComponent
 </code></pre>
+<p>Instructs the agent movement system to steer the entity toward another entity identified by its runtime ID.</p>
+<p><strong>Intent:</strong> Drive an agent to follow or pursue a specific target entity, decelerating as it approaches.</p>
+<p><strong>Use-case:</strong> Add at runtime with the target entity's ID; the agent mover reads the target's current position each frame and moves the entity toward it, stopping within <code>MinDistance</code>.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MoveToTargetComponent(int target, float minDistance, float slowDownDistance, Vector2 offset)
@@ -168,21 +171,25 @@
 <h4 id="mindistance"><a class="header" href="#mindistance">MinDistance</a></h4>
 <pre><code class="language-csharp">public readonly float MinDistance;
 </code></pre>
+<p>Distance threshold (in pixels) at which the entity is considered to have reached the target and movement stops.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="offset"><a class="header" href="#offset">Offset</a></h4>
 <pre><code class="language-csharp">public readonly Vector2 Offset;
 </code></pre>
+<p>Offset (in pixels) applied to the target entity's position, allowing the pursuer to stop slightly beside rather than directly on the target.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="slowdowndistance"><a class="header" href="#slowdowndistance">SlowDownDistance</a></h4>
 <pre><code class="language-csharp">public readonly float SlowDownDistance;
 </code></pre>
+<p>Distance (in pixels) from the target at which the entity begins decelerating.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="target"><a class="header" href="#target">Target</a></h4>
 <pre><code class="language-csharp">public readonly int Target;
 </code></pre>
+<p>Runtime entity ID of the entity to move toward.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

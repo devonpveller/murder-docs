@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class CollectionHelper
 </code></pre>
+<p>Static helpers for building string-keyed dictionaries from collections with automatic duplicate-key disambiguation.</p>
+<p><strong>Intent:</strong> Provides safe dictionary construction from collections whose projected string keys may collide, automatically appending a numeric suffix to duplicates.</p>
+<p><strong>Use-case:</strong> Use <code>ToStringDictionary</code> when projecting a collection to a dictionary with potentially conflicting keys (e.g., asset names), avoiding silent overwrites.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="tostringdictionarydictionary2-ienumerable-funct-tresult-funct-tresult"><a class="header" href="#tostringdictionarydictionary2-ienumerable-funct-tresult-funct-tresult">ToStringDictionary(Dictionary`2&amp;, IEnumerable<T>, Func&lt;T, TResult&gt;, Func&lt;T, TResult&gt;)</a></h4>
 <pre><code class="language-csharp">public Dictionary&lt;TKey, TValue&gt; ToStringDictionary(Dictionary`2&amp; existingDictionary, IEnumerable&lt;T&gt; collection, Func&lt;T, TResult&gt; toKey, Func&lt;T, TResult&gt; toValue)
 </code></pre>
+<p>Appends projected key-value pairs from <code>collection</code> into <code>existingDictionary</code>, disambiguating duplicate keys by appending a counter suffix.</p>
 <p><strong>Parameters</strong> <br />
 <code>existingDictionary</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0">Dictionary&lt;TKey, TValue&gt;&amp;</a> <br />
 <code>collection</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0">IEnumerable&lt;T&gt;</a> <br />
@@ -163,6 +167,7 @@
 <h4 id="tostringdictionaryienumerable-funct-tresult-funct-tresult"><a class="header" href="#tostringdictionaryienumerable-funct-tresult-funct-tresult">ToStringDictionary(IEnumerable<T>, Func&lt;T, TResult&gt;, Func&lt;T, TResult&gt;)</a></h4>
 <pre><code class="language-csharp">public Dictionary&lt;TKey, TValue&gt; ToStringDictionary(IEnumerable&lt;T&gt; collection, Func&lt;T, TResult&gt; toKey, Func&lt;T, TResult&gt; toValue)
 </code></pre>
+<p>Creates a new string-keyed dictionary by projecting <code>collection</code>, with automatic counter suffixes added to any duplicate keys.</p>
 <p><strong>Parameters</strong> <br />
 <code>collection</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0">IEnumerable&lt;T&gt;</a> <br />
 <code>toKey</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Func-2?view=net-7.0">Func&lt;T, TResult&gt;</a> <br />

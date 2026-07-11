@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class WorldAsset : GameAsset, IWorldAsset
 </code></pre>
+<p>Represents a complete game level/world, storing all entity instances and their initial component data, plus the ECS systems and feature flags active in that level.</p>
+<p><strong>Intent:</strong> Act as the design-time serialized form of a full game scene: entities with their component values, grouped into editor folders, plus the system and feature configuration that governs gameplay for that world.</p>
+<p><strong>Use-case:</strong> Create one <code>WorldAsset</code> per level. Populate it in the editor with entities and features. At runtime the engine instantiates all entities and activates the configured systems; retrieve a <code>WorldAsset</code> by GUID from <code>Game.Data</code> and use <code>TryGetInstance</code> to inspect individual entity data.</p>
 <p><strong>Implements:</strong> <em><a href="../../Murder/Assets/GameAsset.html">GameAsset</a>, <a href="../../Murder/Assets/IWorldAsset.html">IWorldAsset</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public WorldAsset()
@@ -157,76 +160,91 @@
 <h4 id="canbecreated"><a class="header" href="#canbecreated">CanBeCreated</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeCreated { get; }
 </code></pre>
+<p>Determines if the asset can be created, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canbedeleted"><a class="header" href="#canbedeleted">CanBeDeleted</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeDeleted { get; }
 </code></pre>
+<p>Determines if the asset can be deleted, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canberenamed"><a class="header" href="#canberenamed">CanBeRenamed</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeRenamed { get; }
 </code></pre>
+<p>Determines if the asset can be renamed, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="canbesaved"><a class="header" href="#canbesaved">CanBeSaved</a></h4>
 <pre><code class="language-csharp">public virtual bool CanBeSaved { get; }
 </code></pre>
+<p>Determines if the asset can be saved, override to change this capability.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="editorcolor"><a class="header" href="#editorcolor">EditorColor</a></h4>
 <pre><code class="language-csharp">public virtual Vector4 EditorColor { get; }
 </code></pre>
+<p>Gets the default color used in the editor for the asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector4?view=net-7.0">Vector4</a> </p>
 <h4 id="editorfolder"><a class="header" href="#editorfolder">EditorFolder</a></h4>
 <pre><code class="language-csharp">public virtual string EditorFolder { get; }
 </code></pre>
+<p>Gets the folder path in the editor where this asset is grouped.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="features"><a class="header" href="#features">Features</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; Features { get; }
 </code></pre>
+<p>The feature asset references (with active flags) assigned to this world.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="filechanged"><a class="header" href="#filechanged">FileChanged</a></h4>
 <pre><code class="language-csharp">public bool FileChanged { get; public set; }
 </code></pre>
+<p>Indicates whether the asset has unsaved modifications.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="filepath"><a class="header" href="#filepath">FilePath</a></h4>
 <pre><code class="language-csharp">public string FilePath { get; public set; }
 </code></pre>
+<p>Path to this asset file, relative to its base directory.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="guid"><a class="header" href="#guid">Guid</a></h4>
 <pre><code class="language-csharp">public Guid Guid { get; protected set; }
 </code></pre>
+<p>Unique identifier for this asset, used to reference it from other assets and components.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="hassystems"><a class="header" href="#hassystems">HasSystems</a></h4>
 <pre><code class="language-csharp">public bool HasSystems { get; }
 </code></pre>
+<p>Returns true if this world has at least one active ECS system configured.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="icon"><a class="header" href="#icon">Icon</a></h4>
 <pre><code class="language-csharp">public virtual char Icon { get; }
 </code></pre>
+<p>FontAwesome character icon displayed next to this asset in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0">char</a> </p>
 <h4 id="instances"><a class="header" href="#instances">Instances</a></h4>
 <pre><code class="language-csharp">public virtual ImmutableArray&lt;T&gt; Instances { get; }
 </code></pre>
+<p>Ordered list of all entity instances defined in this world.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="isstoredinsavedata"><a class="header" href="#isstoredinsavedata">IsStoredInSaveData</a></h4>
 <pre><code class="language-csharp">public virtual bool IsStoredInSaveData { get; }
 </code></pre>
+<p>Whether this file is stored relative to the save path.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public string Name { get; public set; }
 </code></pre>
+<p>Display name of this asset as shown in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="order"><a class="header" href="#order">Order</a></h4>
@@ -238,31 +256,37 @@
 <h4 id="rename"><a class="header" href="#rename">Rename</a></h4>
 <pre><code class="language-csharp">public bool Rename { get; public set; }
 </code></pre>
+<p>Whether the file should be renamed and the previous name deleted on next save.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="savelocation"><a class="header" href="#savelocation">SaveLocation</a></h4>
 <pre><code class="language-csharp">public virtual string SaveLocation { get; }
 </code></pre>
+<p>The folder path where this asset is saved on disk.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="storeindatabase"><a class="header" href="#storeindatabase">StoreInDatabase</a></h4>
 <pre><code class="language-csharp">public virtual bool StoreInDatabase { get; }
 </code></pre>
+<p>Whether this asset is stored following the database hierarchy.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="systems"><a class="header" href="#systems">Systems</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; Systems { get; }
 </code></pre>
+<p>The raw ECS system type entries (with active flags) directly assigned to this world.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="taggedfordeletion"><a class="header" href="#taggedfordeletion">TaggedForDeletion</a></h4>
 <pre><code class="language-csharp">public bool TaggedForDeletion;
 </code></pre>
+<p>Marks this asset for removal on the next save.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="worldguid"><a class="header" href="#worldguid">WorldGuid</a></h4>
 <pre><code class="language-csharp">public virtual Guid WorldGuid { get; }
 </code></pre>
+<p>The GUID that uniquely identifies this world (same as <code>Guid</code> for <code>WorldAsset</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="worldname"><a class="header" href="#worldname">WorldName</a></h4>
@@ -275,6 +299,7 @@
 <h4 id="onmodified"><a class="header" href="#onmodified">OnModified()</a></h4>
 <pre><code class="language-csharp">protected virtual void OnModified()
 </code></pre>
+<p>Called by the editor when the asset is modified; clears the cached instances list.</p>
 <h4 id="postprocessentitiesworld-dictionarytkey-tvalue"><a class="header" href="#postprocessentitiesworld-dictionarytkey-tvalue">PostProcessEntities(World, Dictionary&lt;TKey, TValue&gt;)</a></h4>
 <pre><code class="language-csharp">protected void PostProcessEntities(World world, Dictionary&lt;TKey, TValue&gt; instancesToEntities)
 </code></pre>
@@ -328,6 +353,7 @@ This may trigger reactive components within the world.</p>
 <h4 id="hasgroupstring"><a class="header" href="#hasgroupstring">HasGroup(string)</a></h4>
 <pre><code class="language-csharp">public bool HasGroup(string name)
 </code></pre>
+<p>Returns true if a folder group with the given name already exists in this world.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -335,6 +361,7 @@ This may trigger reactive components within the world.</p>
 <h4 id="isonfilterguid"><a class="header" href="#isonfilterguid">IsOnFilter(Guid)</a></h4>
 <pre><code class="language-csharp">public bool IsOnFilter(Guid g)
 </code></pre>
+<p>Returns true if the entity with the given GUID is in any active filter.</p>
 <p><strong>Parameters</strong> <br />
 <code>g</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -342,6 +369,7 @@ This may trigger reactive components within the world.</p>
 <h4 id="movetogroupstring-guid-int"><a class="header" href="#movetogroupstring-guid-int">MoveToGroup(string, Guid, int)</a></h4>
 <pre><code class="language-csharp">public bool MoveToGroup(string targetGroup, Guid instance, int targetPosition)
 </code></pre>
+<p>Moves an entity instance to the specified folder group at the given position.</p>
 <p><strong>Parameters</strong> <br />
 <code>targetGroup</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>instance</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
@@ -351,6 +379,7 @@ This may trigger reactive components within the world.</p>
 <h4 id="duplicatestring"><a class="header" href="#duplicatestring">Duplicate(string)</a></h4>
 <pre><code class="language-csharp">public GameAsset Duplicate(string name)
 </code></pre>
+<p>Creates a deep copy of this asset with the given new name.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -364,11 +393,13 @@ This may trigger reactive components within the world.</p>
 <h4 id="fetchallsystems"><a class="header" href="#fetchallsystems">FetchAllSystems()</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; FetchAllSystems()
 </code></pre>
+<p>Returns all systems for this world, expanding nested feature assets recursively.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="fetchentitiesguidinfilterstring"><a class="header" href="#fetchentitiesguidinfilterstring">FetchEntitiesGuidInFilter(string)</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; FetchEntitiesGuidInFilter(string targetFilter)
 </code></pre>
+<p>Returns the GUIDs of all entities assigned to the specified filter.</p>
 <p><strong>Parameters</strong> <br />
 <code>targetFilter</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -376,6 +407,7 @@ This may trigger reactive components within the world.</p>
 <h4 id="fetchentitiesofgroupstring"><a class="header" href="#fetchentitiesofgroupstring">FetchEntitiesOfGroup(string)</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; FetchEntitiesOfGroup(string name)
 </code></pre>
+<p>Returns the GUIDs of all entities assigned to the specified folder group.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -397,16 +429,19 @@ This has no effect in the actual game.</p>
 <h4 id="groupscount"><a class="header" href="#groupscount">GroupsCount()</a></h4>
 <pre><code class="language-csharp">public int GroupsCount()
 </code></pre>
+<p>Returns the total number of folder groups defined in this world.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="assetstobesaved"><a class="header" href="#assetstobesaved">AssetsToBeSaved()</a></h4>
 <pre><code class="language-csharp">public List&lt;T&gt; AssetsToBeSaved()
 </code></pre>
+<p>Returns and clears the list of dependent assets queued to be saved alongside this asset.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <h4 id="fetchentitiesinfilterstring"><a class="header" href="#fetchentitiesinfilterstring">FetchEntitiesInFilter(string)</a></h4>
 <pre><code class="language-csharp">public List&lt;T&gt; FetchEntitiesInFilter(string targetFilter)
 </code></pre>
+<p>Returns the <code>EntityInstance</code> objects of all entities assigned to the specified filter.</p>
 <p><strong>Parameters</strong> <br />
 <code>targetFilter</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -414,6 +449,7 @@ This has no effect in the actual game.</p>
 <h4 id="createinstancecamera2d-immutablearray"><a class="header" href="#createinstancecamera2d-immutablearray">CreateInstance(Camera2D, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public MonoWorld CreateInstance(Camera2D camera, ImmutableArray&lt;T&gt; startingSystems)
 </code></pre>
+<p>Instantiates a new <code>MonoWorld</code> from this asset with the given camera and supplementary startup systems.</p>
 <p><strong>Parameters</strong> <br />
 <code>camera</code> <a href="../../Murder/Core/Graphics/Camera2D.html">Camera2D</a> <br />
 <code>startingSystems</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
@@ -422,6 +458,7 @@ This has no effect in the actual game.</p>
 <h4 id="createinstancefromsavesavedworld-camera2d-immutablearray"><a class="header" href="#createinstancefromsavesavedworld-camera2d-immutablearray">CreateInstanceFromSave(SavedWorld, Camera2D, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public MonoWorld CreateInstanceFromSave(SavedWorld savedInstance, Camera2D camera, ImmutableArray&lt;T&gt; startingSystems)
 </code></pre>
+<p>Instantiates a <code>MonoWorld</code> from this asset, restoring entity state from the given <code>SavedWorld</code> snapshot.</p>
 <p><strong>Parameters</strong> <br />
 <code>savedInstance</code> <a href="../../Murder/Assets/SavedWorld.html">SavedWorld</a> <br />
 <code>camera</code> <a href="../../Murder/Core/Graphics/Camera2D.html">Camera2D</a> <br />
@@ -439,16 +476,19 @@ This has no effect in the actual game.</p>
 <h4 id="getsimplifiedname"><a class="header" href="#getsimplifiedname">GetSimplifiedName()</a></h4>
 <pre><code class="language-csharp">public string GetSimplifiedName()
 </code></pre>
+<p>Returns the asset name stripped of any editor-folder prefix characters.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="getsplitnamewitheditorpath"><a class="header" href="#getsplitnamewitheditorpath">GetSplitNameWithEditorPath()</a></h4>
 <pre><code class="language-csharp">public String[] GetSplitNameWithEditorPath()
 </code></pre>
+<p>Returns the display name split into path segments following the EditorFolder hierarchy.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string[]</a> </p>
 <h4 id="trygetinstanceguid"><a class="header" href="#trygetinstanceguid">TryGetInstance(Guid)</a></h4>
 <pre><code class="language-csharp">public virtual EntityInstance TryGetInstance(Guid instanceGuid)
 </code></pre>
+<p>Retrieves the <code>EntityInstance</code> with the given GUID from this world; returns null if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>instanceGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -456,17 +496,21 @@ This has no effect in the actual game.</p>
 <h4 id="afterdeserialized"><a class="header" href="#afterdeserialized">AfterDeserialized()</a></h4>
 <pre><code class="language-csharp">public virtual void AfterDeserialized()
 </code></pre>
+<p>Called after deserialization; rebuilds internal entity instance caches.</p>
 <h4 id="addinstanceentityinstance"><a class="header" href="#addinstanceentityinstance">AddInstance(EntityInstance)</a></h4>
 <pre><code class="language-csharp">public void AddInstance(EntityInstance e)
 </code></pre>
+<p>Adds a new entity instance to this world.</p>
 <p><strong>Parameters</strong> <br />
 <code>e</code> <a href="../../Murder/Prefabs/EntityInstance.html">EntityInstance</a> </p>
 <h4 id="makeguid"><a class="header" href="#makeguid">MakeGuid()</a></h4>
 <pre><code class="language-csharp">public void MakeGuid()
 </code></pre>
+<p>Generates and assigns a new GUID to this asset.</p>
 <h4 id="movetofilterstring-guid-int"><a class="header" href="#movetofilterstring-guid-int">MoveToFilter(string, Guid, int)</a></h4>
 <pre><code class="language-csharp">public void MoveToFilter(string targetFilter, Guid instance, int targetPosition)
 </code></pre>
+<p>Moves an entity instance into the specified filter at the given position.</p>
 <p><strong>Parameters</strong> <br />
 <code>targetFilter</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>instance</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> <br />
@@ -474,21 +518,25 @@ This has no effect in the actual game.</p>
 <h4 id="removeinstanceguid"><a class="header" href="#removeinstanceguid">RemoveInstance(Guid)</a></h4>
 <pre><code class="language-csharp">public void RemoveInstance(Guid instanceGuid)
 </code></pre>
+<p>Removes the entity instance with the given GUID from this world.</p>
 <p><strong>Parameters</strong> <br />
 <code>instanceGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="trackassetonsaveguid"><a class="header" href="#trackassetonsaveguid">TrackAssetOnSave(Guid)</a></h4>
 <pre><code class="language-csharp">public void TrackAssetOnSave(Guid g)
 </code></pre>
+<p>Queues a dependent asset by GUID to be saved whenever this asset is saved.</p>
 <p><strong>Parameters</strong> <br />
 <code>g</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="updatefeaturesimmutablearray"><a class="header" href="#updatefeaturesimmutablearray">UpdateFeatures(ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public void UpdateFeatures(ImmutableArray&lt;T&gt; features)
 </code></pre>
+<p>Replaces the world's feature list with the provided array.</p>
 <p><strong>Parameters</strong> <br />
 <code>features</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="updatesystemsimmutablearray"><a class="header" href="#updatesystemsimmutablearray">UpdateSystems(ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public void UpdateSystems(ImmutableArray&lt;T&gt; systems)
 </code></pre>
+<p>Replaces the world's direct system list with the provided array.</p>
 <p><strong>Parameters</strong> <br />
 <code>systems</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="validateinstances"><a class="header" href="#validateinstances">ValidateInstances()</a></h4>

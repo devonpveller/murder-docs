@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class FileHelper
 </code></pre>
+<p>Collection of static helper methods for file path manipulation, platform-specific extensions, and save-file path resolution.</p>
+<p><strong>Intent:</strong> Provides OS-agnostic file system utilities used throughout the engine for locating resources, cleaning asset names, and resolving save paths.</p>
+<p><strong>Use-case:</strong> Call <code>GetPath(paths)</code> to resolve a resource path relative to the game's executable, <code>GetSaveBasePath(gameName)</code> to locate user save data, and <code>Clean(str)</code> to sanitize asset name strings.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="cleanstring"><a class="header" href="#cleanstring">Clean(string)</a></h4>
 <pre><code class="language-csharp">public ReadOnlySpan&lt;T&gt; Clean(string str)
 </code></pre>
+<p>Strips non-alphanumeric characters (except path separators and hyphens) from <code>str</code> and normalizes path separators.</p>
 <p><strong>Parameters</strong> <br />
 <code>str</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -160,6 +164,7 @@
 <h4 id="escapepathstring"><a class="header" href="#escapepathstring">EscapePath(string)</a></h4>
 <pre><code class="language-csharp">public string EscapePath(string path)
 </code></pre>
+<p>Normalizes all path separators in <code>path</code> to the current operating system's directory separator character.</p>
 <p><strong>Parameters</strong> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -188,6 +193,7 @@ For example, if targeting Windows, this returns &quot;.dll&quot;.</p>
 <h4 id="getpathwithoutextensionstring"><a class="header" href="#getpathwithoutextensionstring">GetPathWithoutExtension(string)</a></h4>
 <pre><code class="language-csharp">public string GetPathWithoutExtension(string path)
 </code></pre>
+<p>Returns <code>path</code> with the file extension removed, preserving the directory structure.</p>
 <p><strong>Parameters</strong> <br />
 <code>path</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />

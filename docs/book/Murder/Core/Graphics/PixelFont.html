@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class PixelFont
 </code></pre>
+<p>Bitmap font that manages one or more point-size variants loaded from a <code>FontAsset</code>, and provides text measurement and rendering.</p>
+<p><strong>Intent:</strong> Provides text rendering at a specific bitmap font by dispatching measurement and draw calls to the appropriate <code>PixelFontSize</code> variant.</p>
+<p><strong>Use-case:</strong> Obtain a <code>PixelFont</code> from <code>Game.Data.GetFont()</code> and call <code>Draw()</code> to render pixel-accurate text to a <code>Batch2D</code> layer, or <code>GetLineWidth()</code> to measure a line before rendering.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PixelFont(FontAsset asset)
 </code></pre>
@@ -158,22 +161,26 @@
 <h4 id="index"><a class="header" href="#index">Index</a></h4>
 <pre><code class="language-csharp">public int Index;
 </code></pre>
+<p>Identifier index of this font within the game's loaded font registry.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="lineheight"><a class="header" href="#lineheight">LineHeight</a></h4>
 <pre><code class="language-csharp">public int LineHeight { get; }
 </code></pre>
+<p>Height of a single line in pixels for the current font size, including ascenders and descenders.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="pixelfontsize"><a class="header" href="#pixelfontsize">PixelFontSize</a></h4>
 <pre><code class="language-csharp">public PixelFontSize PixelFontSize { get; }
 </code></pre>
+<p>The loaded size data containing glyph metrics, atlas textures, and line measurements.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/PixelFontSize.html">PixelFontSize</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getlinewidthreadonlyspan"><a class="header" href="#getlinewidthreadonlyspan">GetLineWidth(ReadOnlySpan<T>)</a></h4>
 <pre><code class="language-csharp">public float GetLineWidth(ReadOnlySpan&lt;T&gt; text)
 </code></pre>
+<p>Returns the pixel width of a single line of text without applying wrapping or newline handling.</p>
 <p><strong>Parameters</strong> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ReadOnlySpan-1?view=net-7.0">ReadOnlySpan&lt;T&gt;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -181,6 +188,7 @@
 <h4 id="drawbatch2d-runtimetextdata-vector2-vector2-vector2-float-color-t-t-int-bool"><a class="header" href="#drawbatch2d-runtimetextdata-vector2-vector2-vector2-float-color-t-t-int-bool">Draw(Batch2D, RuntimeTextData, Vector2, Vector2, Vector2, float, Color, T?, T?, int, bool)</a></h4>
 <pre><code class="language-csharp">public Point Draw(Batch2D spriteBatch, RuntimeTextData data, Vector2 position, Vector2 alignment, Vector2 scale, float sort, Color color, T? strokeColor, T? shadowColor, int visibleCharacters, bool debugBox)
 </code></pre>
+<p>Renders pre-parsed <code>RuntimeTextData</code> to the batch with optional stroke, shadow, and a visible-character limit for typewriter effects.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>data</code> <a href="../../../Murder/Core/Graphics/RuntimeTextData.html">RuntimeTextData</a> <br />
@@ -198,6 +206,7 @@
 <h4 id="drawbatch2d-string-vector2-vector2-vector2-float-color-t-t-int-int-bool"><a class="header" href="#drawbatch2d-string-vector2-vector2-vector2-float-color-t-t-int-int-bool">Draw(Batch2D, string, Vector2, Vector2, Vector2, float, Color, T?, T?, int, int, bool)</a></h4>
 <pre><code class="language-csharp">public Point Draw(Batch2D spriteBatch, string text, Vector2 position, Vector2 alignment, Vector2 scale, float sort, Color color, T? strokeColor, T? shadowColor, int maxWidth, int visibleCharacters, bool debugBox)
 </code></pre>
+<p>Renders a string to the batch, automatically wrapping at <code>maxWidth</code> and supporting stroke, shadow, and typewriter reveal.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -216,6 +225,7 @@
 <h4 id="drawsimplebatch2d-string-vector2-vector2-vector2-float-color-t-t-bool"><a class="header" href="#drawsimplebatch2d-string-vector2-vector2-vector2-float-color-t-t-bool">DrawSimple(Batch2D, string, Vector2, Vector2, Vector2, float, Color, T?, T?, bool)</a></h4>
 <pre><code class="language-csharp">public Point DrawSimple(Batch2D spriteBatch, string text, Vector2 position, Vector2 alignment, Vector2 scale, float sort, Color color, T? strokeColor, T? shadowColor, bool debugBox)
 </code></pre>
+<p>Renders a plain string without cached layout or word-wrap; intended for single-line or already-wrapped text.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteBatch</code> <a href="../../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -232,6 +242,7 @@
 <h4 id="escapestring"><a class="header" href="#escapestring">Escape(string)</a></h4>
 <pre><code class="language-csharp">public string Escape(string text)
 </code></pre>
+<p>Strips or escapes any special markup tags (e.g. wave, color, shake) from the input string, returning plain text.</p>
 <p><strong>Parameters</strong> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -239,6 +250,7 @@
 <h4 id="preload"><a class="header" href="#preload">Preload()</a></h4>
 <pre><code class="language-csharp">public void Preload()
 </code></pre>
+<p>Loads all glyph atlas textures into GPU memory ahead of time to prevent hitches on first draw.</p>
 <p>⚡</p>
 
                     </main>

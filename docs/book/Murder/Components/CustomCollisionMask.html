@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct CustomCollisionMask : IComponent
 </code></pre>
+<p>Overrides the default collision layer mask used when testing this entity against the physics world.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Lets individual entities opt into a non-default set of collision layers without affecting any other entity.</p>
+<p><strong>Use-case:</strong> Attach alongside <code>AdvancedCollisionComponent</code> when an entity needs to collide with a different set of layers than the world default; set <code>CollisionMask</code> to the desired <code>CollisionLayersBase</code> flag combination.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public CustomCollisionMask()
 </code></pre>
@@ -161,6 +164,7 @@
 <h4 id="collisionmask"><a class="header" href="#collisionmask">CollisionMask</a></h4>
 <pre><code class="language-csharp">public readonly int CollisionMask;
 </code></pre>
+<p>Bitmask of <code>CollisionLayersBase</code> flags that this entity tests against during physics queries.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

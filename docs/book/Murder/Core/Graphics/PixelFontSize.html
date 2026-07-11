@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class PixelFontSize
 </code></pre>
+<p>Holds the glyph data, atlas textures, and line metrics for one point-size variant of a <code>PixelFont</code>.</p>
+<p><strong>Intent:</strong> Contains everything needed to measure and render text at a specific bitmap font size — the character dictionary, texture pages, and vertical metrics.</p>
+<p><strong>Use-case:</strong> Accessed through <code>PixelFont.PixelFontSize</code>; pass it to <code>TextDataServices.GetOrCreateText()</code> to produce a cached layout, or call <code>Draw()</code> to render directly.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PixelFontSize()
 </code></pre>
@@ -156,11 +159,13 @@
 <h4 id="baseline"><a class="header" href="#baseline">BaseLine</a></h4>
 <pre><code class="language-csharp">public float BaseLine;
 </code></pre>
+<p>Y coordinate of the font baseline within a line, in pixels, measured from the top of the line.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="characters"><a class="header" href="#characters">Characters</a></h4>
 <pre><code class="language-csharp">public Dictionary&lt;TKey, TValue&gt; Characters;
 </code></pre>
+<p>Lookup table mapping Unicode codepoints to their <code>PixelFontCharacter</code> glyph data (atlas rect, offsets, advance, kerning).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0">Dictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="index"><a class="header" href="#index">Index</a></h4>
@@ -172,22 +177,26 @@
 <h4 id="lineheight"><a class="header" href="#lineheight">LineHeight</a></h4>
 <pre><code class="language-csharp">public int LineHeight;
 </code></pre>
+<p>Total pixel height per text line, encompassing ascenders, glyphs, and descenders.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="offset"><a class="header" href="#offset">Offset</a></h4>
 <pre><code class="language-csharp">public Point Offset;
 </code></pre>
+<p>Additional pixel offset applied globally when drawing all glyphs in this font size.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="textures"><a class="header" href="#textures">Textures</a></h4>
 <pre><code class="language-csharp">public MurderTexture[] Textures;
 </code></pre>
+<p>Array of atlas texture pages that contain this font size's glyph bitmaps.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/MurderTexture.html">MurderTexture[]</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="heightofstring"><a class="header" href="#heightofstring">HeightOf(string)</a></h4>
 <pre><code class="language-csharp">public float HeightOf(string text)
 </code></pre>
+<p>Returns the total pixel height required to render the given (possibly multi-line) string.</p>
 <p><strong>Parameters</strong> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -195,6 +204,7 @@
 <h4 id="widthtonextlinereadonlyspan-int-bool"><a class="header" href="#widthtonextlinereadonlyspan-int-bool">WidthToNextLine(ReadOnlySpan<T>, int, bool)</a></h4>
 <pre><code class="language-csharp">public float WidthToNextLine(ReadOnlySpan&lt;T&gt; text, int start, bool trimWhitespace)
 </code></pre>
+<p>Returns the pixel width of the text from <code>start</code> up to the first newline or end of the span, optionally trimming trailing whitespace.</p>
 <p><strong>Parameters</strong> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ReadOnlySpan-1?view=net-7.0">ReadOnlySpan&lt;T&gt;</a> <br />
 <code>start</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -204,6 +214,7 @@
 <h4 id="drawruntimetextdata-batch2d-vector2-vector2-vector2-int-float-color-t-t-bool"><a class="header" href="#drawruntimetextdata-batch2d-vector2-vector2-vector2-int-float-color-t-t-bool">Draw(RuntimeTextData, Batch2D, Vector2, Vector2, Vector2, int, float, Color, T?, T?, bool)</a></h4>
 <pre><code class="language-csharp">public Point Draw(RuntimeTextData data, Batch2D spriteBatch, Vector2 position, Vector2 origin, Vector2 scale, int visibleCharacters, float sort, Color color, T? strokeColor, T? shadowColor, bool debugBox)
 </code></pre>
+<p>Renders pre-parsed <code>RuntimeTextData</code> to the batch with optional stroke, shadow, and a visible-character limit for typewriter effects. Returns the bottom-right pixel extent of the drawn text.</p>
 <p><strong>Parameters</strong> <br />
 <code>data</code> <a href="../../../Murder/Core/Graphics/RuntimeTextData.html">RuntimeTextData</a> <br />
 <code>spriteBatch</code> <a href="../../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
@@ -240,6 +251,7 @@
 <h4 id="drawsimplestring-batch2d-vector2-vector2-vector2-float-color-t-t-bool"><a class="header" href="#drawsimplestring-batch2d-vector2-vector2-vector2-float-color-t-t-bool">DrawSimple(string, Batch2D, Vector2, Vector2, Vector2, float, Color, T?, T?, bool)</a></h4>
 <pre><code class="language-csharp">public Point DrawSimple(string text, Batch2D spriteBatch, Vector2 position, Vector2 justify, Vector2 scale, float sort, Color color, T? strokeColor, T? shadowColor, bool debugBox)
 </code></pre>
+<p>Renders a plain string without word-wrap or cached layout; intended for single-line or pre-formatted text.</p>
 <p><strong>Parameters</strong> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>spriteBatch</code> <a href="../../../Murder/Core/Graphics/Batch2D.html">Batch2D</a> <br />
@@ -256,6 +268,7 @@
 <h4 id="autonewlinestring-int"><a class="header" href="#autonewlinestring-int">AutoNewline(string, int)</a></h4>
 <pre><code class="language-csharp">public string AutoNewline(string text, int width)
 </code></pre>
+<p>Inserts newline characters into <code>text</code> so that no line exceeds <code>width</code> pixels, splitting on word boundaries where possible.</p>
 <p><strong>Parameters</strong> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>width</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -264,6 +277,7 @@
 <h4 id="wrapstringreadonlyspan-int-float"><a class="header" href="#wrapstringreadonlyspan-int-float">WrapString(ReadOnlySpan<T>, int, float)</a></h4>
 <pre><code class="language-csharp">public string WrapString(ReadOnlySpan&lt;T&gt; text, int maxWidth, float scale)
 </code></pre>
+<p>Wraps the input span into a string by inserting newlines so that no line exceeds <code>maxWidth</code> pixels at the given scale.</p>
 <p><strong>Parameters</strong> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ReadOnlySpan-1?view=net-7.0">ReadOnlySpan&lt;T&gt;</a> <br />
 <code>maxWidth</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -273,6 +287,7 @@
 <h4 id="measurestring"><a class="header" href="#measurestring">Measure(string)</a></h4>
 <pre><code class="language-csharp">public Vector2 Measure(string text)
 </code></pre>
+<p>Returns the pixel width and height of the bounding box required to render the given text.</p>
 <p><strong>Parameters</strong> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />

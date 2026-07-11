@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SpriteClippingRectComponent : IComponent
 </code></pre>
+<p>Defines a clipping rectangle that masks a portion of the entity's sprite, allowing it to grow or shrink from the center or be cut from its borders.</p>
+<p><strong>Intent:</strong> Dynamically reveal or hide parts of a sprite using a rectangular mask.</p>
+<p><strong>Use-case:</strong> Attach to a health-bar sprite to animate it filling or draining, or to a UI element that should slide in from one edge.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SpriteClippingRectComponent(float left, float right, float top, float down, ClippingStyle clippingStyle)
@@ -163,32 +166,38 @@
 <h4 id="down"><a class="header" href="#down">Down</a></h4>
 <pre><code class="language-csharp">public readonly float Down;
 </code></pre>
+<p>Clipping amount on the bottom edge (0 = no clip, 1 = fully clipped from that edge).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="left"><a class="header" href="#left">Left</a></h4>
 <pre><code class="language-csharp">public readonly float Left;
 </code></pre>
+<p>Clipping amount on the left edge.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="right"><a class="header" href="#right">Right</a></h4>
 <pre><code class="language-csharp">public readonly float Right;
 </code></pre>
+<p>Clipping amount on the right edge.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="style"><a class="header" href="#style">Style</a></h4>
 <pre><code class="language-csharp">public readonly ClippingStyle Style;
 </code></pre>
+<p>Determines whether the clip grows from the center outward or cuts from the borders inward.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/ClippingStyle.html">ClippingStyle</a> </p>
 <h4 id="top"><a class="header" href="#top">Top</a></h4>
 <pre><code class="language-csharp">public readonly float Top;
 </code></pre>
+<p>Clipping amount on the top edge.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getclippingrectpoint"><a class="header" href="#getclippingrectpoint">GetClippingRect(Point)</a></h4>
 <pre><code class="language-csharp">public Rectangle GetClippingRect(Point spriteSize)
 </code></pre>
+<p>Calculates the source clipping rectangle in sprite-pixel space for the current <code>Left</code>, <code>Right</code>, <code>Top</code>, and <code>Down</code> values.</p>
 <p><strong>Parameters</strong> <br />
 <code>spriteSize</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />

@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class CharacterRuntime
 </code></pre>
+<p>Maintains the live playback state for a character's dialogue: the active situation, current dialog node, and active line index.</p>
+<p><strong>Intent:</strong> Drives a character's dialogue session at runtime — advancing through dialog nodes, evaluating blackboard conditions, resolving the next displayable line, and committing choices.</p>
+<p><strong>Use-case:</strong> Instantiate with a <code>Character</code> and a starting situation name; call <code>HasNext</code> each frame to check whether dialogue remains, <code>NextLine</code> to retrieve the next displayable line, and <code>DoChoice</code> to commit a player-selected option.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public CharacterRuntime(Character character, int situation)
 </code></pre>
+<p>Creates a new runtime for the given character, starting playback at the specified situation.</p>
 <p><strong>Parameters</strong> <br />
 <code>character</code> <a href="../../../Murder/Core/Dialogs/Character.html">Character</a> <br />
 <code>situation</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -159,6 +163,7 @@
 <h4 id="checkrequirementsworld-immutablearray-out-int32"><a class="header" href="#checkrequirementsworld-immutablearray-out-int32">CheckRequirements(World, ImmutableArray<T>, out Int32&amp;)</a></h4>
 <pre><code class="language-csharp">public bool CheckRequirements(World world, ImmutableArray&lt;T&gt; requirements, Int32&amp; score)
 </code></pre>
+<p>Evaluates a set of <code>CriterionNode</code> requirements against the current world state and returns whether they pass, writing the match score into <code>score</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../../Bang/World.html">World</a> <br />
 <code>requirements</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> <br />
@@ -168,6 +173,7 @@
 <h4 id="hascontentonnextdialoguelineworld-entity-bool"><a class="header" href="#hascontentonnextdialoguelineworld-entity-bool">HasContentOnNextDialogueLine(World, Entity, bool)</a></h4>
 <pre><code class="language-csharp">public bool HasContentOnNextDialogueLine(World world, Entity target, bool checkForNewContentOnly)
 </code></pre>
+<p>Returns whether the upcoming dialogue node contains at least one displayable line; when <code>checkForNewContentOnly</code> is <code>true</code>, also requires that the node has never been visited before.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../../Bang/World.html">World</a> <br />
 <code>target</code> <a href="../../../Bang/Entities/Entity.html">Entity</a> <br />
@@ -187,6 +193,7 @@
 <h4 id="nextlineworld-entity"><a class="header" href="#nextlineworld-entity">NextLine(World, Entity)</a></h4>
 <pre><code class="language-csharp">public T? NextLine(World world, Entity target)
 </code></pre>
+<p>Advances the dialogue and returns the next <code>DialogLine</code> to display (either a <code>Line</code> or a <code>ChoiceLine</code>), or <code>null</code> when the conversation is over.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../../Bang/World.html">World</a> <br />
 <code>target</code> <a href="../../../Bang/Entities/Entity.html">Entity</a> </p>
@@ -195,6 +202,7 @@
 <h4 id="dochoiceint-world-entity"><a class="header" href="#dochoiceint-world-entity">DoChoice(int, World, Entity)</a></h4>
 <pre><code class="language-csharp">public void DoChoice(int choice, World world, Entity target)
 </code></pre>
+<p>Commits the player's selected choice index, executing any associated actions and advancing the dialogue to the chosen branch.</p>
 <p><strong>Parameters</strong> <br />
 <code>choice</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>world</code> <a href="../../../Bang/World.html">World</a> <br />
@@ -202,6 +210,7 @@
 <h4 id="startatsituationint"><a class="header" href="#startatsituationint">StartAtSituation(int)</a></h4>
 <pre><code class="language-csharp">public void StartAtSituation(int situation)
 </code></pre>
+<p>Resets playback state and begins the dialogue from the specified situation ID.</p>
 <p><strong>Parameters</strong> <br />
 <code>situation</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

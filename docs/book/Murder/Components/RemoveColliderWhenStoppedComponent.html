@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct RemoveColliderWhenStoppedComponent : IComponent
 </code></pre>
+<p>Marker component that instructs the engine to remove the entity's collider once its velocity reaches zero.</p>
+<p><strong>Intent:</strong> Automatically clean up a collider when a moving entity (e.g. a projectile) stops.</p>
+<p><strong>Use-case:</strong> Attach to projectiles or sliding objects so their collider is removed the moment they come to rest, preventing ghost collisions.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <p>⚡</p>
 

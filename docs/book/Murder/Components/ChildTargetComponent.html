@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct ChildTargetComponent : IComponent
 </code></pre>
+<p>Identifies a named child entity that other systems should target or interact with.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Stores the name of a child entity so parent-level systems can resolve the correct child without hard-coding entity IDs.</p>
+<p><strong>Use-case:</strong> Attach to a parent entity and set <code>Name</code> to the child entity's identifier; interaction and event systems use this to route actions to the correct child.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ChildTargetComponent()
 </code></pre>
@@ -157,6 +160,7 @@
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public readonly string Name;
 </code></pre>
+<p>Name of the target child entity, as assigned in the entity hierarchy.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

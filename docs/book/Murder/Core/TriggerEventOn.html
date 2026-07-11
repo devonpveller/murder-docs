@@ -149,43 +149,54 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct TriggerEventOn
 </code></pre>
+<p>Describes a named trigger event, including optional component requirements, the set of interaction targets, an optional world reference, and a flag to fire only once.</p>
+<p><strong>Intent:</strong> Data container that bundles all parameters needed to fire a specific trigger event from within an interaction or action.</p>
+<p><strong>Use-case:</strong> Added to interaction assets or components to specify which named event fires, when its requirements are met, and which entities or worlds are targeted.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TriggerEventOn()
 </code></pre>
+<p>Creates an empty <code>TriggerEventOn</code> with no name, requirements, or targets.</p>
 <pre><code class="language-csharp">public TriggerEventOn(string name)
 </code></pre>
+<p>Creates a <code>TriggerEventOn</code> with the specified event name.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public readonly string Name;
 </code></pre>
+<p>The name of the trigger event to fire.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="onlyonce"><a class="header" href="#onlyonce">OnlyOnce</a></h4>
 <pre><code class="language-csharp">public readonly bool OnlyOnce;
 </code></pre>
+<p>When <code>true</code>, this trigger fires at most once and is then disabled.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="requirements"><a class="header" href="#requirements">Requirements</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Requirements;
 </code></pre>
+<p>Component-type requirements that must all be satisfied on the triggering entity before this event fires.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="triggers"><a class="header" href="#triggers">Triggers</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; Triggers;
 </code></pre>
+<p>The set of interaction instances that this event will execute when triggered.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="world"><a class="header" href="#world">World</a></h4>
 <pre><code class="language-csharp">public readonly T? World;
 </code></pre>
+<p>An optional reference to a world asset or entity that should receive this trigger event.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="createcomponents"><a class="header" href="#createcomponents">CreateComponents()</a></h4>
 <pre><code class="language-csharp">public IComponent[] CreateComponents()
 </code></pre>
+<p>Instantiates the components defined by this trigger's interaction list so they can be added to an entity at runtime.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Bang/Components/IComponent.html">IComponent[]</a> </p>
 <p>⚡</p>

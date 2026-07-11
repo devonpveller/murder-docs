@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class TooltipAttribute : Attribute
 </code></pre>
 <p>Tooltip that will show up when hovering over a field in the editor.</p>
+<p><strong>Intent:</strong> Attach a descriptive tooltip string to a field that appears in the editor inspector on hover.</p>
+<p><strong>Use-case:</strong> Apply to non-obvious component fields to give designers brief inline documentation while they are tweaking values, reducing the need to consult external references.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TooltipAttribute(string text)
@@ -168,6 +170,7 @@
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

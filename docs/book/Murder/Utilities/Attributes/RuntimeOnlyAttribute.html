@@ -151,6 +151,8 @@
 </code></pre>
 <p>This is an attribute for components which will not be added during with
 an editor in saved world or asset, but rather dynamically added in runtime.</p>
+<p><strong>Intent:</strong> Marks a component as runtime-only so it is never serialized or saved.</p>
+<p><strong>Use-case:</strong> Apply to components that are created and destroyed dynamically at runtime and must not appear in the editor or saved asset files.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public RuntimeOnlyAttribute()
@@ -159,6 +161,7 @@ an editor in saved world or asset, but rather dynamically added in runtime.</p>
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique object identity for this attribute type, inherited from <code>Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

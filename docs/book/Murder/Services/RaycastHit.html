@@ -149,16 +149,22 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">sealed struct RaycastHit
 </code></pre>
+<p>Holds the result of a <code>PhysicsServices.Raycast</code> or <code>RaycastTiles</code> call, identifying what was hit and at what world position.</p>
+<p><strong>Intent:</strong> Returns collision information from a ray query in a single, lightweight value type.</p>
+<p><strong>Use-case:</strong> Check <code>Entity</code> to identify which entity the ray struck (or <code>Tile</code> for tile hits), then use <code>Point</code> to determine the exact world position of the intersection for effects or spawning.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public RaycastHit()
 </code></pre>
+<p>Creates an empty <code>RaycastHit</code> with no entity, no tile, and <code>Point</code> at the origin.</p>
 <pre><code class="language-csharp">public RaycastHit(Entity entity, Vector2 point)
 </code></pre>
+<p>Creates a <code>RaycastHit</code> recording an entity collision at <code>point</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>point</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <pre><code class="language-csharp">public RaycastHit(Point tile, Vector2 point)
 </code></pre>
+<p>Creates a <code>RaycastHit</code> recording a tile collision at the grid cell <code>tile</code> and the world-space intersection <code>point</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>tile</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />
 <code>point</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
@@ -166,16 +172,19 @@
 <h4 id="entity"><a class="header" href="#entity">Entity</a></h4>
 <pre><code class="language-csharp">public readonly Entity Entity;
 </code></pre>
+<p>The entity that was struck by the ray, or <code>null</code> if the hit was against a tile.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <h4 id="point"><a class="header" href="#point">Point</a></h4>
 <pre><code class="language-csharp">public readonly Vector2 Point;
 </code></pre>
+<p>The world-space position at which the ray intersected the collider or tile surface.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="tile"><a class="header" href="#tile">Tile</a></h4>
 <pre><code class="language-csharp">public readonly Point Tile;
 </code></pre>
+<p>The grid-space coordinates of the tile that was struck, or the default value if the hit was against an entity.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p>⚡</p>

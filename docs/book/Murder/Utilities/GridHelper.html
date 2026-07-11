@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class GridHelper
 </code></pre>
+<p>Utility methods for enumerating tile-grid cell positions, snapping coordinates to the grid, and building cell rectangles.</p>
+<p><strong>Intent:</strong> Provides geometry and iteration helpers for working with the tile grid used by map and pathfinding systems.</p>
+<p><strong>Use-case:</strong> Call from map systems and AI code to enumerate cells in circular or linear areas, snap positions to the grid, or convert between world-space and grid-cell coordinates.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="circleint-int-int"><a class="header" href="#circleint-int-int">Circle(int, int, int)</a></h4>
 <pre><code class="language-csharp">public IEnumerable&lt;T&gt; Circle(int cx, int cy, int radius)
 </code></pre>
+<p>Returns all grid cell positions within a circular radius of the given center cell <code>(cx, cy)</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>cx</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>cy</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -162,6 +166,7 @@
 <h4 id="linepoint-point"><a class="header" href="#linepoint-point">Line(Point, Point)</a></h4>
 <pre><code class="language-csharp">public IEnumerable&lt;T&gt; Line(Point start, Point end)
 </code></pre>
+<p>Returns all grid cell positions along the straight line from <code>start</code> to <code>end</code> using a Bresenham-style traversal.</p>
 <p><strong>Parameters</strong> <br />
 <code>start</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />
 <code>end</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
@@ -170,6 +175,7 @@
 <h4 id="reverseidictionarytkey-tvalue-point-point"><a class="header" href="#reverseidictionarytkey-tvalue-point-point">Reverse(IDictionary&lt;TKey, TValue&gt;, Point, Point)</a></h4>
 <pre><code class="language-csharp">public ImmutableDictionary&lt;TKey, TValue&gt; Reverse(IDictionary&lt;TKey, TValue&gt; input, Point initial, Point target)
 </code></pre>
+<p>Reverses a route dictionary (target-to-source) into source-to-target order between <code>initial</code> and <code>target</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>input</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IDictionary-2?view=net-7.0">IDictionary&lt;TKey, TValue&gt;</a> <br />
 <code>initial</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />
@@ -179,6 +185,7 @@
 <h4 id="snaptogriddeltaimurdertransformcomponent"><a class="header" href="#snaptogriddeltaimurdertransformcomponent">SnapToGridDelta(IMurderTransformComponent)</a></h4>
 <pre><code class="language-csharp">public IMurderTransformComponent SnapToGridDelta(IMurderTransformComponent transform)
 </code></pre>
+<p>Snaps the transform's position to the nearest grid cell center, returning the adjusted transform.</p>
 <p><strong>Parameters</strong> <br />
 <code>transform</code> <a href="../../Murder/Components/IMurderTransformComponent.html">IMurderTransformComponent</a> </p>
 <p><strong>Returns</strong> <br />
@@ -195,6 +202,7 @@
 <h4 id="getboundingboxrectangle"><a class="header" href="#getboundingboxrectangle">GetBoundingBox(Rectangle)</a></h4>
 <pre><code class="language-csharp">public IntRectangle GetBoundingBox(Rectangle rect)
 </code></pre>
+<p>Returns the smallest integer-cell rectangle that fully contains the given world-space <code>rect</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>rect</code> <a href="../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> </p>
 <p><strong>Returns</strong> <br />

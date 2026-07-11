@@ -149,21 +149,27 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class EditorFieldPropertiesAttribute : Attribute
 </code></pre>
+<p>Configures additional display properties for a field in the Murder editor inspector using <code>EditorFieldFlags</code>.</p>
+<p><strong>Intent:</strong> Customize how an individual field is rendered in the editor inspector by supplying one or more display flag options.</p>
+<p><strong>Use-case:</strong> Apply to component fields to override default inspector widget behavior—for example to disable the filter widget on a list field or force a string to render on a single line.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public EditorFieldPropertiesAttribute(EditorFieldFlags flags)
 </code></pre>
+<p>Creates a new instance with the specified display flags applied to the decorated field.</p>
 <p><strong>Parameters</strong> <br />
 <code>flags</code> <a href="../../Murder/Attributes/EditorFieldFlags.html">EditorFieldFlags</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="flags"><a class="header" href="#flags">Flags</a></h4>
 <pre><code class="language-csharp">public EditorFieldFlags Flags;
 </code></pre>
+<p>The set of <code>EditorFieldFlags</code> that control how the decorated field is rendered in the inspector.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Attributes/EditorFieldFlags.html">EditorFieldFlags</a> </p>
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

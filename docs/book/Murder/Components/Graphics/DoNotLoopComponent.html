@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct DoNotLoopComponent : IComponent
 </code></pre>
+<p>Marker component that instructs the animation system to play the entity's current animation only once instead of looping.</p>
+<p><strong>Intent:</strong> Prevent an animation from repeating after it completes its final frame.</p>
+<p><strong>Use-case:</strong> Attach to an entity (e.g. a one-shot explosion or death animation) before starting the animation so the sprite freezes on the last frame or triggers a completion callback instead of restarting.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <p>⚡</p>
 

@@ -149,56 +149,69 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">sealed enum BatchPreviewState : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Editor-only enum that selects which intermediate render target is displayed in the editor's batch-preview overlay.</p>
+<p><strong>Intent:</strong> Lets artists and engineers inspect each stage of the <code>RenderContext</code> pipeline (floor, gameplay, UI, lights, etc.) independently during development.</p>
+<p><strong>Use-case:</strong> Set <code>RenderContext.PreviewState</code> in the editor to the desired <code>BatchPreviewState</code> value to isolate a specific render step for visual debugging.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="debug"><a class="header" href="#debug">Debug</a></h4>
 <pre><code class="language-csharp">public static const BatchPreviewState Debug;
 </code></pre>
+<p>Preview the debug overlay render target.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/BatchPreviewState.html">BatchPreviewState</a> </p>
 <h4 id="gameplay"><a class="header" href="#gameplay">Gameplay</a></h4>
 <pre><code class="language-csharp">public static const BatchPreviewState Gameplay;
 </code></pre>
+<p>Preview the gameplay sprite batch after the world is rendered but before UI compositing.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/BatchPreviewState.html">BatchPreviewState</a> </p>
 <h4 id="lights"><a class="header" href="#lights">Lights</a></h4>
 <pre><code class="language-csharp">public static const BatchPreviewState Lights;
 </code></pre>
+<p>Preview the lighting render target.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/BatchPreviewState.html">BatchPreviewState</a> </p>
 <h4 id="none"><a class="header" href="#none">None</a></h4>
 <pre><code class="language-csharp">public static const BatchPreviewState None;
 </code></pre>
+<p>No preview override; renders the final composited output normally.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/BatchPreviewState.html">BatchPreviewState</a> </p>
 <h4 id="reflected"><a class="header" href="#reflected">Reflected</a></h4>
 <pre><code class="language-csharp">public static const BatchPreviewState Reflected;
 </code></pre>
+<p>Preview the reflected-world render target.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/BatchPreviewState.html">BatchPreviewState</a> </p>
 <h4 id="reflection"><a class="header" href="#reflection">Reflection</a></h4>
 <pre><code class="language-csharp">public static const BatchPreviewState Reflection;
 </code></pre>
+<p>Preview the reflection mask/plane render target.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/BatchPreviewState.html">BatchPreviewState</a> </p>
 <h4 id="step1"><a class="header" href="#step1">Step1</a></h4>
 <pre><code class="language-csharp">public static const BatchPreviewState Step1;
 </code></pre>
+<p>Preview the render target after the first pipeline step (main game buffer before post-processing).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/BatchPreviewState.html">BatchPreviewState</a> </p>
 <h4 id="step2"><a class="header" href="#step2">Step2</a></h4>
 <pre><code class="language-csharp">public static const BatchPreviewState Step2;
 </code></pre>
+<p>Preview the render target after the second pipeline step (final target before UI).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/BatchPreviewState.html">BatchPreviewState</a> </p>
 <h4 id="step3"><a class="header" href="#step3">Step3</a></h4>
 <pre><code class="language-csharp">public static const BatchPreviewState Step3;
 </code></pre>
+<p>Preview the render target after the third pipeline step.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/BatchPreviewState.html">BatchPreviewState</a> </p>
 <h4 id="ui"><a class="header" href="#ui">Ui</a></h4>
 <pre><code class="language-csharp">public static const BatchPreviewState Ui;
 </code></pre>
+<p>Preview the UI render target in isolation.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/BatchPreviewState.html">BatchPreviewState</a> </p>
 <p>⚡</p>

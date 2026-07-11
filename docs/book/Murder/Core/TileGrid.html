@@ -149,9 +149,13 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class TileGrid
 </code></pre>
+<p>Stores a 2D integer array of tile flags for a single tilemap layer. Each cell holds a bitmask indicating which tile types are present at that position.</p>
+<p><strong>Intent:</strong> The fundamental per-layer data structure for tilemap rendering and collision, supporting efficient lookup and modification of tile flags by grid coordinate.</p>
+<p><strong>Use-case:</strong> Queried by tile rendering systems and the <code>Map</code> collision layer to determine which tiles to draw or collide with at any given grid position.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TileGrid(Point origin, int width, int height)
 </code></pre>
+<p>Creates a tile grid at the given world-space origin with the specified dimensions, initialized to empty.</p>
 <p><strong>Parameters</strong> <br />
 <code>origin</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />
 <code>width</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -160,16 +164,19 @@
 <h4 id="height"><a class="header" href="#height">Height</a></h4>
 <pre><code class="language-csharp">public int Height { get; }
 </code></pre>
+<p>The height of this tile grid in tile units.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="origin"><a class="header" href="#origin">Origin</a></h4>
 <pre><code class="language-csharp">public Point Origin { get; }
 </code></pre>
+<p>The world-space origin (top-left grid cell) of this tile grid.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="width"><a class="header" href="#width">Width</a></h4>
 <pre><code class="language-csharp">public int Width { get; }
 </code></pre>
+<p>The width of this tile grid in tile units.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
@@ -187,6 +194,7 @@ This will take a position from the grid (world) back to the local grid, using <a
 <h4 id="atpoint"><a class="header" href="#atpoint">At(Point)</a></h4>
 <pre><code class="language-csharp">public int At(Point p)
 </code></pre>
+<p>Returns the tile flag bitmask at local grid position <code>p</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>p</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />
@@ -194,6 +202,7 @@ This will take a position from the grid (world) back to the local grid, using <a
 <h4 id="atint-int"><a class="header" href="#atint-int">At(int, int)</a></h4>
 <pre><code class="language-csharp">public int At(int x, int y)
 </code></pre>
+<p>Returns the tile flag bitmask at local grid coordinates <code>(x, y)</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -202,6 +211,7 @@ This will take a position from the grid (world) back to the local grid, using <a
 <h4 id="atgridpositionpoint"><a class="header" href="#atgridpositionpoint">AtGridPosition(Point)</a></h4>
 <pre><code class="language-csharp">public int AtGridPosition(Point p)
 </code></pre>
+<p>Returns the tile flag bitmask at world grid position <code>p</code>, converting from world to local coordinates using <code>Origin</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>p</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <p><strong>Returns</strong> <br />
@@ -209,6 +219,7 @@ This will take a position from the grid (world) back to the local grid, using <a
 <h4 id="gettileimmutablearray-int-int-int-int"><a class="header" href="#gettileimmutablearray-int-int-int-int">GetTile(ImmutableArray<T>, int, int, int, int)</a></h4>
 <pre><code class="language-csharp">public ValueTuple&lt;T1, T2, T3&gt; GetTile(ImmutableArray&lt;T&gt; tileEntities, int index, int totalTilemaps, int x, int y)
 </code></pre>
+<p>Returns the tile sprite information for the given grid position across all tilemap layers, used by rendering systems to determine which sprite slice to draw.</p>
 <p><strong>Parameters</strong> <br />
 <code>tileEntities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -220,6 +231,7 @@ This will take a position from the grid (world) back to the local grid, using <a
 <h4 id="hasflagatint-int-int"><a class="header" href="#hasflagatint-int-int">HasFlagAt(int, int, int)</a></h4>
 <pre><code class="language-csharp">public virtual bool HasFlagAt(int x, int y, int value)
 </code></pre>
+<p>Returns <code>true</code> when the tile flag at local <code>(x, y)</code> has all bits of <code>value</code> set.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>y</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -229,6 +241,7 @@ This will take a position from the grid (world) back to the local grid, using <a
 <h4 id="movefromtopoint-point-point"><a class="header" href="#movefromtopoint-point-point">MoveFromTo(Point, Point, Point)</a></h4>
 <pre><code class="language-csharp">public void MoveFromTo(Point from, Point to, Point size)
 </code></pre>
+<p>Moves a rectangular block of tiles from <code>from</code> to <code>to</code> within the grid.</p>
 <p><strong>Parameters</strong> <br />
 <code>from</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />
 <code>to</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />

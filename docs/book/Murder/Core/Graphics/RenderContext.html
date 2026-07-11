@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class RenderContext : IDisposable
 </code></pre>
+<p>Manages all <code>Batch2D</code> layers, render targets, and the active camera for one complete rendering frame.</p>
+<p><strong>Intent:</strong> Serves as the central hub for all drawing activity — it owns every sprite batch, the camera, and the pipeline of render targets from game-resolution through to the final screen buffer.</p>
+<p><strong>Use-case:</strong> Receive a <code>RenderContext</code> in your <code>IMurderRenderSystem.Draw()</code> call and use batch properties such as <code>GameplayBatch</code> or <code>UiBatch</code> to issue sprite draw calls; override <code>RenderContext</code> in your game assembly to add custom render passes.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0">IDisposable</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public RenderContext(GraphicsDevice graphicsDevice, Camera2D camera, RenderContextFlags settings)
@@ -164,11 +167,13 @@ Extending your <a href="../../../Murder/Core/Graphics/Batches2D.html">Batches2D<
 <h4 id="_debugtarget"><a class="header" href="#_debugtarget">_debugTarget</a></h4>
 <pre><code class="language-csharp">protected RenderTarget2D _debugTarget;
 </code></pre>
+<p>Internal render target used to accumulate debug overlay draws.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html">RenderTarget2D</a> </p>
 <h4 id="_debugtargetpreview"><a class="header" href="#_debugtargetpreview">_debugTargetPreview</a></h4>
 <pre><code class="language-csharp">protected RenderTarget2D _debugTargetPreview;
 </code></pre>
+<p>Internal render target used to capture a snapshot of one batch step when previewing individual render passes in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html">RenderTarget2D</a> </p>
 <h4 id="_finaltarget"><a class="header" href="#_finaltarget">_finalTarget</a></h4>
@@ -180,26 +185,31 @@ Extending your <a href="../../../Murder/Core/Graphics/Batches2D.html">Batches2D<
 <h4 id="_floorbuffertarget"><a class="header" href="#_floorbuffertarget">_floorBufferTarget</a></h4>
 <pre><code class="language-csharp">protected RenderTarget2D _floorBufferTarget;
 </code></pre>
+<p>Render target for the floor layer drawn behind the gameplay batch.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html">RenderTarget2D</a> </p>
 <h4 id="_graphicsdevice"><a class="header" href="#_graphicsdevice">_graphicsDevice</a></h4>
 <pre><code class="language-csharp">protected GraphicsDevice _graphicsDevice;
 </code></pre>
+<p>The underlying MonoGame <code>GraphicsDevice</code> used to create render targets and issue draw calls.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.GraphicsDevice.html">GraphicsDevice</a> </p>
 <h4 id="_maintarget"><a class="header" href="#_maintarget">_mainTarget</a></h4>
 <pre><code class="language-csharp">protected RenderTarget2D _mainTarget;
 </code></pre>
+<p>Primary game-resolution render target where all gameplay and floor sprites are composited before post-processing.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html">RenderTarget2D</a> </p>
 <h4 id="_spritebatches"><a class="header" href="#_spritebatches">_spriteBatches</a></h4>
 <pre><code class="language-csharp">public Batch2D[] _spriteBatches;
 </code></pre>
+<p>Array of all registered <code>Batch2D</code> instances, indexed by their batch ID constants defined in <code>Batches2D</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/Batch2D.html">Batch2D[]</a> </p>
 <h4 id="_subpixeloffset"><a class="header" href="#_subpixeloffset">_subPixelOffset</a></h4>
 <pre><code class="language-csharp">protected Vector2 _subPixelOffset;
 </code></pre>
+<p>Sub-pixel camera offset applied to prevent texture bleeding at fractional camera positions.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="_temptarget"><a class="header" href="#_temptarget">_tempTarget</a></h4>
@@ -213,21 +223,25 @@ it to the final target</p>
 <h4 id="_uitarget"><a class="header" href="#_uitarget">_uiTarget</a></h4>
 <pre><code class="language-csharp">protected RenderTarget2D _uiTarget;
 </code></pre>
+<p>Render target that receives all UI sprites drawn above the gameplay layer.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html">RenderTarget2D</a> </p>
 <h4 id="_usedebugbatches"><a class="header" href="#_usedebugbatches">_useDebugBatches</a></h4>
 <pre><code class="language-csharp">protected readonly bool _useDebugBatches;
 </code></pre>
+<p>Whether debug batches (<code>DebugBatch</code>, <code>DebugFxBatch</code>) were enabled when this context was created via <code>RenderContextFlags.Debug</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="backcolor"><a class="header" href="#backcolor">BackColor</a></h4>
 <pre><code class="language-csharp">public Color BackColor { get; }
 </code></pre>
+<p>Background clear color read from the active game profile, applied before every frame.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/Color.html">Color</a> </p>
 <h4 id="cachedtexttextures"><a class="header" href="#cachedtexttextures">CachedTextTextures</a></h4>
 <pre><code class="language-csharp">public readonly CacheDictionary&lt;TKey, TValue&gt; CachedTextTextures;
 </code></pre>
+<p>Per-string texture cache used to avoid re-rendering static text every frame; holds up to 32 recently used text textures.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Utilities/CacheDictionary-2.html">CacheDictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="camera"><a class="header" href="#camera">Camera</a></h4>
@@ -239,16 +253,19 @@ it to the final target</p>
 <h4 id="camera_bleed"><a class="header" href="#camera_bleed">CAMERA_BLEED</a></h4>
 <pre><code class="language-csharp">public readonly static int CAMERA_BLEED;
 </code></pre>
+<p>Extra pixel margin added to each camera edge to hide seam artifacts at viewport boundaries.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="camera_bleed_vector"><a class="header" href="#camera_bleed_vector">CAMERA_BLEED_VECTOR</a></h4>
 <pre><code class="language-csharp">public readonly static Vector2 CAMERA_BLEED_VECTOR;
 </code></pre>
+<p><code>CAMERA_BLEED</code> expressed as a <code>Vector2</code> for convenient use in offset calculations.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="colorgrade"><a class="header" href="#colorgrade">ColorGrade</a></h4>
 <pre><code class="language-csharp">public Texture2D ColorGrade;
 </code></pre>
+<p>Optional color-grading lookup table texture applied as a post-processing step; null if color grading is disabled.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a> </p>
 <h4 id="debugbatch"><a class="header" href="#debugbatch">DebugBatch</a></h4>
@@ -272,6 +289,7 @@ it to the final target</p>
 <h4 id="gamebuffersize"><a class="header" href="#gamebuffersize">GameBufferSize</a></h4>
 <pre><code class="language-csharp">public Point GameBufferSize;
 </code></pre>
+<p>Pixel dimensions of the game-resolution render buffer (independent of the window size).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Geometry/Point.html">Point</a> </p>
 <h4 id="gameplaybatch"><a class="header" href="#gameplaybatch">GameplayBatch</a></h4>
@@ -289,36 +307,43 @@ it to the final target</p>
 <h4 id="lastrendertarget"><a class="header" href="#lastrendertarget">LastRenderTarget</a></h4>
 <pre><code class="language-csharp">public RenderTarget2D LastRenderTarget { get; }
 </code></pre>
+<p>The screen-resolution render target produced at the end of the previous frame.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html">RenderTarget2D</a> </p>
 <h4 id="maintarget"><a class="header" href="#maintarget">MainTarget</a></h4>
 <pre><code class="language-csharp">public RenderTarget2D MainTarget { get; }
 </code></pre>
+<p>The game-resolution render target for the current frame.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html">RenderTarget2D</a> </p>
 <h4 id="previewstate"><a class="header" href="#previewstate">PreviewState</a></h4>
 <pre><code class="language-csharp">public BatchPreviewState PreviewState;
 </code></pre>
+<p>Controls which intermediate render pass is displayed when stepping through batch previews in the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/BatchPreviewState.html">BatchPreviewState</a> </p>
 <h4 id="previewstretch"><a class="header" href="#previewstretch">PreviewStretch</a></h4>
 <pre><code class="language-csharp">public bool PreviewStretch;
 </code></pre>
+<p>When true, the preview render target is stretched to fill the full screen in the editor preview.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="rendertoscreen"><a class="header" href="#rendertoscreen">RenderToScreen</a></h4>
 <pre><code class="language-csharp">public bool RenderToScreen;
 </code></pre>
+<p>When false, the final render target is not blitted to the display; useful for off-screen rendering or screenshots.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="settings"><a class="header" href="#settings">Settings</a></h4>
 <pre><code class="language-csharp">protected readonly RenderContextFlags Settings;
 </code></pre>
+<p>The <code>RenderContextFlags</code> bitmask that was passed when this context was constructed, controlling optional features such as debug batches and custom shaders.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/RenderContextFlags.html">RenderContextFlags</a> </p>
 <h4 id="subpixeloffset"><a class="header" href="#subpixeloffset">SubPixelOffset</a></h4>
 <pre><code class="language-csharp">public Vector2 SubPixelOffset { get; }
 </code></pre>
+<p>Sub-pixel camera alignment offset exposed to render systems for precise pixel-perfect positioning.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="uibatch"><a class="header" href="#uibatch">UiBatch</a></h4>
@@ -330,6 +355,7 @@ it to the final target</p>
 <h4 id="viewport"><a class="header" href="#viewport">Viewport</a></h4>
 <pre><code class="language-csharp">public Viewport Viewport;
 </code></pre>
+<p>The active screen viewport region that the game image is rendered into.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Viewport.html">Viewport</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
@@ -388,11 +414,13 @@ it to the final target</p>
 <h4 id="takescreenshotifnecessaryrendertarget2d"><a class="header" href="#takescreenshotifnecessaryrendertarget2d">TakeScreenshotIfNecessary(RenderTarget2D)</a></h4>
 <pre><code class="language-csharp">protected void TakeScreenshotIfNecessary(RenderTarget2D target)
 </code></pre>
+<p>Saves the provided render target to disk if a screenshot was requested via <code>SaveScreenShot()</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>target</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html">RenderTarget2D</a> </p>
 <h4 id="getbatchint"><a class="header" href="#getbatchint">GetBatch(int)</a></h4>
 <pre><code class="language-csharp">public Batch2D GetBatch(int index)
 </code></pre>
+<p>Returns the <code>Batch2D</code> registered at the given index, or logs an error and returns batch 0 if the index is invalid.</p>
 <p><strong>Parameters</strong> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -412,6 +440,7 @@ it to the final target</p>
 <h4 id="getrendertargetfromenumrendertargets"><a class="header" href="#getrendertargetfromenumrendertargets">GetRenderTargetFromEnum(RenderTargets)</a></h4>
 <pre><code class="language-csharp">public virtual Texture2D GetRenderTargetFromEnum(RenderTargets inspectingRenderTarget)
 </code></pre>
+<p>Resolves a <code>RenderTargets</code> enum value to its underlying <code>Texture2D</code> render target.</p>
 <p><strong>Parameters</strong> <br />
 <code>inspectingRenderTarget</code> <a href="../../../Murder/Core/Graphics/RenderTargets.html">RenderTargets</a> </p>
 <p><strong>Returns</strong> <br />
@@ -419,6 +448,7 @@ it to the final target</p>
 <h4 id="begin"><a class="header" href="#begin">Begin()</a></h4>
 <pre><code class="language-csharp">public virtual void Begin()
 </code></pre>
+<p>Begins all registered sprite batches in preparation for drawing the current frame.</p>
 <h4 id="dispose"><a class="header" href="#dispose">Dispose()</a></h4>
 <pre><code class="language-csharp">public virtual void Dispose()
 </code></pre>
@@ -426,15 +456,19 @@ it to the final target</p>
 <h4 id="end"><a class="header" href="#end">End()</a></h4>
 <pre><code class="language-csharp">public virtual void End()
 </code></pre>
+<p>Flushes all active sprite batches and ends the current frame.</p>
 <h4 id="initialize"><a class="header" href="#initialize">Initialize()</a></h4>
 <pre><code class="language-csharp">public virtual void Initialize()
 </code></pre>
+<p>Allocates render targets, creates all default sprite batches, and performs initial viewport setup.</p>
 <h4 id="updateviewport"><a class="header" href="#updateviewport">UpdateViewport()</a></h4>
 <pre><code class="language-csharp">public virtual void UpdateViewport()
 </code></pre>
+<p>Recomputes the viewport dimensions and camera scale factor after a window resize event.</p>
 <h4 id="createdebugpreviewifnecessarybatchpreviewstate-rendertarget2d"><a class="header" href="#createdebugpreviewifnecessarybatchpreviewstate-rendertarget2d">CreateDebugPreviewIfNecessary(BatchPreviewState, RenderTarget2D)</a></h4>
 <pre><code class="language-csharp">public void CreateDebugPreviewIfNecessary(BatchPreviewState currentState, RenderTarget2D target)
 </code></pre>
+<p>Copies <code>target</code> into the debug preview buffer when <code>currentState</code> matches the active <code>PreviewState</code>, enabling step-by-step batch inspection.</p>
 <p><strong>Parameters</strong> <br />
 <code>currentState</code> <a href="../../../Murder/Core/Graphics/BatchPreviewState.html">BatchPreviewState</a> <br />
 <code>target</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html">RenderTarget2D</a> </p>

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct TintComponent : IComponent, IEquatable&lt;T&gt;
 </code></pre>
+<p>Applies a solid color tint to the entity's entire sprite, blending the tint color multiplicatively with the original pixel colors.</p>
+<p><strong>Intent:</strong> Colorize or recolor a sprite at runtime without modifying the source asset.</p>
+<p><strong>Use-case:</strong> Add with a chosen <code>TintColor</code> to highlight an entity (e.g. a red tint on damage), and remove the component to restore the original appearance.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Components/IComponent.html">IComponent</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0">IEquatable&lt;T&gt;</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TintComponent(Color TintColor)
@@ -159,12 +162,14 @@
 <h4 id="tintcolor"><a class="header" href="#tintcolor">TintColor</a></h4>
 <pre><code class="language-csharp">public Color TintColor { get; public set; }
 </code></pre>
+<p>The color multiplied with every pixel of the sprite to produce the tinted result.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/Color.html">Color</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="equalstintcomponent"><a class="header" href="#equalstintcomponent">Equals(TintComponent)</a></h4>
 <pre><code class="language-csharp">public virtual bool Equals(TintComponent other)
 </code></pre>
+<p>Returns <code>true</code> if <code>other</code> has the same <code>TintColor</code> as this instance.</p>
 <p><strong>Parameters</strong> <br />
 <code>other</code> <a href="../../../Murder/Components/Graphics/TintComponent.html">TintComponent</a> </p>
 <p><strong>Returns</strong> <br />
@@ -172,6 +177,7 @@
 <h4 id="equalsobject"><a class="header" href="#equalsobject">Equals(Object)</a></h4>
 <pre><code class="language-csharp">public virtual bool Equals(Object obj)
 </code></pre>
+<p>Returns <code>true</code> if <code>obj</code> is a <code>TintComponent</code> with the same <code>TintColor</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>obj</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p><strong>Returns</strong> <br />

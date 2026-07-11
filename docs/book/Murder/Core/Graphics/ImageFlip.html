@@ -149,26 +149,33 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed enum ImageFlip : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Specifies whether a sprite should be mirrored horizontally, vertically, both, or not at all when drawn.</p>
+<p><strong>Intent:</strong> Provides a clean flag enum for sprite mirroring so draw calls can express flipping without separate boolean parameters.</p>
+<p><strong>Use-case:</strong> Set <code>DrawInfo.ImageFlip</code> or pass directly to <code>AtlasCoordinates.Draw</code> to flip a sprite; commonly used to face a character left or right without needing separate left-facing art.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="both"><a class="header" href="#both">Both</a></h4>
 <pre><code class="language-csharp">public static const ImageFlip Both;
 </code></pre>
+<p>Mirrors the sprite both horizontally and vertically (equivalent to a 180° rotation about the center).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/ImageFlip.html">ImageFlip</a> </p>
 <h4 id="horizontal"><a class="header" href="#horizontal">Horizontal</a></h4>
 <pre><code class="language-csharp">public static const ImageFlip Horizontal;
 </code></pre>
+<p>Mirrors the sprite left-to-right along the vertical axis.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/ImageFlip.html">ImageFlip</a> </p>
 <h4 id="none"><a class="header" href="#none">None</a></h4>
 <pre><code class="language-csharp">public static const ImageFlip None;
 </code></pre>
+<p>No mirroring; draws the sprite as authored.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/ImageFlip.html">ImageFlip</a> </p>
 <h4 id="vertical"><a class="header" href="#vertical">Vertical</a></h4>
 <pre><code class="language-csharp">public static const ImageFlip Vertical;
 </code></pre>
+<p>Mirrors the sprite top-to-bottom along the horizontal axis.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Graphics/ImageFlip.html">ImageFlip</a> </p>
 <p>⚡</p>

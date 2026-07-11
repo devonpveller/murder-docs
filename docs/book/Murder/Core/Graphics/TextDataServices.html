@@ -149,15 +149,20 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class TextDataServices
 </code></pre>
+<p>Static service that parses raw text strings into <code>RuntimeTextData</code> layouts, processing markup tags and caching results to avoid repeated work.</p>
+<p><strong>Intent:</strong> Acts as the single entry point for converting a raw dialogue or UI string into display-ready <code>RuntimeTextData</code>, with an internal LRU cache keyed on text content, font, and wrap width.</p>
+<p><strong>Use-case:</strong> Call <code>GetOrCreateText()</code> before every <code>PixelFont.Draw()</code> call; results are automatically cached so repeated renders of the same string are nearly free.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="escaperegex"><a class="header" href="#escaperegex">EscapeRegex()</a></h4>
 <pre><code class="language-csharp">public Regex EscapeRegex()
 </code></pre>
+<p>Returns the compiled regex used to strip or escape special markup tags from raw text strings.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.RegularExpressions.Regex?view=net-7.0">Regex</a> </p>
 <h4 id="getorcreatetextpixelfontsize-string-textsettings"><a class="header" href="#getorcreatetextpixelfontsize-string-textsettings">GetOrCreateText(PixelFontSize, string, TextSettings)</a></h4>
 <pre><code class="language-csharp">public RuntimeTextData GetOrCreateText(PixelFontSize font, string text, TextSettings settings)
 </code></pre>
+<p>Returns cached or newly computed <code>RuntimeTextData</code> for the given font size, text content, and layout settings.</p>
 <p><strong>Parameters</strong> <br />
 <code>font</code> <a href="../../../Murder/Core/Graphics/PixelFontSize.html">PixelFontSize</a> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
@@ -167,6 +172,7 @@
 <h4 id="getorcreatetextint-string-textsettings"><a class="header" href="#getorcreatetextint-string-textsettings">GetOrCreateText(int, string, TextSettings)</a></h4>
 <pre><code class="language-csharp">public RuntimeTextData GetOrCreateText(int fontId, string text, TextSettings settings)
 </code></pre>
+<p>Looks up the font by its registered index and returns cached or newly computed <code>RuntimeTextData</code> for the given text and settings.</p>
 <p><strong>Parameters</strong> <br />
 <code>fontId</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>text</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct TextSettings
 </code></pre>
+<p>Configuration options that control how raw text is parsed and laid out into a <code>RuntimeTextData</code>.</p>
+<p><strong>Intent:</strong> Groups the display parameters — render scale, hi-res mode, and maximum line width — that influence text layout independently of the text content itself.</p>
+<p><strong>Use-case:</strong> Construct a <code>TextSettings</code> and pass it to <code>TextDataServices.GetOrCreateText()</code> when you need scaled, hi-res, or word-wrapped text.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TextSettings()
 </code></pre>
@@ -156,16 +159,19 @@
 <h4 id="hires"><a class="header" href="#hires">HiRes</a></h4>
 <pre><code class="language-csharp">public bool HiRes { get; public set; }
 </code></pre>
+<p>When true, renders the font at double resolution for high-DPI or zoomed-in displays.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="maxwidth"><a class="header" href="#maxwidth">MaxWidth</a></h4>
 <pre><code class="language-csharp">public int MaxWidth { get; public set; }
 </code></pre>
+<p>Maximum pixel width before text is word-wrapped onto the next line; set to -1 for unlimited width.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="scale"><a class="header" href="#scale">Scale</a></h4>
 <pre><code class="language-csharp">public Vector2 Scale { get; public set; }
 </code></pre>
+<p>Uniform scale applied to the font when measuring and rendering; use <code>Vector2.One</code> for native size.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p>⚡</p>

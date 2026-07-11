@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class CalculatePathfindSystem : IStartupSystem, ISystem, IReactiveSystem
 </code></pre>
+<p>Initializes the world's <code>HAAStarPathfindComponent</code> on startup and recalculates a navigation path for any entity whose <code>PathfindComponent</code> is added or changed.</p>
+<p><strong>Intent:</strong> Creates and maintains HAAstar pathfinding data for each entity that requests navigation, reacting to target changes and map state.</p>
+<p><strong>Use-case:</strong> Include in any world that uses pathfinding; it must run alongside <code>MapInitializerSystem</code> so a valid map exists before paths are computed.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IStartupSystem.html">IStartupSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a>, <a href="../../Bang/Systems/IReactiveSystem.html">IReactiveSystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public CalculatePathfindSystem()
@@ -157,30 +160,35 @@
 <h4 id="lineofsightcollisionmask"><a class="header" href="#lineofsightcollisionmask">LineOfSightCollisionMask</a></h4>
 <pre><code class="language-csharp">public static const int LineOfSightCollisionMask;
 </code></pre>
+<p>The combined collision layer mask used for line-of-sight checks during path calculation; defaults to BLOCK_VISION, SOLID, HOLE, and CARVE layers.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="onaddedworld-immutablearray"><a class="header" href="#onaddedworld-immutablearray">OnAdded(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnAdded(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Calculates an initial path for each newly added entity that has a <code>PathfindComponent</code>, using the current world map.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="onmodifiedworld-immutablearray"><a class="header" href="#onmodifiedworld-immutablearray">OnModified(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnModified(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Re-calculates the path for each entity whose <code>PathfindComponent</code> has changed; skips recalculation if the target cell has not moved.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="onremovedworld-immutablearray"><a class="header" href="#onremovedworld-immutablearray">OnRemoved(World, ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public virtual void OnRemoved(World world, ImmutableArray&lt;T&gt; entities)
 </code></pre>
+<p>Clears the route component and resets friction on entities that no longer have a <code>PathfindComponent</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entities</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="startcontext"><a class="header" href="#startcontext">Start(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Start(Context context)
 </code></pre>
+<p>Creates the world-unique <code>HAAStarPathfindComponent</code> entity and seeds it with the current map's dimensions and cell data.</p>
 <p><strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <p>⚡</p>

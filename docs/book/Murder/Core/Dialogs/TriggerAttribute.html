@@ -151,14 +151,18 @@
 </code></pre>
 <p>Attribute of fields that should be immediately set off once they are
 turned on.</p>
+<p><strong>Intent:</strong> Marks a boolean blackboard field as a one-shot trigger so the engine automatically resets it to <code>false</code> after it has been read as <code>true</code>, ensuring trigger semantics rather than persistent state.</p>
+<p><strong>Use-case:</strong> Annotate a <code>bool</code> field in a custom <code>IBlackboard</code> class with <code>[Trigger]</code> to indicate that it should fire once and then reset — useful for events like &quot;player just entered room&quot; flags.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public TriggerAttribute()
 </code></pre>
+<p>Creates the trigger attribute with no additional parameters.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Inherited from <code>Attribute</code>; returns a unique object that identifies this attribute type instance.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

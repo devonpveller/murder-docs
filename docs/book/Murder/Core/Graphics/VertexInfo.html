@@ -149,10 +149,14 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct VertexInfo : IVertexType
 </code></pre>
+<p>A single GPU vertex holding world-space position, tint color, atlas UV, and a blend-mode selector.</p>
+<p><strong>Intent:</strong> Represents the raw vertex data passed to the GPU for each corner of a sprite quad, carrying all information the sprite shader needs to sample and tint the texture.</p>
+<p><strong>Use-case:</strong> Populated automatically by <code>SpriteBatchItem.Set()</code>; inspect or modify <code>VertexData</code> directly for custom geometry in <code>SpriteBatchItem.SetPolygon()</code>.</p>
 <p><strong>Implements:</strong> <em><a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.IVertexType.html">IVertexType</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public VertexInfo(Vector3 position, Color color, Vector2 textureCoord, Vector3 blend)
 </code></pre>
+<p>Creates a vertex with explicit position (XY + depth), tint color, atlas UV, and blend selector.</p>
 <p><strong>Parameters</strong> <br />
 <code>position</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector3.html">Vector3</a> <br />
 <code>color</code> <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Color.html">Color</a> <br />
@@ -162,26 +166,31 @@
 <h4 id="blendtype"><a class="header" href="#blendtype">BlendType</a></h4>
 <pre><code class="language-csharp">public Vector3 BlendType;
 </code></pre>
+<p>A <code>Vector3</code> selector passed to the sprite shader to choose between normal alpha blend, color wash, and solid-color blend modes.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector3.html">Vector3</a> </p>
 <h4 id="color"><a class="header" href="#color">Color</a></h4>
 <pre><code class="language-csharp">public Color Color;
 </code></pre>
+<p>Tint color multiplied with the texture sample by the GPU shader.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Color.html">Color</a> </p>
 <h4 id="position"><a class="header" href="#position">Position</a></h4>
 <pre><code class="language-csharp">public Vector3 Position;
 </code></pre>
+<p>World-space position of this vertex; the Z component carries the depth/sort value for the renderer.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector3.html">Vector3</a> </p>
 <h4 id="texturecoordinate"><a class="header" href="#texturecoordinate">TextureCoordinate</a></h4>
 <pre><code class="language-csharp">public Vector2 TextureCoordinate;
 </code></pre>
+<p>Normalized UV coordinate into the atlas texture sampled at this vertex.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector2.html">Vector2</a> </p>
 <h4 id="vertexdeclaration"><a class="header" href="#vertexdeclaration">VertexDeclaration</a></h4>
 <pre><code class="language-csharp">public readonly static VertexDeclaration VertexDeclaration;
 </code></pre>
+<p>Shared <code>VertexDeclaration</code> describing the memory layout (position, color, UV, blend) for the GPU input assembler.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.VertexDeclaration.html">VertexDeclaration</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>

@@ -149,41 +149,51 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed enum BlackboardActionKind : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Defines the operation to perform on a blackboard fact when a <code>DialogAction</code> is executed.</p>
+<p><strong>Intent:</strong> Enumerates every mutation that can be applied to a blackboard variable — assignment, arithmetic, boolean toggling, or component modification.</p>
+<p><strong>Use-case:</strong> Assign a value to <code>DialogAction.Kind</code> to control how a fact is mutated when a dialogue node is visited.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="add"><a class="header" href="#add">Add</a></h4>
 <pre><code class="language-csharp">public static const BlackboardActionKind Add;
 </code></pre>
+<p>Increments an integer or float fact by the specified value.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardActionKind.html">BlackboardActionKind</a> </p>
 <h4 id="component"><a class="header" href="#component">Component</a></h4>
 <pre><code class="language-csharp">public static const BlackboardActionKind Component;
 </code></pre>
+<p>Adds or replaces a component on the target entity instead of modifying a named fact.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardActionKind.html">BlackboardActionKind</a> </p>
 <h4 id="minus"><a class="header" href="#minus">Minus</a></h4>
 <pre><code class="language-csharp">public static const BlackboardActionKind Minus;
 </code></pre>
+<p>Decrements an integer or float fact by the specified value.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardActionKind.html">BlackboardActionKind</a> </p>
 <h4 id="set"><a class="header" href="#set">Set</a></h4>
 <pre><code class="language-csharp">public static const BlackboardActionKind Set;
 </code></pre>
+<p>Assigns the specified value directly to the fact, replacing any existing value.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardActionKind.html">BlackboardActionKind</a> </p>
 <h4 id="setmax"><a class="header" href="#setmax">SetMax</a></h4>
 <pre><code class="language-csharp">public static const BlackboardActionKind SetMax;
 </code></pre>
+<p>Sets the fact to the higher of its current value and the specified value, clamping downward changes.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardActionKind.html">BlackboardActionKind</a> </p>
 <h4 id="setmin"><a class="header" href="#setmin">SetMin</a></h4>
 <pre><code class="language-csharp">public static const BlackboardActionKind SetMin;
 </code></pre>
+<p>Sets the fact to the lower of its current value and the specified value, clamping upward changes.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardActionKind.html">BlackboardActionKind</a> </p>
 <h4 id="toggle"><a class="header" href="#toggle">Toggle</a></h4>
 <pre><code class="language-csharp">public static const BlackboardActionKind Toggle;
 </code></pre>
+<p>Flips a boolean fact from <code>true</code> to <code>false</code> or vice versa.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardActionKind.html">BlackboardActionKind</a> </p>
 <p>⚡</p>

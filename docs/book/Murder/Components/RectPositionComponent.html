@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct RectPositionComponent : IParentRelativeComponent, IComponent
 </code></pre>
+<p>UI position component that calculates an entity's on-screen rectangle from padding and size values relative to its parent or the screen bounds.</p>
+<p><strong>Intent:</strong> Layout a UI element using CSS-like padding constraints rather than absolute coordinates.</p>
+<p><strong>Use-case:</strong> Attach to UI entities whose position should reflow automatically when the parent container or screen size changes.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IParentRelativeComponent.html">IParentRelativeComponent</a>, <a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public RectPositionComponent(float top, float left, float bottom, float right, Vector2 size, Vector2 origin, IComponent parent)
@@ -165,22 +168,26 @@
 <h4 id="hasparent"><a class="header" href="#hasparent">HasParent</a></h4>
 <pre><code class="language-csharp">public virtual bool HasParent { get; }
 </code></pre>
+<p>Whether this component is positioned relative to a parent component.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="origin"><a class="header" href="#origin">Origin</a></h4>
 <pre><code class="language-csharp">public readonly Vector2 Origin;
 </code></pre>
+<p>Normalised anchor point within the element where (0,0) is top-left and (1,1) is bottom-right.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h4 id="size"><a class="header" href="#size">Size</a></h4>
 <pre><code class="language-csharp">public readonly Vector2 Size;
 </code></pre>
+<p>Explicit size override for the element. Used when the size cannot be inferred from the content.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getboxentity-point-t"><a class="header" href="#getboxentity-point-t">GetBox(Entity, Point, T?)</a></h4>
 <pre><code class="language-csharp">public Rectangle GetBox(Entity entity, Point screenSize, T? referenceSize)
 </code></pre>
+<p>Calculates the screen-space rectangle for this element given the entity, current screen size, and an optional reference size.</p>
 <p><strong>Parameters</strong> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />
 <code>screenSize</code> <a href="../../Murder/Core/Geometry/Point.html">Point</a> <br />
@@ -190,6 +197,7 @@
 <h4 id="addpaddingrectpositioncomponent"><a class="header" href="#addpaddingrectpositioncomponent">AddPadding(RectPositionComponent)</a></h4>
 <pre><code class="language-csharp">public RectPositionComponent AddPadding(RectPositionComponent b)
 </code></pre>
+<p>Returns a new component with the padding values of <code>b</code> added to this component's padding.</p>
 <p><strong>Parameters</strong> <br />
 <code>b</code> <a href="../../Murder/Components/RectPositionComponent.html">RectPositionComponent</a> </p>
 <p><strong>Returns</strong> <br />
@@ -197,6 +205,7 @@
 <h4 id="withsizevector2"><a class="header" href="#withsizevector2">WithSize(Vector2)</a></h4>
 <pre><code class="language-csharp">public RectPositionComponent WithSize(Vector2 size)
 </code></pre>
+<p>Returns a new component with the <code>Size</code> field replaced by the given value.</p>
 <p><strong>Parameters</strong> <br />
 <code>size</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p><strong>Returns</strong> <br />
@@ -204,11 +213,13 @@
 <h4 id="withoutparent"><a class="header" href="#withoutparent">WithoutParent()</a></h4>
 <pre><code class="language-csharp">public virtual IParentRelativeComponent WithoutParent()
 </code></pre>
+<p>Returns a copy of this component with the parent reference removed.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Bang/Components/IParentRelativeComponent.html">IParentRelativeComponent</a> </p>
 <h4 id="onparentmodifiedicomponent-entity"><a class="header" href="#onparentmodifiedicomponent-entity">OnParentModified(IComponent, Entity)</a></h4>
 <pre><code class="language-csharp">public virtual void OnParentModified(IComponent parentComponent, Entity childEntity)
 </code></pre>
+<p>Called by the engine when the parent component changes; updates this element's position to match the new parent bounds.</p>
 <p><strong>Parameters</strong> <br />
 <code>parentComponent</code> <a href="../../Bang/Components/IComponent.html">IComponent</a> <br />
 <code>childEntity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> </p>

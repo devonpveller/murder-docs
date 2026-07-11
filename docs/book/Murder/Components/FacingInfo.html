@@ -149,20 +149,26 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct FacingInfo
 </code></pre>
+<p>Describes one directional slice of a sprite's facing configuration, mapping an angular range to an animation suffix and optional flip flag.</p>
+<p><strong>Intent:</strong> Stores the data for a single facing slice in <code>SpriteFacingComponent</code> so the sprite system can select the correct directional animation and whether to mirror it.</p>
+<p><strong>Use-case:</strong> Populated in the <code>SpriteFacingComponent.FacingInfo</code> array by the editor; each entry covers an arc of <code>AngleSize</code> radians and contributes a suffix (e.g., <code>&quot;_right&quot;</code>) and optional horizontal flip to the animation name lookup.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="anglesize"><a class="header" href="#anglesize">AngleSize</a></h4>
 <pre><code class="language-csharp">public float AngleSize { get; public set; }
 </code></pre>
+<p>The arc width (in radians) that this facing slice covers.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="flip"><a class="header" href="#flip">Flip</a></h4>
 <pre><code class="language-csharp">public bool Flip { get; public set; }
 </code></pre>
+<p>When <code>true</code>, the sprite should be horizontally flipped for this facing direction.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="suffix"><a class="header" href="#suffix">Suffix</a></h4>
 <pre><code class="language-csharp">public string Suffix { get; public set; }
 </code></pre>
+<p>Animation name suffix appended when this facing slice is active (e.g., <code>&quot;_right&quot;</code>, <code>&quot;_up&quot;</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p>⚡</p>

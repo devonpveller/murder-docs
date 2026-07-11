@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Kerning
 </code></pre>
+<p>Represents a single kerning pair that adjusts the spacing between two specific characters in a bitmap font.</p>
+<p><strong>Intent:</strong> Store the horizontal offset applied between a specific first and second glyph pair to improve the visual spacing of rendered text.</p>
+<p><strong>Use-case:</strong> Consumed internally by <code>FontAsset</code> during text layout. Individual <code>Kerning</code> entries are stored in <code>FontAsset.Kernings</code> and applied automatically when the font renders adjacent characters that benefit from tighter or looser spacing.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Kerning()
 </code></pre>
@@ -156,16 +159,19 @@
 <h4 id="amount"><a class="header" href="#amount">Amount</a></h4>
 <pre><code class="language-csharp">public int Amount { get; public set; }
 </code></pre>
+<p>Pixel offset applied to the horizontal advance when the <code>Second</code> glyph follows <code>First</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="first"><a class="header" href="#first">First</a></h4>
 <pre><code class="language-csharp">public int First { get; public set; }
 </code></pre>
+<p>Unicode code-point of the leading character in this kerning pair.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="second"><a class="header" href="#second">Second</a></h4>
 <pre><code class="language-csharp">public int Second { get; public set; }
 </code></pre>
+<p>Unicode code-point of the trailing character in this kerning pair.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

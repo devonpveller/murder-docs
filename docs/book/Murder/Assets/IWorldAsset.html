@@ -149,21 +149,27 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public abstract IWorldAsset
 </code></pre>
+<p>Interface shared by all asset types that represent an instantiable world snapshot (e.g. <code>WorldAsset</code>, <code>SavedWorld</code>).</p>
+<p><strong>Intent:</strong> Provide a uniform API for loading and populating a Bang <code>World</code> from a stored list of <code>EntityInstance</code> objects, regardless of whether the source is a design-time level asset or a runtime save.</p>
+<p><strong>Use-case:</strong> Accept an <code>IWorldAsset</code> parameter in world-loading code so the same logic works for both initial <code>WorldAsset</code> loads and <code>SavedWorld</code> restores. Call <code>TryGetInstance</code> to retrieve individual entity data by GUID, or use <code>TryCreateEntityInWorld</code> to spawn a single entity from this snapshot.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="instances"><a class="header" href="#instances">Instances</a></h4>
 <pre><code class="language-csharp">public abstract virtual ImmutableArray&lt;T&gt; Instances { get; }
 </code></pre>
+<p>Ordered list of all entity instances stored in this world snapshot.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="worldguid"><a class="header" href="#worldguid">WorldGuid</a></h4>
 <pre><code class="language-csharp">public abstract virtual Guid WorldGuid { get; }
 </code></pre>
+<p>The GUID that uniquely identifies this world (matching the corresponding <code>WorldAsset</code> GUID for saves).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="trygetinstanceguid"><a class="header" href="#trygetinstanceguid">TryGetInstance(Guid)</a></h4>
 <pre><code class="language-csharp">public abstract EntityInstance TryGetInstance(Guid instanceGuid)
 </code></pre>
+<p>Retrieves the <code>EntityInstance</code> with the given GUID from this snapshot; returns null if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>instanceGuid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p><strong>Returns</strong> <br />
@@ -171,6 +177,7 @@
 <h4 id="trycreateentityinworldworld-guid"><a class="header" href="#trycreateentityinworldworld-guid">TryCreateEntityInWorld(World, Guid)</a></h4>
 <pre><code class="language-csharp">public virtual int TryCreateEntityInWorld(World world, Guid instance)
 </code></pre>
+<p>Attempts to create a single entity from the stored <code>EntityInstance</code> with the given GUID into the live world; returns the entity ID or -1 on failure.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>instance</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>

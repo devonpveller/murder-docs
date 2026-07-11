@@ -149,31 +149,39 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed enum BlackboardKind : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Identifies the scope or category of a blackboard used in the dialogue system.</p>
+<p><strong>Intent:</strong> Distinguishes between the different storage scopes (gameplay-wide, per-character, sound, save-state, etc.) so the engine knows which blackboard store to read from or write to.</p>
+<p><strong>Use-case:</strong> Assign to <code>IBlackboard.Kind</code> when implementing a custom blackboard, or read it at runtime to dispatch fact reads/writes to the correct backing store.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="all"><a class="header" href="#all">All</a></h4>
 <pre><code class="language-csharp">public static const BlackboardKind All;
 </code></pre>
+<p>Targets every blackboard scope simultaneously; used for bulk queries or operations that are not restricted to a single scope.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardKind.html">BlackboardKind</a> </p>
 <h4 id="character"><a class="header" href="#character">Character</a></h4>
 <pre><code class="language-csharp">public static const BlackboardKind Character;
 </code></pre>
+<p>Per-character conversation state (e.g. how many times a speaker has been spoken to).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardKind.html">BlackboardKind</a> </p>
 <h4 id="gameplay"><a class="header" href="#gameplay">Gameplay</a></h4>
 <pre><code class="language-csharp">public static const BlackboardKind Gameplay;
 </code></pre>
+<p>Global gameplay variables shared across the entire play session (e.g. quest flags, item counts).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardKind.html">BlackboardKind</a> </p>
 <h4 id="sound"><a class="header" href="#sound">Sound</a></h4>
 <pre><code class="language-csharp">public static const BlackboardKind Sound;
 </code></pre>
+<p>Parameters that drive adaptive audio (music and sound FMOD parameters).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardKind.html">BlackboardKind</a> </p>
 <h4 id="state"><a class="header" href="#state">State</a></h4>
 <pre><code class="language-csharp">public static const BlackboardKind State;
 </code></pre>
+<p>World or scene state variables that represent persistent environmental conditions.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Core/Dialogs/BlackboardKind.html">BlackboardKind</a> </p>
 <p>⚡</p>

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class SaveDataInfo
 </code></pre>
+<p>Lightweight metadata record for a save slot, storing the save version and display name without loading the full save payload.</p>
+<p><strong>Intent:</strong> Let the game list available save slots and check version compatibility before committing to a full deserialization of the packed save files.</p>
+<p><strong>Use-case:</strong> Stored in <code>SaveDataTracker.Info</code> keyed by slot number. Read <code>SaveDataInfo.Version</code> to verify the save was created with a compatible game version, and <code>SaveDataInfo.Name</code> to display the slot label in a save/load menu.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SaveDataInfo(float version, string name)
 </code></pre>
@@ -159,17 +162,20 @@
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public string Name;
 </code></pre>
+<p>User-facing display name of this save slot (e.g. the in-game save name chosen by the player).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="version"><a class="header" href="#version">Version</a></h4>
 <pre><code class="language-csharp">public float Version;
 </code></pre>
+<p>Game version number recorded when the save was created, used for compatibility checks.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="getfullpackedassetssavepathint"><a class="header" href="#getfullpackedassetssavepathint">GetFullPackedAssetsSavePath(int)</a></h4>
 <pre><code class="language-csharp">public string GetFullPackedAssetsSavePath(int slot)
 </code></pre>
+<p>Returns the full file path for the packed assets save file (<code>saved_assets.gz</code>) for the given slot.</p>
 <p><strong>Parameters</strong> <br />
 <code>slot</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -177,6 +183,7 @@
 <h4 id="getfullpackedsavedirectoryint"><a class="header" href="#getfullpackedsavedirectoryint">GetFullPackedSaveDirectory(int)</a></h4>
 <pre><code class="language-csharp">public string GetFullPackedSaveDirectory(int slot)
 </code></pre>
+<p>Returns the directory path that contains all save files for the given slot number.</p>
 <p><strong>Parameters</strong> <br />
 <code>slot</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -184,6 +191,7 @@
 <h4 id="getfullpackedsavepathint"><a class="header" href="#getfullpackedsavepathint">GetFullPackedSavePath(int)</a></h4>
 <pre><code class="language-csharp">public string GetFullPackedSavePath(int slot)
 </code></pre>
+<p>Returns the full file path for the main packed save file (<code>saved.gz</code>) for the given slot.</p>
 <p><strong>Parameters</strong> <br />
 <code>slot</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />

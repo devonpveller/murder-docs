@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct FacingComponent : IComponent
 </code></pre>
+<p>Stores the direction and angle an entity is currently facing.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Provides a single source of truth for an entity's facing direction so animation, physics, and AI systems all read the same value.</p>
+<p><strong>Use-case:</strong> Attach to any entity that has directional sprite animations or directional behavior; systems such as <code>AgentSpriteSystem</code> read <code>Direction</code> to select the appropriate animation suffix.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FacingComponent(Direction direction)
 </code></pre>
@@ -159,6 +162,7 @@
 </p>
 <pre><code class="language-csharp">public FacingComponent(float angle)
 </code></pre>
+<p>Creates a FacingComponent from an angle in radians, deriving the nearest cardinal or diagonal direction automatically.</p>
 <p><strong>Parameters</strong> <br />
 <code>angle</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>

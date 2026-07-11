@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct MoveToComponent : IComponent
 </code></pre>
+<p>Instructs the agent movement system to steer the entity toward a target world-space position.</p>
+<p><strong>Intent:</strong> Drive an agent to move toward a fixed point in the world, decelerating as it approaches the destination.</p>
+<p><strong>Use-case:</strong> Add at runtime with the desired <code>Target</code> position; the agent mover system applies steering velocity each frame and removes the component once the entity is within <code>MinDistance</code> of the target.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MoveToComponent(Vector2&amp; target, float minDistance, float slowDownDistance)
@@ -165,16 +168,19 @@
 <h4 id="mindistance"><a class="header" href="#mindistance">MinDistance</a></h4>
 <pre><code class="language-csharp">public readonly float MinDistance;
 </code></pre>
+<p>Distance threshold (in pixels) at which the entity is considered to have reached its target and movement stops.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="slowdowndistance"><a class="header" href="#slowdowndistance">SlowDownDistance</a></h4>
 <pre><code class="language-csharp">public readonly float SlowDownDistance;
 </code></pre>
+<p>Distance (in pixels) from the target at which the agent begins decelerating to avoid overshooting.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="target"><a class="header" href="#target">Target</a></h4>
 <pre><code class="language-csharp">public readonly Vector2 Target;
 </code></pre>
+<p>World-space position the entity should move toward.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> </p>
 <p>⚡</p>

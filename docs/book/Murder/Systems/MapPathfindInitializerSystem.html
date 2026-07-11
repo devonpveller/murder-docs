@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class MapPathfindInitializerSystem : IStartupSystem, ISystem
 </code></pre>
+<p>Reads per-cell properties from a <code>PathfindGridComponent</code> entity at startup and applies occupancy and weight data to the world's <code>MapComponent</code>.</p>
+<p><strong>Intent:</strong> Seeds the navigation map with hand-authored cell weights and collision masks defined in a <code>PathfindGridComponent</code> asset.</p>
+<p><strong>Use-case:</strong> Place a <code>PathfindGridComponent</code> entity in a scene to control per-cell pathfinding cost or to block specific cells from navigation.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IStartupSystem.html">IStartupSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MapPathfindInitializerSystem()
@@ -157,6 +160,7 @@
 <h4 id="startcontext"><a class="header" href="#startcontext">Start(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Start(Context context)
 </code></pre>
+<p>Reads the cell properties from the scene's <code>PathfindGridComponent</code> and writes occupancy and weight values into the world map.</p>
 <p><strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <p>⚡</p>

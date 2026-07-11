@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class MonoWorld : World, IDisposable
 </code></pre>
 <p>World implementation based in MonoGame.</p>
+<p><strong>Intent:</strong> The Murder ECS world that owns all entities, systems, and the camera for a single loaded level.</p>
+<p><strong>Use-case:</strong> Created automatically by <code>GameScene.LoadContentImpl</code> from a <code>WorldAsset</code>. Use it to add/query entities, toggle systems, or access the camera from within any system.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/World.html">World</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0">IDisposable</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MonoWorld(IList&lt;T&gt; systems, Camera2D camera, Guid worldAssetGuid)
@@ -162,36 +164,43 @@
 <h4 id="_cachedrendersystems"><a class="header" href="#_cachedrendersystems">_cachedRenderSystems</a></h4>
 <pre><code class="language-csharp">protected readonly SortedList&lt;TKey, TValue&gt; _cachedRenderSystems;
 </code></pre>
+<p>Cached sorted list of render-capable systems, keyed by render order, used each frame to drive draw calls without re-querying the system list.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.SortedList-2?view=net-7.0">SortedList&lt;TKey, TValue&gt;</a> </p>
 <h4 id="_overallstopwatch"><a class="header" href="#_overallstopwatch">_overallStopwatch</a></h4>
 <pre><code class="language-csharp">protected readonly Stopwatch _overallStopwatch;
 </code></pre>
+<p>Measures total elapsed time for the world update cycle when diagnostics are enabled.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Diagnostics.Stopwatch?view=net-7.0">Stopwatch</a> </p>
 <h4 id="_stopwatch"><a class="header" href="#_stopwatch">_stopwatch</a></h4>
 <pre><code class="language-csharp">protected readonly Stopwatch _stopwatch;
 </code></pre>
+<p>Measures per-system elapsed time when diagnostics are enabled.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Diagnostics.Stopwatch?view=net-7.0">Stopwatch</a> </p>
 <h4 id="camera"><a class="header" href="#camera">Camera</a></h4>
 <pre><code class="language-csharp">public readonly Camera2D Camera;
 </code></pre>
+<p>The 2D camera associated with this world, used by render systems to determine the visible viewport.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/Camera2D.html">Camera2D</a> </p>
 <h4 id="contexts"><a class="header" href="#contexts">Contexts</a></h4>
 <pre><code class="language-csharp">protected readonly Dictionary&lt;TKey, TValue&gt; Contexts;
 </code></pre>
+<p>Maps each system context ID to its <code>IComponentContext</code>, allowing systems to query the entities relevant to them.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0">Dictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="entitycount"><a class="header" href="#entitycount">EntityCount</a></h4>
 <pre><code class="language-csharp">public int EntityCount { get; }
 </code></pre>
+<p>The total number of entities currently alive in this world.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="fixedupdatecounters"><a class="header" href="#fixedupdatecounters">FixedUpdateCounters</a></h4>
 <pre><code class="language-csharp">public readonly Dictionary&lt;TKey, TValue&gt; FixedUpdateCounters;
 </code></pre>
+<p>Maps each fixed-update system ID to its timing data (duration in ms per tick). See <code>World.IdToSystem</code> to resolve IDs.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0">Dictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="guicounters"><a class="header" href="#guicounters">GuiCounters</a></h4>
@@ -204,16 +213,19 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="idtosystem"><a class="header" href="#idtosystem">IdToSystem</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableDictionary&lt;TKey, TValue&gt; IdToSystem;
 </code></pre>
+<p>Immutable mapping from system integer ID to the <code>ISystem</code> instance, used to look up systems by ID in diagnostics counters.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0">ImmutableDictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="isexiting"><a class="header" href="#isexiting">IsExiting</a></h4>
 <pre><code class="language-csharp">public bool IsExiting { get; }
 </code></pre>
+<p>Whether the world has been requested to exit and is in the process of shutting down.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="ispaused"><a class="header" href="#ispaused">IsPaused</a></h4>
 <pre><code class="language-csharp">public bool IsPaused { get; }
 </code></pre>
+<p>Whether the world is currently paused; when <code>true</code>, update systems do not tick.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="prerendercounters"><a class="header" href="#prerendercounters">PreRenderCounters</a></h4>
@@ -226,6 +238,7 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="reactivecounters"><a class="header" href="#reactivecounters">ReactiveCounters</a></h4>
 <pre><code class="language-csharp">public readonly Dictionary&lt;TKey, TValue&gt; ReactiveCounters;
 </code></pre>
+<p>Maps each reactive system ID to its timing data (duration in ms per message batch). See <code>World.IdToSystem</code> to resolve IDs.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0">Dictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="rendercounters"><a class="header" href="#rendercounters">RenderCounters</a></h4>
@@ -238,41 +251,49 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="startcounters"><a class="header" href="#startcounters">StartCounters</a></h4>
 <pre><code class="language-csharp">public readonly Dictionary&lt;TKey, TValue&gt; StartCounters;
 </code></pre>
+<p>Maps each start system ID to its timing data (duration in ms for its initial start call). See <code>World.IdToSystem</code> to resolve IDs.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0">Dictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="updatecounters"><a class="header" href="#updatecounters">UpdateCounters</a></h4>
 <pre><code class="language-csharp">public readonly Dictionary&lt;TKey, TValue&gt; UpdateCounters;
 </code></pre>
+<p>Maps each update system ID to its timing data (duration in ms per frame). See <code>World.IdToSystem</code> to resolve IDs.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0">Dictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="worldassetguid"><a class="header" href="#worldassetguid">WorldAssetGuid</a></h4>
 <pre><code class="language-csharp">public readonly Guid WorldAssetGuid;
 </code></pre>
+<p>The GUID of the <code>WorldAsset</code> from which this world was instantiated.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="cleardiagnosticscountersforsystemint"><a class="header" href="#cleardiagnosticscountersforsystemint">ClearDiagnosticsCountersForSystem(int)</a></h4>
 <pre><code class="language-csharp">protected virtual void ClearDiagnosticsCountersForSystem(int id)
 </code></pre>
+<p>Clears the diagnostics timing counters for the system with the given ID.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="initializediagnosticsforsystemint-isystem"><a class="header" href="#initializediagnosticsforsystemint-isystem">InitializeDiagnosticsForSystem(int, ISystem)</a></h4>
 <pre><code class="language-csharp">protected virtual void InitializeDiagnosticsForSystem(int systemId, ISystem system)
 </code></pre>
+<p>Registers a system in the diagnostics counters dictionaries so it can be tracked.</p>
 <p><strong>Parameters</strong> <br />
 <code>systemId</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
 <code>system</code> <a href="../../Bang/Systems/ISystem.html">ISystem</a> </p>
 <h4 id="initializediagnosticscounters"><a class="header" href="#initializediagnosticscounters">InitializeDiagnosticsCounters()</a></h4>
 <pre><code class="language-csharp">protected void InitializeDiagnosticsCounters()
 </code></pre>
+<p>Initializes all per-system diagnostics counter dictionaries.</p>
 <h4 id="activatesystem"><a class="header" href="#activatesystem">ActivateSystem()</a></h4>
 <pre><code class="language-csharp">public bool ActivateSystem()
 </code></pre>
+<p>Activates the system of the generic type parameter in this world.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="activatesystemtype"><a class="header" href="#activatesystemtype">ActivateSystem(Type)</a></h4>
 <pre><code class="language-csharp">public bool ActivateSystem(Type t)
 </code></pre>
+<p>Activates the system of the specified type in this world.</p>
 <p><strong>Parameters</strong> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <p><strong>Returns</strong> <br />
@@ -280,6 +301,7 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="deactivatesystembool"><a class="header" href="#deactivatesystembool">DeactivateSystem(bool)</a></h4>
 <pre><code class="language-csharp">public bool DeactivateSystem(bool immediately)
 </code></pre>
+<p>Deactivates the system of the generic type parameter. If <code>immediately</code> is <code>true</code>, the system is disabled before the next update.</p>
 <p><strong>Parameters</strong> <br />
 <code>immediately</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <p><strong>Returns</strong> <br />
@@ -303,6 +325,7 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="issystemactivetype"><a class="header" href="#issystemactivetype">IsSystemActive(Type)</a></h4>
 <pre><code class="language-csharp">public bool IsSystemActive(Type t)
 </code></pre>
+<p>Returns <code>true</code> when the system of type <code>t</code> is currently active in this world.</p>
 <p><strong>Parameters</strong> <br />
 <code>t</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <p><strong>Returns</strong> <br />
@@ -310,11 +333,13 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="addentity"><a class="header" href="#addentity">AddEntity()</a></h4>
 <pre><code class="language-csharp">public Entity AddEntity()
 </code></pre>
+<p>Creates a new empty entity in the world and returns it.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <h4 id="addentityicomponent"><a class="header" href="#addentityicomponent">AddEntity(IComponent[])</a></h4>
 <pre><code class="language-csharp">public Entity AddEntity(IComponent[] components)
 </code></pre>
+<p>Creates a new entity initialized with the given components.</p>
 <p><strong>Parameters</strong> <br />
 <code>components</code> <a href="../../Bang/Components/IComponent.html">IComponent[]</a> </p>
 <p><strong>Returns</strong> <br />
@@ -322,6 +347,7 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="addentityt-icomponent"><a class="header" href="#addentityt-icomponent">AddEntity(T?, IComponent[])</a></h4>
 <pre><code class="language-csharp">public Entity AddEntity(T? id, IComponent[] components)
 </code></pre>
+<p>Creates a new entity with an optional integer ID hint and the given components.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> <br />
 <code>components</code> <a href="../../Bang/Components/IComponent.html">IComponent[]</a> </p>
@@ -330,6 +356,7 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="getentityint"><a class="header" href="#getentityint">GetEntity(int)</a></h4>
 <pre><code class="language-csharp">public Entity GetEntity(int id)
 </code></pre>
+<p>Retrieves the entity with the given ID. Throws if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -337,11 +364,13 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="getuniqueentity"><a class="header" href="#getuniqueentity">GetUniqueEntity()</a></h4>
 <pre><code class="language-csharp">public Entity GetUniqueEntity()
 </code></pre>
+<p>Retrieves the single entity that uniquely holds a component of the generic type. Throws if not found.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <h4 id="getuniqueentityint"><a class="header" href="#getuniqueentityint">GetUniqueEntity(int)</a></h4>
 <pre><code class="language-csharp">public Entity GetUniqueEntity(int index)
 </code></pre>
+<p>Retrieves the unique entity for the specified context index. Throws if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -349,6 +378,7 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="trygetentityint"><a class="header" href="#trygetentityint">TryGetEntity(int)</a></h4>
 <pre><code class="language-csharp">public Entity TryGetEntity(int id)
 </code></pre>
+<p>Retrieves the entity with the given ID, or <code>null</code> if it does not exist.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -356,11 +386,13 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="trygetuniqueentity"><a class="header" href="#trygetuniqueentity">TryGetUniqueEntity()</a></h4>
 <pre><code class="language-csharp">public Entity TryGetUniqueEntity()
 </code></pre>
+<p>Returns the unique entity that holds a component of the generic type, or <code>null</code> if none exists.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Bang/Entities/Entity.html">Entity</a> </p>
 <h4 id="trygetuniqueentityint"><a class="header" href="#trygetuniqueentityint">TryGetUniqueEntity(int)</a></h4>
 <pre><code class="language-csharp">public Entity TryGetUniqueEntity(int index)
 </code></pre>
+<p>Returns the unique entity for the specified context index, or <code>null</code> if none exists.</p>
 <p><strong>Parameters</strong> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -368,6 +400,7 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="getactivatedanddeactivatedentitieswithtype"><a class="header" href="#getactivatedanddeactivatedentitieswithtype">GetActivatedAndDeactivatedEntitiesWith(Type[])</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; GetActivatedAndDeactivatedEntitiesWith(Type[] components)
 </code></pre>
+<p>Returns all entities (both active and deactivated) that possess all of the specified component types.</p>
 <p><strong>Parameters</strong> <br />
 <code>components</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type[]</a> </p>
 <p><strong>Returns</strong> <br />
@@ -375,11 +408,13 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="getallentities"><a class="header" href="#getallentities">GetAllEntities()</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; GetAllEntities()
 </code></pre>
+<p>Returns all active entities in the world.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="getentitieswithcontextaccessorfilter-type"><a class="header" href="#getentitieswithcontextaccessorfilter-type">GetEntitiesWith(ContextAccessorFilter, Type[])</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; GetEntitiesWith(ContextAccessorFilter filter, Type[] components)
 </code></pre>
+<p>Returns entities that match the given component filter.</p>
 <p><strong>Parameters</strong> <br />
 <code>filter</code> <a href="../../Bang/Contexts/ContextAccessorFilter.html">ContextAccessorFilter</a> <br />
 <code>components</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type[]</a> </p>
@@ -388,6 +423,7 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="getentitieswithtype"><a class="header" href="#getentitieswithtype">GetEntitiesWith(Type[])</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; GetEntitiesWith(Type[] components)
 </code></pre>
+<p>Returns all active entities that possess all of the given component types.</p>
 <p><strong>Parameters</strong> <br />
 <code>components</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type[]</a> </p>
 <p><strong>Returns</strong> <br />
@@ -395,11 +431,13 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="getunique"><a class="header" href="#getunique">GetUnique()</a></h4>
 <pre><code class="language-csharp">public T GetUnique()
 </code></pre>
+<p>Returns the unique component of the generic type from its singleton entity. Throws if not found.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../">T</a> </p>
 <h4 id="getuniqueint"><a class="header" href="#getuniqueint">GetUnique(int)</a></h4>
 <pre><code class="language-csharp">public T GetUnique(int index)
 </code></pre>
+<p>Returns the unique component for the specified context index. Throws if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -407,11 +445,13 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="trygetunique"><a class="header" href="#trygetunique">TryGetUnique()</a></h4>
 <pre><code class="language-csharp">public T? TryGetUnique()
 </code></pre>
+<p>Returns the unique component of the generic type, or the default value if no matching singleton entity exists.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?</a> </p>
 <h4 id="trygetuniqueint"><a class="header" href="#trygetuniqueint">TryGetUnique(int)</a></h4>
 <pre><code class="language-csharp">public T? TryGetUnique(int index)
 </code></pre>
+<p>Returns the unique component for the specified context index, or the default value if not found.</p>
 <p><strong>Parameters</strong> <br />
 <code>index</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -419,45 +459,57 @@ See <a href="../../Bang/World.html#idtosystem">World.IdToSystem</a> on how to fe
 <h4 id="dispose"><a class="header" href="#dispose">Dispose()</a></h4>
 <pre><code class="language-csharp">public virtual void Dispose()
 </code></pre>
+<p>Disposes the world and all of its entities and systems.</p>
 <h4 id="pause"><a class="header" href="#pause">Pause()</a></h4>
 <pre><code class="language-csharp">public virtual void Pause()
 </code></pre>
+<p>Pauses the world: stops update ticks and pauses SFX sounds.</p>
 <h4 id="resume"><a class="header" href="#resume">Resume()</a></h4>
 <pre><code class="language-csharp">public virtual void Resume()
 </code></pre>
+<p>Resumes the world after a pause.</p>
 <h4 id="activateallsystems"><a class="header" href="#activateallsystems">ActivateAllSystems()</a></h4>
 <pre><code class="language-csharp">public void ActivateAllSystems()
 </code></pre>
+<p>Activates all systems that were previously deactivated.</p>
 <h4 id="deactivateallsystemstype"><a class="header" href="#deactivateallsystemstype">DeactivateAllSystems(Type[])</a></h4>
 <pre><code class="language-csharp">public void DeactivateAllSystems(Type[] skip)
 </code></pre>
+<p>Deactivates all systems except those whose types appear in the <code>skip</code> list.</p>
 <p><strong>Parameters</strong> <br />
 <code>skip</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type[]</a> </p>
 <h4 id="drawrendercontext"><a class="header" href="#drawrendercontext">Draw(RenderContext)</a></h4>
 <pre><code class="language-csharp">public void Draw(RenderContext render)
 </code></pre>
+<p>Runs all active render systems for this frame.</p>
 <p><strong>Parameters</strong> <br />
 <code>render</code> <a href="../../Murder/Core/Graphics/RenderContext.html">RenderContext</a> </p>
 <h4 id="drawguirendercontext"><a class="header" href="#drawguirendercontext">DrawGui(RenderContext)</a></h4>
 <pre><code class="language-csharp">public void DrawGui(RenderContext render)
 </code></pre>
+<p>Runs all active GUI render systems for this frame.</p>
 <p><strong>Parameters</strong> <br />
 <code>render</code> <a href="../../Murder/Core/Graphics/RenderContext.html">RenderContext</a> </p>
 <h4 id="exit"><a class="header" href="#exit">Exit()</a></h4>
 <pre><code class="language-csharp">public void Exit()
 </code></pre>
+<p>Signals the world to exit; sets <code>IsExiting</code> to <code>true</code>.</p>
 <h4 id="fixedupdate"><a class="header" href="#fixedupdate">FixedUpdate()</a></h4>
 <pre><code class="language-csharp">public void FixedUpdate()
 </code></pre>
+<p>Runs all active fixed-update systems at the fixed timestep.</p>
 <h4 id="predraw"><a class="header" href="#predraw">PreDraw()</a></h4>
 <pre><code class="language-csharp">public void PreDraw()
 </code></pre>
+<p>Runs all active pre-render systems before the main draw pass.</p>
 <h4 id="start"><a class="header" href="#start">Start()</a></h4>
 <pre><code class="language-csharp">public void Start()
 </code></pre>
+<p>Calls the <code>Start</code> callback on all active start systems. Called once after the world is fully loaded.</p>
 <h4 id="update"><a class="header" href="#update">Update()</a></h4>
 <pre><code class="language-csharp">public void Update()
 </code></pre>
+<p>Runs all active update systems for the current frame.</p>
 <p>⚡</p>
 
                     </main>

@@ -149,25 +149,32 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class JsonTypeConverter : JsonConverter&lt;T&gt;
 </code></pre>
+<p>Custom <code>JsonConverter&lt;Type&gt;</code> that serializes CLR <code>Type</code> objects as their assembly-qualified name string.</p>
+<p><strong>Intent:</strong> Allows <code>System.Type</code> references to be round-tripped through JSON so that component type registries and asset type metadata can be persisted.</p>
+<p><strong>Use-case:</strong> Registered automatically in <code>MurderSerializerOptionsExtensions.Options</code>; do not call directly unless building a custom serializer pipeline.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Serialization.JsonConverter-1?view=net-7.0">JsonConverter&lt;T&gt;</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public JsonTypeConverter()
 </code></pre>
+<p>Creates a new <code>JsonTypeConverter</code> instance.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="handlenull"><a class="header" href="#handlenull">HandleNull</a></h4>
 <pre><code class="language-csharp">public virtual bool HandleNull { get; }
 </code></pre>
+<p>Returns <code>false</code>; <code>null</code> types are not expected and will throw during deserialization.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="type"><a class="header" href="#type">Type</a></h4>
 <pre><code class="language-csharp">public virtual Type Type { get; }
 </code></pre>
+<p>The type this converter handles (<code>System.Type</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="canconverttype"><a class="header" href="#canconverttype">CanConvert(Type)</a></h4>
 <pre><code class="language-csharp">public virtual bool CanConvert(Type typeToConvert)
 </code></pre>
+<p>Returns <code>true</code> when <code>typeToConvert</code> is <code>System.Type</code> or a subclass.</p>
 <p><strong>Parameters</strong> <br />
 <code>typeToConvert</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <p><strong>Returns</strong> <br />
@@ -175,6 +182,7 @@
 <h4 id="readutf8jsonreader-type-jsonserializeroptions"><a class="header" href="#readutf8jsonreader-type-jsonserializeroptions">Read(Utf8JsonReader&amp;, Type, JsonSerializerOptions)</a></h4>
 <pre><code class="language-csharp">public virtual Type Read(Utf8JsonReader&amp; reader, Type typeToConvert, JsonSerializerOptions options)
 </code></pre>
+<p>Deserializes a <code>Type</code> by reading its assembly-qualified name from the JSON stream.</p>
 <p><strong>Parameters</strong> <br />
 <code>reader</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Utf8JsonReader?view=net-7.0">Utf8JsonReader&amp;</a> <br />
 <code>typeToConvert</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> <br />
@@ -184,6 +192,7 @@
 <h4 id="readaspropertynameutf8jsonreader-type-jsonserializeroptions"><a class="header" href="#readaspropertynameutf8jsonreader-type-jsonserializeroptions">ReadAsPropertyName(Utf8JsonReader&amp;, Type, JsonSerializerOptions)</a></h4>
 <pre><code class="language-csharp">public virtual Type ReadAsPropertyName(Utf8JsonReader&amp; reader, Type typeToConvert, JsonSerializerOptions options)
 </code></pre>
+<p>Deserializes a <code>Type</code> from a JSON property name token.</p>
 <p><strong>Parameters</strong> <br />
 <code>reader</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Utf8JsonReader?view=net-7.0">Utf8JsonReader&amp;</a> <br />
 <code>typeToConvert</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> <br />
@@ -193,6 +202,7 @@
 <h4 id="writeutf8jsonwriter-type-jsonserializeroptions"><a class="header" href="#writeutf8jsonwriter-type-jsonserializeroptions">Write(Utf8JsonWriter, Type, JsonSerializerOptions)</a></h4>
 <pre><code class="language-csharp">public virtual void Write(Utf8JsonWriter writer, Type value, JsonSerializerOptions options)
 </code></pre>
+<p>Serializes a <code>Type</code> by writing its assembly-qualified name as a JSON string value.</p>
 <p><strong>Parameters</strong> <br />
 <code>writer</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Utf8JsonWriter?view=net-7.0">Utf8JsonWriter</a> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> <br />
@@ -200,6 +210,7 @@
 <h4 id="writeaspropertynameutf8jsonwriter-type-jsonserializeroptions"><a class="header" href="#writeaspropertynameutf8jsonwriter-type-jsonserializeroptions">WriteAsPropertyName(Utf8JsonWriter, Type, JsonSerializerOptions)</a></h4>
 <pre><code class="language-csharp">public virtual void WriteAsPropertyName(Utf8JsonWriter writer, Type value, JsonSerializerOptions options)
 </code></pre>
+<p>Serializes a <code>Type</code> as a JSON property name using its assembly-qualified name.</p>
 <p><strong>Parameters</strong> <br />
 <code>writer</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Utf8JsonWriter?view=net-7.0">Utf8JsonWriter</a> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> <br />

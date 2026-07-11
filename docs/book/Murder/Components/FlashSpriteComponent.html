@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct FlashSpriteComponent : IComponent
 </code></pre>
+<p>Causes the entity's sprite to flash (rapidly blink) for a limited duration, typically used as hit or damage feedback.</p>
+<p><strong>Intent:</strong> Visually indicate that an entity was hit or received feedback by making its sprite blink on and off until a timer expires.</p>
+<p><strong>Use-case:</strong> Attach at runtime (e.g. on damage taken) and pass the desired end time via the constructor; the flash system removes the component automatically when <code>DestroyAtTime</code> is reached.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FlashSpriteComponent(float destroyTimer)
@@ -159,6 +162,7 @@
 <h4 id="destroyattime"><a class="header" href="#destroyattime">DestroyAtTime</a></h4>
 <pre><code class="language-csharp">public readonly float DestroyAtTime;
 </code></pre>
+<p>Absolute game time (in seconds) at which the flash effect ends and this component is removed.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

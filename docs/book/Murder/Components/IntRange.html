@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct IntRange
 </code></pre>
+<p>Represents an inclusive integer interval with a start and end value, used for random number generation and range checks.</p>
+<p><strong>Intent:</strong> Provide a compact, serializable min/max integer range suitable for editor-configurable parameters like spawn counts or damage values.</p>
+<p><strong>Use-case:</strong> Declare as a field on a component and set <code>Start</code>/<code>End</code> in the editor; call <code>GetRandom()</code> to draw a random integer within the range, or <code>Contains()</code> to test membership.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public IntRange(int single)
 </code></pre>
@@ -163,22 +166,26 @@
 <h4 id="end"><a class="header" href="#end">End</a></h4>
 <pre><code class="language-csharp">public readonly int End;
 </code></pre>
+<p>Inclusive upper bound of the range.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="start"><a class="header" href="#start">Start</a></h4>
 <pre><code class="language-csharp">public readonly int Start;
 </code></pre>
+<p>Inclusive lower bound of the range.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="zero"><a class="header" href="#zero">Zero</a></h4>
 <pre><code class="language-csharp">public readonly static IntRange Zero;
 </code></pre>
+<p>A pre-defined range where both <code>Start</code> and <code>End</code> are 0.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Components/IntRange.html">IntRange</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="containsfloat"><a class="header" href="#containsfloat">Contains(float)</a></h4>
 <pre><code class="language-csharp">public bool Contains(float v)
 </code></pre>
+<p>Returns <code>true</code> if <code>v</code> falls within <code>[Start, End]</code> inclusive.</p>
 <p><strong>Parameters</strong> <br />
 <code>v</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -186,6 +193,7 @@
 <h4 id="containsint"><a class="header" href="#containsint">Contains(int)</a></h4>
 <pre><code class="language-csharp">public bool Contains(int v)
 </code></pre>
+<p>Returns <code>true</code> if <code>v</code> falls within <code>[Start, End]</code> inclusive.</p>
 <p><strong>Parameters</strong> <br />
 <code>v</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -193,6 +201,7 @@
 <h4 id="getfloat"><a class="header" href="#getfloat">Get(float)</a></h4>
 <pre><code class="language-csharp">public float Get(float progress)
 </code></pre>
+<p>Linearly interpolates between <code>Start</code> and <code>End</code> by <code>progress</code> (0 = Start, 1 = End).</p>
 <p><strong>Parameters</strong> <br />
 <code>progress</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -200,11 +209,13 @@
 <h4 id="getrandom"><a class="header" href="#getrandom">GetRandom()</a></h4>
 <pre><code class="language-csharp">public float GetRandom()
 </code></pre>
+<p>Returns a random integer value within <code>[Start, End)</code> using the shared game random instance.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="getrandomfloatrandom"><a class="header" href="#getrandomfloatrandom">GetRandomFloat(Random)</a></h4>
 <pre><code class="language-csharp">public float GetRandomFloat(Random random)
 </code></pre>
+<p>Returns a random float value within <code>[Start, End)</code> using the provided <code>Random</code> instance.</p>
 <p><strong>Parameters</strong> <br />
 <code>random</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Random?view=net-7.0">Random</a> </p>
 <p><strong>Returns</strong> <br />
@@ -212,6 +223,7 @@
 <h4 id="getrandomrandom"><a class="header" href="#getrandomrandom">GetRandom(Random)</a></h4>
 <pre><code class="language-csharp">public int GetRandom(Random random)
 </code></pre>
+<p>Returns a random integer value within <code>[Start, End)</code> using the provided <code>Random</code> instance.</p>
 <p><strong>Parameters</strong> <br />
 <code>random</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Random?view=net-7.0">Random</a> </p>
 <p><strong>Returns</strong> <br />

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class VirtualButton : IVirtualInput
 </code></pre>
+<p>Runtime state container for a logical button input — tracks pressed/down/released state and held duration.</p>
+<p><strong>Intent:</strong> Maintain the per-frame state of a logical button mapped to one or more <code>InputButton</code> bindings.</p>
+<p><strong>Use-case:</strong> Access via <code>PlayerInput.GetOrCreateButton(int)</code>. Check <code>Pressed</code> for just-pressed (one frame), <code>Down</code> for held, and <code>Consumed</code> to gate input handling. Call <code>Consume()</code> to prevent other systems from reacting to the same press.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Murder/Core/Input/IVirtualInput.html">IVirtualInput</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public VirtualButton()
@@ -157,53 +160,63 @@
 <h4 id="_lastpressedbutton"><a class="header" href="#_lastpressedbutton">_lastPressedButton</a></h4>
 <pre><code class="language-csharp">public Nullable`1[] _lastPressedButton;
 </code></pre>
+<p>Tracks the last pressed <code>InputButton</code> for keyboard (index 1) and gamepad (index 0).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0">T?[]</a> </p>
 <h4 id="buttons"><a class="header" href="#buttons">Buttons</a></h4>
 <pre><code class="language-csharp">public List&lt;T&gt; Buttons;
 </code></pre>
+<p>The list of physical <code>InputButton</code> bindings registered to this virtual button.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <h4 id="consumed"><a class="header" href="#consumed">Consumed</a></h4>
 <pre><code class="language-csharp">public bool Consumed;
 </code></pre>
+<p>When <code>true</code>, the button has been consumed this frame and <code>Pressed</code> returns <code>false</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="down"><a class="header" href="#down">Down</a></h4>
 <pre><code class="language-csharp">public bool Down { get; private set; }
 </code></pre>
+<p><code>true</code> while any bound physical button is held.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="lastpressed"><a class="header" href="#lastpressed">LastPressed</a></h4>
 <pre><code class="language-csharp">public float LastPressed;
 </code></pre>
+<p>Unscaled timestamp of the most recent press.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="lastreleased"><a class="header" href="#lastreleased">LastReleased</a></h4>
 <pre><code class="language-csharp">public float LastReleased;
 </code></pre>
+<p>Unscaled timestamp of the most recent release.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="pressed"><a class="header" href="#pressed">Pressed</a></h4>
 <pre><code class="language-csharp">public bool Pressed { get; }
 </code></pre>
+<p><code>true</code> for the single frame when the button is first pressed (not held, not consumed).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="previous"><a class="header" href="#previous">Previous</a></h4>
 <pre><code class="language-csharp">public bool Previous { get; private set; }
 </code></pre>
+<p><code>true</code> if the button was held during the previous frame.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h3 id="-events"><a class="header" href="#-events">⭐ Events</a></h3>
 <h4 id="onpress"><a class="header" href="#onpress">OnPress</a></h4>
 <pre><code class="language-csharp">public event Action&lt;T&gt; OnPress;
 </code></pre>
+<p>Fired every frame the button is pressed (first frame only, before consume).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action-1?view=net-7.0">Action&lt;T&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="lastpressedbuttonbool"><a class="header" href="#lastpressedbuttonbool">LastPressedButton(bool)</a></h4>
 <pre><code class="language-csharp">public InputButton LastPressedButton(bool keyboard)
 </code></pre>
+<p>Returns the last <code>InputButton</code> that was pressed, from keyboard/mouse (<code>keyboard=true</code>) or gamepad (<code>keyboard=false</code>).</p>
 <p><strong>Parameters</strong> <br />
 <code>keyboard</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <p><strong>Returns</strong> <br />
@@ -211,6 +224,7 @@
 <h4 id="getdescriptor"><a class="header" href="#getdescriptor">GetDescriptor()</a></h4>
 <pre><code class="language-csharp">public string GetDescriptor()
 </code></pre>
+<p>Returns a human-readable description of the bindings registered to this button.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="updateinputstate"><a class="header" href="#updateinputstate">Update(InputState)</a></h4>
@@ -221,9 +235,11 @@
 <h4 id="consume"><a class="header" href="#consume">Consume()</a></h4>
 <pre><code class="language-csharp">public void Consume()
 </code></pre>
+<p>Marks this button as consumed for the current frame, preventing further reads from seeing it as pressed.</p>
 <h4 id="free"><a class="header" href="#free">Free()</a></h4>
 <pre><code class="language-csharp">public void Free()
 </code></pre>
+<p>Clears the consumed flag, allowing the button to be read again this frame.</p>
 <p>⚡</p>
 
                     </main>

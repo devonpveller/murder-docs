@@ -149,21 +149,27 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct RandomizeSpriteComponent : IComponent
 </code></pre>
+<p>Applies random visual variation to a sprite when the entity is created: can randomise which animation plays, where it starts within that animation, and whether the sprite is rotated or flipped.</p>
+<p><strong>Intent:</strong> Introduce cheap visual variety among many identical sprite entities without needing separate assets.</p>
+<p><strong>Use-case:</strong> Attach to tile entities, props, or particle-like entities so each instance appears slightly different from its neighbours.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="randomizeanimation"><a class="header" href="#randomizeanimation">RandomizeAnimation</a></h4>
 <pre><code class="language-csharp">public readonly bool RandomizeAnimation;
 </code></pre>
+<p>When true, a random animation from the sprite asset is selected on spawn.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="randomizeanimationstart"><a class="header" href="#randomizeanimationstart">RandomizeAnimationStart</a></h4>
 <pre><code class="language-csharp">public readonly bool RandomizeAnimationStart;
 </code></pre>
+<p>When true, the animation starts at a random frame rather than frame zero.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="randomrotate"><a class="header" href="#randomrotate">RandomRotate</a></h4>
 <pre><code class="language-csharp">public readonly bool RandomRotate;
 </code></pre>
+<p>When true, the sprite is rotated by a random multiple of 90 degrees on spawn.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <p>⚡</p>

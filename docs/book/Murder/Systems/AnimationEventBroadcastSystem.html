@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class AnimationEventBroadcastSystem : IMessagerSystem, ISystem
 </code></pre>
+<p>Listens for <code>AnimationEventMessage</code> on entities with <code>AnimationEventBroadcasterComponent</code> and forwards the event to all registered listener entities.</p>
+<p><strong>Intent:</strong> Relays animation events from a source entity to a set of registered listeners so remote objects can react to animation milestones.</p>
+<p><strong>Use-case:</strong> Use when an animation on one entity should trigger logic (e.g., sound or particle burst) on other entities by listing them in an <code>AnimationEventBroadcasterComponent</code>.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Systems/IMessagerSystem.html">IMessagerSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AnimationEventBroadcastSystem()
@@ -157,6 +160,7 @@
 <h4 id="onmessageworld-entity-imessage"><a class="header" href="#onmessageworld-entity-imessage">OnMessage(World, Entity, IMessage)</a></h4>
 <pre><code class="language-csharp">public virtual void OnMessage(World world, Entity entity, IMessage message)
 </code></pre>
+<p>Forwards the received <code>AnimationEventMessage</code> to every active entity listed in the broadcaster's target set; removes unreachable entities from the broadcast list.</p>
 <p><strong>Parameters</strong> <br />
 <code>world</code> <a href="../../Bang/World.html">World</a> <br />
 <code>entity</code> <a href="../../Bang/Entities/Entity.html">Entity</a> <br />

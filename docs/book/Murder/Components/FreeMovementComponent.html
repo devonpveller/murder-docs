@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct FreeMovementComponent : IComponent
 </code></pre>
+<p>Marks an entity to receive free, unconstrained movement input in any direction, bypassing agent pathfinding and gravity.</p>
+<p><strong>Intent:</strong> Enable direct positional movement for entities that should respond to raw input without physics-based constraints.</p>
+<p><strong>Use-case:</strong> Add to the player entity when switching into a free-roam or debug mode; set <code>Flags</code> to control whether tiles are respected or whether the component persists across saves.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <p>⚡</p>
 

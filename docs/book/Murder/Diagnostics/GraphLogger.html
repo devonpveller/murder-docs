@@ -150,21 +150,27 @@
 <pre><code class="language-csharp">public class GraphLogger
 </code></pre>
 <p>Implement this for plotting graphs into the debug system.</p>
+<p><strong>Intent:</strong> Records time-series performance metrics and renders them as overlay graphs in the debug view.</p>
+<p><strong>Use-case:</strong> Subclass and override plotting methods to capture custom per-frame metrics; the diagnostics overlay will draw them as live graphs.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public GraphLogger()
 </code></pre>
+<p>Creates a new graph logger with no active plots.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="clearallgraphs"><a class="header" href="#clearallgraphs">ClearAllGraphs()</a></h4>
 <pre><code class="language-csharp">public virtual void ClearAllGraphs()
 </code></pre>
+<p>Removes all plotted graph data across every tracked file.</p>
 <h4 id="cleargraphstring"><a class="header" href="#cleargraphstring">ClearGraph(string)</a></h4>
 <pre><code class="language-csharp">public virtual void ClearGraph(string callerFilePath)
 </code></pre>
+<p>Clears the graph data recorded for the given source file.</p>
 <p><strong>Parameters</strong> <br />
 <code>callerFilePath</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="plotgraphfloat-int-string"><a class="header" href="#plotgraphfloat-int-string">PlotGraph(float, int, string)</a></h4>
 <pre><code class="language-csharp">public virtual void PlotGraph(float value, int max, string callerFilePath)
 </code></pre>
+<p>Records <code>value</code> against a maximum of <code>max</code> for the graph associated with <code>callerFilePath</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>max</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -172,6 +178,7 @@
 <h4 id="plotgraphfloat-string"><a class="header" href="#plotgraphfloat-string">PlotGraph(float, string)</a></h4>
 <pre><code class="language-csharp">public virtual void PlotGraph(float value, string callerFilePath)
 </code></pre>
+<p>Records <code>value</code> for the graph associated with <code>callerFilePath</code> without an explicit maximum.</p>
 <p><strong>Parameters</strong> <br />
 <code>value</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>callerFilePath</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>

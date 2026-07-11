@@ -150,25 +150,29 @@
 <pre><code class="language-csharp">public class PackedGameData
 </code></pre>
 <p>This has the data regarding all assets and textures loaded in the gmae.</p>
+<p><strong>Intent:</strong> Bundles all serialized game assets into a single binary package for release builds.</p>
+<p><strong>Use-case:</strong> Created by the editor's pack step; the engine loads this file at startup instead of individual asset files in non-editor builds.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PackedGameData(List&lt;T&gt; assets)
 </code></pre>
+<p>Creates a new <code>PackedGameData</code> with the provided list of game assets.</p>
 <p><strong>Parameters</strong> <br />
 <code>assets</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="assets"><a class="header" href="#assets">Assets</a></h4>
 <pre><code class="language-csharp">public readonly List&lt;T&gt; Assets;
 </code></pre>
+<p>The full list of serialized <code>GameAsset</code> objects bundled in this data file.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.List-1?view=net-7.0">List&lt;T&gt;</a> </p>
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public static const string Name;
 </code></pre>
-<p><strong>Returns</strong> <br />
-<a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
-<h4 id="texturesnoatlaspath"><a class="header" href="#texturesnoatlaspath">TexturesNoAtlasPath</a></h4>
+<p>Filename pattern used when writing or reading the packed data archive (e.g. <code>data0.gz</code>).</p>
+<p><strong>Returns</strong> </p>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; TexturesNoAtlasPath { get; public set; }
 </code></pre>
+<p>Paths to textures that were not packed into any atlas and must be loaded individually.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <p>⚡</p>

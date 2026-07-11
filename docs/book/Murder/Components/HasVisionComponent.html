@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct HasVisionComponent : IComponent
 </code></pre>
+<p>Marks an entity as capable of perceiving other entities within a tile-based vision range.</p>
+<p><strong>Intent:</strong> Enable AI vision checks so that systems can determine which entities fall within this entity's line-of-sight cone or range.</p>
+<p><strong>Use-case:</strong> Add to enemies or NPCs and set <code>Range</code> (in grid tiles) to control how far they can detect the player or other tagged entities.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public HasVisionComponent()
@@ -157,6 +160,7 @@
 <h4 id="range"><a class="header" href="#range">Range</a></h4>
 <pre><code class="language-csharp">public readonly int Range;
 </code></pre>
+<p>Vision range in grid tiles; entities beyond this distance are not perceived.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

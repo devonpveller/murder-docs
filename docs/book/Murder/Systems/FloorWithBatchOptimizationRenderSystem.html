@@ -151,6 +151,8 @@
 </code></pre>
 <p>Much, much faster than the regular Tilemap system, especially when you have many layers of tiles.
 Be careful because this WILL fail at higher resolutions!</p>
+<p><strong>Intent:</strong> Provides high-performance tilemap floor rendering by pre-baking tile chunks into a runtime atlas and drawing them in a single batch per visible region.</p>
+<p><strong>Use-case:</strong> Use instead of <code>TilemapAndFloorRenderSystem</code> when you have many tile layers and performance is a concern; note the resolution limitation documented in the source.</p>
 <p><strong>Implements:</strong> <em><a href="../../Murder/Core/Graphics/IMurderRenderSystem.html">IMurderRenderSystem</a>, <a href="../../Bang/Systems/IRenderSystem.html">IRenderSystem</a>, <a href="../../Bang/Systems/ISystem.html">ISystem</a>, <a href="../../Bang/Systems/IExitSystem.html">IExitSystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public FloorWithBatchOptimizationRenderSystem()
@@ -159,12 +161,14 @@ Be careful because this WILL fail at higher resolutions!</p>
 <h4 id="drawrendercontext-context"><a class="header" href="#drawrendercontext-context">Draw(RenderContext, Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Draw(RenderContext render, Context context)
 </code></pre>
+<p>Determines which tile chunks fall within the camera bounds and renders each visible chunk from the cached runtime atlas.</p>
 <p><strong>Parameters</strong> <br />
 <code>render</code> <a href="../../Murder/Core/Graphics/RenderContext.html">RenderContext</a> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <h4 id="exitcontext"><a class="header" href="#exitcontext">Exit(Context)</a></h4>
 <pre><code class="language-csharp">public virtual void Exit(Context context)
 </code></pre>
+<p>Clears the chunk cache and the tileset asset cache when the world exits so they are rebuilt fresh on the next load.</p>
 <p><strong>Parameters</strong> <br />
 <code>context</code> <a href="../../Bang/Contexts/Context.html">Context</a> </p>
 <p>⚡</p>

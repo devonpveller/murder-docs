@@ -149,7 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct PickEntityToAddOnStartComponent : IComponent
 </code></pre>
-<p>This will trigger an effect by placing <a href="../../Murder/Components/PickEntityToAddOnStartComponent.html#onnotmatchprefab">PickEntityToAddOnStartComponent.OnNotMatchPrefab</a> in the world.</p>
+<p>This will trigger an effect by placing <a href="../../Murder/Components/PickEntityToAddOnStartComponent.html#onmatchprefab">OnMatchPrefab</a> or <a href="../../Murder/Components/PickEntityToAddOnStartComponent.html#onnotmatchprefab">OnNotMatchPrefab</a> in the world depending on whether associated rule requirements are satisfied at load time.</p>
+<p><strong>Intent:</strong> Conditionally spawn one of two prefabs into the world when the scene is loaded, based on blackboard rule evaluation.</p>
+<p><strong>Use-case:</strong> Attach to an entity together with <a href="../../Murder/Components/InteractOnRuleMatchComponent.html">InteractOnRuleMatchComponent</a> to have the engine instantiate a different prefab depending on the current game-state (e.g. show a locked or unlocked door).</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PickEntityToAddOnStartComponent()
@@ -158,11 +160,13 @@
 <h4 id="onmatchprefab"><a class="header" href="#onmatchprefab">OnMatchPrefab</a></h4>
 <pre><code class="language-csharp">public readonly Guid OnMatchPrefab;
 </code></pre>
+<p>GUID of the prefab asset instantiated when the rule conditions are met.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="onnotmatchprefab"><a class="header" href="#onnotmatchprefab">OnNotMatchPrefab</a></h4>
 <pre><code class="language-csharp">public readonly Guid OnNotMatchPrefab;
 </code></pre>
+<p>GUID of the prefab asset instantiated when the rule conditions are <strong>not</strong> met.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p>⚡</p>

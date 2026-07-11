@@ -151,6 +151,8 @@
 </code></pre>
 <p>Shared resources used per game instance.
 TODO: Move to RenderContext?</p>
+<p><strong>Intent:</strong> Provides lazily created, shared GPU resources (e.g. a 1×1 white pixel texture) that are expensive to recreate and safe to reuse across all render contexts.</p>
+<p><strong>Use-case:</strong> Call <code>GetOrCreatePixel()</code> whenever you need a small blank texture for drawing solid-color shapes without allocating a new <code>Texture2D</code> each time.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="createpixelcolor"><a class="header" href="#createpixelcolor">CreatePixel(Color)</a></h4>
 <pre><code class="language-csharp">public Texture2D CreatePixel(Color color)
@@ -165,6 +167,7 @@ TODO: Move to RenderContext?</p>
 <h4 id="getorcreatepixel"><a class="header" href="#getorcreatepixel">GetOrCreatePixel()</a></h4>
 <pre><code class="language-csharp">public Texture2D GetOrCreatePixel()
 </code></pre>
+<p>Returns the shared 1×1 white pixel texture, creating it if it does not yet exist.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.Texture2D.html">Texture2D</a> </p>
 <p>⚡</p>

@@ -149,7 +149,10 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct BounceAmountComponent : IComponent
 </code></pre>
+<p>Defines the bounciness and gravity modifier for an entity that should rebound off surfaces.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
+<p><strong>Intent:</strong> Parameterizes the bounce physics applied to a projectile or physics object when it collides with a surface.</p>
+<p><strong>Use-case:</strong> Attach to a projectile or thrown object; the physics system reads <code>Bounciness</code> to scale the reflected velocity and <code>GravityMod</code> to adjust how quickly gravity pulls it back down.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public BounceAmountComponent(float bounciness, float gravity)
 </code></pre>
@@ -160,11 +163,13 @@
 <h4 id="bounciness"><a class="header" href="#bounciness">Bounciness</a></h4>
 <pre><code class="language-csharp">public readonly float Bounciness;
 </code></pre>
+<p>Fraction of velocity retained after bouncing; <code>1.0</code> is a perfect bounce, <code>0.0</code> means no rebound.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="gravitymod"><a class="header" href="#gravitymod">GravityMod</a></h4>
 <pre><code class="language-csharp">public readonly float GravityMod;
 </code></pre>
+<p>Multiplier applied to the global gravity constant for this entity; <code>1.0</code> is normal gravity.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p>⚡</p>

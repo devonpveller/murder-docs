@@ -150,15 +150,19 @@
 <pre><code class="language-csharp">public sealed struct PrefabReference
 </code></pre>
 <p>Represents an entity placed on the map.</p>
+<p><strong>Intent:</strong> Holds a GUID reference to a <code>PrefabAsset</code> so it can be instantiated at runtime.</p>
+<p><strong>Use-case:</strong> Store in a component field to reference a prefab that should be spawned dynamically; use <code>CanFetch</code> before calling fetch methods.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PrefabReference(Guid guid)
 </code></pre>
+<p>Creates a new reference to the prefab asset identified by <code>guid</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>guid</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="canfetch"><a class="header" href="#canfetch">CanFetch</a></h4>
 <pre><code class="language-csharp">public bool CanFetch { get; }
 </code></pre>
+<p>Returns <code>true</code> if the referenced <code>PrefabAsset</code> GUID is loaded and can be fetched.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="guid"><a class="header" href="#guid">Guid</a></h4>
@@ -171,6 +175,7 @@
 <h4 id="fetch"><a class="header" href="#fetch">Fetch()</a></h4>
 <pre><code class="language-csharp">public PrefabAsset Fetch()
 </code></pre>
+<p>Loads and returns the <code>PrefabAsset</code> this reference points to; throws if the asset is not found.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Assets/PrefabAsset.html">PrefabAsset</a> </p>
 <p>⚡</p>

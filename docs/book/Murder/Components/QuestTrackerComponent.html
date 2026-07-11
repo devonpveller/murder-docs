@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct QuestTrackerComponent : IComponent
 </code></pre>
+<p>Describes a quest as an ordered list of stages, each with its own requirements and actions. This is the design-time definition that is baked into the entity.</p>
+<p><strong>Intent:</strong> Attach quest progression data to an entity so the engine can track and advance it at runtime.</p>
+<p><strong>Use-case:</strong> Add to a quest-giver entity or a global manager entity; the engine converts it to <a href="../../Murder/Components/QuestTrackerRuntimeComponent.html">QuestTrackerRuntimeComponent</a> at load time and updates it each tick.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public QuestTrackerComponent()
@@ -157,11 +160,13 @@
 <h4 id="name"><a class="header" href="#name">Name</a></h4>
 <pre><code class="language-csharp">public readonly string Name;
 </code></pre>
+<p>Human-readable identifier for this quest, used for logging and editor display.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="queststages"><a class="header" href="#queststages">QuestStages</a></h4>
 <pre><code class="language-csharp">public readonly ImmutableArray&lt;T&gt; QuestStages;
 </code></pre>
+<p>Ordered list of stages that make up this quest.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <p>⚡</p>

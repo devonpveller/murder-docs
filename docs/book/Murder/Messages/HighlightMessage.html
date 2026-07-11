@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct HighlightMessage : IMessage
 </code></pre>
+<p>A marker message with no payload sent to request that the receiving entity be visually highlighted.</p>
+<p><strong>Intent:</strong> Signal that an entity should enter a highlighted visual state, such as when the player hovers over or targets it.</p>
+<p><strong>Use-case:</strong> Send this from an input or interaction system when the player's cursor enters an interactive entity. A rendering system listening for this message can then apply an outline or color tint to indicate interactability.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IMessage.html">IMessage</a></em></p>
 <p>⚡</p>
 

@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SpriteComponent : IComponent
 </code></pre>
+<p>Primary rendering component for Aseprite-based sprites. Stores the animation asset reference, current animation queue, render offset, Y-sort value, and related display options.</p>
+<p><strong>Intent:</strong> Drive sprite rendering and animation playback for any entity that displays an Aseprite sprite.</p>
+<p><strong>Use-case:</strong> Attach to any game-world entity that should render a sprite; set <code>AnimationGuid</code> to the target <code>SpriteAsset</code>, populate <code>NextAnimations</code> with the desired animation sequence, and let the rendering system handle the rest.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SpriteComponent()
@@ -189,16 +192,19 @@
 <h4 id="flipwithfacing"><a class="header" href="#flipwithfacing">FlipWithFacing</a></h4>
 <pre><code class="language-csharp">public readonly bool FlipWithFacing;
 </code></pre>
+<p>When true, the sprite is horizontally flipped to match the entity's facing direction.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="highlightstyle"><a class="header" href="#highlightstyle">HighlightStyle</a></h4>
 <pre><code class="language-csharp">public OutlineStyle HighlightStyle { get; public set; }
 </code></pre>
+<p>Outline style drawn around the sprite when it is highlighted.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/OutlineStyle.html">OutlineStyle</a> </p>
 <h4 id="nextanimations"><a class="header" href="#nextanimations">NextAnimations</a></h4>
 <pre><code class="language-csharp">public ImmutableArray&lt;T&gt; NextAnimations { get; public set; }
 </code></pre>
+<p>Ordered queue of animation names to play; the first entry is the current animation, subsequent entries play after it completes.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <h4 id="offset"><a class="header" href="#offset">Offset</a></h4>
@@ -210,27 +216,32 @@
 <h4 id="rotatewithfacing"><a class="header" href="#rotatewithfacing">RotateWithFacing</a></h4>
 <pre><code class="language-csharp">public readonly bool RotateWithFacing;
 </code></pre>
+<p>When true, the sprite rotates to match the entity's facing angle instead of flipping.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="targetspritebatch"><a class="header" href="#targetspritebatch">TargetSpriteBatch</a></h4>
 <pre><code class="language-csharp">public readonly int TargetSpriteBatch;
 </code></pre>
+<p>Sprite batch layer this sprite is rendered into.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="useunscaledtime"><a class="header" href="#useunscaledtime">UseUnscaledTime</a></h4>
 <pre><code class="language-csharp">public readonly bool UseUnscaledTime;
 </code></pre>
+<p>When true, animation advances using unscaled (real-world) time, ignoring game time-scale.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="ysortoffset"><a class="header" href="#ysortoffset">YSortOffset</a></h4>
 <pre><code class="language-csharp">public int YSortOffset { get; public set; }
 </code></pre>
+<p>Pixel offset applied to the entity's Y position when calculating draw order for Y-sorting.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="hasanimationstring"><a class="header" href="#hasanimationstring">HasAnimation(string)</a></h4>
 <pre><code class="language-csharp">public bool HasAnimation(string animationName)
 </code></pre>
+<p>Checks whether the referenced sprite asset contains an animation with the given name.</p>
 <p><strong>Parameters</strong> <br />
 <code>animationName</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -238,6 +249,7 @@
 <h4 id="isplayingimmutablearray"><a class="header" href="#isplayingimmutablearray">IsPlaying(ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public bool IsPlaying(ImmutableArray&lt;T&gt; animations)
 </code></pre>
+<p>Returns true if the current animation queue exactly matches the provided sequence.</p>
 <p><strong>Parameters</strong> <br />
 <code>animations</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -245,6 +257,7 @@
 <h4 id="playimmutablearray"><a class="header" href="#playimmutablearray">Play(ImmutableArray<T>)</a></h4>
 <pre><code class="language-csharp">public SpriteComponent Play(ImmutableArray&lt;T&gt; id)
 </code></pre>
+<p>Returns a new component with <code>NextAnimations</code> set to the provided animation list.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0">ImmutableArray&lt;T&gt;</a> </p>
 <p><strong>Returns</strong> <br />
@@ -252,6 +265,7 @@
 <h4 id="playstring"><a class="header" href="#playstring">Play(String[])</a></h4>
 <pre><code class="language-csharp">public SpriteComponent Play(String[] id)
 </code></pre>
+<p>Returns a new component playing the specified animations in sequence.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string[]</a> </p>
 <p><strong>Returns</strong> <br />
@@ -259,6 +273,7 @@
 <h4 id="playafterstring"><a class="header" href="#playafterstring">PlayAfter(string)</a></h4>
 <pre><code class="language-csharp">public SpriteComponent PlayAfter(string id)
 </code></pre>
+<p>Returns a new component that queues the specified animation to play after the current one finishes.</p>
 <p><strong>Parameters</strong> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -266,6 +281,7 @@
 <h4 id="setbatchint"><a class="header" href="#setbatchint">SetBatch(int)</a></h4>
 <pre><code class="language-csharp">public SpriteComponent SetBatch(int batch)
 </code></pre>
+<p>Returns a new component with <code>TargetSpriteBatch</code> set to the given batch ID.</p>
 <p><strong>Parameters</strong> <br />
 <code>batch</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />
@@ -273,6 +289,7 @@
 <h4 id="withportraitportrait"><a class="header" href="#withportraitportrait">WithPortrait(Portrait)</a></h4>
 <pre><code class="language-csharp">public SpriteComponent WithPortrait(Portrait portrait)
 </code></pre>
+<p>Returns a new component configured to display the given portrait.</p>
 <p><strong>Parameters</strong> <br />
 <code>portrait</code> <a href="../../Murder/Core/Portrait.html">Portrait</a> </p>
 <p><strong>Returns</strong> <br />
@@ -280,6 +297,7 @@
 <h4 id="withsortint"><a class="header" href="#withsortint">WithSort(int)</a></h4>
 <pre><code class="language-csharp">public SpriteComponent WithSort(int sort)
 </code></pre>
+<p>Returns a new component with <code>YSortOffset</code> set to the given value.</p>
 <p><strong>Parameters</strong> <br />
 <code>sort</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p><strong>Returns</strong> <br />

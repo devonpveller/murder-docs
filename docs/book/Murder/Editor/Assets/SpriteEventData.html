@@ -149,24 +149,31 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class SpriteEventData
 </code></pre>
+<p>Holds per-animation custom event overrides for a sprite, including added events and deleted events that override the default data.</p>
+<p><strong>Intent:</strong> Allows game-specific custom event data to be layered on top of Aseprite-exported sprite events without modifying the source file.</p>
+<p><strong>Use-case:</strong> Populated by the sprite event editor and queried at import time to merge custom events into the final sprite asset.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public SpriteEventData()
 </code></pre>
+<p>Creates a new empty sprite event data container.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="deletedevents"><a class="header" href="#deletedevents">DeletedEvents</a></h4>
 <pre><code class="language-csharp">public readonly Dictionary&lt;TKey, TValue&gt; DeletedEvents;
 </code></pre>
+<p>Maps animation names to sets of frame indices whose events have been explicitly removed.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0">Dictionary&lt;TKey, TValue&gt;</a> </p>
 <h4 id="events"><a class="header" href="#events">Events</a></h4>
 <pre><code class="language-csharp">public readonly Dictionary&lt;TKey, TValue&gt; Events;
 </code></pre>
+<p>Maps animation names to per-frame custom event messages added via the editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0">Dictionary&lt;TKey, TValue&gt;</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="geteventsforanimationstring"><a class="header" href="#geteventsforanimationstring">GetEventsForAnimation(string)</a></h4>
 <pre><code class="language-csharp">public Dictionary&lt;TKey, TValue&gt; GetEventsForAnimation(string animation)
 </code></pre>
+<p>Returns or creates the mutable event dictionary for the specified animation name.</p>
 <p><strong>Parameters</strong> <br />
 <code>animation</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <p><strong>Returns</strong> <br />
@@ -174,6 +181,7 @@
 <h4 id="addeventstring-int-string"><a class="header" href="#addeventstring-int-string">AddEvent(string, int, string)</a></h4>
 <pre><code class="language-csharp">public void AddEvent(string animation, int frame, string message)
 </code></pre>
+<p>Adds or replaces the event message at the given frame for the specified animation.</p>
 <p><strong>Parameters</strong> <br />
 <code>animation</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>frame</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> <br />
@@ -181,12 +189,14 @@
 <h4 id="filtereventsforanimationstring-dictionary2"><a class="header" href="#filtereventsforanimationstring-dictionary2">FilterEventsForAnimation(string, Dictionary`2&amp;)</a></h4>
 <pre><code class="language-csharp">public void FilterEventsForAnimation(string animation, Dictionary`2&amp; events)
 </code></pre>
+<p>Applies this object's custom additions and deletions on top of the provided <code>events</code> dictionary in-place.</p>
 <p><strong>Parameters</strong> <br />
 <code>animation</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>events</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0">Dictionary&lt;TKey, TValue&gt;&amp;</a> </p>
 <h4 id="removeeventstring-int"><a class="header" href="#removeeventstring-int">RemoveEvent(string, int)</a></h4>
 <pre><code class="language-csharp">public void RemoveEvent(string animation, int frame)
 </code></pre>
+<p>Removes the event at the given frame for the specified animation, tracking it in the deleted-events set.</p>
 <p><strong>Parameters</strong> <br />
 <code>animation</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> <br />
 <code>frame</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>

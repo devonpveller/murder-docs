@@ -149,16 +149,21 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct AnimationRuleMatchedComponent : IComponent
 </code></pre>
+<p>A runtime-only component that records which <code>AnimationAndRule</code> index was last matched on an entity.</p>
+<p><strong>Intent:</strong> Caches the previously matched rule index so the system can skip redundant animation restarts when the same rule still applies on the next tick.</p>
+<p><strong>Use-case:</strong> Added and updated automatically by <code>PlayAnimationOnRuleMatchSystem</code>; gameplay code should not need to set this component directly.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AnimationRuleMatchedComponent(int ruleIndex)
 </code></pre>
+<p>Creates the component, recording that the rule at <code>ruleIndex</code> is the current match.</p>
 <p><strong>Parameters</strong> <br />
 <code>ruleIndex</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="ruleindex"><a class="header" href="#ruleindex">RuleIndex</a></h4>
 <pre><code class="language-csharp">public readonly int RuleIndex;
 </code></pre>
+<p>Zero-based index into the <code>PlayAnimationOnRuleComponent.Rules</code> array for the rule that is currently matched.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

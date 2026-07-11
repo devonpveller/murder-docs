@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct Padding
 </code></pre>
+<p>Stores top, right, bottom, and left integer padding or margin values.</p>
+<p><strong>Intent:</strong> Represent uniform or asymmetric inset/outset values for layout and UI calculations.</p>
+<p><strong>Use-case:</strong> Pass a <code>Padding</code> to UI drawing helpers to add inner spacing around a region, or use it when shrinking/expanding <code>IntRectangle</code> bounds by different amounts on each side.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Padding(int border)
 </code></pre>
@@ -165,31 +168,37 @@
 <h4 id="bottom"><a class="header" href="#bottom">Bottom</a></h4>
 <pre><code class="language-csharp">public int Bottom;
 </code></pre>
+<p>The bottom padding value.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="height"><a class="header" href="#height">Height</a></h4>
 <pre><code class="language-csharp">public int Height { get; }
 </code></pre>
+<p>The total vertical padding (<code>Top + Bottom</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="left"><a class="header" href="#left">Left</a></h4>
 <pre><code class="language-csharp">public int Left;
 </code></pre>
+<p>The left padding value.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="right"><a class="header" href="#right">Right</a></h4>
 <pre><code class="language-csharp">public int Right;
 </code></pre>
+<p>The right padding value.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="top"><a class="header" href="#top">Top</a></h4>
 <pre><code class="language-csharp">public int Top;
 </code></pre>
+<p>The top padding value.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="width"><a class="header" href="#width">Width</a></h4>
 <pre><code class="language-csharp">public int Width { get; }
 </code></pre>
+<p>The total horizontal padding (<code>Left + Right</code>).</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

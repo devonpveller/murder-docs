@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct MuteEventsComponent : IComponent
 </code></pre>
 <p>This will block any <a href="../../Murder/Components/EventListenerComponent.html">EventListenerComponent</a> from being sent.</p>
+<p><strong>Intent:</strong> Prevent the entity from emitting sound events so that its animations or actions play silently.</p>
+<p><strong>Use-case:</strong> Add to an entity during scripted sequences or cutscenes where sound effects should be suppressed; remove the component to restore normal event broadcasting.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <p>⚡</p>
 

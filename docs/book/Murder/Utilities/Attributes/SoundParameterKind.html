@@ -149,21 +149,27 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed enum SoundParameterKind : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 </code></pre>
+<p>Specifies the scope of a sound parameter reference.</p>
+<p><strong>Intent:</strong> Specifies the scope of a sound parameter reference.</p>
+<p><strong>Use-case:</strong> Pass to <code>SoundParameterAttribute</code> to indicate whether the field should show local event parameters, global parameters, or both.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0">Enum</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0">IComparable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0">ISpanFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0">IFormattable</a>, <a href="https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0">IConvertible</a></em></p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="all"><a class="header" href="#all">All</a></h4>
 <pre><code class="language-csharp">public static const SoundParameterKind All;
 </code></pre>
+<p>Includes both local and global sound parameters.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Utilities/Attributes/SoundParameterKind.html">SoundParameterKind</a> </p>
 <h4 id="global"><a class="header" href="#global">Global</a></h4>
 <pre><code class="language-csharp">public static const SoundParameterKind Global;
 </code></pre>
+<p>Restricts to globally-scoped sound parameters.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Utilities/Attributes/SoundParameterKind.html">SoundParameterKind</a> </p>
 <h4 id="local"><a class="header" href="#local">Local</a></h4>
 <pre><code class="language-csharp">public static const SoundParameterKind Local;
 </code></pre>
+<p>Restricts to parameters local to a specific sound event.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../../Murder/Utilities/Attributes/SoundParameterKind.html">SoundParameterKind</a> </p>
 <p>⚡</p>

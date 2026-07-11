@@ -149,25 +149,32 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed class ComplexDictionaryConverter&lt;T, V&gt; : JsonConverter&lt;T&gt;
 </code></pre>
+<p>Custom <code>JsonConverter</code> for <code>ComplexDictionary&lt;TKey, TValue&gt;</code> that handles non-string dictionary keys by serializing them as JSON arrays of <code>[key, value]</code> pairs.</p>
+<p><strong>Intent:</strong> Works around the <code>System.Text.Json</code> limitation that only allows <code>string</code>-typed dictionary keys by providing explicit read/write logic.</p>
+<p><strong>Use-case:</strong> Registered automatically in <code>MurderSerializerOptionsExtensions.Options</code>; no manual use is needed in game code.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Serialization.JsonConverter-1?view=net-7.0">JsonConverter&lt;T&gt;</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ComplexDictionaryConverter&lt;T, V&gt;()
 </code></pre>
+<p>Creates a new converter instance.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="handlenull"><a class="header" href="#handlenull">HandleNull</a></h4>
 <pre><code class="language-csharp">public virtual bool HandleNull { get; }
 </code></pre>
+<p>Returns <code>false</code>; this converter does not handle <code>null</code> values for the dictionary type.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0">bool</a> </p>
 <h4 id="type"><a class="header" href="#type">Type</a></h4>
 <pre><code class="language-csharp">public virtual Type Type { get; }
 </code></pre>
+<p>The generic <code>ComplexDictionary</code> type this converter handles.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="canconverttype"><a class="header" href="#canconverttype">CanConvert(Type)</a></h4>
 <pre><code class="language-csharp">public virtual bool CanConvert(Type typeToConvert)
 </code></pre>
+<p>Returns <code>true</code> if <code>typeToConvert</code> is a <code>ComplexDictionary&lt;TKey, TValue&gt;</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>typeToConvert</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> </p>
 <p><strong>Returns</strong> <br />
@@ -175,6 +182,7 @@
 <h4 id="readutf8jsonreader-type-jsonserializeroptions"><a class="header" href="#readutf8jsonreader-type-jsonserializeroptions">Read(Utf8JsonReader&amp;, Type, JsonSerializerOptions)</a></h4>
 <pre><code class="language-csharp">public virtual ComplexDictionary&lt;TKey, TValue&gt; Read(Utf8JsonReader&amp; reader, Type typeToConvert, JsonSerializerOptions options)
 </code></pre>
+<p>Deserializes a <code>ComplexDictionary</code> from the JSON stream, reading key-value pairs with non-string key support.</p>
 <p><strong>Parameters</strong> <br />
 <code>reader</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Utf8JsonReader?view=net-7.0">Utf8JsonReader&amp;</a> <br />
 <code>typeToConvert</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> <br />
@@ -184,6 +192,7 @@
 <h4 id="readaspropertynameutf8jsonreader-type-jsonserializeroptions"><a class="header" href="#readaspropertynameutf8jsonreader-type-jsonserializeroptions">ReadAsPropertyName(Utf8JsonReader&amp;, Type, JsonSerializerOptions)</a></h4>
 <pre><code class="language-csharp">public virtual ComplexDictionary&lt;TKey, TValue&gt; ReadAsPropertyName(Utf8JsonReader&amp; reader, Type typeToConvert, JsonSerializerOptions options)
 </code></pre>
+<p>Deserializes a <code>ComplexDictionary</code> when it appears as a JSON property name.</p>
 <p><strong>Parameters</strong> <br />
 <code>reader</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Utf8JsonReader?view=net-7.0">Utf8JsonReader&amp;</a> <br />
 <code>typeToConvert</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0">Type</a> <br />
@@ -193,6 +202,7 @@
 <h4 id="writeutf8jsonwriter-complexdictionarytkey-tvalue-jsonserializeroptions"><a class="header" href="#writeutf8jsonwriter-complexdictionarytkey-tvalue-jsonserializeroptions">Write(Utf8JsonWriter, ComplexDictionary&lt;TKey, TValue&gt;, JsonSerializerOptions)</a></h4>
 <pre><code class="language-csharp">public virtual void Write(Utf8JsonWriter writer, ComplexDictionary&lt;TKey, TValue&gt; dictionary, JsonSerializerOptions options)
 </code></pre>
+<p>Serializes the <code>ComplexDictionary</code> to JSON, writing non-string keys as serialized objects.</p>
 <p><strong>Parameters</strong> <br />
 <code>writer</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Utf8JsonWriter?view=net-7.0">Utf8JsonWriter</a> <br />
 <code>dictionary</code> <a href="../../Murder/Serialization/ComplexDictionary-2.html">ComplexDictionary&lt;TKey, TValue&gt;</a> <br />
@@ -200,6 +210,7 @@
 <h4 id="writeaspropertynameutf8jsonwriter-complexdictionarytkey-tvalue-jsonserializeroptions"><a class="header" href="#writeaspropertynameutf8jsonwriter-complexdictionarytkey-tvalue-jsonserializeroptions">WriteAsPropertyName(Utf8JsonWriter, ComplexDictionary&lt;TKey, TValue&gt;, JsonSerializerOptions)</a></h4>
 <pre><code class="language-csharp">public virtual void WriteAsPropertyName(Utf8JsonWriter writer, ComplexDictionary&lt;TKey, TValue&gt; value, JsonSerializerOptions options)
 </code></pre>
+<p>Serializes the <code>ComplexDictionary</code> as a property name in a JSON object.</p>
 <p><strong>Parameters</strong> <br />
 <code>writer</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Text.Json.Utf8JsonWriter?view=net-7.0">Utf8JsonWriter</a> <br />
 <code>value</code> <a href="../../Murder/Serialization/ComplexDictionary-2.html">ComplexDictionary&lt;TKey, TValue&gt;</a> <br />

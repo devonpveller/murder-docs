@@ -150,16 +150,20 @@
 <pre><code class="language-csharp">public sealed struct RuleWatcherComponent : IModifiableComponent, IComponent
 </code></pre>
 <p>This will watch for rule changes based on the blackboard system.</p>
+<p><strong>Intent:</strong> Receive callbacks whenever any gameplay or story blackboard variable changes, so reactive systems can re-evaluate conditions immediately.</p>
+<p><strong>Use-case:</strong> Added once per world at startup; subscribe a callback via <code>Subscribe</code> to be notified when blackboard state changes and invalidate cached rule evaluations.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IModifiableComponent.html">IModifiableComponent</a>, <a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="subscribeaction"><a class="header" href="#subscribeaction">Subscribe(Action)</a></h4>
 <pre><code class="language-csharp">public virtual void Subscribe(Action notification)
 </code></pre>
+<p>Registers a callback that fires whenever gameplay or story blackboard values change.</p>
 <p><strong>Parameters</strong> <br />
 <code>notification</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0">Action</a> </p>
 <h4 id="unsubscribeaction"><a class="header" href="#unsubscribeaction">Unsubscribe(Action)</a></h4>
 <pre><code class="language-csharp">public virtual void Unsubscribe(Action notification)
 </code></pre>
+<p>Removes a previously registered blackboard-change callback.</p>
 <p><strong>Parameters</strong> <br />
 <code>notification</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0">Action</a> </p>
 <p>⚡</p>

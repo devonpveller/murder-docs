@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class EditorAssets
 </code></pre>
+<p>Holds references to all sprite and UI assets used exclusively by the Murder editor, such as cursor icons, dialogue node icons, and button sprites.</p>
+<p><strong>Intent:</strong> Centralise the GUIDs of every built-in editor sprite so they can be updated in one place without touching editor code that uses them.</p>
+<p><strong>Use-case:</strong> Access this class through <code>GameProfile.EditorAssets</code> to look up sprite GUIDs for custom editor widgets (e.g. <code>EditorAssets.Hand</code> for a hand cursor sprite), or override default assets by replacing the GUIDs in the editor.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public EditorAssets()
 </code></pre>
@@ -156,126 +159,151 @@
 <h4 id="anchorimage"><a class="header" href="#anchorimage">AnchorImage</a></h4>
 <pre><code class="language-csharp">public readonly Guid AnchorImage;
 </code></pre>
+<p>Sprite GUID for the anchor point icon displayed in the cutscene editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="boxbg"><a class="header" href="#boxbg">BoxBg</a></h4>
 <pre><code class="language-csharp">public readonly NineSliceInfo BoxBg;
 </code></pre>
+<p>Nine-slice sprite info for the default editor panel background box.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/NineSliceInfo.html">NineSliceInfo</a> </p>
 <h4 id="boxbggrayed"><a class="header" href="#boxbggrayed">BoxBgGrayed</a></h4>
 <pre><code class="language-csharp">public readonly NineSliceInfo BoxBgGrayed;
 </code></pre>
+<p>Nine-slice sprite info for the grayed/disabled editor panel background box.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/NineSliceInfo.html">NineSliceInfo</a> </p>
 <h4 id="boxbghovered"><a class="header" href="#boxbghovered">BoxBgHovered</a></h4>
 <pre><code class="language-csharp">public readonly NineSliceInfo BoxBgHovered;
 </code></pre>
+<p>Nine-slice sprite info for the hovered-state editor panel background box.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/NineSliceInfo.html">NineSliceInfo</a> </p>
 <h4 id="boxbgselected"><a class="header" href="#boxbgselected">BoxBgSelected</a></h4>
 <pre><code class="language-csharp">public readonly NineSliceInfo BoxBgSelected;
 </code></pre>
+<p>Nine-slice sprite info for the selected-state editor panel background box.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/NineSliceInfo.html">NineSliceInfo</a> </p>
 <h4 id="cutsceneimage"><a class="header" href="#cutsceneimage">CutsceneImage</a></h4>
 <pre><code class="language-csharp">public readonly Guid CutsceneImage;
 </code></pre>
+<p>Sprite GUID for the cutscene node icon displayed in the dialogue editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="dialoguebtnplay"><a class="header" href="#dialoguebtnplay">DialogueBtnPlay</a></h4>
 <pre><code class="language-csharp">public readonly Guid DialogueBtnPlay;
 </code></pre>
+<p>Sprite GUID for the play button in the dialogue preview toolbar.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="dialoguebtnstepback"><a class="header" href="#dialoguebtnstepback">DialogueBtnStepBack</a></h4>
 <pre><code class="language-csharp">public readonly Guid DialogueBtnStepBack;
 </code></pre>
+<p>Sprite GUID for the step-back button in the dialogue preview toolbar.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="dialoguebtnstepforward"><a class="header" href="#dialoguebtnstepforward">DialogueBtnStepForward</a></h4>
 <pre><code class="language-csharp">public readonly Guid DialogueBtnStepForward;
 </code></pre>
+<p>Sprite GUID for the step-forward button in the dialogue preview toolbar.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="dialogueiconaction"><a class="header" href="#dialogueiconaction">DialogueIconAction</a></h4>
 <pre><code class="language-csharp">public readonly Guid DialogueIconAction;
 </code></pre>
+<p>Sprite GUID for the action node icon in the dialogue graph editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="dialogueiconbaloon"><a class="header" href="#dialogueiconbaloon">DialogueIconBaloon</a></h4>
 <pre><code class="language-csharp">public readonly Guid DialogueIconBaloon;
 </code></pre>
+<p>Sprite GUID for the speech balloon node icon in the dialogue graph editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="dialogueiconedgechoice"><a class="header" href="#dialogueiconedgechoice">DialogueIconEdgeChoice</a></h4>
 <pre><code class="language-csharp">public readonly Guid DialogueIconEdgeChoice;
 </code></pre>
+<p>Sprite GUID for the choice-branch edge icon in the dialogue graph editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="dialogueiconedgeif"><a class="header" href="#dialogueiconedgeif">DialogueIconEdgeIf</a></h4>
 <pre><code class="language-csharp">public readonly Guid DialogueIconEdgeIf;
 </code></pre>
+<p>Sprite GUID for the conditional (if) edge icon in the dialogue graph editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="dialogueiconedgenext"><a class="header" href="#dialogueiconedgenext">DialogueIconEdgeNext</a></h4>
 <pre><code class="language-csharp">public readonly Guid DialogueIconEdgeNext;
 </code></pre>
+<p>Sprite GUID for the sequential (next) edge icon in the dialogue graph editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="dialogueiconedgerandom"><a class="header" href="#dialogueiconedgerandom">DialogueIconEdgeRandom</a></h4>
 <pre><code class="language-csharp">public readonly Guid DialogueIconEdgeRandom;
 </code></pre>
+<p>Sprite GUID for the random-branch edge icon in the dialogue graph editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="dialogueiconedgescore"><a class="header" href="#dialogueiconedgescore">DialogueIconEdgeScore</a></h4>
 <pre><code class="language-csharp">public readonly Guid DialogueIconEdgeScore;
 </code></pre>
+<p>Sprite GUID for the score-weighted edge icon in the dialogue graph editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="dialogueiconexit"><a class="header" href="#dialogueiconexit">DialogueIconExit</a></h4>
 <pre><code class="language-csharp">public readonly Guid DialogueIconExit;
 </code></pre>
+<p>Sprite GUID for the exit node icon in the dialogue graph editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="dialogueiconflow"><a class="header" href="#dialogueiconflow">DialogueIconFlow</a></h4>
 <pre><code class="language-csharp">public readonly Guid DialogueIconFlow;
 </code></pre>
+<p>Sprite GUID for the flow control node icon in the dialogue graph editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="dialogueiconhello"><a class="header" href="#dialogueiconhello">DialogueIconHello</a></h4>
 <pre><code class="language-csharp">public readonly Guid DialogueIconHello;
 </code></pre>
+<p>Sprite GUID for the conversation-start node icon in the dialogue graph editor.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="eye"><a class="header" href="#eye">Eye</a></h4>
 <pre><code class="language-csharp">public Guid Eye;
 </code></pre>
+<p>Sprite GUID for the eye/visibility cursor used in editor modes.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="hand"><a class="header" href="#hand">Hand</a></h4>
 <pre><code class="language-csharp">public Guid Hand;
 </code></pre>
+<p>Sprite GUID for the hand/grab cursor used in editor pan/drag modes.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="musicimage"><a class="header" href="#musicimage">MusicImage</a></h4>
 <pre><code class="language-csharp">public readonly Guid MusicImage;
 </code></pre>
+<p>Sprite GUID for the music/audio icon used in the dialogue editor's audio nodes.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="normal"><a class="header" href="#normal">Normal</a></h4>
 <pre><code class="language-csharp">public Guid Normal;
 </code></pre>
+<p>Sprite GUID for the default (arrow) cursor used in standard editor modes.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="point"><a class="header" href="#point">Point</a></h4>
 <pre><code class="language-csharp">public Guid Point;
 </code></pre>
+<p>Sprite GUID for the precision-point cursor used when placing entities or anchors.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <h4 id="soundimage"><a class="header" href="#soundimage">SoundImage</a></h4>
 <pre><code class="language-csharp">public readonly Guid SoundImage;
 </code></pre>
+<p>Sprite GUID for the sound/SFX icon used in the dialogue editor's audio nodes.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0">Guid</a> </p>
 <p>⚡</p>

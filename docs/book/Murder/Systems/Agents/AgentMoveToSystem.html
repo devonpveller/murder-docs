@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public class AgentMoveToSystem : IFixedUpdateSystem, ISystem
 </code></pre>
 <p>Simple system for moving agents to another position. Looks for 'MoveTo' components and adds agent inpulses to it.</p>
+<p><strong>Intent:</strong> Moves agent entities toward their <code>MoveToComponent</code> target by applying velocity impulses.</p>
+<p><strong>Use-case:</strong> Include in worlds where NPCs or player characters navigate to positions set via <code>MoveToComponent</code>.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Systems/IFixedUpdateSystem.html">IFixedUpdateSystem</a>, <a href="../../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public AgentMoveToSystem()

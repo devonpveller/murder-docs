@@ -149,21 +149,27 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class CommandAttribute : Attribute
 </code></pre>
+<p>Marks a static method as an in-game debug console command and supplies the help text shown in <code>help</code>.</p>
+<p><strong>Intent:</strong> Decorates static methods in <code>ICommands</code> implementors so <code>CommandServices</code> can discover them via reflection and expose them in the debug console.</p>
+<p><strong>Use-case:</strong> Apply <code>[Command(&quot;Does X to entity Y&quot;)]</code> to any static method in a class that implements <code>ICommands</code> to make it callable from the in-game console.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public CommandAttribute(string help)
 </code></pre>
+<p>Creates the attribute with the given help text that will be shown in the console.</p>
 <p><strong>Parameters</strong> <br />
 <code>help</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="help"><a class="header" href="#help">Help</a></h4>
 <pre><code class="language-csharp">public readonly string Help;
 </code></pre>
+<p>The help string displayed next to this command when the user types <code>help</code> in the console.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique object identity for this attribute type, inherited from <code>Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

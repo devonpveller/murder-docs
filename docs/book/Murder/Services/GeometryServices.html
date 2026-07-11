@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public static class GeometryServices
 </code></pre>
+<p>Math and geometry utilities for overlap tests, distance calculations, polygon analysis, and shape generation.</p>
+<p><strong>Intent:</strong> Centralises pure geometry helpers that do not depend on ECS state.</p>
+<p><strong>Use-case:</strong> Use for point-in-rectangle tests, circle/polygon generation for rendering, distance calculations between game objects, and line-of-sight segment math without needing to query the world.</p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="checkoverlapfloat-float-float-float"><a class="header" href="#checkoverlapfloat-float-float-float">CheckOverlap(float, float, float, float)</a></h4>
 <pre><code class="language-csharp">public bool CheckOverlap(float minA, float maxA, float minB, float maxB)
@@ -219,6 +222,7 @@
 <h4 id="intersectscirclerectangle-vector2-float"><a class="header" href="#intersectscirclerectangle-vector2-float">IntersectsCircle(Rectangle, Vector2, float)</a></h4>
 <pre><code class="language-csharp">public bool IntersectsCircle(Rectangle rectangle, Vector2 circleCenter, float circleRadiusSquared)
 </code></pre>
+<p>Returns <code>true</code> if the rectangle overlaps with the circle defined by its center and squared radius.</p>
 <p><strong>Parameters</strong> <br />
 <code>rectangle</code> <a href="../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
 <code>circleCenter</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
@@ -251,6 +255,7 @@ fits in <paramref name="area" /> given an <paramref name="endPosition" />.</p>
 <h4 id="decimalsfloat"><a class="header" href="#decimalsfloat">Decimals(float)</a></h4>
 <pre><code class="language-csharp">public float Decimals(float x)
 </code></pre>
+<p>Returns the fractional (decimal) part of <code>x</code>.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -314,6 +319,7 @@ fits in <paramref name="area" /> given an <paramref name="endPosition" />.</p>
 <h4 id="roundeddecimalsfloat"><a class="header" href="#roundeddecimalsfloat">RoundedDecimals(float)</a></h4>
 <pre><code class="language-csharp">public float RoundedDecimals(float x)
 </code></pre>
+<p>Returns the fractional part of <code>x</code> rounded to a fixed number of decimal places.</p>
 <p><strong>Parameters</strong> <br />
 <code>x</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -342,6 +348,7 @@ and negative if the vertices are in counterclockwise order.</p>
 <h4 id="shrinkrectangle-int"><a class="header" href="#shrinkrectangle-int">Shrink(Rectangle, int)</a></h4>
 <pre><code class="language-csharp">public Rectangle Shrink(Rectangle rectangle, int amount)
 </code></pre>
+<p>Returns a new rectangle inset by <code>amount</code> pixels on all sides.</p>
 <p><strong>Parameters</strong> <br />
 <code>rectangle</code> <a href="../../Murder/Core/Geometry/Rectangle.html">Rectangle</a> <br />
 <code>amount</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
@@ -350,6 +357,7 @@ and negative if the vertices are in counterclockwise order.</p>
 <h4 id="pointincircleedgefloat"><a class="header" href="#pointincircleedgefloat">PointInCircleEdge(float)</a></h4>
 <pre><code class="language-csharp">public Vector2 PointInCircleEdge(float percent)
 </code></pre>
+<p>Returns a unit-circle point at the angle corresponding to <code>percent</code> (0–1 maps to 0–360 degrees).</p>
 <p><strong>Parameters</strong> <br />
 <code>percent</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <p><strong>Returns</strong> <br />
@@ -378,6 +386,7 @@ and negative if the vertices are in counterclockwise order.</p>
 <h4 id="createorgetflattenedcirclefloat-float-int"><a class="header" href="#createorgetflattenedcirclefloat-float-int">CreateOrGetFlattenedCircle(float, float, int)</a></h4>
 <pre><code class="language-csharp">public Vector2[] CreateOrGetFlattenedCircle(float radius, float scaleY, int sides)
 </code></pre>
+<p>Returns (or creates and caches) a point array for an ellipse scaled by <code>scaleY</code> on the Y axis.</p>
 <p><strong>Parameters</strong> <br />
 <code>radius</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />
 <code>scaleY</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> <br />

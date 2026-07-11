@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct ParticleSystemTracker
 </code></pre>
+<p>Manages the runtime lifecycle of all live particles for a single particle system instance — spawning, stepping, and pooling.</p>
+<p><strong>Intent:</strong> Act as the per-entity particle simulation engine.</p>
+<p><strong>Use-case:</strong> <code>ParticleSystemTracker</code> is created from an <code>Emitter</code> and <code>Particle</code> definition (usually via a <code>ParticleSystemAsset</code>). Call <code>Step()</code> each frame to advance the simulation and read <code>Particles</code> for rendering.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public ParticleSystemTracker(Emitter emitter, Particle particle, int seed)
 </code></pre>
@@ -201,6 +204,7 @@
 <h4 id="startvector2-int"><a class="header" href="#startvector2-int">Start(Vector2, int)</a></h4>
 <pre><code class="language-csharp">public void Start(Vector2 emitterPosition, int id)
 </code></pre>
+<p>Initialises the random seed and resets the timer, preparing the system to spawn particles.</p>
 <p><strong>Parameters</strong> <br />
 <code>emitterPosition</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0">Vector2</a> <br />
 <code>id</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>

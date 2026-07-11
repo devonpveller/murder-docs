@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class Exploration
 </code></pre>
+<p>Configuration data that controls the visual appearance of the fog-of-war / exploration system used by the world map.</p>
+<p><strong>Intent:</strong> Bundle the color and timing parameters that govern how cells of the map transition between unexplored, exploring, and fully-visible states.</p>
+<p><strong>Use-case:</strong> Assign an <code>Exploration</code> value inside <code>GameProfile</code> to tune how quickly tiles and sprites fade in as the player explores the world, and choose the tint colors for unvisited and currently-revealed areas.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public Exploration()
 </code></pre>
@@ -156,21 +159,25 @@
 <h4 id="explorecolor"><a class="header" href="#explorecolor">ExploreColor</a></h4>
 <pre><code class="language-csharp">public Color ExploreColor;
 </code></pre>
+<p>Tint color applied to map cells that are currently being revealed (transitioning from unexplored to visible).</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/Color.html">Color</a> </p>
 <h4 id="spriteexplorationduration"><a class="header" href="#spriteexplorationduration">SpriteExplorationDuration</a></h4>
 <pre><code class="language-csharp">public float SpriteExplorationDuration;
 </code></pre>
+<p>Duration in seconds for sprite-based map cells to animate from unexplored to the explored state.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="tileexplorationduration"><a class="header" href="#tileexplorationduration">TileExplorationDuration</a></h4>
 <pre><code class="language-csharp">public float TileExplorationDuration;
 </code></pre>
+<p>Duration in seconds for tile-based map cells to animate from unexplored to the explored state.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0">float</a> </p>
 <h4 id="unexploredcolor"><a class="header" href="#unexploredcolor">UnexploredColor</a></h4>
 <pre><code class="language-csharp">public Color UnexploredColor;
 </code></pre>
+<p>Tint color applied to map cells that have not yet been visited or revealed by the player.</p>
 <p><strong>Returns</strong> <br />
 <a href="../../Murder/Core/Graphics/Color.html">Color</a> </p>
 <p>⚡</p>

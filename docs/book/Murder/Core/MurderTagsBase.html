@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class MurderTagsBase
 </code></pre>
+<p>Base class that defines the built-in integer tag constants for entity categorization. Game-specific projects extend this class to add their own tags.</p>
+<p><strong>Intent:</strong> Registry of named bitfield constants used to categorize and filter entities by role (e.g., player, trigger).</p>
+<p><strong>Use-case:</strong> Reference these constants when assigning a <code>Tags</code> component to an entity or when querying entities by tag in systems.</p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MurderTagsBase()
 </code></pre>
@@ -157,16 +160,19 @@
 <h4 id="none"><a class="header" href="#none">NONE</a></h4>
 <pre><code class="language-csharp">public static const int NONE;
 </code></pre>
+<p>The empty tag value (0), used when no tags should be applied or matched.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="player"><a class="header" href="#player">PLAYER</a></h4>
 <pre><code class="language-csharp">public static const int PLAYER;
 </code></pre>
+<p>Tag bit identifying an entity as a player-controlled character.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="trigger"><a class="header" href="#trigger">TRIGGER</a></h4>
 <pre><code class="language-csharp">public static const int TRIGGER;
 </code></pre>
+<p>Tag bit identifying an entity as a trigger volume that fires interactions on contact.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <p>⚡</p>

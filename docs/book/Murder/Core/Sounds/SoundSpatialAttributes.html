@@ -150,6 +150,8 @@
 <pre><code class="language-csharp">public sealed struct SoundSpatialAttributes
 </code></pre>
 <p>Properties</p>
+<p><strong>Intent:</strong> Carry 3D spatial audio data (position, facing, velocity) for a sound emitter or listener.</p>
+<p><strong>Use-case:</strong> Pass a <code>SoundSpatialAttributes</code> to <code>ISoundPlayer.UpdateListener()</code> each frame with the player/camera position so the audio middleware can apply panning, attenuation, and Doppler effects correctly.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="direction"><a class="header" href="#direction">Direction</a></h4>
 <pre><code class="language-csharp">public Direction Direction;

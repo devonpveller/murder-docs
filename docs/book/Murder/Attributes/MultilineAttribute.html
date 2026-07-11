@@ -149,14 +149,19 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class MultilineAttribute : Attribute
 </code></pre>
+<p>Marks a string field so the editor renders a multi-line text area widget instead of a single-line input.</p>
+<p><strong>Intent:</strong> Override the default single-line text widget with an expandable multi-line text area for a string field.</p>
+<p><strong>Use-case:</strong> Apply to string fields in components or assets that hold longer text content such as NPC dialogue, item descriptions, or narration blocks, giving designers a more comfortable editing experience.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0">Attribute</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public MultilineAttribute()
 </code></pre>
+<p>Creates a new instance of <code>MultilineAttribute</code>.</p>
 <h3 id="-properties"><a class="header" href="#-properties">⭐ Properties</a></h3>
 <h4 id="typeid"><a class="header" href="#typeid">TypeId</a></h4>
 <pre><code class="language-csharp">public virtual Object TypeId { get; }
 </code></pre>
+<p>Unique type identifier for this attribute, inherited from <code>System.Attribute</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p>⚡</p>

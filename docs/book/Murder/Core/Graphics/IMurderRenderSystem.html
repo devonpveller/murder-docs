@@ -151,6 +151,8 @@
 </code></pre>
 <p>Main render system. This is used to draw on the screen and should not 
 have any update logic.</p>
+<p><strong>Intent:</strong> The primary interface for ECS systems that render game entities; provides access to the full <code>RenderContext</code> and the component query <code>Context</code>.</p>
+<p><strong>Use-case:</strong> Implement <code>Draw(RenderContext, Context)</code> in any system that needs to issue sprite or primitive draw calls each frame; the engine calls all <code>IMurderRenderSystem</code> implementations once per frame after simulation.</p>
 <p><strong>Implements:</strong> <em><a href="../../../Bang/Systems/IRenderSystem.html">IRenderSystem</a>, <a href="../../../Bang/Systems/ISystem.html">ISystem</a></em></p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="drawrendercontext-context"><a class="header" href="#drawrendercontext-context">Draw(RenderContext, Context)</a></h4>

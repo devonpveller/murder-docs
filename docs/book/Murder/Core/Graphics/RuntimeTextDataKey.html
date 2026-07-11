@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct RuntimeTextDataKey : IEquatable&lt;T&gt;
 </code></pre>
+<p>Cache key identifying a unique combination of text content, font index, and maximum display width.</p>
+<p><strong>Intent:</strong> Allows <code>TextDataServices</code> to store and retrieve pre-parsed <code>RuntimeTextData</code> layouts without re-processing identical text configurations.</p>
+<p><strong>Use-case:</strong> Created automatically inside <code>TextDataServices.GetOrCreateText()</code>; developers rarely construct this directly.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0">IEquatable&lt;T&gt;</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public RuntimeTextDataKey(string Text, int Font, int Width)
@@ -161,22 +164,26 @@
 <h4 id="font"><a class="header" href="#font">Font</a></h4>
 <pre><code class="language-csharp">public int Font { get; public set; }
 </code></pre>
+<p>Index of the font used to lay out this text, as registered in the game's font list.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h4 id="text"><a class="header" href="#text">Text</a></h4>
 <pre><code class="language-csharp">public string Text { get; public set; }
 </code></pre>
+<p>The raw text string that was parsed to produce the cached <code>RuntimeTextData</code>.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h4 id="width"><a class="header" href="#width">Width</a></h4>
 <pre><code class="language-csharp">public int Width { get; public set; }
 </code></pre>
+<p>Maximum line width in pixels that was applied during word-wrap layout, or -1 if no width limit was used.</p>
 <p><strong>Returns</strong> <br />
 <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0">int</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="equalsruntimetextdatakey"><a class="header" href="#equalsruntimetextdatakey">Equals(RuntimeTextDataKey)</a></h4>
 <pre><code class="language-csharp">public virtual bool Equals(RuntimeTextDataKey other)
 </code></pre>
+<p>Returns true if <code>other</code> has the same text, font index, and wrap width as this key.</p>
 <p><strong>Parameters</strong> <br />
 <code>other</code> <a href="../../../Murder/Core/Graphics/RuntimeTextDataKey.html">RuntimeTextDataKey</a> </p>
 <p><strong>Returns</strong> <br />
@@ -184,6 +191,7 @@
 <h4 id="equalsobject"><a class="header" href="#equalsobject">Equals(Object)</a></h4>
 <pre><code class="language-csharp">public virtual bool Equals(Object obj)
 </code></pre>
+<p>Returns true if <code>obj</code> is a <code>RuntimeTextDataKey</code> with matching text, font, and width values.</p>
 <p><strong>Parameters</strong> <br />
 <code>obj</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0">Object</a> </p>
 <p><strong>Returns</strong> <br />

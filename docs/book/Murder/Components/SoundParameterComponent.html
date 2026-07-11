@@ -149,6 +149,9 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public sealed struct SoundParameterComponent : IComponent
 </code></pre>
+<p>Marker component that indicates this entity carries runtime sound parameter data used by the audio system.</p>
+<p><strong>Intent:</strong> Tag an entity as a source of sound parameter overrides so the audio system can locate and apply them.</p>
+<p><strong>Use-case:</strong> Attach alongside sound-related components to inform the audio pipeline that additional parameter data is available on this entity.</p>
 <p><strong>Implements:</strong> <em><a href="../../Bang/Components/IComponent.html">IComponent</a></em></p>
 <p>⚡</p>
 

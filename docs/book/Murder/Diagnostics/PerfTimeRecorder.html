@@ -149,16 +149,21 @@
 <strong>Assembly:</strong> Murder.dll</p>
 <pre><code class="language-csharp">public class PerfTimeRecorder : IDisposable
 </code></pre>
+<p>Disposable timing helper that logs the elapsed time of an operation when disposed.</p>
+<p><strong>Intent:</strong> Wraps a named operation in a <code>using</code> block to automatically log how many seconds it took when the block exits.</p>
+<p><strong>Use-case:</strong> Use <code>using var _ = new PerfTimeRecorder(&quot;Load assets&quot;)</code> around any performance-sensitive block to emit a timing message to <code>GameLogger</code> on completion.</p>
 <p><strong>Implements:</strong> <em><a href="https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0">IDisposable</a></em></p>
 <h3 id="-constructors"><a class="header" href="#-constructors">⭐ Constructors</a></h3>
 <pre><code class="language-csharp">public PerfTimeRecorder(string name)
 </code></pre>
+<p>Creates a new recorder for the named operation and records the current time as the start.</p>
 <p><strong>Parameters</strong> <br />
 <code>name</code> <a href="https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0">string</a> </p>
 <h3 id="-methods"><a class="header" href="#-methods">⭐ Methods</a></h3>
 <h4 id="dispose"><a class="header" href="#dispose">Dispose()</a></h4>
 <pre><code class="language-csharp">public virtual void Dispose()
 </code></pre>
+<p>Logs the elapsed time since construction to <code>GameLogger.LogPerf</code>.</p>
 <p>⚡</p>
 
                     </main>
