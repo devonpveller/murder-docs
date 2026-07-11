@@ -22,11 +22,11 @@ Initialize the world!
 
 **Parameters** \
 `systems` [IList\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IList-1?view=net-7.0) \
-List of systems and whether they are currently active in the world. \
+\
 
 **Exceptions** \
 [ArgumentException](https://learn.microsoft.com/en-us/dotnet/api/System.ArgumentException?view=net-7.0) \
-If no systems are passed to the world. \
+\
 ### ⭐ Properties
 #### _cachedRenderSystems
 ```csharp
@@ -71,13 +71,6 @@ public static bool DIAGNOSTICS_MODE;
 ```
 
 Use this to set whether diagnostics should be pulled from the world run.
-
-While enabled, each [World](../Bang/World.html) measures how long every startup, update, fixed update
-and reactive system takes to run (see [World.StartCounters](../Bang/World.html#startcounters), [World.UpdateCounters](../Bang/World.html#updatecounters),
-[World.FixedUpdateCounters](../Bang/World.html#fixedupdatecounters) and [World.ReactiveCounters](../Bang/World.html#reactivecounters)) and runs extra
-assertion sanity checks (e.g. validating system requirements declared via [RequiresAttribute](../Bang/Components/RequiresAttribute.html)).
-This is a static, process-wide flag: disable it for release builds where the extra bookkeeping is not
-worth the overhead.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -129,20 +122,6 @@ Whether the world has been queried to be on pause or not.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-#### NextEligibleEntityId
-```csharp
-public int NextEligibleEntityId { get; set; }
-```
-
-Expose the next eligible entity id.
-
-Reading this returns the id that will be assigned to the next entity created without an explicit id.
-Setting it will only ever raise the counter (it takes the maximum of the current value and the assigned
-value), which is used when restoring a world from a save so that newly created entities never collide
-with previously serialized ids.
-
-**Returns** \
-[int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 #### ReactiveCounters
 ```csharp
 public readonly Dictionary<TKey, TValue> ReactiveCounters;
@@ -180,13 +159,10 @@ protected virtual void ClearDiagnosticsCountersForSystem(int systemId)
 ```
 
 Implemented by custom world in order to clear diagnostic information about the world.
-Called whenever `systemId` is deactivated, right after its built-in performance counters
-([World.StartCounters](../Bang/World.html#startcounters), [World.UpdateCounters](../Bang/World.html#updatecounters), [World.FixedUpdateCounters](../Bang/World.html#fixedupdatecounters) and [World.ReactiveCounters](../Bang/World.html#reactivecounters)) have
-been cleared. No-op by default.
 
 **Parameters** \
 `systemId` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-Order id of the system being deactivated, as tracked by [World.IdToSystem](../Bang/World.html#idtosystem). \
+\
 
 #### InitializeDiagnosticsForSystem(int, ISystem)
 ```csharp
@@ -194,15 +170,10 @@ protected virtual void InitializeDiagnosticsForSystem(int systemId, ISystem syst
 ```
 
 Implemented by custom world in order to express diagnostic information about the world.
-Called once per system while [World.InitializeDiagnosticsCounters](../Bang/World.html#initializediagnosticscounters) sets up the built-in performance
-counters, so a custom world can register its own extra diagnostics for `system` alongside them.
-No-op by default.
 
 **Parameters** \
 `systemId` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-Order id of `system`, as tracked by [World.IdToSystem](../Bang/World.html#idtosystem). \
 `system` [ISystem](../Bang/Systems/ISystem.html) \
-The system instance being initialized. \
 
 #### InitializeDiagnosticsCounters()
 ```csharp
@@ -216,81 +187,65 @@ Initialize the performance counters according to the systems present in the worl
 public bool ActivateSystem()
 ```
 
-Activate a system of type `T` within our world. `T` must have been passed to the world's constructor.
+Activate a system within our world.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-Whether the system is found and has been activated.
 
 #### ActivateSystem(Type)
 ```csharp
-public bool ActivateSystem(Type t, bool immediately)
+public bool ActivateSystem(Type t)
 ```
 
 Activate a system of type <paramref name="t" /> within our world.
 
 **Parameters** \
 `t` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
-Type of the system to activate. \
-`immediately` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-Whether the activation should take effect right away. When `false` (the default), the system is only
-queued and will actually be activated at the end of the current [World.Update](../Bang/World.html#update) or [World.Start](../Bang/World.html#start) call. \
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-Whether the system is found and has been activated.
+\
 
 #### DeactivateSystem(bool)
 ```csharp
 public bool DeactivateSystem(bool immediately)
 ```
 
-Deactivate a system of type `T` within our world. `T` must have been passed to the world's constructor.
+Deactivate a system within our world.
 
 **Parameters** \
 `immediately` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-Whether the deactivation should take effect right away. When `false` (the default), the system is only
-queued and will actually be deactivated at the end of the current [World.Update](../Bang/World.html#update) or [World.Start](../Bang/World.html#start) call. \
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-Whether the system is found and has been deactivated.
 
 #### DeactivateSystem(int, bool)
 ```csharp
 public bool DeactivateSystem(int id, bool immediately)
 ```
 
-Deactivate a system with the given order <paramref name="id" /> within our world.
+Deactivate a system within our world.
 
 **Parameters** \
 `id` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-Order id of the system, as tracked by [World.IdToSystem](../Bang/World.html#idtosystem). \
 `immediately` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-Whether the deactivation should take effect right away. When `false` (the default), the system is only
-queued and will actually be deactivated at the end of the current [World.Update](../Bang/World.html#update) or [World.Start](../Bang/World.html#start) call. \
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-Whether the system was active and has now been deactivated (or queued for deactivation).
 
 #### DeactivateSystem(Type, bool)
 ```csharp
 public bool DeactivateSystem(Type t, bool immediately)
 ```
 
-Deactivate a system of type <paramref name="t" /> within our world.
+Deactivate a system within our world.
 
 **Parameters** \
 `t` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
-Type of the system to deactivate. \
 `immediately` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-Whether the deactivation should take effect right away. When `false` (the default), the system is only
-queued and will actually be deactivated at the end of the current [World.Update](../Bang/World.html#update) or [World.Start](../Bang/World.html#start) call. \
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-Whether the system is found and has been deactivated.
 
 #### IsSystemActive(Type)
 ```csharp
@@ -305,39 +260,15 @@ Whether a system is active within the world.
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
-#### InitializeLookupComponents(ComponentsLookup)
-```csharp
-public static void InitializeLookupComponents(ComponentsLookup lookup)
-```
-
-Explicitly set the [ComponentsLookup](../Bang/ComponentsLookup.html) implementation that all worlds in this process will use, bypassing
-the reflection-based lookup performed by [World.FindLookupImplementation](../Bang/World.html#findlookupimplementation).
-This is useful for tests or tools that create a [World](../Bang/World.html) before all the generated assemblies have been
-loaded into the `AppDomain`. Once set, this value is cached for the remainder of the process.
-
-**Parameters** \
-`lookup` [ComponentsLookup](../Bang/ComponentsLookup.html) \
-The generated [ComponentsLookup](../Bang/ComponentsLookup.html) instance to use. \
-
 #### FindLookupImplementation()
 ```csharp
-public static ComponentsLookup FindLookupImplementation()
+public ComponentsLookup FindLookupImplementation()
 ```
 
 Look for an implementation for the lookup table of components.
 
-The result is cached the first time this is called (or if [World.InitializeLookupComponents](../Bang/World.html#initializelookupcomponentscomponentslookup) was called
-beforehand). Otherwise, this scans every currently loaded assembly in the `AppDomain` for concrete types
-that derive from [ComponentsLookup](../Bang/ComponentsLookup.html) and picks the one with the deepest inheritance chain (i.e. the most
-specific generated lookup, such as a game-specific lookup that inherits from Bang's own generated lookup).
-
 **Returns** \
 [ComponentsLookup](../Bang/ComponentsLookup.html) \
-
-**Exceptions** \
-[InvalidOperationException](https://learn.microsoft.com/en-us/dotnet/api/System.InvalidOperationException?view=net-7.0) \
-Thrown if no [ComponentsLookup](../Bang/ComponentsLookup.html) implementation could be found, which usually means the source generator
-has not run for the project. \
 
 #### AddEntity()
 ```csharp
@@ -395,7 +326,7 @@ Get an entity with the specific id.
 public Entity GetUniqueEntity()
 ```
 
-Call [World.GetUniqueEntity(int)](../Bang/World.html#getuniqueentityint) from a generator instead.
+Call [World.GetUniqueEntity``1(System.Int32)](../Bang/World.html#getuniqueentity(int) from a generator instead.
 
 **Returns** \
 [Entity](../Bang/Entities/Entity.html) \
@@ -432,7 +363,7 @@ Tries to get an entity with the specific id.
 public Entity TryGetUniqueEntity()
 ```
 
-Call [World.TryGetUniqueEntity(int)](../Bang/World.html#trygetuniqueentityint) from a generator instead.
+Call [World.TryGetUniqueEntity``1(System.Int32)](../Bang/World.html#trygetuniqueentity(int) from a generator instead.
 
 **Returns** \
 [Entity](../Bang/Entities/Entity.html) \
@@ -475,80 +406,16 @@ This should be used very cautiously! I hope you know what you are doing.
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
-#### GetAllDeactivatedEntities()
-```csharp
-public ImmutableArray<T> GetAllDeactivatedEntities()
-```
-
-This should be used very cautiously! I hope you know what you are doing.
-            It fetches all the deactivated entities within the world and return them.
-
-**Returns** \
-[ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
-
-#### GetEntitiesFrom(int)
-```csharp
-public ImmutableArray<T> GetEntitiesFrom(int contextId)
-```
-
-Retrieve the entities tracked by an already existing context, given its <paramref name="contextId" />.
-Unlike [World.GetEntitiesWith(ContextAccessorFilter, Type[])](../Bang/World.html#getentitieswithcontextaccessorfilter-type), this does not create a new context on demand — the context
-must have already been created (e.g. via a prior call to [World.GetEntitiesWith(ContextAccessorFilter, Type[])](../Bang/World.html#getentitieswithcontextaccessorfilter-type)
-or [World.GetOrCreateContextIdFrom](../Bang/World.html#getorcreatecontextidfromcontextaccessorfilter-type)). If `contextId` does not map to a known context, this will
-assert and return an empty array.
-
-**Parameters** \
-`contextId` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-Id of a context previously created within this world. \
-
-**Returns** \
-[ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
-
-#### TryGetEntitiesFrom(int, out ImmutableArray<T>&)
-```csharp
-public bool TryGetEntitiesFrom(int contextId, ImmutableArray<T>& entities)
-```
-
-Try to retrieve the entities tracked by an already existing context, given its <paramref name="contextId" />.
-
-**Parameters** \
-`contextId` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-Id of a context previously created within this world. \
-`entities` [ImmutableArray\<T\>&](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
-The entities tracked by the context, if found. \
-
-**Returns** \
-[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-Whether a context with `contextId` exists.
-
-#### GetOrCreateContextIdFrom(ContextAccessorFilter, Type[])
-```csharp
-public int GetOrCreateContextIdFrom(ContextAccessorFilter filter, Type[] components)
-```
-
-Retrieve a context ID for the specified filter and components.
-
-**Parameters** \
-`filter` [ContextAccessorFilter](../Bang/Contexts/ContextAccessorFilter.html) \
-`components` [Type[]](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
-
-**Returns** \
-[int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-
 #### GetEntitiesWith(ContextAccessorFilter, Type[])
 ```csharp
 public ImmutableArray<T> GetEntitiesWith(ContextAccessorFilter filter, Type[] components)
 ```
 
-Retrieve all the entities that match <paramref name="filter" /> for <paramref name="components" />.
-The underlying context is created lazily on first use and cached for subsequent calls with the same
-filter and component set.
+Retrieve a context for the specified filter and components.
 
 **Parameters** \
 `filter` [ContextAccessorFilter](../Bang/Contexts/ContextAccessorFilter.html) \
-Whether entities must have all, any, or none of `components`. \
 `components` [Type[]](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
-Component types to filter entities by. \
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -558,12 +425,10 @@ Component types to filter entities by. \
 public ImmutableArray<T> GetEntitiesWith(Type[] components)
 ```
 
-Retrieve all the entities that have all of <paramref name="components" />. Equivalent to calling
-[World.GetEntitiesWith(ContextAccessorFilter, Type[])](../Bang/World.html#getentitieswithcontextaccessorfilter-type) with [ContextAccessorFilter.AllOf](../Bang/Contexts/ContextAccessorFilter.html#allof).
+Retrieve a context for the specified filter and components.
 
 **Parameters** \
 `components` [Type[]](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
-Component types the entities must all have. \
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
@@ -573,7 +438,7 @@ Component types the entities must all have. \
 public T GetUnique()
 ```
 
-Call [World.GetUnique(int)](../Bang/World.html#getuniqueint) from a generator instead.
+Call [World.GetUnique``1(System.Int32)](../Bang/World.html#getunique(int) from a generator instead.
 
 **Returns** \
 [T](../) \
@@ -597,7 +462,7 @@ Get the unique component <typeparamref name="T" /> within an entity. The compone
 public T? TryGetUnique()
 ```
 
-Call [World.TryGetUnique(int)](../Bang/World.html#trygetuniqueint) from a generator instead.
+Call [World.TryGetUnique``1(System.Int32)](../Bang/World.html#trygetunique(int) from a generator instead.
 
 **Returns** \
 [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
@@ -656,7 +521,6 @@ Deactivate all systems across the world.
 
 **Parameters** \
 `skip` [Type[]](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
-Any system whose type matches (or derives from) one of these types will be left untouched. \
 
 #### Exit()
 ```csharp

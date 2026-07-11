@@ -7,21 +7,8 @@
 public class FilterAttribute : Attribute
 ```
 
-Declares which entities a system cares about: "give me every entity that has all of X and
-            none of Y", for example. Every concrete [ISystem](../../Bang/Systems/ISystem.html) that wants entities delivered
-            to it (via a [Context](../../Bang/Contexts/Context.html)) should carry at least one
-            [FilterAttribute](../../Bang/Systems/FilterAttribute.html) - [World](../../Bang/World.html) reads it via reflection when the world
-            is built and compiles it
-            into the incrementally-tracked entity set exposed as `Context.Entities`. The attribute
-            is repeatable (`AllowMultiple = true`): stack several [FilterAttribute](../../Bang/Systems/FilterAttribute.html)s on
-            the same system to combine filters, e.g. one [ContextAccessorFilter.AllOf](../../Bang/Contexts/ContextAccessorFilter.html) filter
-            for the required components plus a second [ContextAccessorFilter.NoneOf](../../Bang/Contexts/ContextAccessorFilter.html) filter
-            for components that should exclude the entity. This applies uniformly to every kind of
-            system - [IUpdateSystem](../../Bang/Systems/IUpdateSystem.html), [IFixedUpdateSystem](../../Bang/Systems/IFixedUpdateSystem.html),
-            [IReactiveSystem](../../Bang/Systems/IReactiveSystem.html), [IMessagerSystem](../../Bang/Systems/IMessagerSystem.html), [IRenderSystem](../../Bang/Systems/IRenderSystem.html) -
-            since it only shapes *which entities* the context sees; it is orthogonal to
-            [WatchAttribute](../../Bang/Systems/WatchAttribute.html) and [MessagerAttribute](../../Bang/Systems/MessagerAttribute.html), which instead declare
-            *which changes or messages* on top of that entity set should trigger a notification.
+Indicates characteristics of a system that was implemented on our ECS system.
+            This must be implemented by all the systems that inherits from [ISystem](../../Bang/Systems/ISystem.html).
 
 **Implements:** _[Attribute](https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0)_
 
@@ -41,7 +28,7 @@ Creates a system filter with custom accessors.
 public FilterAttribute(ContextAccessorFilter filter, Type[] types)
 ```
 
-Create a system filter with default accessor of [Kind](../../Bang/Systems/FilterAttribute.html) for `types`.
+Create a system filter with default accessor of [FilterAttribute.Kind" /> for <paramref name="types](../../Bang/Systems/FilterAttribute.html#kind" /> for <paramref name="types).
 
 **Parameters** \
 `filter` [ContextAccessorFilter](../../Bang/Contexts/ContextAccessorFilter.html) \
@@ -51,7 +38,7 @@ Create a system filter with default accessor of [Kind](../../Bang/Systems/Filter
 public FilterAttribute(ContextAccessorKind kind, Type[] types)
 ```
 
-Create a system filter with default accessor of [Filter](../../Bang/Systems/FilterAttribute.html) for `types`.
+Create a system filter with default accessor of [FilterAttribute.Filter" /> for <paramref name="types](../../Bang/Systems/FilterAttribute.html#filter" /> for <paramref name="types).
 
 **Parameters** \
 `kind` [ContextAccessorKind](../../Bang/Contexts/ContextAccessorKind.html) \
@@ -61,7 +48,7 @@ Create a system filter with default accessor of [Filter](../../Bang/Systems/Filt
 public FilterAttribute(Type[] types)
 ```
 
-Create a system filter with default accessors for `types`.
+Create a system filter with default accessors for <paramref name="types" />.
 
 **Parameters** \
 `types` [Type[]](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \

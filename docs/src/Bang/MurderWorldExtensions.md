@@ -9,22 +9,6 @@ public static class MurderWorldExtensions
 
 Quality of life world extensions for the components declared in this project.
 
-This class is emitted at compile time by `Bang.Generator` (see `Templates.WorldExtensions` in
-`Bang.Generator/Templating`), which walks every component in the Murder project marked as unique (i.e.
-decorated so at most one entity in the world may own it) and generates a matching pair of strongly-typed
-extension methods on [World](../Bang/World.html): `Get<Component>`/`TryGet<Component>` to fetch the component value directly,
-and `GetEntity<Component>`/`TryGetEntity<Component>` to fetch the owning [Entity](../Bang/Entities/Entity.html) instead. Each of these is a
-thin wrapper over the generic [World.GetUnique(int)](../Bang/World.html#getuniqueint) / [World.GetUniqueEntity(int)](../Bang/World.html#getuniqueentityint) family (and their
-`TryGet...` counterparts), pre-filled with the right component type and its generated lookup id so call
-sites don't need to spell out the generic type argument or know the id.
-
-You are meant to call these directly, e.g. `world.GetUniqueCameraFollow()` instead of
-`world.GetUnique<CameraFollowComponent>()` — they exist purely for convenience and read better at call
-sites, with identical runtime behavior to the generic methods they wrap. Like the other generated lookup
-classes on this page, this file is fully regenerated on every build from whatever unique components exist
-in the project at that time, so it should never be hand-edited; if you add or remove a unique component,
-rebuild and the corresponding extension methods will appear or disappear here automatically.
-
 ### ⭐ Methods
 #### GetUniqueCameraFollow(World)
 ```csharp
