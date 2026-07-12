@@ -11,10 +11,12 @@ Utility methods for enumerating tile-grid cell positions, snapping coordinates t
 
 **Intent:** Provides geometry and iteration helpers for working with the tile grid used by map and pathfinding systems.
 
-**Use-case:** Call from map systems and AI code to enumerate cells in circular or linear areas, snap positions to the grid, or convert between world-space and grid-cell coordinates.
+**Use-case:** Call from map systems and AI code to enumerate cells in circular or linear areas, snap positions to the grid, find neighbouring cells for pathfinding, or convert between world-space and grid-cell coordinates.
 
 ### ⭐ Methods
+
 #### Circle(int, int, int)
+
 ```csharp
 public IEnumerable<T> Circle(int cx, int cy, int radius)
 ```
@@ -30,6 +32,7 @@ Returns all grid cell positions within a circular radius of the given center cel
 [IEnumerable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0) \
 
 #### Line(Point, Point)
+
 ```csharp
 public IEnumerable<T> Line(Point start, Point end)
 ```
@@ -43,35 +46,54 @@ Returns all grid cell positions along the straight line from `start` to `end` us
 **Returns** \
 [IEnumerable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0) \
 
-#### Reverse(IDictionary<TKey, TValue>, Point, Point)
+#### IsNeighbour(Point, Point, bool)
+
 ```csharp
-public ImmutableDictionary<TKey, TValue> Reverse(IDictionary<TKey, TValue> input, Point initial, Point target)
+public bool IsNeighbour(this Point p, Point otherP, bool includeDiagonals = true)
 ```
 
-Reverses a route dictionary (target-to-source) into source-to-target order between `initial` and `target`.
+Returns `true` if `otherP` is directly adjacent to `p` (one of the four cardinal cells, or additionally one of the four diagonal cells if `includeDiagonals` is `true`, which is the default).
 
 **Parameters** \
-`input` [IDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IDictionary-2?view=net-7.0) \
+`p` [Point](../../Murder/Core/Geometry/Point.html) \
+`otherP` [Point](../../Murder/Core/Geometry/Point.html) \
+`includeDiagonals` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
+**Returns** \
+[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
+#### Reverse(IDictionary<TKey, TValue>, Point, Point)
+
+```csharp
+public ComplexDictionary<Point, Point> Reverse(this IDictionary<Point, Point> input, Point initial, Point target)
+```
+
+Reverses a route dictionary produced by a pathfinder — where each entry maps a cell to the cell that leads *toward* `initial` — into the opposite direction (source-to-target order), by walking backward from `target` until it reaches `initial`. Used to convert a search-derived "came from" map into a directly walkable "go to next" map.
+
+**Parameters** \
+`input` [IDictionary\<Point, Point\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IDictionary-2?view=net-7.0) \
 `initial` [Point](../../Murder/Core/Geometry/Point.html) \
 `target` [Point](../../Murder/Core/Geometry/Point.html) \
 
 **Returns** \
-[ImmutableDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0) \
+[ComplexDictionary\<Point, Point\>](../../Murder/Serialization/ComplexDictionary-2.html) \
 
-#### SnapToGridDelta(IMurderTransformComponent)
+#### SnapToGridDelta(PositionComponent)
+
 ```csharp
-public IMurderTransformComponent SnapToGridDelta(IMurderTransformComponent transform)
+public PositionComponent SnapToGridDelta(this PositionComponent transform)
 ```
 
-Snaps the transform's position to the nearest grid cell center, returning the adjusted transform.
+Snaps `transform`'s local X/Y position down to the nearest grid cell boundary (i.e. floors each axis to a multiple of `Grid.CellSize`), returning the adjusted `PositionComponent`. Note this page previously (and incorrectly) documented this overload as taking an `IMurderTransformComponent`; the actual extension target is Bang's `PositionComponent`.
 
 **Parameters** \
-`transform` [IMurderTransformComponent](../../Murder/Components/IMurderTransformComponent.html) \
+`transform` [PositionComponent](../../Bang/Components/PositionComponent.html) \
 
 **Returns** \
-[IMurderTransformComponent](../../Murder/Components/IMurderTransformComponent.html) \
+[PositionComponent](../../Bang/Components/PositionComponent.html) \
 
 #### FromTopLeftToBottomRight(Point, Point)
+
 ```csharp
 public IntRectangle FromTopLeftToBottomRight(Point p1, Point p2)
 ```
@@ -86,6 +108,7 @@ Creates a rectangle from <paramref name="p1" /> to <paramref name="p2" />.
 [IntRectangle](../../Murder/Core/Geometry/IntRectangle.html) \
 
 #### GetBoundingBox(Rectangle)
+
 ```csharp
 public IntRectangle GetBoundingBox(Rectangle rect)
 ```
@@ -99,9 +122,12 @@ Returns the smallest integer-cell rectangle that fully contains the given world-
 [IntRectangle](../../Murder/Core/Geometry/IntRectangle.html) \
 
 #### GetCarveBoundingBox(Rectangle, float)
+
 ```csharp
-public IntRectangle GetCarveBoundingBox(Rectangle rect, float occupiedThreshold)
+public IntRectangle GetCarveBoundingBox(Rectangle rect, float occupiedThreshold = .3f)
 ```
+
+Like `GetBoundingBox`, but decides per-edge whether to floor or ceil to the grid based on how much of the boundary cell `rect` actually occupies: an edge is only expanded outward to the next cell if `rect` covers more than `occupiedThreshold` of that cell, otherwise it rounds inward. Used by `PhysicsServices.GetCarveBoundingBox` and `MapCarveCollisionSystem` to compute which grid cells a collider should mark as occupied ("carved") without over-claiming cells it barely overlaps.
 
 **Parameters** \
 `rect` [Rectangle](../../Murder/Core/Geometry/Rectangle.html) \
@@ -111,9 +137,12 @@ public IntRectangle GetCarveBoundingBox(Rectangle rect, float occupiedThreshold)
 [IntRectangle](../../Murder/Core/Geometry/IntRectangle.html) \
 
 #### ToGrid(Point)
+
 ```csharp
-public Point ToGrid(Point position)
+public Point ToGrid(this Point position)
 ```
+
+Converts a world-space `Point` (in pixels) to its containing grid cell coordinate by floor-dividing each axis by `Grid.CellSize`.
 
 **Parameters** \
 `position` [Point](../../Murder/Core/Geometry/Point.html) \
@@ -122,9 +151,12 @@ public Point ToGrid(Point position)
 [Point](../../Murder/Core/Geometry/Point.html) \
 
 #### ToGrid(Vector2)
+
 ```csharp
-public Point ToGrid(Vector2 position)
+public Point ToGrid(this Vector2 position)
 ```
+
+`Vector2` overload of `ToGrid(Point)`: converts a world-space position (in pixels) to its containing grid cell coordinate by floor-dividing each axis by `Grid.CellSize`.
 
 **Parameters** \
 `position` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -133,6 +165,7 @@ public Point ToGrid(Vector2 position)
 [Point](../../Murder/Core/Geometry/Point.html) \
 
 #### Neighbours(Point, int, int, bool)
+
 ```csharp
 public ReadOnlySpan<T> Neighbours(Point p, int width, int height, bool includeDiagonals)
 ```
@@ -149,6 +182,7 @@ Returns all the neighbours of a position.
 [ReadOnlySpan\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.ReadOnlySpan-1?view=net-7.0) \
 
 #### Neighbours(Point, int, int, int, int, bool)
+
 ```csharp
 public ReadOnlySpan<T> Neighbours(Point p, int x, int y, int edgeX, int edgeY, bool includeDiagonals)
 ```
@@ -167,6 +201,7 @@ Returns all the neighbours of a position.
 [ReadOnlySpan\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.ReadOnlySpan-1?view=net-7.0) \
 
 #### FromTopLeftToBottomRight(Vector2, Vector2)
+
 ```csharp
 public Rectangle FromTopLeftToBottomRight(Vector2 p1, Vector2 p2)
 ```
@@ -181,6 +216,7 @@ Creates a rectangle from <paramref name="p1" /> to <paramref name="p2" />.
 [Rectangle](../../Murder/Core/Geometry/Rectangle.html) \
 
 #### ToRectangle(Point)
+
 ```csharp
 public Rectangle ToRectangle(Point grid)
 ```
@@ -192,9 +228,12 @@ public Rectangle ToRectangle(Point grid)
 [Rectangle](../../Murder/Core/Geometry/Rectangle.html) \
 
 #### SnapToGridDelta(Vector2)
+
 ```csharp
-public Vector2 SnapToGridDelta(Vector2 vector2)
+public Vector2 SnapToGridDelta(this Vector2 vector2)
 ```
+
+`Vector2` overload of `SnapToGridDelta(PositionComponent)`: floors each axis down to the nearest multiple of `Grid.CellSize`.
 
 **Parameters** \
 `vector2` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -202,6 +241,18 @@ public Vector2 SnapToGridDelta(Vector2 vector2)
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
+#### SnapToGridDelta(Point)
 
+```csharp
+public Point SnapToGridDelta(this Point point)
+```
+
+`Point` overload of `SnapToGridDelta(PositionComponent)`: floors each axis down to the nearest multiple of `Grid.CellSize`.
+
+**Parameters** \
+`point` [Point](../../Murder/Core/Geometry/Point.html) \
+
+**Returns** \
+[Point](../../Murder/Core/Geometry/Point.html) \
 
 ⚡

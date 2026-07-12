@@ -16,23 +16,27 @@ Checks entities with `DestroyAtTimeComponent` each update and destroys or deacti
 **Implements:** _[IUpdateSystem](../../Bang/Systems/IUpdateSystem.html), [ISystem](../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public DestroyAtTimeSystem()
 ```
 
 ### ⭐ Methods
+
 #### DestroyEntity(World, Entity)
+
 ```csharp
 protected virtual void DestroyEntity(World world, Entity e)
 ```
 
-Called when the scheduled time is reached; override to customize destruction behaviour (default implementation destroys the entity).
+Destroys the given entity outright. Note that `Update` currently performs destruction/deactivation inline via `RemoveStyle` rather than calling this method, so overriding it in a derived system has no effect unless the derived class also overrides `Update` to call it.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
 `e` [Entity](../../Bang/Entities/Entity.html) \
 
 #### Update(Context)
+
 ```csharp
 public virtual void Update(Context context)
 ```
@@ -41,7 +45,5 @@ Iterates all entities with `DestroyAtTimeComponent` and destroys or deactivates 
 
 **Parameters** \
 `context` [Context](../../Bang/Contexts/Context.html) \
-
-
 
 ⚡

@@ -14,6 +14,7 @@ A float value that can either hold a literal constant or reference an index into
 **Use-case:** Use on components whose numeric values (speed, damage, range) should be tweakable from a shared asset; the `Float` property always resolves the final value.
 
 ### ⭐ Constructors
+
 ```csharp
 public SmartFloat()
 ```
@@ -41,7 +42,9 @@ Creates a `SmartFloat` that resolves its value from a `SmartFloatAsset` identifi
 `custom` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Asset
+
 ```csharp
 public readonly Guid Asset;
 ```
@@ -50,7 +53,9 @@ The GUID of the `SmartFloatAsset` to resolve the value from, or `Guid.Empty` for
 
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
+
 #### Custom
+
 ```csharp
 public readonly float Custom;
 ```
@@ -59,7 +64,9 @@ The literal float value used when `Asset` is empty or the asset cannot be resolv
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 #### Float
+
 ```csharp
 public float Float { get; }
 ```
@@ -68,7 +75,9 @@ The resolved float value: reads from the referenced `SmartFloatAsset` if availab
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 #### Index
+
 ```csharp
 public readonly int Index;
 ```
@@ -77,6 +86,5 @@ The index into the `SmartFloatAsset` array to read when resolving the value.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-
 
 ⚡

@@ -7,60 +7,226 @@
 public class SoundPlayer : ISoundPlayer
 ```
 
-The default no-op `ISoundPlayer` implementation. All methods are stubs that log an error or return safely.
+The default `ISoundPlayer` implementation used when a game does not provide its own audio back-end. Every method is a stub: it either does nothing, returns a "did nothing" value (`false`, an empty collection, a default struct), or logs an error, so the engine can run (and gameplay code can call `Game.Sound` freely) even when no real audio middleware is wired up.
 
-**Intent:** Provide a safe fallback sound player for projects without custom audio integration.
+**Intent:** Provide a safe, crash-free fallback sound player for projects that haven't integrated an audio library yet.
 
-**Use-case:** Murder registers `SoundPlayer` automatically when no `[SoundPlayer]` attribute is found. Replace it by implementing `ISoundPlayer` in your game assembly.
+**Use-case:** `Game` uses this automatically — `IMurderGame.CreateSoundPlayer()` defaults to `new SoundPlayer()`. A game project that wants real audio (e.g. via FMOD) implements [ISoundPlayer](../../../Murder/Core/Sounds/ISoundPlayer.html) itself and overrides `CreateSoundPlayer()` to return that implementation instead. If `PlayEvent` is ever reached on this default player, it logs an error via `GameLogger`, since that indicates the game forgot to supply a real sound player.
 
 **Implements:** _[ISoundPlayer](../../../Murder/Core/Sounds/ISoundPlayer.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public SoundPlayer()
 ```
 
+Default constructor; the type has no state, so there is nothing to initialize.
+
+### ⭐ Properties
+
+#### LastListenerPosition
+
+```csharp
+public virtual SoundSpatialAttributes LastListenerPosition { get; }
+```
+
+Always returns a default (all-zero) `SoundSpatialAttributes`, since this stub never tracks a listener.
+
+**Returns** \
+[SoundSpatialAttributes](../../../Murder/Core/Sounds/SoundSpatialAttributes.html) \
+
 ### ⭐ Methods
-#### Stop(bool, out SoundEventId[]&)
+
+#### Initialize(string)
+
 ```csharp
-public virtual bool Stop(bool fadeOut, SoundEventId[]& stoppedEvents)
+public virtual void Initialize(string resourcesPath)
 ```
+
+No-op: there is no audio middleware to initialize.
 
 **Parameters** \
-`fadeOut` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-`stoppedEvents` [SoundEventId[]&](../../../Murder/Core/Sounds/SoundEventId.html) \
+`resourcesPath` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
-**Returns** \
-[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+#### LoadContentAsync(PackedSoundData)
 
-#### Stop(T?, bool)
 ```csharp
-public virtual bool Stop(T? id, bool fadeOut)
+public virtual Task LoadContentAsync(PackedSoundData? packedData)
 ```
+
+No-op: returns `Task.CompletedTask` immediately without loading any bank data.
 
 **Parameters** \
-`id` [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
-`fadeOut` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+`packedData` [PackedSoundData?](../../../Murder/Data/PackedSoundData.html) \
 
 **Returns** \
-[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+[Task](https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0) \
 
-#### UpdateEvent(SoundEventId, SoundSpatialAttributes)
+#### ReloadAsync()
+
 ```csharp
-public virtual bool UpdateEvent(SoundEventId id, SoundSpatialAttributes attributes)
+public virtual Task ReloadAsync()
 ```
+
+No-op: returns `Task.CompletedTask` immediately.
+
+**Returns** \
+[Task](https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0) \
+
+#### UpdateListener(SoundSpatialAttributes)
+
+```csharp
+public virtual void UpdateListener(SoundSpatialAttributes attributes)
+```
+
+No-op: the passed-in listener attributes are discarded.
+
+**Parameters** \
+`attributes` [SoundSpatialAttributes](../../../Murder/Core/Sounds/SoundSpatialAttributes.html) \
+
+#### Update()
+
+```csharp
+public virtual void Update()
+```
+
+No-op: there is no middleware to advance each frame.
+
+#### PlayEvent(SoundEventId, PlayEventInfo)
+
+```csharp
+public virtual ValueTask PlayEvent(SoundEventId _, PlayEventInfo properties)
+```
+
+Logs an error via `GameLogger` stating that the default sound player has been deprecated/should not be reached, then returns a completed `ValueTask` without playing anything. Reaching this method means the game never registered a real `ISoundPlayer` via `IMurderGame.CreateSoundPlayer()`.
+
+**Parameters** \
+`_` [SoundEventId](../../../Murder/Core/Sounds/SoundEventId.html) \
+`properties` [PlayEventInfo](../../../Murder/Core/Sounds/PlayEventInfo.html) \
+
+**Returns** \
+[ValueTask](https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.ValueTask?view=net-7.0) \
+
+#### UpdateEvent(SoundEventId, int, SoundSpatialAttributes)
+
+```csharp
+public virtual bool UpdateEvent(SoundEventId id, int entityId, SoundSpatialAttributes attributes)
+```
+
+Always returns `false`: there is no live event instance to update.
 
 **Parameters** \
 `id` [SoundEventId](../../../Murder/Core/Sounds/SoundEventId.html) \
+`entityId` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 `attributes` [SoundSpatialAttributes](../../../Murder/Core/Sounds/SoundSpatialAttributes.html) \
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
+#### SetVolume(SoundEventId?, float)
+
+```csharp
+public virtual void SetVolume(SoundEventId? _, float volume)
+```
+
+Change volume. No-op in this default implementation.
+
+**Parameters** \
+`_` [SoundEventId?](../../../Murder/Core/Sounds/SoundEventId.html) \
+`volume` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
+#### Stop(SoundEventId?, int, bool)
+
+```csharp
+public virtual bool Stop(SoundEventId? _, int __, bool ___)
+```
+
+Always returns `false`: there is nothing playing to stop.
+
+**Parameters** \
+`_` [SoundEventId?](../../../Murder/Core/Sounds/SoundEventId.html) \
+`__` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+`___` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
+**Returns** \
+[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
+#### Stop(SoundLayer, bool)
+
+```csharp
+public virtual bool Stop(SoundLayer layer, bool fadeOut)
+```
+
+Always returns `false`: there is nothing playing on any layer to stop.
+
+**Parameters** \
+`layer` [SoundLayer](../../../Murder/Core/Sounds/SoundLayer.html) \
+`fadeOut` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
+**Returns** \
+[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
+#### Resume(SoundLayer)
+
+```csharp
+public virtual bool Resume(SoundLayer layer)
+```
+
+Always returns `false`: there is nothing paused to resume.
+
+**Parameters** \
+`layer` [SoundLayer](../../../Murder/Core/Sounds/SoundLayer.html) \
+
+**Returns** \
+[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
+#### Pause(SoundLayer)
+
+```csharp
+public virtual bool Pause(SoundLayer layer)
+```
+
+Always returns `false`: there is nothing playing to pause.
+
+**Parameters** \
+`layer` [SoundLayer](../../../Murder/Core/Sounds/SoundLayer.html) \
+
+**Returns** \
+[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
+#### SetParameter(SoundEventId, ParameterId, float)
+
+```csharp
+public virtual void SetParameter(SoundEventId instance, ParameterId parameter, float value)
+```
+
+No-op: there is no live event instance to set a parameter on.
+
+**Parameters** \
+`instance` [SoundEventId](../../../Murder/Core/Sounds/SoundEventId.html) \
+`parameter` [ParameterId](../../../Murder/Core/Sounds/ParameterId.html) \
+`value` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
+#### SetGlobalParameter(ParameterId, float)
+
+```csharp
+public virtual void SetGlobalParameter(ParameterId parameter, float value)
+```
+
+No-op: there is no middleware state to write the parameter into.
+
+**Parameters** \
+`parameter` [ParameterId](../../../Murder/Core/Sounds/ParameterId.html) \
+`value` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 #### GetGlobalParameter(ParameterId)
+
 ```csharp
 public virtual float GetGlobalParameter(ParameterId _)
 ```
+
+Always returns `0`.
 
 **Parameters** \
 `_` [ParameterId](../../../Murder/Core/Sounds/ParameterId.html) \
@@ -68,105 +234,54 @@ public virtual float GetGlobalParameter(ParameterId _)
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
-#### FetchAllPlugins()
-```csharp
-public virtual ImmutableArray<T> FetchAllPlugins()
-```
-
-**Returns** \
-[ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
-
 #### FetchAllBanks()
+
 ```csharp
-public virtual ImmutableDictionary<TKey, TValue> FetchAllBanks()
+public virtual ImmutableDictionary<string, List<string>> FetchAllBanks()
 ```
+
+Always returns an empty dictionary: this stub has no banks to report.
 
 **Returns** \
-[ImmutableDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0) \
+[ImmutableDictionary\<string, List\<string\>\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0) \
 
-#### LoadContentAsync(PackedSoundData)
+#### FetchAllPlugins()
+
 ```csharp
-public virtual Task LoadContentAsync(PackedSoundData packedData)
+public virtual ImmutableArray<string> FetchAllPlugins()
 ```
 
-**Parameters** \
-`packedData` [PackedSoundData](../../../Murder/Data/PackedSoundData.html) \
+Always returns an empty array: this stub has no plugins to report.
 
 **Returns** \
-[Task](https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0) \
+[ImmutableArray\<string\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
-#### ReloadAsync()
+#### IsEventPlaying(SoundEventId, int)
+
 ```csharp
-public virtual Task ReloadAsync()
+public virtual bool IsEventPlaying(SoundEventId id, int entityId)
 ```
+
+Always returns `false`: nothing is ever playing in this stub.
+
+**Parameters** \
+`id` [SoundEventId](../../../Murder/Core/Sounds/SoundEventId.html) \
+`entityId` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
 **Returns** \
-[Task](https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task?view=net-7.0) \
+[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
-#### PlayEvent(SoundEventId, SoundProperties, T?)
+#### SetVolume(SoundLayer, float, float)
+
 ```csharp
-public virtual ValueTask PlayEvent(SoundEventId _, SoundProperties __, T? attributes)
+public virtual void SetVolume(SoundLayer _, float __, float ___)
 ```
+
+No-op: there is no layer volume state to change.
 
 **Parameters** \
-`_` [SoundEventId](../../../Murder/Core/Sounds/SoundEventId.html) \
-`__` [SoundProperties](../../../Murder/Core/Sounds/SoundProperties.html) \
-`attributes` [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
-
-**Returns** \
-[ValueTask](https://learn.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.ValueTask?view=net-7.0) \
-
-#### Initialize(string)
-```csharp
-public virtual void Initialize(string resourcesPath)
-```
-
-**Parameters** \
-`resourcesPath` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
-
-#### SetGlobalParameter(ParameterId, float)
-```csharp
-public virtual void SetGlobalParameter(ParameterId parameter, float value)
-```
-
-**Parameters** \
-`parameter` [ParameterId](../../../Murder/Core/Sounds/ParameterId.html) \
-`value` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
-
-#### SetParameter(SoundEventId, ParameterId, float)
-```csharp
-public virtual void SetParameter(SoundEventId instance, ParameterId parameter, float value)
-```
-
-**Parameters** \
-`instance` [SoundEventId](../../../Murder/Core/Sounds/SoundEventId.html) \
-`parameter` [ParameterId](../../../Murder/Core/Sounds/ParameterId.html) \
-`value` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
-
-#### SetVolume(T?, float)
-```csharp
-public virtual void SetVolume(T? _, float volume)
-```
-
-Change volume.
-
-**Parameters** \
-`_` [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
-`volume` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
-
-#### Update()
-```csharp
-public virtual void Update()
-```
-
-#### UpdateListener(SoundSpatialAttributes)
-```csharp
-public virtual void UpdateListener(SoundSpatialAttributes attributes)
-```
-
-**Parameters** \
-`attributes` [SoundSpatialAttributes](../../../Murder/Core/Sounds/SoundSpatialAttributes.html) \
-
-
+`_` [SoundLayer](../../../Murder/Core/Sounds/SoundLayer.html) \
+`__` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+`___` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 ⚡

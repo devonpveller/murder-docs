@@ -16,6 +16,7 @@ Configures additional display properties for a field in the Murder editor inspec
 **Implements:** _[Attribute](https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0)_
 
 ### ⭐ Constructors
+
 ```csharp
 public EditorFieldPropertiesAttribute(EditorFieldFlags flags)
 ```
@@ -26,7 +27,9 @@ Creates a new instance with the specified display flags applied to the decorated
 `flags` [EditorFieldFlags](../../Murder/Attributes/EditorFieldFlags.html) \
 
 ### ⭐ Properties
+
 #### Flags
+
 ```csharp
 public EditorFieldFlags Flags;
 ```
@@ -35,7 +38,9 @@ The set of `EditorFieldFlags` that control how the decorated field is rendered i
 
 **Returns** \
 [EditorFieldFlags](../../Murder/Attributes/EditorFieldFlags.html) \
+
 #### TypeId
+
 ```csharp
 public virtual Object TypeId { get; }
 ```
@@ -44,6 +49,5 @@ Unique type identifier for this attribute, inherited from `System.Attribute`.
 
 **Returns** \
 [Object](https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0) \
-
 
 ⚡

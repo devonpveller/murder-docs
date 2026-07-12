@@ -16,12 +16,15 @@ This will trigger an effect by placing [OnMatchPrefab](../../Murder/Components/P
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public PickEntityToAddOnStartComponent()
 ```
 
 ### ⭐ Properties
+
 #### OnMatchPrefab
+
 ```csharp
 public readonly Guid OnMatchPrefab;
 ```
@@ -30,7 +33,9 @@ GUID of the prefab asset instantiated when the rule conditions are met.
 
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
+
 #### OnNotMatchPrefab
+
 ```csharp
 public readonly Guid OnNotMatchPrefab;
 ```
@@ -39,6 +44,5 @@ GUID of the prefab asset instantiated when the rule conditions are **not** met.
 
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
-
 
 ⚡

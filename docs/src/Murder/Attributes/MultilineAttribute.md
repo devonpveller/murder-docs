@@ -16,6 +16,7 @@ Marks a string field so the editor renders a multi-line text area widget instead
 **Implements:** _[Attribute](https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0)_
 
 ### ⭐ Constructors
+
 ```csharp
 public MultilineAttribute()
 ```
@@ -23,7 +24,9 @@ public MultilineAttribute()
 Creates a new instance of `MultilineAttribute`.
 
 ### ⭐ Properties
+
 #### TypeId
+
 ```csharp
 public virtual Object TypeId { get; }
 ```
@@ -32,6 +35,5 @@ Unique type identifier for this attribute, inherited from `System.Attribute`.
 
 **Returns** \
 [Object](https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0) \
-
 
 ⚡

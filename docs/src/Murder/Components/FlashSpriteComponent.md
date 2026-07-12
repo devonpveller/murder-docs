@@ -7,32 +7,36 @@
 public sealed struct FlashSpriteComponent : IComponent
 ```
 
-Causes the entity's sprite to flash (rapidly blink) for a limited duration, typically used as hit or damage feedback.
+Marks an entity's sprite to flash for a short duration, typically used as damage/hit feedback. Rendering systems check for this component to draw the sprite with a flash overlay, and `SpriteFlashCleanupSystem` removes it once `DestroyAtTime` is reached. Runtime-only: never persisted to save files or serialized assets.
 
-**Intent:** Visually indicate that an entity was hit or received feedback by making its sprite blink on and off until a timer expires.
+**Intent:** Visually indicate that an entity was hit or received feedback by flashing its sprite for a fixed window of game time, without the caller needing to track and clear a timer manually — the cleanup system does that automatically.
 
-**Use-case:** Attach at runtime (e.g. on damage taken) and pass the desired end time via the constructor; the flash system removes the component automatically when `DestroyAtTime` is reached.
+**Use-case:** Attach at runtime (e.g. when an entity takes damage), passing the absolute game time at which the flash should end, such as `Game.Now + 0.2f`; `SpriteFlashCleanupSystem` removes the component on its own once `Game.Now` passes `DestroyAtTime`.
 
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public FlashSpriteComponent(float destroyTimer)
 ```
+
+Creates a flash effect that lasts until `destroyTimer`.
 
 **Parameters** \
 `destroyTimer` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### DestroyAtTime
+
 ```csharp
 public readonly float DestroyAtTime;
 ```
 
-Absolute game time (in seconds) at which the flash effect ends and this component is removed.
+The absolute game time (`Game.Now`) at which the flash effect ends and this component is automatically removed by `SpriteFlashCleanupSystem`.
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
-
 
 ⚡

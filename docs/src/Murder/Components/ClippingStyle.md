@@ -16,7 +16,9 @@ Determines how the `SpriteClippingRectComponent` reveals or hides portions of a 
 **Use-case:** Set on `SpriteClippingRectComponent` to control how a health bar, progress fill, or dialogue box iris-wipes open.
 
 ### ⭐ Properties
+
 #### CutFromBorders
+
 ```csharp
 public static const ClippingStyle CutFromBorders;
 ```
@@ -25,7 +27,9 @@ Insets the clipping rectangle from each edge of the sprite by the specified left
 
 **Returns** \
 [ClippingStyle](../../Murder/Components/ClippingStyle.html) \
+
 #### GrowFromCenter
+
 ```csharp
 public static const ClippingStyle GrowFromCenter;
 ```
@@ -34,6 +38,5 @@ Expands the clipping rectangle outward from the sprite's origin point; a value o
 
 **Returns** \
 [ClippingStyle](../../Murder/Components/ClippingStyle.html) \
-
 
 ⚡

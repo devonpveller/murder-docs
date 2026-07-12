@@ -16,7 +16,9 @@ Destroys (or kills) this entity the moment it collides with another entity.
 **Use-case:** Attach to a bullet or hazard entity; `DestroyOnCollisionSystem` will destroy it on the first physics overlap, or send a `FatalDamageMessage` instead when `KillInstead` is `true`.
 
 ### ⭐ Properties
+
 #### KillInstead
+
 ```csharp
 public readonly bool KillInstead;
 ```
@@ -25,6 +27,5 @@ When `true`, sends a `FatalDamageMessage` to the entity instead of immediately d
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-
 
 ⚡

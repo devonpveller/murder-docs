@@ -16,12 +16,15 @@ Initializes the in-game `GameLogger` console on startup and renders it as an ove
 **Implements:** _[IStartupSystem](../../Bang/Systems/IStartupSystem.html), [ISystem](../../Bang/Systems/ISystem.html), [IGuiSystem](../../Murder/Core/Graphics/IGuiSystem.html), [IRenderSystem](../../Bang/Systems/IRenderSystem.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public ConsoleSystem()
 ```
 
 ### ⭐ Methods
+
 #### DrawGui(RenderContext, Context)
+
 ```csharp
 public virtual void DrawGui(RenderContext render, Context context)
 ```
@@ -33,6 +36,7 @@ Renders the developer console overlay and routes any submitted command string to
 `context` [Context](../../Bang/Contexts/Context.html) \
 
 #### Start(Context)
+
 ```csharp
 public virtual void Start(Context context)
 ```
@@ -41,7 +45,5 @@ Obtains or creates the singleton `GameLogger` instance used by the console overl
 
 **Parameters** \
 `context` [Context](../../Bang/Contexts/Context.html) \
-
-
 
 ⚡

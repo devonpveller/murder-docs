@@ -7,32 +7,36 @@
 public sealed struct HighlightSpriteComponent : IComponent
 ```
 
-Causes the entity's sprite to be drawn with a solid color overlay, visually highlighting it.
+Causes an entity's sprite to be rendered with a solid-color outline, used to visually call out interactable or targeted entities. Read by `SpriteRenderSystem` to set the sprite's outline color (unless a `DeactivateHighlightSpriteComponent` is also present, which suppresses the outline).
 
-**Intent:** Draw attention to an interactable or selected entity by rendering a colored highlight over its sprite.
+**Intent:** Draw attention to an interactable or selected entity by rendering a colored outline over its sprite, without needing a separate overlay entity or shader per case.
 
-**Use-case:** Add when the player hovers over or targets an entity and provide the desired `Color`; remove the component to clear the highlight.
+**Use-case:** Prefer calling `EffectsServices.ApplyHighlight`/`EffectsServices.RemoveHighlight` rather than setting this component directly — those helpers also honor `HighlightOnChildrenComponent` to redirect the highlight to the entity's children when appropriate. Provide the desired `Color` (e.g. when the player hovers over or targets an entity), and remove the component (or call `RemoveHighlight`) to clear it.
 
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public HighlightSpriteComponent(Color color)
 ```
+
+Highlights the sprite with the given outline `color`.
 
 **Parameters** \
 `color` [Color](../../Murder/Core/Graphics/Color.html) \
 
 ### ⭐ Properties
+
 #### Color
+
 ```csharp
 public readonly Color Color;
 ```
 
-Color of the highlight overlay drawn on top of the sprite (default is white).
+Outline color drawn around the sprite while highlighted (default is white).
 
 **Returns** \
 [Color](../../Murder/Core/Graphics/Color.html) \
-
 
 ⚡

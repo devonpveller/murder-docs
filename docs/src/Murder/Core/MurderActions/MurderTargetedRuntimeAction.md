@@ -14,6 +14,7 @@ Runtime counterpart of `MurderTargetedAction` where the target has been resolved
 **Use-case:** Created by the interaction system after resolving `MurderTargetedAction.Target` to an entity ID; consumed each frame by interaction processing systems.
 
 ### ⭐ Constructors
+
 ```csharp
 public MurderTargetedRuntimeAction(int id, ImmutableArray<T> interaction)
 ```
@@ -25,7 +26,9 @@ Creates a runtime action targeting the entity with the given `id` and the specif
 `interaction` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### EntityId
+
 ```csharp
 public readonly int EntityId;
 ```
@@ -34,7 +37,9 @@ The runtime integer ID of the target entity that the interactions will be applie
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### Interaction
+
 ```csharp
 public readonly ImmutableArray<T> Interaction;
 ```
@@ -43,6 +48,5 @@ The ordered list of interactions to execute against the target entity.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
-
 
 ⚡

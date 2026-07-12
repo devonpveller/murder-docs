@@ -16,7 +16,9 @@ Flags controlling which sides of a sprite receive an outline when drawn with `Dr
 **Use-case:** Set `DrawInfo.OutlineStyle` to `Full` for a standard selection highlight, or restrict it to `Bottom` or `Top` for stylised drop-shadow effects.
 
 ### ⭐ Properties
+
 #### Bottom
+
 ```csharp
 public static const OutlineStyle Bottom;
 ```
@@ -25,7 +27,9 @@ Draws an outline only on the bottom edge of the sprite.
 
 **Returns** \
 [OutlineStyle](../../../Murder/Core/Graphics/OutlineStyle.html) \
+
 #### Full
+
 ```csharp
 public static const OutlineStyle Full;
 ```
@@ -34,7 +38,9 @@ Draws outlines on all four sides of the sprite (combination of `Top | Right | Bo
 
 **Returns** \
 [OutlineStyle](../../../Murder/Core/Graphics/OutlineStyle.html) \
+
 #### Left
+
 ```csharp
 public static const OutlineStyle Left;
 ```
@@ -43,7 +49,9 @@ Draws an outline only on the left edge of the sprite.
 
 **Returns** \
 [OutlineStyle](../../../Murder/Core/Graphics/OutlineStyle.html) \
+
 #### None
+
 ```csharp
 public static const OutlineStyle None;
 ```
@@ -52,7 +60,9 @@ No outline is drawn regardless of `DrawInfo.Outline` color.
 
 **Returns** \
 [OutlineStyle](../../../Murder/Core/Graphics/OutlineStyle.html) \
+
 #### Right
+
 ```csharp
 public static const OutlineStyle Right;
 ```
@@ -61,7 +71,9 @@ Draws an outline only on the right edge of the sprite.
 
 **Returns** \
 [OutlineStyle](../../../Murder/Core/Graphics/OutlineStyle.html) \
+
 #### Top
+
 ```csharp
 public static const OutlineStyle Top;
 ```
@@ -70,6 +82,5 @@ Draws an outline only on the top edge of the sprite.
 
 **Returns** \
 [OutlineStyle](../../../Murder/Core/Graphics/OutlineStyle.html) \
-
 
 ⚡

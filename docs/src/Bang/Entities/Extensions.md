@@ -9,7 +9,7 @@ public static class Extensions
 
 Quality of life extensions for the default components declared in Bang.
 
-Bang ships three "special" components/interfaces that every entity is expected to be able to carry: [PositionComponent](../../Murder/Components/PositionComponent.html) (an entity's location in the world), [IStateMachineComponent](../../Bang/StateMachines/IStateMachineComponent.html) (its behavior state machine) and [IInteractiveComponent](../../Bang/Interactions/IInteractiveComponent.html) (how it responds to player interaction). Because they are so common, each one gets its own reserved index in [BangComponentTypes](../../Bang/Entities/BangComponentTypes.html) (`Position`, `StateMachine`, `Interactive`) instead of going through the generic per-project component lookup, and this class layers a strongly-typed, allocation-free API on top of [Entity](../../Bang/Entities/Entity.html)'s generic, index-based `HasComponent`/`GetComponent`/`AddOrReplaceComponent`/`RemoveComponent` methods so callers never have to spell out `BangComponentTypes.Position` (etc.) themselves.
+Bang ships three "special" components/interfaces that every entity is expected to be able to carry: [PositionComponent](../Components/PositionComponent.html) (an entity's location in the world), [IStateMachineComponent](../../Bang/StateMachines/IStateMachineComponent.html) (its behavior state machine) and [IInteractiveComponent](../../Bang/Interactions/IInteractiveComponent.html) (how it responds to player interaction). Because they are so common, each one gets its own reserved index in [BangComponentTypes](../../Bang/Entities/BangComponentTypes.html) (`Position`, `StateMachine`, `Interactive`) instead of going through the generic per-project component lookup, and this class layers a strongly-typed, allocation-free API on top of [Entity](../../Bang/Entities/Entity.html)'s generic, index-based `HasComponent`/`GetComponent`/`AddOrReplaceComponent`/`RemoveComponent` methods so callers never have to spell out `BangComponentTypes.Position` (etc.) themselves.
 
 For each of the three components the same verb pattern repeats:
 - `Has<Name>(Entity)` — whether the entity currently carries the component.
@@ -39,7 +39,7 @@ Checks whether this entity possesses a component of type [IInteractiveComponent]
 public bool HasPosition(Entity e)
 ```
 
-Checks whether this entity possesses a component of type [PositionComponent](../../Murder/Components/PositionComponent.html) or not.
+Checks whether this entity possesses a component of type [PositionComponent](../Components/PositionComponent.html) or not.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -75,7 +75,7 @@ Removes the component of type [IInteractiveComponent](../../Bang/Interactions/II
 public bool RemovePosition(Entity e)
 ```
 
-Removes the component of type [PositionComponent](../../Murder/Components/PositionComponent.html).
+Removes the component of type [PositionComponent](../Components/PositionComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -177,13 +177,13 @@ Gets a [IStateMachineComponent](../../Bang/StateMachines/IStateMachineComponent.
 public PositionComponent? TryGetPosition(Entity e)
 ```
 
-Gets a [PositionComponent](../../Murder/Components/PositionComponent.html) if the entity has one, otherwise returns null. This is the non-asserting counterpart to `Entity.GetPosition()`.
+Gets a [PositionComponent](../Components/PositionComponent.html) if the entity has one, otherwise returns null. This is the non-asserting counterpart to `Entity.GetPosition()`.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
 
 **Returns** \
-[PositionComponent?](../../Murder/Components/PositionComponent.html) \
+[PositionComponent?](../Components/PositionComponent.html) \
 #### SetInteractive(Entity, IInteractiveComponent)
 ```csharp
 public void SetInteractive(Entity e, IInteractiveComponent component)
@@ -200,18 +200,18 @@ Adds or replaces the component of type [IInteractiveComponent](../../Bang/Intera
 public void SetPosition(Entity e, PositionComponent component)
 ```
 
-Adds or replaces the component of type [PositionComponent](../../Murder/Components/PositionComponent.html).
+Adds or replaces the component of type [PositionComponent](../Components/PositionComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
-`component` [PositionComponent](../../Murder/Components/PositionComponent.html) \
+`component` [PositionComponent](../Components/PositionComponent.html) \
 
 #### SetPosition(Entity, Vector2)
 ```csharp
 public void SetPosition(Entity e, Vector2 position)
 ```
 
-Adds or replaces the component of type [PositionComponent](../../Murder/Components/PositionComponent.html), constructing it from a `Vector2`.
+Adds or replaces the component of type [PositionComponent](../Components/PositionComponent.html), constructing it from a `Vector2`.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -222,7 +222,7 @@ Adds or replaces the component of type [PositionComponent](../../Murder/Componen
 public void SetPosition(Entity e, float x, float y)
 ```
 
-Adds or replaces the component of type [PositionComponent](../../Murder/Components/PositionComponent.html), constructing it from raw `x`/`y` coordinates.
+Adds or replaces the component of type [PositionComponent](../Components/PositionComponent.html), constructing it from raw `x`/`y` coordinates.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \

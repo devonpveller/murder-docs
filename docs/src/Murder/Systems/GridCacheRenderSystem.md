@@ -16,48 +16,58 @@ Listens for changes to `TileGridComponent` entities and rebuilds the per-tile re
 **Implements:** _[IReactiveSystem](../../Bang/Systems/IReactiveSystem.html), [ISystem](../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public GridCacheRenderSystem()
 ```
 
 ### ⭐ Methods
+
 #### OnAdded(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnAdded(World world, ImmutableArray<T> entities)
 ```
+
 Called when new `TileGridComponent` entities are added; currently triggers no action (cache is rebuilt on modification).
+
 **Parameters** \
 `world` [World](../../Bang/World.html) \
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnModified(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnModified(World world, ImmutableArray<T> entities)
 ```
+
 Triggered when any watched `TileGridComponent` is modified; calls `OnTileGridModified` to rebuild all grid caches.
+
 **Parameters** \
 `world` [World](../../Bang/World.html) \
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnRemoved(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnRemoved(World world, ImmutableArray<T> entities)
 ```
+
 Called when `TileGridComponent` entities are removed; currently triggers no action.
+
 **Parameters** \
 `world` [World](../../Bang/World.html) \
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnTileGridModified(World)
+
 ```csharp
-public void OnTileGridModified(World world)
+public static void OnTileGridModified(World world)
 ```
 
-Static helper that walks all `TileGridComponent` entities in the world and rebuilds their internal `TileGrid` cache; can be called externally when tiles change outside the normal reactive flow.
+Static helper that walks all `TileGridComponent` entities in the world and rebuilds their internal `TileGrid` cache; can be called externally (e.g. by editor tooling that edits tiles outside the normal reactive flow) to force an immediate cache rebuild without going through `OnModified`.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
-
-
 
 ⚡

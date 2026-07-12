@@ -7,33 +7,36 @@
 public sealed enum TileKind : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 ```
 
-Distinguishes the two primary roles a tile layer can serve: physics collision or trigger detection.
+Distinguishes the two roles a tile layer identifier can represent: solid physics collision or a trigger area.
 
-**Intent:** A two-value discriminator that tells the map-building system whether a tilemap entity contributes to the solid collision layer or to the trigger layer.
+**Intent:** A minimal, standalone two-value discriminator for code that wants a simple physics-vs-trigger categorization without depending on the full collision layer set.
 
-**Use-case:** Set on a tilemap component so systems that populate the `Map` know which collision layer to apply when rasterizing the tile data.
+**Use-case:** Note that the engine's actual tile/grid collision system (`Map`) is built on `CollisionLayersBase` bit flags (e.g. `SOLID`, `BLOCK_VISION`, `HOLE`), not on `TileKind` — this enum is not currently referenced anywhere else in the engine. Treat it as a lightweight vocabulary available to game-specific code rather than a type wired into `Map`/tilemap rendering.
 
 **Implements:** _[Enum](https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0), [IComparable](https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0), [ISpanFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0), [IFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0), [IConvertible](https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0)_
 
 ### ⭐ Properties
+
 #### Physics
+
 ```csharp
 public static const TileKind Physics;
 ```
 
-This tile layer provides solid physics collision that blocks movement.
+Identifies a tile layer intended to represent solid physics collision.
 
 **Returns** \
 [TileKind](../../Murder/Core/TileKind.html) \
+
 #### Trigger
+
 ```csharp
 public static const TileKind Trigger;
 ```
 
-This tile layer marks areas that fire trigger interactions when an actor enters them.
+Identifies a tile layer intended to represent a trigger area.
 
 **Returns** \
 [TileKind](../../Murder/Core/TileKind.html) \
-
 
 ⚡

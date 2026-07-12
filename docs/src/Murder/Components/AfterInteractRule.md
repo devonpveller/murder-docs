@@ -7,90 +7,58 @@
 public sealed enum AfterInteractRule : Enum, IComparable, ISpanFormattable, IFormattable, IConvertible
 ```
 
-Defines what happens to an interaction component after it has been triggered.
+Defines what happens to an [InteractOnRuleMatchComponent](../../Murder/Components/InteractOnRuleMatchComponent.html) after the rule it describes has been triggered.
 
 **Implements:** _[Enum](https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0), [IComparable](https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0), [ISpanFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0), [IFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0), [IConvertible](https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0)_
 
-**Intent:** Controls the lifecycle of an interaction trigger — whether it fires repeatedly, fires once, disables itself, or destroys its entity.
+**Intent:** Controls the lifecycle of a rule-based interaction — whether it can fire again, is disabled, or destroys its entity — via the component's `AfterInteraction` field.
 
-**Use-case:** Set this value on interaction components to tune whether a door opens every time the player touches it (`Always`), only the first time (`InteractOnlyOnce`), or only during a reload (`InteractOnReload`).
-
-### ⭐ Properties
-#### Always
-```csharp
-public static const AfterInteractRule Always;
-```
-
-Always interact whenever the rule gets triggered (added or modified).
-
-**Returns** \
-[AfterInteractRule](../../Murder/Components/AfterInteractRule.html) \
-#### InteractOnlyOnce
-```csharp
-public static const AfterInteractRule InteractOnlyOnce;
-```
-
-Interact the first time it is triggered, then remove the interaction component so it never fires again.
-
-**Returns** \
-[AfterInteractRule](../../Murder/Components/AfterInteractRule.html) \
-#### InteractOnReload
-```csharp
-public static const AfterInteractRule InteractOnReload;
-```
-
-Instead of removing this component once triggered, this will only disable it.
-
-**Returns** \
-[AfterInteractRule](../../Murder/Components/AfterInteractRule.html) \
-#### RemoveEntity
-```csharp
-public static const AfterInteractRule RemoveEntity;
-```
-
-Instead of removing this component once triggered, this will remove the entity.
-
-**Returns** \
-[AfterInteractRule](../../Murder/Components/AfterInteractRule.html) \
-
-
-⚡
+**Use-case:** Set `InteractOnRuleMatchComponent.AfterInteraction` to tune what happens once the entity's `Requirements` criteria are satisfied and the interaction fires: leave the rule armed forever (`Always`), consume it once (`InteractOnlyOnce`), strip the rule component but keep the entity (`RemoveComponent`), or remove the entity entirely (`Destroy`).
 
 ### ⭐ Properties
-#### Always
-```csharp
-public static const AfterInteractRule Always;
-```
 
-Always interact whenever the rule gets triggered (added or modified).
-
-**Returns** \
-[AfterInteractRule](../../Murder/Components/AfterInteractRule.html) \
 #### InteractOnlyOnce
+
 ```csharp
-public static const AfterInteractRule InteractOnlyOnce;
+public static const AfterInteractRule InteractOnlyOnce = 0;
 ```
 
-**Returns** \
-[AfterInteractRule](../../Murder/Components/AfterInteractRule.html) \
-#### InteractOnReload
-```csharp
-public static const AfterInteractRule InteractOnReload;
-```
-
-Instead of removing this component once triggered, this will only disable it.
-
-**Returns** \
-[AfterInteractRule](../../Murder/Components/AfterInteractRule.html) \
-#### RemoveEntity
-```csharp
-public static const AfterInteractRule RemoveEntity;
-```
-
-Instead of removing this component once triggered, this will remove the entity.
+The default behavior. The rule is expected to only interact once; nothing in the enum value itself removes the component, so a listening system is responsible for treating this value as "fire and forget."
 
 **Returns** \
 [AfterInteractRule](../../Murder/Components/AfterInteractRule.html) \
 
+#### Always
+
+```csharp
+public static const AfterInteractRule Always = 3;
+```
+
+Always interact whenever the rule gets triggered (added or modified), with no cleanup — the same entity can trigger this interaction repeatedly for as long as its requirements keep matching.
+
+**Returns** \
+[AfterInteractRule](../../Murder/Components/AfterInteractRule.html) \
+
+#### RemoveComponent
+
+```csharp
+public static const AfterInteractRule RemoveComponent = 4;
+```
+
+Remove the [InteractOnRuleMatchComponent](../../Murder/Components/InteractOnRuleMatchComponent.html) from the entity after this is triggered, so the rule cannot fire again but the entity itself survives. This is the default `AfterInteraction` value on a freshly-constructed `InteractOnRuleMatchComponent`.
+
+**Returns** \
+[AfterInteractRule](../../Murder/Components/AfterInteractRule.html) \
+
+#### Destroy
+
+```csharp
+public static const AfterInteractRule Destroy = 5;
+```
+
+Destroy the entity once the interaction rule is triggered — useful for one-shot triggers (e.g. a cutscene trigger volume or a pickup) that should disappear entirely after firing.
+
+**Returns** \
+[AfterInteractRule](../../Murder/Components/AfterInteractRule.html) \
 
 ⚡

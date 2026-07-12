@@ -9,25 +9,32 @@ public static class CommandServices
 
 Discovery and dispatch hub for all in-game debug console commands.
 
-**Intent:** Collects all static methods decorated with `[Command]` from types that implement `ICommands`, and parses console input to invoke the matching method.
+**Intent:** On first use, reflects over every loaded assembly to find static classes that implement [ICommands](../../Murder/Diagnostics/ICommands.html) and collect their `[Command]`-attributed static methods into a name-indexed lookup table (`Command` records). It then owns the job of parsing raw text typed into the debug console, matching it to a discovered command, converting the typed arguments to the method's parameter types, and invoking it.
 
-**Use-case:** Call `CommandServices.Parse(world, input)` from the debug console UI to execute the command the player typed.
+**Use-case:** Called from the debug console UI (`GameLogger`'s console overlay) each time the player presses enter: `CommandServices.Parse(world, input)` returns the string to print as the console's response — either the command's own output, the `help` listing, or an error message describing what went wrong. Game code that wants to add new debug commands does not call into `CommandServices` directly; instead it defines a static class implementing `ICommands` with `[Command("...")]`-decorated static methods (whose first parameter must be `World`), and `CommandServices` picks them up automatically the first time `AllCommands`/`Parse` is touched.
 
 ### ⭐ Properties
+
 #### AllCommands
+
 ```csharp
-public static ImmutableDictionary<TKey, TValue> AllCommands { get; }
+public static ImmutableDictionary<string, Command> AllCommands { get; }
 ```
-Lazy-initialized dictionary mapping command names to their `Command` metadata, built once from reflection.
+
+The full set of discovered commands, keyed by their lowercase console name (case-insensitively). Built once via a `Lazy<T>` the first time it — or `Parse` — is accessed, then reused for the rest of the process's lifetime; new `ICommands` methods added after that point (e.g. via hot-reload) will not be picked up without a process restart.
 
 **Returns** \
-[ImmutableDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0) \
+[ImmutableDictionary\<string, Command\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0) \
+
 ### ⭐ Methods
+
 #### Parse(World, string)
+
 ```csharp
-public string Parse(World world, string input)
+public static string Parse(World world, string input)
 ```
-Parses the console input string and dispatches the matching command, returning its output or an error message.
+
+Parses one line of console input and dispatches it: `"help"` returns the full command listing; an empty or unrecognized input returns an "unable to recognize command" message; otherwise the first whitespace-separated token is looked up in `AllCommands` and, if found, its remaining tokens are converted to the command method's parameter types (via `Convert.ChangeType`, with a trailing `f` trimmed for `float` arguments) and the method is invoked with `world` as its first argument. Argument-count or type-conversion failures return a usage message instead of throwing.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -35,7 +42,5 @@ Parses the console input string and dispatches the matching command, returning i
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
-
-
 
 ⚡

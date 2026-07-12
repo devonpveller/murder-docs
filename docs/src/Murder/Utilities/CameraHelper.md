@@ -9,12 +9,14 @@ public static class CameraHelper
 
 Extension methods on `Camera2D` for computing safe tile-grid cell bounds visible within the camera viewport.
 
-**Intent:** Provides helpers that translate a 2D camera frustum into grid-cell coordinate ranges suitable for tile-map culling.
+**Intent:** Provides helpers that translate a 2D camera frustum into grid-cell coordinate ranges suitable for tile-map culling, so rendering/interaction systems only iterate the cells that could actually be visible instead of the entire map.
 
-**Use-case:** Call `GetSafeGridBounds` from tile-map rendering systems to determine which cells are in view and should be drawn.
+**Use-case:** Call `GetSafeGridBounds` from tile-map rendering systems to determine which cells are in view and should be drawn; the returned bounds are clamped to a valid range (either the map's own dimensions, via the `Map` overload, or an arbitrary `Rectangle`) and expanded by `extraPadding` cells so partially-visible edge tiles are not culled prematurely.
 
 ### ⭐ Methods
+
 #### GetSafeGridBounds(Camera2D, Rectangle, int)
+
 ```csharp
 public ValueTuple<T1, T2, T3, T4> GetSafeGridBounds(Camera2D camera, Rectangle rect, int extraPadding)
 ```
@@ -30,6 +32,7 @@ Returns the (minX, maxX, minY, maxY) grid cell range visible to the camera, clam
 [ValueTuple\<T1, T2, T3, T4\>](https://learn.microsoft.com/en-us/dotnet/api/System.ValueTuple-4?view=net-7.0) \
 
 #### GetSafeGridBounds(Camera2D, Map)
+
 ```csharp
 public ValueTuple<T1, T2, T3, T4> GetSafeGridBounds(Camera2D camera, Map map)
 ```
@@ -42,7 +45,5 @@ Returns the (minX, maxX, minY, maxY) grid cell range visible to the camera, clam
 
 **Returns** \
 [ValueTuple\<T1, T2, T3, T4\>](https://learn.microsoft.com/en-us/dotnet/api/System.ValueTuple-4?view=net-7.0) \
-
-
 
 ⚡

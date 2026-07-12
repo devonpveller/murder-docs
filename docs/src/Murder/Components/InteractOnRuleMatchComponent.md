@@ -16,86 +16,76 @@ Defines a set of blackboard criterion rules that, when matched, trigger the enti
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public InteractOnRuleMatchComponent()
 ```
 
-```csharp
-public InteractOnRuleMatchComponent(AfterInteractRule after, bool triggered, ImmutableArray<T> requirements)
-```
-
-**Parameters** \
-`after` [AfterInteractRule](../../Murder/Components/AfterInteractRule.html) \
-`triggered` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-`requirements` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
+Creates a component with no requirements, default `InteractOn` (`AddedOrModified`) and default `AfterInteraction` (`RemoveComponent`). Used by the editor/serializer as the blank starting state.
 
 ```csharp
-public InteractOnRuleMatchComponent(InteractOn interactOn, AfterInteractRule after, ImmutableArray<T> requirements)
+public InteractOnRuleMatchComponent(InteractOn interactOn, AfterInteractRule after, ImmutableArray<CriterionNode> requirements)
 ```
+
+Creates a fully configured rule, explicitly specifying when it is evaluated.
 
 **Parameters** \
 `interactOn` [InteractOn](../../Murder/Components/InteractOn.html) \
 `after` [AfterInteractRule](../../Murder/Components/AfterInteractRule.html) \
-`requirements` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
+`requirements` [ImmutableArray\<CriterionNode\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 ```csharp
-public InteractOnRuleMatchComponent(CriterionNode[] criteria)
+public InteractOnRuleMatchComponent(AfterInteractRule after, ImmutableArray<CriterionNode> requirements)
 ```
+
+Creates a rule using the default `InteractOn` (`AddedOrModified`), only specifying the post-interaction behavior and the requirements.
+
+**Parameters** \
+`after` [AfterInteractRule](../../Murder/Components/AfterInteractRule.html) \
+`requirements` [ImmutableArray\<CriterionNode\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
+
+```csharp
+public InteractOnRuleMatchComponent(params CriterionNode[] criteria)
+```
+
+Creates a rule from a params list of criteria, using every other setting's default value. The most convenient constructor for building simple rules in code.
 
 **Parameters** \
 `criteria` [CriterionNode[]](../../Murder/Core/Dialogs/CriterionNode.html) \
 
 ### ⭐ Properties
+
 #### AfterInteraction
+
 ```csharp
 public readonly AfterInteractRule AfterInteraction;
 ```
 
-Defines what happens to this component after the interaction triggers (e.g. remove it, keep it, or allow re-triggering).
+What to do with this component/entity once `Requirements` are satisfied and the interaction fires. See [AfterInteractRule](../../Murder/Components/AfterInteractRule.html) for the available behaviors (interact once, always interact, remove this component, or destroy the entity).
 
 **Returns** \
 [AfterInteractRule](../../Murder/Components/AfterInteractRule.html) \
+
 #### InteractOn
+
 ```csharp
 public readonly InteractOn InteractOn;
 ```
 
-Specifies whether the rule evaluates on the first set of a blackboard value, on subsequent modifications, or both.
+Controls whether the rule is checked on the first set of the watched blackboard value, on subsequent modifications only, or both.
 
 **Returns** \
 [InteractOn](../../Murder/Components/InteractOn.html) \
+
 #### Requirements
+
 ```csharp
-public readonly ImmutableArray<T> Requirements;
+public readonly ImmutableArray<CriterionNode> Requirements;
 ```
 
 List of requirements which will trigger the interactive component within the same entity.
 
 **Returns** \
-[ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
-#### Triggered
-```csharp
-public readonly bool Triggered;
-```
-
-This will only be triggered once the component has been interacted with.
-            Used if [AfterInteractRule.InteractOnReload](../../Murder/Components/AfterInteractRule.html#interactonreload) is set.
-
-**Returns** \
-[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-### ⭐ Methods
-#### Disable()
-```csharp
-public InteractOnRuleMatchComponent Disable()
-```
-
-Returns a copy of this component with `Triggered` set to `true`, effectively disabling re-triggering for rules that use `AfterInteractRule.InteractOnReload`.
-
-**Returns** \
-
-**Returns** \
-[InteractOnRuleMatchComponent](../../Murder/Components/InteractOnRuleMatchComponent.html) \
-
-
+[ImmutableArray\<CriterionNode\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 ⚡

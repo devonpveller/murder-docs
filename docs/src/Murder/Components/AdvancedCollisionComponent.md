@@ -4,17 +4,15 @@
 **Assembly:** Murder.dll
 
 ```csharp
-public sealed struct AdvancedCollisionComponent : IComponent
+public readonly struct AdvancedCollisionComponent : IComponent
 ```
 
-Marker component that opts an entity into the advanced (per-entity collision-mask) physics pipeline.
+Empty marker component with no fields.
 
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
-**Intent:** Signals the physics system to use the entity's `CustomCollisionMask` instead of the world-default layer rules.
+**Intent:** Provides a tag that game code can attach to (and query for) an entity to flag it for some form of non-default collision handling. The engine's built-in physics (`SATPhysicsSystem`) does not currently read this component at all — collision-layer overrides are actually driven by [CustomCollisionMask](../../Murder/Components/CustomCollisionMask.html), which can be attached independently of this one.
 
-**Use-case:** Attach to any entity that needs non-standard collision filtering — for example a projectile that should only collide with enemies but not walls, or a trigger zone that ignores the player.
-
-
+**Use-case:** This component ships as an inert marker/reserved extension point. If you need an entity to test against a non-default set of collision layers today, attach [CustomCollisionMask](../../Murder/Components/CustomCollisionMask.html) directly instead. Only reach for `AdvancedCollisionComponent` if you are adding your own game-specific system that filters on it — as shipped, adding or removing it has no observable effect on engine behavior.
 
 ⚡

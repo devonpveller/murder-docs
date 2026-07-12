@@ -8,7 +8,7 @@ public sealed struct MapComponent : IModifiableComponent, IComponent
 ```
 
 This is a struct that points to a singleton class.
-            Reactive systems won't be able to subscribe to this component.
+Reactive systems won't be able to subscribe to this component.
 
 **Intent:** Hold the singleton tilemap data for the world, providing all tile, collision, and pathfinding grid information for the current level.
 
@@ -17,63 +17,85 @@ This is a struct that points to a singleton class.
 **Implements:** _[IModifiableComponent](../../Bang/Components/IModifiableComponent.html), [IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
+```csharp
+public MapComponent(Point origin, int width, int height)
+```
+
+Creates the map with an explicit grid origin, in addition to its size in tiles.
+
+**Parameters** \
+`origin` [Point](../../Murder/Core/Geometry/Point.html) \
+`width` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+`height` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 ```csharp
 public MapComponent(int width, int height)
 ```
+
+Creates the map at the default origin (`Point.Zero`) with the given size in tiles.
 
 **Parameters** \
 `width` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 `height` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Height
+
 ```csharp
 public int Height { get; }
 ```
 
-Height of the tilemap in grid tiles.
+Height of the tilemap in grid tiles, delegated directly to `Map.Height`.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### Map
+
 ```csharp
 public readonly Map Map;
 ```
 
-The underlying tilemap data structure containing all tile, collision, and pathfinding information for the level.
+The underlying, mutable tilemap data structure containing all tile, collision, and pathfinding information for the level. Because `Map` is a reference type, systems typically read and mutate the grid directly through it rather than replacing this component wholesale.
 
 **Returns** \
 [Map](../../Murder/Core/Map.html) \
+
 #### Width
+
 ```csharp
 public int Width { get; }
 ```
 
-Width of the tilemap in grid tiles.
+Width of the tilemap in grid tiles, delegated directly to `Map.Width`.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 ### ⭐ Methods
+
 #### Subscribe(Action)
+
 ```csharp
-public virtual void Subscribe(Action notification)
+public void Subscribe(Action notification)
 ```
 
-Registers a callback invoked when the map data is modified.
+Required by [IModifiableComponent](../../Bang/Components/IModifiableComponent.html), but intentionally a no-op here: `Map` is a mutable reference type that is edited in place, so entity-level component-replacement notifications are never needed to observe changes to it.
 
 **Parameters** \
 `notification` [Action](https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0) \
 
 #### Unsubscribe(Action)
+
 ```csharp
-public virtual void Unsubscribe(Action notification)
+public void Unsubscribe(Action notification)
 ```
 
-Unregisters a previously subscribed callback from map modification notifications.
+Required by [IModifiableComponent](../../Bang/Components/IModifiableComponent.html), but intentionally a no-op here; see `Subscribe(Action)`.
 
 **Parameters** \
 `notification` [Action](https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0) \
-
-
 
 ⚡

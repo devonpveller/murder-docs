@@ -16,27 +16,33 @@ Holds an ordered list of `InteractOnRuleMatchComponent` rules; when blackboard c
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public InteractOnRuleMatchCollectionComponent()
 ```
 
+Creates a component with an empty requirement list.
+
 ```csharp
-public InteractOnRuleMatchCollectionComponent(ImmutableArray<T> requirements)
+public InteractOnRuleMatchCollectionComponent(ImmutableArray<InteractOnRuleMatchComponent> requirements)
 ```
 
+Creates a component with the given set of independent rules.
+
 **Parameters** \
-`requirements` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
+`requirements` [ImmutableArray\<InteractOnRuleMatchComponent\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Requirements
+
 ```csharp
-public readonly ImmutableArray<T> Requirements;
+public readonly ImmutableArray<InteractOnRuleMatchComponent> Requirements;
 ```
 
 List of interactions that will be triggered.
 
 **Returns** \
-[ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
-
+[ImmutableArray\<InteractOnRuleMatchComponent\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 ⚡

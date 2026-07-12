@@ -12,6 +12,7 @@ public sealed struct Animation
 **Use-case:** Stored inside a `SpriteAsset` and evaluated each frame to determine which atlas frame to draw. Access it via the sprite asset's `Animations` dictionary by clip name.
 
 ### ⭐ Constructors
+
 ```csharp
 public Animation()
 ```
@@ -40,7 +41,9 @@ public Animation(Int32[] frames, Single[] framesDuration, Dictionary<TKey, TValu
 `sequence` [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### AnimationDuration
+
 ```csharp
 public readonly float AnimationDuration;
 ```
@@ -49,7 +52,9 @@ The total duration of the animation, in seconds
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 #### Empty
+
 ```csharp
 public static Animation Empty;
 ```
@@ -58,7 +63,9 @@ A pre-built animation containing a single frame with zero duration; useful as a 
 
 **Returns** \
 [Animation](../../../Murder/Core/Graphics/Animation.html) \
+
 #### Events
+
 ```csharp
 public readonly ImmutableDictionary<TKey, TValue> Events;
 ```
@@ -67,7 +74,9 @@ A dictionary associating integer indices with event strings
 
 **Returns** \
 [ImmutableDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0) \
+
 #### FrameCount
+
 ```csharp
 public int FrameCount { get; }
 ```
@@ -76,7 +85,9 @@ A property representing the number of frames in the animation
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### Frames
+
 ```csharp
 public readonly ImmutableArray<T> Frames;
 ```
@@ -85,7 +96,9 @@ An array of integers representing the indices of the frames in the animation
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
+
 #### FramesDuration
+
 ```csharp
 public readonly ImmutableArray<T> FramesDuration;
 ```
@@ -94,7 +107,20 @@ An array of floats representing the duration of each frame in the animation, in 
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
+
+#### HasNextAnimation
+
+```csharp
+public bool HasNextAnimation { get; }
+```
+
+Whether this animation has at least one candidate follow-up clip in `NextAnimation`. Checked before calling `GetNextAnimation` to decide whether the clip should chain into another one when it completes, instead of simply looping or stopping.
+
+**Returns** \
+[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
 #### NextAnimation
+
 ```csharp
 public readonly T? NextAnimation;
 ```
@@ -103,8 +129,11 @@ An optional array of `AnimationSequence` entries that define which animation cli
 
 **Returns** \
 [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+
 ### ⭐ Methods
+
 #### WithMessageAt(int, string)
+
 ```csharp
 public Animation WithMessageAt(int frame, string message)
 ```
@@ -119,6 +148,7 @@ Used by the editor when applying custom messages to an animation.
 [Animation](../../../Murder/Core/Graphics/Animation.html) \
 
 #### WithoutMessageAt(int)
+
 ```csharp
 public Animation WithoutMessageAt(int frame)
 ```
@@ -132,12 +162,13 @@ Used by the editor when applying custom messages to an animation.
 [Animation](../../../Murder/Core/Graphics/Animation.html) \
 
 #### Evaluate(float, bool)
+
 ```csharp
 public FrameInfo Evaluate(float time, bool animationLoop)
 ```
 
 Evaluates the current frame of the animation, given a time value (in seconds)
-            and an optional maximum animation duration (in seconds)
+and an optional maximum animation duration (in seconds)
 
 **Parameters** \
 `time` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -147,6 +178,7 @@ Evaluates the current frame of the animation, given a time value (in seconds)
 [FrameInfo](../../../Murder/Core/FrameInfo.html) \
 
 #### Evaluate(Single&, bool, float)
+
 ```csharp
 public FrameInfo Evaluate(Single& time, bool animationLoop, float forceAnimationDuration)
 ```
@@ -159,6 +191,33 @@ public FrameInfo Evaluate(Single& time, bool animationLoop, float forceAnimation
 **Returns** \
 [FrameInfo](../../../Murder/Core/FrameInfo.html) \
 
+#### EvaluateRatio(float)
 
+```csharp
+public FrameInfo EvaluateRatio(float ratio)
+```
+
+Returns the current frame of the animation based on a ratio (0 to 1) representing progress through the animation, always evaluated as looping. Useful when the caller already tracks progress as a normalized value (e.g. a cutscene timeline) instead of an elapsed time in seconds.
+
+**Parameters** \
+`ratio` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
+**Returns** \
+[FrameInfo](../../../Murder/Core/FrameInfo.html) \
+
+#### GetNextAnimation(Random, string&)
+
+```csharp
+public bool GetNextAnimation(Random random, out string nextAnimation)
+```
+
+Rolls a weighted random pick among `NextAnimation` to decide which clip should play after this one finishes. Each entry's `Chance` is checked independently, so the first entry whose roll succeeds wins.
+
+**Parameters** \
+`random` [Random](https://learn.microsoft.com/en-us/dotnet/api/System.Random?view=net-7.0) \
+`nextAnimation` [string&](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
+
+**Returns** \
+[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 ⚡

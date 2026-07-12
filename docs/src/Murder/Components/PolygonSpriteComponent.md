@@ -16,12 +16,15 @@ Renders one or more filled polygons as a sprite-like visual on an entity. Each s
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public PolygonSpriteComponent()
 ```
 
 ### ⭐ Properties
+
 #### Batch
+
 ```csharp
 public readonly int Batch;
 ```
@@ -30,7 +33,9 @@ Sprite batch layer used when rendering these polygons.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### Color
+
 ```csharp
 public readonly Color Color;
 ```
@@ -39,7 +44,9 @@ Fill color applied to all shapes in the collection.
 
 **Returns** \
 [Color](../../Murder/Core/Graphics/Color.html) \
+
 #### Shapes
+
 ```csharp
 public readonly ImmutableArray<T> Shapes;
 ```
@@ -48,7 +55,9 @@ The polygon shapes to be drawn on the entity.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
+
 #### SortOffset
+
 ```csharp
 public readonly int SortOffset;
 ```
@@ -57,6 +66,5 @@ Vertical sort offset applied when determining draw order relative to other entit
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-
 
 ⚡

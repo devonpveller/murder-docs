@@ -7,18 +7,28 @@
 public sealed struct Line
 ```
 
-A single authored line of dialogue, holding the speaker identity, optional portrait key, display text, optional timing delay, and an optional pre-line action.
+A single authored line of dialogue, holding the speaker identity, optional portrait key, sound event, display text, optional timing delay, and an optional action to fire before the line plays.
 
-**Intent:** Represents the smallest displayable unit in a dialogue script: who says what, which portrait to show, and how long to pause before or after it.
+**Intent:** Represents the smallest displayable unit in a dialogue script: who says what, which portrait and sound to use, how long to pause, and any side effect (like a `DialogAction`) that should run right before it is shown.
 
-**Use-case:** Stored in `Dialog.Lines`; the dialogue system iterates them in order via `CharacterRuntime.NextLine` and passes each to the game's UI layer for display.
+**Use-case:** Stored in `Dialog.Lines`; the dialogue system iterates them in order via `CharacterRuntime.NextLine`, running `ActBeforeWith` (if set) and firing `Event`, then passes the line to the game's UI layer for display.
 
 ### ⭐ Constructors
+
 ```csharp
 public Line()
 ```
 
 Creates an empty line with no speaker, text, or delay.
+
+```csharp
+public Line(Guid? speaker)
+```
+
+Creates a line with only a speaker set; text, portrait, delay, and event are left unset.
+
+**Parameters** \
+`speaker` [Guid?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
 
 ```csharp
 public Line(LocalizedString text)
@@ -40,89 +50,116 @@ Create a line with a text. That won't be used as a timer.
 `text` [LocalizedString](../../../Murder/Assets/LocalizedString.html) \
 
 ```csharp
-public Line(T? speaker, float delay)
+public Line(Guid? speaker, float delay)
 ```
 
-Creates a timer-only line that pauses dialogue for `delay` seconds with no text.
+Create a line with a delay. That won't be used as a text. Used to insert a pause of `delay` seconds into the dialogue without displaying any text.
 
 **Parameters** \
-`speaker` [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+`speaker` [Guid?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
 `delay` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 ```csharp
-public Line(T? speaker, string portrait, T? text, T? delay)
+public Line(Guid? speaker, string? portrait, LocalizedString? text, float? delay, string? @event)
 ```
 
-Full constructor that sets every field; any field may be `null` to use the speaker's defaults.
+Full constructor that sets every field except `ActBeforeWith`; any field may be `null` to use the speaker's defaults.
 
 **Parameters** \
-`speaker` [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
-`portrait` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
-`text` [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
-`delay` [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
-
-```csharp
-public Line(T? speaker)
-```
-
-Creates a line with only a speaker set; text and delay are left unset.
-
-**Parameters** \
-`speaker` [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+`speaker` [Guid?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+`portrait` [string?](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
+`text` [LocalizedString?](../../../Murder/Assets/LocalizedString.html) \
+`delay` [float?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+`event` [string?](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
 ### ⭐ Properties
-#### Delay
+
+#### ActBeforeWith
+
 ```csharp
-public readonly T? Delay;
+public readonly DialogAction? ActBeforeWith { get; init; }
+```
+
+Optional `DialogAction` (e.g. a blackboard mutation) that the runtime executes immediately before this line is shown; used for effects that should happen exactly when the line starts, such as setting a fact right before the text appears.
+
+**Returns** \
+[DialogAction?](../../../Murder/Core/Dialogs/DialogAction.html) \
+
+#### Delay
+
+```csharp
+public readonly float? Delay;
 ```
 
 Delay in seconds.
 
 **Returns** \
-[T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+[float?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+
+#### Event
+
+```csharp
+public readonly string? Event;
+```
+
+Optional sound event that will be fired with this line, letting a line trigger a voice bark or SFX cue alongside its text.
+
+**Returns** \
+[string?](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
+
 #### IsText
+
 ```csharp
 public bool IsText { get; }
 ```
 
-Returns `true` when `Text` is non-null, indicating this line carries displayable content.
+Returns `true` when `Text` is non-null, indicating this line carries displayable content rather than being a pure delay/timer line.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
 #### Portrait
+
 ```csharp
-public readonly string Portrait;
+public readonly string? Portrait;
 ```
 
 Optional portrait key overriding the speaker's default; `null` means use the speaker's default portrait.
 
 **Returns** \
-[string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
+[string?](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
+
 #### Speaker
+
 ```csharp
-public readonly T? Speaker;
+public readonly Guid? Speaker;
 ```
 
 GUID of the `SpeakerAsset` delivering this line; `null` if no speaker is associated.
 
 **Returns** \
-[T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+[Guid?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+
 #### Text
+
 ```csharp
-public readonly T? Text;
+public readonly LocalizedString? Text;
 ```
 
 If the caption has a text, this will be the information.
 
 **Returns** \
-[T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+[LocalizedString?](../../../Murder/Assets/LocalizedString.html) \
+
 ### ⭐ Methods
+
 #### WithDelay(float)
+
 ```csharp
 public Line WithDelay(float delay)
 ```
 
-Returns a copy of this line with the `Delay` replaced.
+Returns a copy of this line with the `Delay` replaced (all other fields, including `ActBeforeWith`, are preserved).
 
 **Parameters** \
 `delay` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -130,20 +167,36 @@ Returns a copy of this line with the `Delay` replaced.
 **Returns** \
 [Line](../../../Murder/Core/Dialogs/Line.html) \
 
-#### WithPortrait(string)
+#### WithEvent(string?)
+
 ```csharp
-public Line WithPortrait(string portrait)
+public Line WithEvent(string? @event)
+```
+
+Returns a copy of this line with the `Event` replaced.
+
+**Parameters** \
+`event` [string?](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
+
+**Returns** \
+[Line](../../../Murder/Core/Dialogs/Line.html) \
+
+#### WithPortrait(string?)
+
+```csharp
+public Line WithPortrait(string? portrait)
 ```
 
 Returns a copy of this line with the `Portrait` replaced.
 
 **Parameters** \
-`portrait` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
+`portrait` [string?](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
 **Returns** \
 [Line](../../../Murder/Core/Dialogs/Line.html) \
 
 #### WithSpeaker(Guid)
+
 ```csharp
 public Line WithSpeaker(Guid speaker)
 ```
@@ -156,21 +209,23 @@ Returns a copy of this line with the `Speaker` replaced.
 **Returns** \
 [Line](../../../Murder/Core/Dialogs/Line.html) \
 
-#### WithSpeakerAndPortrait(Guid, string)
+#### WithSpeakerAndPortrait(Guid, string?)
+
 ```csharp
-public Line WithSpeakerAndPortrait(Guid speaker, string portrait)
+public Line WithSpeakerAndPortrait(Guid speaker, string? portrait)
 ```
 
 Returns a copy of this line with both `Speaker` and `Portrait` replaced.
 
 **Parameters** \
 `speaker` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
-`portrait` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
+`portrait` [string?](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
 **Returns** \
 [Line](../../../Murder/Core/Dialogs/Line.html) \
 
 #### WithText(LocalizedString)
+
 ```csharp
 public Line WithText(LocalizedString text)
 ```
@@ -182,7 +237,5 @@ Returns a copy of this line with the `Text` replaced.
 
 **Returns** \
 [Line](../../../Murder/Core/Dialogs/Line.html) \
-
-
 
 ⚡

@@ -16,6 +16,7 @@ This tracks and listens to parameters relevant to music and sound.
 **Implements:** _[IBlackboard](../../../Murder/Core/Dialogs/IBlackboard.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 protected ISoundBlackboard()
 ```
@@ -23,15 +24,16 @@ protected ISoundBlackboard()
 Protected constructor for subclasses.
 
 ### ⭐ Properties
+
 #### Kind
+
 ```csharp
-public virtual BlackboardKind Kind { get; }
+public BlackboardKind Kind { get; }
 ```
 
 Always returns `BlackboardKind.Sound` for sound-parameter blackboards.
 
 **Returns** \
 [BlackboardKind](../../../Murder/Core/Dialogs/BlackboardKind.html) \
-
 
 ⚡

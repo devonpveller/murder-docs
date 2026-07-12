@@ -14,6 +14,7 @@ Bundles the target `GameAsset` type and the inheritance flag from a `GameAssetId
 **Use-case:** Typically created internally when the editor reads a `GameAssetIdAttribute` from a field. Pass it to editor systems that need both the allowed asset type and whether derived types are also accepted.
 
 ### ⭐ Constructors
+
 ```csharp
 public GameAssetIdInfo(Type t, bool allowInheritance)
 ```
@@ -25,7 +26,9 @@ Creates a new info record with the specified asset type and inheritance flag.
 `allowInheritance` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### AllowInheritance
+
 ```csharp
 public readonly bool AllowInheritance;
 ```
@@ -34,7 +37,9 @@ Whether it should look for all assets that inherit from this asset.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
 #### AssetType
+
 ```csharp
 public readonly Type AssetType;
 ```
@@ -43,6 +48,5 @@ The type of the game asset.
 
 **Returns** \
 [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
-
 
 ⚡

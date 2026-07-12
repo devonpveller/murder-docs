@@ -16,12 +16,15 @@ Updates entities with `TweenComponent` each frame, evaluating position and scale
 **Implements:** _[IUpdateSystem](../../Bang/Systems/IUpdateSystem.html), [ISystem](../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public TweenSystem()
 ```
 
 ### ⭐ Methods
+
 #### Update(Context)
+
 ```csharp
 public virtual void Update(Context context)
 ```
@@ -30,7 +33,5 @@ Evaluates the tween's easing function at the current elapsed time and applies in
 
 **Parameters** \
 `context` [Context](../../Bang/Contexts/Context.html) \
-
-
 
 ⚡

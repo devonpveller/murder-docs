@@ -14,6 +14,7 @@ A lightweight UI button that tracks hover, press, and disabled states and render
 **Use-case:** Instantiate with a sprite asset GUID and a screen rectangle, call `Update` each frame with the cursor position and click state, and call `Draw` to render it.
 
 ### ⭐ Constructors
+
 ```csharp
 public SimpleButton(Guid images, Rectangle rectangle)
 ```
@@ -36,7 +37,9 @@ Creates a button with the given sprite asset, initial state, and screen rectangl
 `rectangle` [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
 
 ### ⭐ Properties
+
 #### Images
+
 ```csharp
 public Guid Images;
 ```
@@ -45,7 +48,9 @@ The GUID of the sprite asset used to draw the button in each of its states.
 
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
+
 #### Rectangle
+
 ```csharp
 public Rectangle Rectangle;
 ```
@@ -54,7 +59,9 @@ The screen-space rectangle that defines the button's hit area and render bounds.
 
 **Returns** \
 [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
+
 #### State
+
 ```csharp
 public ButtonState State;
 ```
@@ -63,8 +70,11 @@ The current interaction state of the button (Normal, Hover, Down, or Disabled).
 
 **Returns** \
 [ButtonState](../../../Murder/Core/Ui/ButtonState.html) \
+
 ### ⭐ Methods
+
 #### Draw(Batch2D, DrawInfo)
+
 ```csharp
 public void Draw(Batch2D batch, DrawInfo drawInfo)
 ```
@@ -76,6 +86,7 @@ Draws the button sprite corresponding to the current `State` to `batch`.
 `drawInfo` [DrawInfo](../../../Murder/Core/Graphics/DrawInfo.html) \
 
 #### Update(Point, bool, bool, Action)
+
 ```csharp
 public void Update(Point cursorPosition, bool cursorClicked, bool cursorDown, Action action)
 ```
@@ -89,6 +100,7 @@ Updates the button's `State` based on cursor input. Invokes `action` when the bu
 `action` [Action](https://learn.microsoft.com/en-us/dotnet/api/System.Action?view=net-7.0) \
 
 #### UpdatePosition(Rectangle)
+
 ```csharp
 public void UpdatePosition(Rectangle rectangle)
 ```
@@ -97,7 +109,5 @@ Updates the button's hit area and render bounds to the new `rectangle`.
 
 **Parameters** \
 `rectangle` [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
-
-
 
 ⚡

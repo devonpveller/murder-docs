@@ -16,6 +16,7 @@ Holds the dialogue `Line` data that the entity is currently delivering, along wi
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public LineComponent(Line line, float start)
 ```
@@ -25,7 +26,9 @@ public LineComponent(Line line, float start)
 `start` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Line
+
 ```csharp
 public readonly Line Line;
 ```
@@ -34,7 +37,9 @@ The dialogue line data, including speaker and text content.
 
 **Returns** \
 [Line](../../Murder/Core/Dialogs/Line.html) \
+
 #### Start
+
 ```csharp
 public readonly float Start;
 ```
@@ -43,6 +48,5 @@ Absolute game time (in seconds) when this line began playing, used to drive type
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
-
 
 ⚡

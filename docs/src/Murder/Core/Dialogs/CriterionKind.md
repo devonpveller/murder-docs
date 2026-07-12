@@ -16,7 +16,9 @@ Specifies the comparison operator used in a `Criterion` to test a blackboard fac
 **Implements:** _[Enum](https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0), [IComparable](https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0), [ISpanFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0), [IFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0), [IConvertible](https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0)_
 
 ### ⭐ Properties
+
 #### Bigger
+
 ```csharp
 public static const CriterionKind Bigger;
 ```
@@ -25,7 +27,9 @@ Passes when the fact's value is strictly greater than the criterion value (`fact
 
 **Returns** \
 [CriterionKind](../../../Murder/Core/Dialogs/CriterionKind.html) \
+
 #### BiggerOrEqual
+
 ```csharp
 public static const CriterionKind BiggerOrEqual;
 ```
@@ -34,7 +38,9 @@ Passes when the fact's value is greater than or equal to the criterion value (`f
 
 **Returns** \
 [CriterionKind](../../../Murder/Core/Dialogs/CriterionKind.html) \
+
 #### Different
+
 ```csharp
 public static const CriterionKind Different;
 ```
@@ -43,7 +49,9 @@ Passes when the fact's value does not equal the criterion value (`fact != value`
 
 **Returns** \
 [CriterionKind](../../../Murder/Core/Dialogs/CriterionKind.html) \
+
 #### Is
+
 ```csharp
 public static const CriterionKind Is;
 ```
@@ -52,7 +60,9 @@ Passes when the fact's value equals the criterion value (`fact == value`).
 
 **Returns** \
 [CriterionKind](../../../Murder/Core/Dialogs/CriterionKind.html) \
+
 #### Less
+
 ```csharp
 public static const CriterionKind Less;
 ```
@@ -61,7 +71,9 @@ Passes when the fact's value is strictly less than the criterion value (`fact < 
 
 **Returns** \
 [CriterionKind](../../../Murder/Core/Dialogs/CriterionKind.html) \
+
 #### LessOrEqual
+
 ```csharp
 public static const CriterionKind LessOrEqual;
 ```
@@ -70,6 +82,5 @@ Passes when the fact's value is less than or equal to the criterion value (`fact
 
 **Returns** \
 [CriterionKind](../../../Murder/Core/Dialogs/CriterionKind.html) \
-
 
 ⚡

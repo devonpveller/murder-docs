@@ -16,12 +16,30 @@ Defines a collision area that modifies agent movement by applying a speed multip
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public MovementModAreaComponent()
 ```
 
+Default constructor used by the editor/serializer; leaves `GroundedOnly` at `true`, `Slide`/`SpeedMultiplier` at `0`, `Orientation` at its default, and `AffectOnly` empty (affects every agent).
+
+```csharp
+public MovementModAreaComponent(bool groundedOnly, float speedMultiplier, float slide, Orientation orientation, Tags affectOnly)
+```
+
+Creates a fully configured area with an explicit grounded-only flag, speed multiplier, slide strength, slide orientation, and tag filter, for building the zone in code rather than through the editor inspector.
+
+**Parameters** \
+`groundedOnly` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+`speedMultiplier` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+`slide` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+`orientation` [Orientation](../../Murder/Core/Orientation.html) \
+`affectOnly` [Tags](../../Murder/Core/Tags.html) \
+
 ### ⭐ Properties
+
 #### AffectOnly
+
 ```csharp
 public readonly Tags AffectOnly;
 ```
@@ -30,7 +48,9 @@ Tag filter restricting which agents are affected by this area; an empty tag set 
 
 **Returns** \
 [Tags](../../Murder/Core/Tags.html) \
+
 #### GroundedOnly
+
 ```csharp
 public readonly bool GroundedOnly;
 ```
@@ -39,7 +59,9 @@ When `true`, the movement modifier is applied only to agents that are currently 
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
 #### Orientation
+
 ```csharp
 public readonly Orientation Orientation;
 ```
@@ -48,7 +70,9 @@ Axis along which the `Slide` force is applied to agents inside this area.
 
 **Returns** \
 [Orientation](../../Murder/Core/Orientation.html) \
+
 #### Slide
+
 ```csharp
 public readonly float Slide;
 ```
@@ -57,7 +81,9 @@ Constant force (in units/second) applied along the `Orientation` axis to push ag
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 #### SpeedMultiplier
+
 ```csharp
 public readonly float SpeedMultiplier;
 ```
@@ -66,6 +92,5 @@ Multiplier applied to the agent's movement speed while inside this area (0 = sto
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
-
 
 ⚡

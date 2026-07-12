@@ -14,6 +14,7 @@ Bitmap font that manages one or more point-size variants loaded from a `FontAsse
 **Use-case:** Obtain a `PixelFont` from `Game.Data.GetFont()` and call `Draw()` to render pixel-accurate text to a `Batch2D` layer, or `GetLineWidth()` to measure a line before rendering.
 
 ### ⭐ Constructors
+
 ```csharp
 public PixelFont(FontAsset asset)
 ```
@@ -22,7 +23,9 @@ public PixelFont(FontAsset asset)
 `asset` [FontAsset](../../../Murder/Assets/Graphics/FontAsset.html) \
 
 ### ⭐ Properties
+
 #### Index
+
 ```csharp
 public int Index;
 ```
@@ -31,7 +34,9 @@ Identifier index of this font within the game's loaded font registry.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### LineHeight
+
 ```csharp
 public int LineHeight { get; }
 ```
@@ -40,7 +45,9 @@ Height of a single line in pixels for the current font size, including ascenders
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### PixelFontSize
+
 ```csharp
 public PixelFontSize PixelFontSize { get; }
 ```
@@ -49,13 +56,16 @@ The loaded size data containing glyph metrics, atlas textures, and line measurem
 
 **Returns** \
 [PixelFontSize](../../../Murder/Core/Graphics/PixelFontSize.html) \
+
 ### ⭐ Methods
+
 #### GetLineWidth(ReadOnlySpan<T>)
+
 ```csharp
 public float GetLineWidth(ReadOnlySpan<T> text)
 ```
 
-Returns the pixel width of a single line of text without applying wrapping or newline handling.
+Returns the pixel width of a single line of text (up to the first newline) without applying word-wrap; returns `-1` if this font failed to initialize. Useful for measuring a label before laying it out, e.g. to center it or size a background box.
 
 **Parameters** \
 `text` [ReadOnlySpan\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.ReadOnlySpan-1?view=net-7.0) \
@@ -63,7 +73,22 @@ Returns the pixel width of a single line of text without applying wrapping or ne
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
+#### GetCharacterWidth(char)
+
+```csharp
+public float GetCharacterWidth(char c)
+```
+
+Returns the horizontal advance, in pixels, of a single character in this font, or `0` if the font has no glyph for it. `MurderFontServices.IsValidCharacter` uses this to check whether a character the player typed can actually be rendered by the current default font.
+
+**Parameters** \
+`c` [char](https://learn.microsoft.com/en-us/dotnet/api/System.Char?view=net-7.0) \
+
+**Returns** \
+[float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 #### Draw(Batch2D, RuntimeTextData, Vector2, Vector2, Vector2, float, Color, T?, T?, int, bool)
+
 ```csharp
 public Point Draw(Batch2D spriteBatch, RuntimeTextData data, Vector2 position, Vector2 alignment, Vector2 scale, float sort, Color color, T? strokeColor, T? shadowColor, int visibleCharacters, bool debugBox)
 ```
@@ -87,6 +112,7 @@ Renders pre-parsed `RuntimeTextData` to the batch with optional stroke, shadow, 
 [Point](../../../Murder/Core/Geometry/Point.html) \
 
 #### Draw(Batch2D, string, Vector2, Vector2, Vector2, float, Color, T?, T?, int, int, bool)
+
 ```csharp
 public Point Draw(Batch2D spriteBatch, string text, Vector2 position, Vector2 alignment, Vector2 scale, float sort, Color color, T? strokeColor, T? shadowColor, int maxWidth, int visibleCharacters, bool debugBox)
 ```
@@ -111,6 +137,7 @@ Renders a string to the batch, automatically wrapping at `maxWidth` and supporti
 [Point](../../../Murder/Core/Geometry/Point.html) \
 
 #### DrawSimple(Batch2D, string, Vector2, Vector2, Vector2, float, Color, T?, T?, bool)
+
 ```csharp
 public Point DrawSimple(Batch2D spriteBatch, string text, Vector2 position, Vector2 alignment, Vector2 scale, float sort, Color color, T? strokeColor, T? shadowColor, bool debugBox)
 ```
@@ -133,11 +160,12 @@ Renders a plain string without cached layout or word-wrap; intended for single-l
 [Point](../../../Murder/Core/Geometry/Point.html) \
 
 #### Escape(string)
+
 ```csharp
-public string Escape(string text)
+public static string Escape(string text)
 ```
 
-Strips or escapes any special markup tags (e.g. wave, color, shake) from the input string, returning plain text.
+Strips color markup tags (`<c=...>` and `</c>`) from the input string via a regex replace, returning plain text with the color directives removed but the rest of the content untouched. This is a `static` method — call it as `PixelFont.Escape(text)`, not on a font instance. Unlike what the name might suggest, it does not touch other rich-text markup (wave, shake) or escape characters for re-parsing; it only removes color tags.
 
 **Parameters** \
 `text` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
@@ -146,6 +174,7 @@ Strips or escapes any special markup tags (e.g. wave, color, shake) from the inp
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
 #### Preload()
+
 ```csharp
 public void Preload()
 ```

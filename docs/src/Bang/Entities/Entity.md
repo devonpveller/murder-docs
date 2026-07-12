@@ -543,7 +543,7 @@ Fetch the position component directly.
             position directly from a cached field rather than through the generic component dictionary.
 
 **Returns** \
-[PositionComponent](../../Murder/Components/PositionComponent.html) \
+[PositionComponent](../Components/PositionComponent.html) \
 
 #### Dispose()
 ```csharp

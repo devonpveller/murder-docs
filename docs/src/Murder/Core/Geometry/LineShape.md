@@ -16,6 +16,7 @@ An `IShape` implementation that defines a line segment between two integer point
 **Implements:** _[IShape](../../../Murder/Core/Geometry/IShape.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public LineShape(Point start, Point end)
 ```
@@ -25,7 +26,9 @@ public LineShape(Point start, Point end)
 `end` [Point](../../../Murder/Core/Geometry/Point.html) \
 
 ### ⭐ Properties
+
 #### End
+
 ```csharp
 public readonly Point End;
 ```
@@ -34,7 +37,9 @@ The end point of the line segment.
 
 **Returns** \
 [Point](../../../Murder/Core/Geometry/Point.html) \
+
 #### Line
+
 ```csharp
 public Line2 Line { get; }
 ```
@@ -43,7 +48,9 @@ Returns a `Line2` built from `Start` and `End`.
 
 **Returns** \
 [Line2](../../../Murder/Core/Geometry/Line2.html) \
+
 #### Start
+
 ```csharp
 public readonly Point Start;
 ```
@@ -52,8 +59,11 @@ The start point of the line segment.
 
 **Returns** \
 [Point](../../../Murder/Core/Geometry/Point.html) \
+
 ### ⭐ Methods
+
 #### LineAtPosition(Point)
+
 ```csharp
 public Line2 LineAtPosition(Point position)
 ```
@@ -67,6 +77,7 @@ Returns a `Line2` with both endpoints translated by `position`.
 [Line2](../../../Murder/Core/Geometry/Line2.html) \
 
 #### GetPolygon()
+
 ```csharp
 public virtual PolygonShape GetPolygon()
 ```
@@ -77,6 +88,7 @@ Returns a degenerate polygon built from the two endpoints of this line. Result i
 [PolygonShape](../../../Murder/Core/Geometry/PolygonShape.html) \
 
 #### GetBoundingBox()
+
 ```csharp
 public virtual Rectangle GetBoundingBox()
 ```
@@ -85,7 +97,5 @@ Returns the axis-aligned bounding rectangle enclosing this line segment.
 
 **Returns** \
 [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
-
-
 
 ⚡

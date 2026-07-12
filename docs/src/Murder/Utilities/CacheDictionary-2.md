@@ -7,15 +7,16 @@
 public sealed class CacheDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IDictionary<TKey, TValue>, ICollection<T>, IEnumerable<T>, IEnumerable, IDictionary, ICollection, IReadOnlyDictionary<TKey, TValue>, IReadOnlyCollection<T>, ISerializable, IDeserializationCallback, IDisposable
 ```
 
-A dictionary that has a maximum amount of entries and discards old entries as new ones are added
+A dictionary that has a maximum amount of entries and discards old entries as new ones are added.
 
-**Intent:** A bounded LRU-like dictionary that automatically evicts the oldest entry when the maximum capacity is reached.
+**Intent:** A bounded, FIFO-eviction dictionary (oldest inserted key is evicted first, not least-recently-used) that automatically discards the oldest entry once the number of entries exceeds the capacity passed to its constructor. It also implements `IDisposable` so that, if `TValue` itself owns disposable resources, evicted/cleared entries can be released via `Dispose()`.
 
-**Use-case:** Use to cache computed results (e.g., formatted strings, resolved assets) when unbounded dictionary growth would be a memory concern.
+**Use-case:** Use to cache computed results (e.g., rendered text textures, resolved assets, laid-out glyph data) when unbounded dictionary growth would be a memory concern but a full LRU cache is unnecessary. The engine itself uses it for `RenderContext.CachedTextTextures`, `GameDataManager.CachedUniqueTextures`, and the runtime text-layout cache in `TextData`.
 
 **Implements:** _[Dictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0), [IDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IDictionary-2?view=net-7.0), [ICollection\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.ICollection-1?view=net-7.0), [IEnumerable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0), [IEnumerable](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.IEnumerable?view=net-7.0), [IDictionary](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.IDictionary?view=net-7.0), [ICollection](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.ICollection?view=net-7.0), [IReadOnlyDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IReadOnlyDictionary-2?view=net-7.0), [IReadOnlyCollection\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IReadOnlyCollection-1?view=net-7.0), [ISerializable](https://learn.microsoft.com/en-us/dotnet/api/System.Runtime.Serialization.ISerializable?view=net-7.0), [IDeserializationCallback](https://learn.microsoft.com/en-us/dotnet/api/System.Runtime.Serialization.IDeserializationCallback?view=net-7.0), [IDisposable](https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0)_
 
 ### ⭐ Constructors
+
 ```csharp
 public CacheDictionary<TKey, TValue>(int size)
 ```
@@ -26,7 +27,9 @@ Creates a new `CacheDictionary<TKey, TValue>` that holds at most `size` entries 
 `size` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Comparer
+
 ```csharp
 public IEqualityComparer<T> Comparer { get; }
 ```
@@ -35,7 +38,9 @@ The equality comparer used to compare keys in this dictionary.
 
 **Returns** \
 [IEqualityComparer\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEqualityComparer-1?view=net-7.0) \
+
 #### Count
+
 ```csharp
 public virtual int Count { get; }
 ```
@@ -44,16 +49,20 @@ The number of entries currently stored in the dictionary.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### Item
+
 ```csharp
 public TValue Item { get; public set; }
 ```
 
-Gets or sets the value for the specified key; setting a value evicts the oldest entry if the cache is at capacity.
+Gets or sets the value for the specified key; setting a value evicts the oldest entry if the cache is at capacity. Note that re-setting an existing key still counts as a new insertion for eviction-tracking purposes (see `Add`), so repeatedly overwriting the same key can itself trigger eviction of other entries — this is a FIFO-by-insertion-count cache, not a true LRU.
 
 **Returns** \
 [TValue](../../) \
+
 #### Keys
+
 ```csharp
 public KeyCollection<TKey, TValue> Keys { get; }
 ```
@@ -62,7 +71,9 @@ The collection of keys currently in the dictionary.
 
 **Returns** \
 [KeyCollection\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.KeyCollection-KeyCollection?view=net-7.0) \
+
 #### Values
+
 ```csharp
 public ValueCollection<TKey, TValue> Values { get; }
 ```
@@ -71,8 +82,11 @@ The collection of values currently in the dictionary.
 
 **Returns** \
 [ValueCollection\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.ValueCollection-ValueCollection?view=net-7.0) \
+
 ### ⭐ Methods
+
 #### ContainsValue(TValue)
+
 ```csharp
 public bool ContainsValue(TValue value)
 ```
@@ -86,6 +100,7 @@ Returns `true` if the dictionary contains any entry with the given value.
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### Remove(TKey, out TValue&)
+
 ```csharp
 public bool Remove(TKey key, TValue& value)
 ```
@@ -100,6 +115,7 @@ Removes the entry with the specified key, outputs its value, and returns `true` 
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### TryAdd(TKey, TValue)
+
 ```csharp
 public bool TryAdd(TKey key, TValue value)
 ```
@@ -112,6 +128,7 @@ public bool TryAdd(TKey key, TValue value)
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### GetEnumerator()
+
 ```csharp
 public Enumerator<TKey, TValue> GetEnumerator()
 ```
@@ -120,6 +137,7 @@ public Enumerator<TKey, TValue> GetEnumerator()
 [Enumerator\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Enumerator-Enumerator?view=net-7.0) \
 
 #### EnsureCapacity(int)
+
 ```csharp
 public int EnsureCapacity(int capacity)
 ```
@@ -131,6 +149,7 @@ public int EnsureCapacity(int capacity)
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
 #### ContainsKey(TKey)
+
 ```csharp
 public virtual bool ContainsKey(TKey key)
 ```
@@ -142,6 +161,7 @@ public virtual bool ContainsKey(TKey key)
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### Remove(TKey)
+
 ```csharp
 public virtual bool Remove(TKey key)
 ```
@@ -153,6 +173,7 @@ public virtual bool Remove(TKey key)
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### TryGetValue(TKey, out TValue&)
+
 ```csharp
 public virtual bool TryGetValue(TKey key, TValue& value)
 ```
@@ -165,6 +186,7 @@ public virtual bool TryGetValue(TKey key, TValue& value)
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### Add(TKey, TValue)
+
 ```csharp
 public virtual void Add(TKey key, TValue value)
 ```
@@ -174,16 +196,19 @@ public virtual void Add(TKey key, TValue value)
 `value` [TValue](../../) \
 
 #### Clear()
+
 ```csharp
 public virtual void Clear()
 ```
 
 #### Dispose()
+
 ```csharp
 public virtual void Dispose()
 ```
 
 #### GetObjectData(SerializationInfo, StreamingContext)
+
 ```csharp
 public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
 ```
@@ -193,6 +218,7 @@ public virtual void GetObjectData(SerializationInfo info, StreamingContext conte
 `context` [StreamingContext](https://learn.microsoft.com/en-us/dotnet/api/System.Runtime.Serialization.StreamingContext?view=net-7.0) \
 
 #### OnDeserialization(Object)
+
 ```csharp
 public virtual void OnDeserialization(Object sender)
 ```
@@ -201,18 +227,18 @@ public virtual void OnDeserialization(Object sender)
 `sender` [Object](https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0) \
 
 #### TrimExcess()
+
 ```csharp
 public void TrimExcess()
 ```
 
 #### TrimExcess(int)
+
 ```csharp
 public void TrimExcess(int capacity)
 ```
 
 **Parameters** \
 `capacity` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-
-
 
 ⚡

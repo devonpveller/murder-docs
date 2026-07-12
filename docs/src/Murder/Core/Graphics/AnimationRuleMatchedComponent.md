@@ -16,6 +16,7 @@ A runtime-only component that records which `AnimationAndRule` index was last ma
 **Implements:** _[IComponent](../../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public AnimationRuleMatchedComponent(int ruleIndex)
 ```
@@ -26,7 +27,9 @@ Creates the component, recording that the rule at `ruleIndex` is the current mat
 `ruleIndex` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### RuleIndex
+
 ```csharp
 public readonly int RuleIndex;
 ```
@@ -35,6 +38,5 @@ Zero-based index into the `PlayAnimationOnRuleComponent.Rules` array for the rul
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-
 
 ⚡

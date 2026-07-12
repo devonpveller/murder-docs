@@ -174,7 +174,7 @@ Fetches the entity with an unique component of type [MapComponent](../Murder/Com
 public Entity GetUniqueEntityMusic(World w)
 ```
 
-Fetches the entity with an unique component of type [MusicComponent](../Murder/Components/MusicComponent.html).
+Fetches the entity with an unique component of type MusicComponent.
 
 **Parameters** \
 `w` [World](../Bang/World.html) \
@@ -403,7 +403,7 @@ Tries to fetch the entity with an unique component of type [MapComponent](../Mur
 public Entity TryGetUniqueEntityMusic(World w)
 ```
 
-Tries to fetch the entity with an unique component of type [MusicComponent](../Murder/Components/MusicComponent.html).
+Tries to fetch the entity with an unique component of type MusicComponent.
 
 **Parameters** \
 `w` [World](../Bang/World.html) \
@@ -594,13 +594,13 @@ Fetches the unique component of type [MapComponent](../Murder/Components/MapComp
 public MusicComponent GetUniqueMusic(World w)
 ```
 
-Fetches the unique component of type [MusicComponent](../Murder/Components/MusicComponent.html).
+Fetches the unique component of type MusicComponent.
 
 **Parameters** \
 `w` [World](../Bang/World.html) \
 
 **Returns** \
-[MusicComponent](../Murder/Components/MusicComponent.html) \
+MusicComponent \
 
 #### GetUniqueParticleSystemWorldTracker(World)
 ```csharp
@@ -797,7 +797,7 @@ Tries to fetch the unique component of type [MapComponent](../Murder/Components/
 public T? TryGetUniqueMusic(World w)
 ```
 
-Tries to fetch the unique component of type [MusicComponent](../Murder/Components/MusicComponent.html).
+Tries to fetch the unique component of type MusicComponent.
 
 **Parameters** \
 `w` [World](../Bang/World.html) \

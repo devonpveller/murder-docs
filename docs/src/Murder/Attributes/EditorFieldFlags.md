@@ -16,7 +16,9 @@ Bitwise flags that control how a field is rendered and filtered inside the Murde
 **Implements:** _[Enum](https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0), [IComparable](https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0), [ISpanFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0), [IFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0), [IConvertible](https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0)_
 
 ### ⭐ Properties
+
 #### NoFilter
+
 ```csharp
 public static const EditorFieldFlags NoFilter;
 ```
@@ -25,7 +27,9 @@ Disables the search/filter widget for this field's contents in the editor inspec
 
 **Returns** \
 [EditorFieldFlags](../../Murder/Attributes/EditorFieldFlags.html) \
+
 #### None
+
 ```csharp
 public static const EditorFieldFlags None;
 ```
@@ -34,7 +38,9 @@ No special editor behavior applied; uses the default field rendering.
 
 **Returns** \
 [EditorFieldFlags](../../Murder/Attributes/EditorFieldFlags.html) \
+
 #### SingleLine
+
 ```csharp
 public static const EditorFieldFlags SingleLine;
 ```
@@ -43,6 +49,5 @@ Forces the field widget to render on a single line in the inspector instead of e
 
 **Returns** \
 [EditorFieldFlags](../../Murder/Attributes/EditorFieldFlags.html) \
-
 
 ⚡

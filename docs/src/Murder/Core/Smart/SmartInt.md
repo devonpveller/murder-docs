@@ -14,6 +14,7 @@ An integer value that can hold a literal constant or reference an index into a `
 **Use-case:** Use on components with integer parameters (counts, thresholds, layer indices) that should be shareable across many entities via a central `SmartIntAsset`.
 
 ### ⭐ Constructors
+
 ```csharp
 public SmartInt()
 ```
@@ -41,7 +42,9 @@ Creates a `SmartInt` that always returns the given literal `custom` value.
 `custom` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Asset
+
 ```csharp
 public readonly Guid Asset;
 ```
@@ -50,7 +53,9 @@ The GUID of the `SmartIntAsset` to resolve the value from, or `Guid.Empty` for a
 
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
+
 #### Custom
+
 ```csharp
 public readonly int Custom;
 ```
@@ -59,7 +64,9 @@ The literal integer value used when `Asset` is empty or cannot be resolved.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### Index
+
 ```csharp
 public readonly int Index;
 ```
@@ -68,7 +75,9 @@ The index into the `SmartIntAsset` array to read when resolving the value.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### Int
+
 ```csharp
 public int Int { get; }
 ```
@@ -77,6 +86,5 @@ The resolved integer value: reads from the referenced `SmartIntAsset` if availab
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-
 
 ⚡

@@ -14,6 +14,7 @@ Stores the pathfinding properties of a single tile in the navigation grid.
 **Use-case:** Used internally by `PathfindGridComponent.Cells` to record which tiles have custom weights or collision masks authored in the editor.
 
 ### ⭐ Constructors
+
 ```csharp
 public CellProperties(Point coordinates, int weight, int collisionMask)
 ```
@@ -35,7 +36,9 @@ Creates a cell entry at `coordinates` with default weight (`0`) and no collision
 `coordinates` [Point](../../Murder/Core/Geometry/Point.html) \
 
 ### ⭐ Properties
+
 #### CollisionMask
+
 ```csharp
 public int CollisionMask { get; public set; }
 ```
@@ -44,7 +47,9 @@ Bitmask of `CollisionLayersBase` flags that apply to this tile; controls which p
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### Point
+
 ```csharp
 public Point Point { get; public set; }
 ```
@@ -53,7 +58,9 @@ Tile-space grid coordinates of this cell.
 
 **Returns** \
 [Point](../../Murder/Core/Geometry/Point.html) \
+
 #### Weight
+
 ```csharp
 public int Weight { get; public set; }
 ```
@@ -62,6 +69,5 @@ Pathfinding traversal cost for this cell; higher values make the pathfinder pref
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-
 
 ⚡

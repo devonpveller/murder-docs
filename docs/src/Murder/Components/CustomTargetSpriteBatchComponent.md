@@ -16,6 +16,7 @@ Overrides the sprite batch that an entity's sprite is rendered into.
 **Use-case:** Attach to a sprite entity that should render into a UI or foreground batch rather than the default gameplay batch; set `TargetBatch` to the desired `Batches2D` index.
 
 ### ⭐ Constructors
+
 ```csharp
 public CustomTargetSpriteBatchComponent(int targetBatch)
 ```
@@ -24,7 +25,9 @@ public CustomTargetSpriteBatchComponent(int targetBatch)
 `targetBatch` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### TargetBatch
+
 ```csharp
 public readonly int TargetBatch;
 ```
@@ -33,6 +36,5 @@ Index of the `Batch2D` that this entity's sprite should be submitted to during r
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-
 
 ⚡

@@ -11,30 +11,36 @@ Pairs a named target identifier with a list of interactions to run against the r
 
 **Intent:** Defines a single (target, interactions) binding inside a [TargetedInteractionCollection](../../Murder/Interactions/TargetedInteractionCollection.html).
 
-**Use-case:** Configure one entry per distinct entity you wish to interact with; set `Target` to the name key in the `IdTargetCollection` and populate `InteractionCollection` with the desired actions.
+**Use-case:** Configure one entry per distinct entity you wish to interact with: set `Target` to the name key registered in the interacted entity's `IdTargetCollectionComponent`, and populate `InteractionCollection` with the interactions that should run against the resolved entity.
 
 ### ⭐ Constructors
+
 ```csharp
 public TargetedInteractionCollectionItem()
 ```
 
 ### ⭐ Properties
+
 #### InteractionCollection
+
 ```csharp
 public readonly ImmutableArray<T> InteractionCollection;
 ```
-The interactions to fire against the resolved target entity.
+
+The interactions ([IInteractiveComponent](../../Bang/Interactions/IInteractiveComponent.html) instances) to fire against the entity resolved from `Target` — or against `null` if `Target` does not resolve to an entity.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
+
 #### Target
+
 ```csharp
 public readonly string Target;
 ```
-The name key used to look up the target entity in the `IdTargetCollection` of the interacted entity.
+
+The name key used to look up the target entity in the interacted entity's `IdTargetCollectionComponent`. If the name does not resolve to an entity, `InteractionCollection` still runs, but with a `null` target.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
-
 
 ⚡

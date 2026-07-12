@@ -16,7 +16,9 @@ Identifies the scope or category of a blackboard used in the dialogue system.
 **Implements:** _[Enum](https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0), [IComparable](https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0), [ISpanFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0), [IFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0), [IConvertible](https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0)_
 
 ### ⭐ Properties
+
 #### All
+
 ```csharp
 public static const BlackboardKind All;
 ```
@@ -25,7 +27,9 @@ Targets every blackboard scope simultaneously; used for bulk queries or operatio
 
 **Returns** \
 [BlackboardKind](../../../Murder/Core/Dialogs/BlackboardKind.html) \
+
 #### Character
+
 ```csharp
 public static const BlackboardKind Character;
 ```
@@ -34,7 +38,9 @@ Per-character conversation state (e.g. how many times a speaker has been spoken 
 
 **Returns** \
 [BlackboardKind](../../../Murder/Core/Dialogs/BlackboardKind.html) \
+
 #### Gameplay
+
 ```csharp
 public static const BlackboardKind Gameplay;
 ```
@@ -43,7 +49,9 @@ Global gameplay variables shared across the entire play session (e.g. quest flag
 
 **Returns** \
 [BlackboardKind](../../../Murder/Core/Dialogs/BlackboardKind.html) \
+
 #### Sound
+
 ```csharp
 public static const BlackboardKind Sound;
 ```
@@ -52,7 +60,9 @@ Parameters that drive adaptive audio (music and sound FMOD parameters).
 
 **Returns** \
 [BlackboardKind](../../../Murder/Core/Dialogs/BlackboardKind.html) \
+
 #### State
+
 ```csharp
 public static const BlackboardKind State;
 ```
@@ -61,6 +71,5 @@ World or scene state variables that represent persistent environmental condition
 
 **Returns** \
 [BlackboardKind](../../../Murder/Core/Dialogs/BlackboardKind.html) \
-
 
 ⚡

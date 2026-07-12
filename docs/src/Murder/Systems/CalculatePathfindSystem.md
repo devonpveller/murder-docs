@@ -16,22 +16,26 @@ Initializes the world's `HAAStarPathfindComponent` on startup and recalculates a
 **Implements:** _[IStartupSystem](../../Bang/Systems/IStartupSystem.html), [ISystem](../../Bang/Systems/ISystem.html), [IReactiveSystem](../../Bang/Systems/IReactiveSystem.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public CalculatePathfindSystem()
 ```
 
-### ⭐ Properties
-#### LineOfSightCollisionMask
+### ⭐ Methods
+
+#### GetLineOfSightCollisionMask()
+
 ```csharp
-public static const int LineOfSightCollisionMask;
+public virtual int GetLineOfSightCollisionMask()
 ```
 
-The combined collision layer mask used for line-of-sight checks during path calculation; defaults to BLOCK_VISION, SOLID, HOLE, and CARVE layers.
+Returns the combined collision layer mask (`BLOCK_VISION | SOLID | HOLE | CARVE`) used as the default line-of-sight/obstruction mask when computing a path for an entity that has no `CustomLineOfSightMaskComponent`. It is `virtual` so a game can override it in a derived system to change which layers block pathfinding globally, while `CARVE` and `BLOCK_VISION` are always OR'd back in by `CalculatePath` regardless of the override.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-### ⭐ Methods
+
 #### OnAdded(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnAdded(World world, ImmutableArray<T> entities)
 ```
@@ -43,6 +47,7 @@ Calculates an initial path for each newly added entity that has a `PathfindCompo
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnModified(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnModified(World world, ImmutableArray<T> entities)
 ```
@@ -54,6 +59,7 @@ Re-calculates the path for each entity whose `PathfindComponent` has changed; sk
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnRemoved(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnRemoved(World world, ImmutableArray<T> entities)
 ```
@@ -65,6 +71,7 @@ Clears the route component and resets friction on entities that no longer have a
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### Start(Context)
+
 ```csharp
 public virtual void Start(Context context)
 ```
@@ -73,7 +80,5 @@ Creates the world-unique `HAAStarPathfindComponent` entity and seeds it with the
 
 **Parameters** \
 `context` [Context](../../Bang/Contexts/Context.html) \
-
-
 
 ⚡

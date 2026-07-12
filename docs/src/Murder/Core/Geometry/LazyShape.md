@@ -16,6 +16,7 @@ An efficient, approximate circular collision shape represented as an elongated o
 **Implements:** _[IShape](../../../Murder/Core/Geometry/IShape.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public LazyShape(float radius, Point offset)
 ```
@@ -25,7 +26,9 @@ public LazyShape(float radius, Point offset)
 `offset` [Point](../../../Murder/Core/Geometry/Point.html) \
 
 ### ⭐ Properties
+
 #### Offset
+
 ```csharp
 public readonly Point Offset;
 ```
@@ -34,7 +37,9 @@ Pixel offset of the shape centre relative to the entity's world position.
 
 **Returns** \
 [Point](../../../Murder/Core/Geometry/Point.html) \
+
 #### Radius
+
 ```csharp
 public readonly float Radius;
 ```
@@ -43,7 +48,9 @@ The effective radius of the lazy shape in pixels.
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 #### SQUARE_ROOT_OF_TWO
+
 ```csharp
 public static const float SQUARE_ROOT_OF_TWO;
 ```
@@ -52,8 +59,11 @@ Pre-computed value of √2, used when constructing the octagonal polygon approxi
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 ### ⭐ Methods
+
 #### Rectangle(Vector2)
+
 ```csharp
 public Rectangle Rectangle(Vector2 addPosition)
 ```
@@ -66,7 +76,19 @@ Returns the bounding rectangle of this shape translated by `addPosition`.
 **Returns** \
 [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
 
+#### Rectangle()
+
+```csharp
+public Rectangle Rectangle()
+```
+
+Returns the local-space bounding rectangle of this shape. Equivalent to `GetBoundingBox()`.
+
+**Returns** \
+[Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
+
 #### GetPolygon()
+
 ```csharp
 public virtual PolygonShape GetPolygon()
 ```
@@ -77,6 +99,7 @@ Returns an octagonal polygon approximation of this shape. Result is cached after
 [PolygonShape](../../../Murder/Core/Geometry/PolygonShape.html) \
 
 #### GetBoundingBox()
+
 ```csharp
 public virtual Rectangle GetBoundingBox()
 ```
@@ -85,7 +108,5 @@ Returns the axis-aligned bounding rectangle for this lazy shape.
 
 **Returns** \
 [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
-
-
 
 ⚡

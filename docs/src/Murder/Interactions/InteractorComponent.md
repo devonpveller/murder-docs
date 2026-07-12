@@ -7,14 +7,12 @@
 public sealed struct InteractorComponent : IComponent
 ```
 
-Component used to signal that an entity is able to interact with other objects.
+Empty marker component used to tag an entity as an interactor — an entity that can initiate interactions with other entities, as opposed to being the target/recipient of one.
 
 **Intent:** Marks an entity as an active interactor in the ECS world.
 
-**Use-case:** Attach to the player entity (or any NPC) so that the engine's interaction systems recognise it as a source that can trigger `IInteraction` responses on nearby entities.
+**Use-case:** Attach to the player entity (or any NPC) so systems and filters (`[Filter(typeof(InteractorComponent))]`) can distinguish interactor entities from entities that are merely interactive but never initiate interactions themselves. It carries no data.
 
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
-
-
 
 ⚡

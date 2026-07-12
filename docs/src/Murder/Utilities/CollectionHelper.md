@@ -14,12 +14,14 @@ Static helpers for building string-keyed dictionaries from collections with auto
 **Use-case:** Use `ToStringDictionary` when projecting a collection to a dictionary with potentially conflicting keys (e.g., asset names), avoiding silent overwrites.
 
 ### ⭐ Methods
+
 #### ToStringDictionary(Dictionary`2&, IEnumerable<T>, Func<T, TResult>, Func<T, TResult>)
+
 ```csharp
 public Dictionary<TKey, TValue> ToStringDictionary(Dictionary`2& existingDictionary, IEnumerable<T> collection, Func<T, TResult> toKey, Func<T, TResult> toValue)
 ```
 
-Appends projected key-value pairs from `collection` into `existingDictionary`, disambiguating duplicate keys by appending a counter suffix.
+Projects each element of `collection` to a key/value pair (via `toKey`/`toValue`) and appends it into `existingDictionary`, disambiguating any key that already exists — either already in the dictionary or produced earlier in this same call — by appending a counter suffix instead of silently overwriting the earlier entry.
 
 **Parameters** \
 `existingDictionary` [Dictionary\<TKey, TValue\>&](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0) \
@@ -31,11 +33,12 @@ Appends projected key-value pairs from `collection` into `existingDictionary`, d
 [Dictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0) \
 
 #### ToStringDictionary(IEnumerable<T>, Func<T, TResult>, Func<T, TResult>)
+
 ```csharp
 public Dictionary<TKey, TValue> ToStringDictionary(IEnumerable<T> collection, Func<T, TResult> toKey, Func<T, TResult> toValue)
 ```
 
-Creates a new string-keyed dictionary by projecting `collection`, with automatic counter suffixes added to any duplicate keys.
+Creates a new string-keyed dictionary by projecting `collection`, with automatic counter suffixes added to any duplicate keys. Builds a fresh dictionary and delegates to the `ref Dictionary` overload; call that overload directly to append into an already-existing dictionary.
 
 **Parameters** \
 `collection` [IEnumerable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0) \
@@ -44,7 +47,5 @@ Creates a new string-keyed dictionary by projecting `collection`, with automatic
 
 **Returns** \
 [Dictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.Dictionary-2?view=net-7.0) \
-
-
 
 ⚡

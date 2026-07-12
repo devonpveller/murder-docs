@@ -7,64 +7,84 @@
 public static class MurderSaveServices
 ```
 
-Helpers for accessing, modifying, and loading game save data.
+Helpers for accessing the active save, applying dialogue/blackboard actions to it, and recording world-entity removal into it.
 
-**Intent:** Provides a uniform API for creating or retrieving the active save, executing blackboard actions, and managing the entity-to-save record relationship.
+**Intent:** Provides a uniform API for creating or retrieving the active `SaveData`, executing `DialogAction`s (as produced by dialogue/interaction scripts) against a `BlackboardTracker`, and marking a world entity as permanently removed in the persistent save state.
 
-**Use-case:** Call `CreateOrGetSave` to safely access save data from any system, `DoAction` to mutate blackboard variables as part of dialogue or interaction logic, and `RecordAndMaybeDestroy` to mark a world entity as removed in the persistent save state.
+**Use-case:** Call `CreateOrGetSave` to safely access save data from any system (creating one on demand rather than crashing if none exists yet), `DoAction` to mutate blackboard variables as part of dialogue or interaction logic, and `RecordAndMaybeDestroy` whenever gameplay code permanently removes an entity from the world so that the removal persists across a save/load.
 
 ### ⭐ Methods
+
 #### CreateOrGetSave()
+
 ```csharp
-public SaveData CreateOrGetSave()
+public static SaveData CreateOrGetSave()
 ```
-Returns the active `SaveData`, creating a new one if no active save exists.
+
+Returns the active `SaveData` (`Game.Data.TryGetActiveSaveData()`), creating a brand-new save via `Game.Data.CreateSave()` if none is currently active. Use this instead of `TryGetSave` whenever the calling code needs save data to exist unconditionally (for example, systems that record world state as the player plays).
 
 **Returns** \
 [SaveData](../../Murder/Assets/SaveData.html) \
 
-#### TryGetSave()
-```csharp
-public SaveData TryGetSave()
-```
-Returns the active `SaveData`, or `null` if no save is currently loaded.
+#### DoAction(DialogAction)
 
-**Returns** \
-[SaveData](../../Murder/Assets/SaveData.html) \
-
-#### LoadSaveAndFetchTargetWorld(int)
 ```csharp
-public T? LoadSaveAndFetchTargetWorld(int slot)
+public static void DoAction(DialogAction action)
 ```
-Loads the save in `slot` as the active save and returns the `Guid` of the world it was last saved in.
+
+Applies `action` to the `BlackboardTracker` of the currently active save (creating a save first via `CreateOrGetSave` if needed). Convenience overload of `DoAction(BlackboardTracker, DialogAction)` for callers that don't already have a tracker reference on hand.
 
 **Parameters** \
-`slot` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-
-**Returns** \
-[T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+`action` [DialogAction](../../Murder/Core/Dialogs/DialogAction.html) \
 
 #### DoAction(BlackboardTracker, DialogAction)
+
 ```csharp
-public void DoAction(BlackboardTracker tracker, DialogAction action)
+public static void DoAction(BlackboardTracker tracker, DialogAction action)
 ```
-Applies a `DialogAction` (bool, int, float, or string assignment) to the provided `BlackboardTracker`.
+
+Applies a `DialogAction` — a bool, int, float, or string assignment targeting a specific `Fact` — to `tracker`, dispatching to `SetBool`/`SetInt`/`SetFloat`/`SetString` based on `action.Fact.Kind`. This is the primitive that dialogue scripts and interaction systems use to mutate blackboard state (quest flags, counters, etc.) as the player progresses.
 
 **Parameters** \
 `tracker` [BlackboardTracker](../../Murder/Save/BlackboardTracker.html) \
 `action` [DialogAction](../../Murder/Core/Dialogs/DialogAction.html) \
 
-#### RecordAndMaybeDestroy(Entity, World, bool)
+#### LoadSaveAndFetchTargetWorld(int)
+
 ```csharp
-public void RecordAndMaybeDestroy(Entity entity, World world, bool destroy)
+public static Guid? LoadSaveAndFetchTargetWorld(int slot)
 ```
-Records the entity as removed from the world in the active save; optionally destroys the entity immediately.
+
+Loads the save in `slot` as the active save (via `Game.Data.LoadSaveAsCurrentSave`) and returns the `Guid` of the world it was last saved in (`SaveData.CurrentWorld`), or `null` if loading failed. Used by the game's load-save flow to know which `WorldAsset` to transition into after a save file is loaded.
+
+**Parameters** \
+`slot` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
+**Returns** \
+[Guid?](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
+
+#### RecordAndMaybeDestroy(Entity, World, bool)
+
+```csharp
+public static void RecordAndMaybeDestroy(this Entity entity, World world, bool destroy)
+```
+
+Records `entity` as removed from `world` in the active save (`SaveData.RecordRemovedEntityFromWorld`), so that reloading the world will not re-spawn it; optionally also calls `entity.Destroy()` immediately. Call this — rather than destroying an entity directly — for world content that should stay gone permanently once removed (e.g. a picked-up item, a defeated one-time enemy).
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
 `world` [World](../../Bang/World.html) \
 `destroy` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
+#### TryGetSave()
 
+```csharp
+public static SaveData? TryGetSave()
+```
+
+Returns the active `SaveData`, or `null` if no save is currently loaded. Use this (instead of `CreateOrGetSave`) when the caller needs to distinguish "no save yet" from "a save exists" without the side effect of creating one.
+
+**Returns** \
+[SaveData?](../../Murder/Assets/SaveData.html) \
 
 ⚡

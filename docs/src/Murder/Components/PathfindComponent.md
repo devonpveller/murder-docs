@@ -16,6 +16,7 @@ Requests that the pathfinding system calculate a route from the entity's current
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public PathfindComponent(Vector2& target, PathfindAlgorithmKind algorithm)
 ```
@@ -25,7 +26,9 @@ public PathfindComponent(Vector2& target, PathfindAlgorithmKind algorithm)
 `algorithm` [PathfindAlgorithmKind](../../Murder/Core/Ai/PathfindAlgorithmKind.html) \
 
 ### ⭐ Properties
+
 #### Algorithm
+
 ```csharp
 public readonly PathfindAlgorithmKind Algorithm;
 ```
@@ -34,7 +37,9 @@ Pathfinding algorithm to use when computing the route to `Target`.
 
 **Returns** \
 [PathfindAlgorithmKind](../../Murder/Core/Ai/PathfindAlgorithmKind.html) \
+
 #### Target
+
 ```csharp
 public readonly Vector2 Target;
 ```
@@ -43,6 +48,5 @@ World-space destination position the pathfinding algorithm should find a route t
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
-
 
 ⚡

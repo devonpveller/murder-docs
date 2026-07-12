@@ -8,7 +8,7 @@ public class FadeTransitionSystem : IUpdateSystem, ISystem, IReactiveSystem
 ```
 
 System responsible for fading in and out entities.
-            This is not responsible for the screen fade transition.
+This is not responsible for the screen fade transition.
 
 **Intent:** Animates an entity's alpha value from a starting value to a target value over a defined duration using a cubic-out easing curve.
 
@@ -17,12 +17,15 @@ System responsible for fading in and out entities.
 **Implements:** _[IUpdateSystem](../../Bang/Systems/IUpdateSystem.html), [ISystem](../../Bang/Systems/ISystem.html), [IReactiveSystem](../../Bang/Systems/IReactiveSystem.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public FadeTransitionSystem()
 ```
 
 ### ⭐ Methods
+
 #### OnAdded(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnAdded(World world, ImmutableArray<T> entities)
 ```
@@ -34,6 +37,7 @@ Initializes the fade by recording the entity's current alpha as the start value 
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnModified(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnModified(World world, ImmutableArray<T> entities)
 ```
@@ -45,6 +49,7 @@ No-op; modifications to `FadeTransitionComponent` are handled reactively via `On
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnRemoved(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnRemoved(World world, ImmutableArray<T> entities)
 ```
@@ -56,6 +61,7 @@ No-op; removal is self-managed by `Update` when the fade duration expires.
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### Update(Context)
+
 ```csharp
 public virtual void Update(Context context)
 ```
@@ -64,7 +70,5 @@ Evaluates the cubic-out easing curve at the current elapsed time and sets the en
 
 **Parameters** \
 `context` [Context](../../Bang/Contexts/Context.html) \
-
-
 
 ⚡

@@ -7,25 +7,29 @@
 public sealed struct NodeInfo<T>
 ```
 
-Pairs an entity payload `T` with its axis-aligned bounding box, used as the leaf data stored in `QTNode<T>` entries.
+Pairs an entity payload `T` with its integer id and axis-aligned bounding box. This is the leaf data actually stored inside a `QTNode<T>` — the quadtree only ever stores/queries `NodeInfo<T>` entries, never `T` directly, so it can perform spatial overlap tests and removals without touching the entity payload itself.
 
-**Intent:** Wraps the bounding box alongside the entity data so the quadtree can perform spatial overlap tests without accessing the entity itself.
+**Intent:** Wraps the entity id and bounding box alongside the payload so the quadtree can index, move, and spatially test entries without any knowledge of what `T` actually is.
 
-**Use-case:** Created automatically when inserting entities into a `Quadtree`; retrieved during overlap queries to identify which entities intersect a region.
+**Use-case:** Created automatically by `QTNode<T>.Insert`/`Update` when inserting entities into a `Quadtree`; retrieved during overlap queries (`QTNode<T>.Retrieve`, `Quadtree.GetCollisionEntitiesAt`) to identify which entities intersect a region.
 
 ### ⭐ Constructors
+
 ```csharp
-public NodeInfo<T>(T info, Rectangle boundingBox)
+public NodeInfo<T>(int id, T info, IntRectangle boundingBox)
 ```
 
-Creates a `NodeInfo` pairing the entity data `info` with its spatial bounding box.
+Creates a `NodeInfo<T>` pairing entity `id` and payload `info` with its spatial `boundingBox`.
 
 **Parameters** \
+`id` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 `info` [T](../../../) \
-`boundingBox` [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
+`boundingBox` [IntRectangle](../../../Murder/Core/Geometry/IntRectangle.html) \
 
 ### ⭐ Properties
+
 #### BoundingBox
+
 ```csharp
 public readonly Rectangle BoundingBox;
 ```
@@ -34,15 +38,27 @@ The axis-aligned bounding box of the entity, used for spatial overlap tests in t
 
 **Returns** \
 [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
+
 #### EntityInfo
+
 ```csharp
 public readonly T EntityInfo;
 ```
 
-The entity payload (e.g., an entity ID or component snapshot) associated with this node entry.
+The payload associated with this entry — whatever data the caller of `QTNode<T>.Insert` chose to store (e.g. an `Entity`, or a tuple of related component data).
 
 **Returns** \
 [T](../../../) \
 
+#### Id
+
+```csharp
+public readonly int Id;
+```
+
+The entity id this entry was inserted under (typically `Entity.EntityId`). Used by `QTNode<T>` to locate and remove the entry independently of `EntityInfo`.
+
+**Returns** \
+[int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
 ⚡

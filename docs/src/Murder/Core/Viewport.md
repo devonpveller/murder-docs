@@ -7,35 +7,51 @@
 public sealed struct Viewport
 ```
 
-Describes the camera viewport: the game's native resolution, the actual window size, the scale factor applied, and the output rectangle on screen.
+Computes and stores how the game's native rendering resolution maps onto the actual window/screen size for a given `ScalingKind` strategy.
 
-**Intent:** Immutable snapshot of how the game's render output maps onto the display window, accounting for letterboxing and scaling.
+**Intent:** Derives the resulting integer/fractional `Scale` factor, the letterboxed `OutputRectangle` the game should be drawn into, and (for some scaling modes) an adjusted `NativeResolution`. This is a pure, immutable calculation — constructing a new `Viewport` re-derives every field from the three constructor arguments; nothing is mutated after construction.
 
-**Use-case:** Queried by the render context and camera systems to determine where to draw the game's output rectangle and how to map screen-space coordinates to world space.
+**Use-case:** Queried by the render context and camera systems to determine where to draw the game's output rectangle and how to map screen-space coordinates to world space. Recompute a `Viewport` (e.g. from `GamePreferences.SetScalingKind` or a window-resize handler) whenever the window size or the user's `ScalingKind` preference changes.
 
 ### ⭐ Constructors
+
 ```csharp
-public Viewport(Point viewportSize, Point nativeResolution, ViewportResizeStyle resizeStyle)
+public Viewport(Point viewportSize, Point nativeResolution, ScalingKind scaling)
 ```
 
-Creates a viewport that maps `nativeResolution` onto a window of `viewportSize` using the specified resize style.
+Computes a `Viewport` mapping `nativeResolution` onto a window of `viewportSize` using the given `scaling` strategy. Different `ScalingKind` values produce very different results: `OneX`/`TwoX`/`ThreeX` pin the scale to an exact integer and center the (unscaled) native resolution; `Auto`/`Large` shrink the native resolution based on the window height before auto-scaling and snapping to a near-integer scale; `Snap` clamps the native resolution's aspect ratio to a sane range before stretching and snapping.
 
 **Parameters** \
 `viewportSize` [Point](../../Murder/Core/Geometry/Point.html) \
 `nativeResolution` [Point](../../Murder/Core/Geometry/Point.html) \
-`resizeStyle` [ViewportResizeStyle](../../Murder/Core/Graphics/ViewportResizeStyle.html) \
+`scaling` [ScalingKind](../../Murder/Save/ScalingKind.html) \
 
 ### ⭐ Properties
+
 #### Center
+
 ```csharp
 public readonly Vector2 Center;
 ```
 
-The center of the output rectangle in screen-space pixels.
+The center point of `NativeResolution` (half its width/height), useful as a default camera focus point.
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+
+#### FailedConstraints
+
+```csharp
+public readonly bool FailedConstraints;
+```
+
+Reserved flag intended to signal that the requested scaling constraints couldn't be satisfied. The constructor never actually sets this to `true` today, so it's always `false` for any `Viewport` built by the current implementation.
+
+**Returns** \
+[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
 #### NativeResolution
+
 ```csharp
 public readonly Point NativeResolution;
 ```
@@ -44,7 +60,20 @@ The resolution that the game is actually rendered
 
 **Returns** \
 [Point](../../Murder/Core/Geometry/Point.html) \
+
+#### OriginalScale
+
+```csharp
+public readonly Vector2 OriginalScale;
+```
+
+The scale resulting in viewportSize/nativeResolution without any snapping.
+
+**Returns** \
+[Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+
 #### OutputRectangle
+
 ```csharp
 public readonly IntRectangle OutputRectangle;
 ```
@@ -53,7 +82,9 @@ The rectangle where the game should be rendered on the screen.
 
 **Returns** \
 [IntRectangle](../../Murder/Core/Geometry/IntRectangle.html) \
+
 #### Scale
+
 ```csharp
 public readonly Vector2 Scale;
 ```
@@ -62,30 +93,16 @@ The scale that is applied to the native resolution before rendering
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+
 #### Size
+
 ```csharp
 public readonly Point Size;
 ```
 
-The size of the viewport (tipically the game's window)
+The size of the viewport (typically the game's window)
 
 **Returns** \
 [Point](../../Murder/Core/Geometry/Point.html) \
-### ⭐ Methods
-#### HasChanges(Point, Vector2)
-```csharp
-public bool HasChanges(Point size, Vector2 scale)
-```
-
-Returns `true` when `size` or `scale` differ from the current viewport values, indicating the viewport needs to be rebuilt.
-
-**Parameters** \
-`size` [Point](../../Murder/Core/Geometry/Point.html) \
-`scale` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
-
-**Returns** \
-[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-
-
 
 ⚡

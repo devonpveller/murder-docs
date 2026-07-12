@@ -16,7 +16,9 @@ Controls how a sprite's color is combined with the framebuffer when rendering.
 **Implements:** _[Enum](https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0), [IComparable](https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0), [ISpanFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0), [IFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0), [IConvertible](https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0)_
 
 ### ⭐ Properties
+
 #### Color
+
 ```csharp
 public static const BlendStyle Color;
 ```
@@ -25,7 +27,9 @@ Replaces the sprite's RGB channels entirely with the tint color, preserving the 
 
 **Returns** \
 [BlendStyle](../../../Murder/Core/Graphics/BlendStyle.html) \
+
 #### Normal
+
 ```csharp
 public static const BlendStyle Normal;
 ```
@@ -34,7 +38,9 @@ Standard alpha-blending; the sprite texture colors are modulated by the tint col
 
 **Returns** \
 [BlendStyle](../../../Murder/Core/Graphics/BlendStyle.html) \
+
 #### Wash
+
 ```csharp
 public static const BlendStyle Wash;
 ```
@@ -43,6 +49,5 @@ Blends the tint color over the sprite proportionally to the tint's alpha, effect
 
 **Returns** \
 [BlendStyle](../../../Murder/Core/Graphics/BlendStyle.html) \
-
 
 ⚡

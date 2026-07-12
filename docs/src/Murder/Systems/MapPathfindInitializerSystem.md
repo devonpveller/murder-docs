@@ -7,21 +7,24 @@
 public class MapPathfindInitializerSystem : IStartupSystem, ISystem
 ```
 
-Reads per-cell properties from a `PathfindGridComponent` entity at startup and applies occupancy and weight data to the world's `MapComponent`.
+Filtered to entities with a `PathfindGridComponent` (a world-unique component). Reads every per-cell override from it at startup and applies the corresponding occupancy/collision mask and pathfinding weight to the world's `MapComponent`.
 
-**Intent:** Seeds the navigation map with hand-authored cell weights and collision masks defined in a `PathfindGridComponent` asset.
+**Intent:** Seeds the navigation map with hand-authored cell weights and collision masks defined in a `PathfindGridComponent`, letting level designers fine-tune specific cells (mark difficult terrain as more costly, or block particular tiles from navigation) without editing the underlying tileset.
 
-**Use-case:** Place a `PathfindGridComponent` entity in a scene to control per-cell pathfinding cost or to block specific cells from navigation.
+**Use-case:** Place a `PathfindGridComponent` entity in a scene (typically authored through the level editor) to control per-cell pathfinding cost or to block specific cells from navigation. This system must run after `MapInitializerSystem`, since it writes into a `MapComponent` that is expected to already exist; if no map exists yet, or no `PathfindGridComponent` entity is present, `Start` does nothing.
 
 **Implements:** _[IStartupSystem](../../Bang/Systems/IStartupSystem.html), [ISystem](../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public MapPathfindInitializerSystem()
 ```
 
 ### ⭐ Methods
+
 #### Start(Context)
+
 ```csharp
 public virtual void Start(Context context)
 ```
@@ -30,7 +33,5 @@ Reads the cell properties from the scene's `PathfindGridComponent` and writes oc
 
 **Parameters** \
 `context` [Context](../../Bang/Contexts/Context.html) \
-
-
 
 ⚡

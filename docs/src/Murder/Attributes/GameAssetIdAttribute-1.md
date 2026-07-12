@@ -16,6 +16,7 @@ A strongly-typed convenience variant of `GameAssetIdAttribute` that infers the t
 **Implements:** _[GameAssetIdAttribute](../../Murder/Attributes/GameAssetIdAttribute.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public GameAssetIdAttribute<T>()
 ```
@@ -23,7 +24,9 @@ public GameAssetIdAttribute<T>()
 Creates a new instance with the asset type inferred from `T` and inheritance disabled by default.
 
 ### ⭐ Properties
+
 #### AllowInheritance
+
 ```csharp
 public readonly bool AllowInheritance;
 ```
@@ -32,7 +35,9 @@ Whether the editor picker should also list assets that derive from `T`, not just
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
 #### AssetType
+
 ```csharp
 public readonly Type AssetType;
 ```
@@ -41,7 +46,9 @@ The `GameAsset` subtype that the decorated `Guid` field references, derived from
 
 **Returns** \
 [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
+
 #### TypeId
+
 ```csharp
 public virtual Object TypeId { get; }
 ```
@@ -50,6 +57,5 @@ Unique type identifier for this attribute, inherited from `System.Attribute`.
 
 **Returns** \
 [Object](https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0) \
-
 
 ⚡

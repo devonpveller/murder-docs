@@ -16,6 +16,7 @@ Schedules this entity for destruction when a set of blackboard conditions evalua
 **Use-case:** Attach to an entity and configure `Rules` with `CriterionNode` conditions; `DestroyOnBlackboardConditionSystem` monitors blackboard changes and destroys the entity when all rules are satisfied.
 
 ### ⭐ Constructors
+
 ```csharp
 public DestroyOnBlackboardConditionComponent()
 ```
@@ -28,7 +29,9 @@ public DestroyOnBlackboardConditionComponent(CriterionNode node)
 `node` [CriterionNode](../../Murder/Core/Dialogs/CriterionNode.html) \
 
 ### ⭐ Properties
+
 #### Rules
+
 ```csharp
 public readonly ImmutableArray<T> Rules;
 ```
@@ -37,6 +40,5 @@ List of requirements for destroying this object.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
-
 
 ⚡

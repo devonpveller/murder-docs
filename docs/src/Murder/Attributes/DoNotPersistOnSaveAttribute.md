@@ -16,6 +16,7 @@ Marks a component so it is excluded from save-game serialization, with an option
 **Implements:** _[Attribute](https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0)_
 
 ### ⭐ Constructors
+
 ```csharp
 public DoNotPersistOnSaveAttribute()
 ```
@@ -32,7 +33,9 @@ Creates a new instance that excludes the component unless the entity also has th
 `exceptIfComponentIsPresent` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### ExceptIfComponentIsPresent
+
 ```csharp
 public readonly Type ExceptIfComponentIsPresent;
 ```
@@ -41,7 +44,9 @@ This will dismiss this attribute and persist the component on the serialization 
 
 **Returns** \
 [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
+
 #### TypeId
+
 ```csharp
 public virtual Object TypeId { get; }
 ```
@@ -50,6 +55,5 @@ Unique type identifier for this attribute, inherited from `System.Attribute`.
 
 **Returns** \
 [Object](https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0) \
-
 
 ⚡

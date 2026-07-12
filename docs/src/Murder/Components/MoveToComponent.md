@@ -16,6 +16,7 @@ Instructs the agent movement system to steer the entity toward a target world-sp
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public MoveToComponent(Vector2& target, float minDistance, float slowDownDistance)
 ```
@@ -33,7 +34,9 @@ public MoveToComponent(Vector2& target)
 `target` [Vector2&](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### MinDistance
+
 ```csharp
 public readonly float MinDistance;
 ```
@@ -42,7 +45,9 @@ Distance threshold (in pixels) at which the entity is considered to have reached
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 #### SlowDownDistance
+
 ```csharp
 public readonly float SlowDownDistance;
 ```
@@ -51,7 +56,9 @@ Distance (in pixels) from the target at which the agent begins decelerating to a
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 #### Target
+
 ```csharp
 public readonly Vector2 Target;
 ```
@@ -60,6 +67,5 @@ World-space position the entity should move toward.
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
-
 
 ⚡

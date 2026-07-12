@@ -14,6 +14,7 @@ A named collection of `Dialog` nodes and their outgoing `DialogEdge` transitions
 **Use-case:** A character asset holds a dictionary of `Situation`s; `CharacterRuntime.StartAtSituation` selects the active one by name, after which the runtime traverses its `Dialogs` and `Edges` to drive the conversation.
 
 ### ⭐ Constructors
+
 ```csharp
 public Situation()
 ```
@@ -43,7 +44,9 @@ Creates a situation with the given id and name but no dialogs or edges.
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Dialogs
+
 ```csharp
 public readonly ImmutableArray<T> Dialogs;
 ```
@@ -52,7 +55,9 @@ Ordered list of all `Dialog` nodes that belong to this situation.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
+
 #### Edges
+
 ```csharp
 public readonly ImmutableDictionary<TKey, TValue> Edges;
 ```
@@ -61,7 +66,9 @@ Map from a source dialog id to the `DialogEdge` that describes how to transition
 
 **Returns** \
 [ImmutableDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0) \
+
 #### Id
+
 ```csharp
 public readonly int Id;
 ```
@@ -70,7 +77,9 @@ Unique integer identifier for this situation within the character's situation li
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### Name
+
 ```csharp
 public readonly string Name;
 ```
@@ -79,8 +88,11 @@ Human-readable name used by `CharacterRuntime.StartAtSituation` to look up and a
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
+
 ### ⭐ Methods
+
 #### WithDialogAt(int, Dialog)
+
 ```csharp
 public Situation WithDialogAt(int index, Dialog dialog)
 ```
@@ -95,6 +107,7 @@ Returns a copy of this situation with the `Dialog` at `index` replaced.
 [Situation](../../../Murder/Core/Dialogs/Situation.html) \
 
 #### WithName(string)
+
 ```csharp
 public Situation WithName(string name)
 ```
@@ -106,7 +119,5 @@ Returns a copy of this situation with the `Name` replaced.
 
 **Returns** \
 [Situation](../../../Murder/Core/Dialogs/Situation.html) \
-
-
 
 ⚡

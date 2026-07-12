@@ -14,6 +14,7 @@ A displayable dialogue line that presents the player with a set of selectable op
 **Use-case:** Returned by `CharacterRuntime.NextLine` (wrapped in a `DialogLine`) when the active dialog node is a choice block; read `Choices` to populate your UI option list and call `CharacterRuntime.DoChoice` with the player's index.
 
 ### ⭐ Constructors
+
 ```csharp
 public ChoiceLine(Guid speaker, string portrait, string title, ImmutableArray<T> choices)
 ```
@@ -27,7 +28,9 @@ Creates a choice line with the given speaker, portrait, title text, and list of 
 `choices` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Choices
+
 ```csharp
 public readonly ImmutableArray<T> Choices;
 ```
@@ -36,7 +39,9 @@ Choices available to the player to pick.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
+
 #### Portrait
+
 ```csharp
 public readonly string Portrait;
 ```
@@ -45,7 +50,9 @@ Optional portrait key for the speaking character to display alongside the choice
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
+
 #### Speaker
+
 ```csharp
 public readonly T? Speaker;
 ```
@@ -54,7 +61,9 @@ GUID of the `SpeakerAsset` presenting this choice; `null` when no speaker is ass
 
 **Returns** \
 [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+
 #### Title
+
 ```csharp
 public readonly string Title;
 ```
@@ -63,6 +72,5 @@ Dialog title.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
-
 
 ⚡

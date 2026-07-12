@@ -55,7 +55,7 @@ Unique Id used for the lookup of components with type [AgentSpeedMultiplierCompo
 public static int AgentSpeedOverride { get; }
 ```
 
-Unique Id used for the lookup of components with type [AgentSpeedOverride](../../Murder/Components/Agents/AgentSpeedOverride.html).
+Unique Id used for the lookup of components with type [OverrideAgentSpeedComponent](../../Murder/Components/Agents/OverrideAgentSpeedComponent.html).
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -739,7 +739,7 @@ Unique Id used for the lookup of components with type [MoveToTargetComponent](..
 public static int Music { get; }
 ```
 
-Unique Id used for the lookup of components with type [MusicComponent](../../Murder/Components/MusicComponent.html).
+Unique Id used for the lookup of components with type MusicComponent.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -865,7 +865,7 @@ Unique Id used for the lookup of components with type [PolygonSpriteComponent](.
 public static int Position { get; }
 ```
 
-Unique Id used for the lookup of components with type [PositionComponent](../../Murder/Components/PositionComponent.html).
+Unique Id used for the lookup of components with type [PositionComponent](../Components/PositionComponent.html).
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -901,7 +901,7 @@ Unique Id used for the lookup of components with type [QuadtreeComponent](../../
 public static int QuestTracker { get; }
 ```
 
-Unique Id used for the lookup of components with type [QuestTrackerComponent](../../Murder/Components/QuestTrackerComponent.html).
+Unique Id used for the lookup of components with type QuestTrackerComponent.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
@@ -910,7 +910,7 @@ Unique Id used for the lookup of components with type [QuestTrackerComponent](..
 public static int QuestTrackerRuntime { get; }
 ```
 
-Unique Id used for the lookup of components with type [QuestTrackerRuntimeComponent](../../Murder/Components/QuestTrackerRuntimeComponent.html).
+Unique Id used for the lookup of components with type QuestTrackerRuntimeComponent.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \

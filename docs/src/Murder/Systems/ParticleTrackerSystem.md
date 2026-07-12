@@ -16,12 +16,15 @@ Responds to `ParticleSystemComponent` being added, modified, or removed on entit
 **Implements:** _[IReactiveSystem](../../Bang/Systems/IReactiveSystem.html), [ISystem](../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public ParticleTrackerSystem()
 ```
 
 ### ⭐ Methods
+
 #### OnActivated(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnActivated(World world, ImmutableArray<T> entities)
 ```
@@ -33,6 +36,7 @@ Re-registers the entity's emitter with the tracker when the entity is reactivate
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnAdded(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnAdded(World world, ImmutableArray<T> entities)
 ```
@@ -44,6 +48,7 @@ Registers the entity's particle emitter with the world tracker when `ParticleSys
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnDeactivated(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnDeactivated(World world, ImmutableArray<T> entities)
 ```
@@ -55,6 +60,7 @@ Unregisters the entity's emitter from the tracker when the entity is deactivated
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnModified(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnModified(World world, ImmutableArray<T> entities)
 ```
@@ -66,6 +72,7 @@ Synchronizes updated emitter settings in the world tracker when `ParticleSystemC
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnRemoved(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnRemoved(World world, ImmutableArray<T> entities)
 ```
@@ -75,7 +82,5 @@ Unregisters the entity's emitter from the world tracker when `ParticleSystemComp
 **Parameters** \
 `world` [World](../../Bang/World.html) \
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
-
-
 
 ⚡

@@ -16,6 +16,7 @@ Holds a delegate that is invoked each render frame to perform arbitrary custom d
 **Use-case:** Attach at runtime and pass a lambda that calls `RenderContext` drawing methods; the render system will invoke it each frame for the owning entity.
 
 ### ⭐ Constructors
+
 ```csharp
 public CustomDrawComponent(Action<T> draw)
 ```
@@ -24,7 +25,9 @@ public CustomDrawComponent(Action<T> draw)
 `draw` [Action\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Action-1?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Draw
+
 ```csharp
 public readonly Action<T> Draw;
 ```
@@ -33,6 +36,5 @@ Delegate invoked with the current `RenderContext` to perform this entity's custo
 
 **Returns** \
 [Action\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Action-1?view=net-7.0) \
-
 
 ⚡

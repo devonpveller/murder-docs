@@ -7,19 +7,21 @@
 public static class MurderAssetHelpers
 ```
 
-Extension helpers for working with game assets — resolving file-system paths, fetching portrait sprites, and converting GUID arrays to typed asset instances.
+Extension helpers for working with game assets — resolving file-system paths, fetching portrait sprites for dialogue speakers, and converting GUID arrays to typed asset instances.
 
-**Intent:** Centralizes asset utility operations that are needed by multiple systems but do not belong on the asset classes themselves.
+**Intent:** Centralizes asset utility operations that are needed by multiple systems (the data pipeline, the dialogue/portrait renderer) but do not belong on the asset classes themselves.
 
-**Use-case:** Use `GetGameAssetPath` to build a storage path, `ToAssetArray` to resolve a list of GUIDs to typed assets, and portrait helpers to look up sprite assets for dialogue speakers.
+**Use-case:** Use `GetGameAssetPath` to resolve where an asset should be loaded from or saved to on disk, `ToAssetArray` to resolve a list of GUIDs (e.g. a tileset list) to typed assets, and the portrait helpers to look up the sprite/animation a dialogue `Line`'s speaker should display.
 
 ### ⭐ Methods
+
 #### GetGameAssetPath(GameAsset)
+
 ```csharp
-public string GetGameAssetPath(GameAsset asset)
+public string? GetGameAssetPath(this GameAsset asset)
 ```
 
-Get the path to load or save <paramref name="asset" />.
+Get the path to load or save `asset`. Resolution order: if `asset.FilePath` is already a rooted absolute path, returns it as-is; if the asset is stored in save data, joins it under `Game.Data.SaveBasePath`; otherwise resolves it under the game's assets-bin directory (optionally under the profile's asset-resources subfolder if `asset.StoreInDatabase`), combined with `asset.SaveLocation` and `asset.FilePath`. Returns `null` if no path can be determined.
 
 **Parameters** \
 `asset` [GameAsset](../../Murder/Assets/GameAsset.html) \
@@ -28,44 +30,45 @@ Get the path to load or save <paramref name="asset" />.
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
 #### GetPortraitForLine(Line)
+
 ```csharp
-public T? GetPortraitForLine(Line line)
+public Portrait? GetPortraitForLine(Line line)
 ```
 
-Returns the portrait sprite for the speaker in the given dialogue `line`, or `null` if no portrait is defined.
+Resolves the `Portrait` that should be displayed for a dialogue `line`'s speaker: looks up the line's `Speaker` GUID as a `SpeakerAsset`, then finds the portrait named `line.Portrait` (falling back to the speaker's `DefaultPortrait` if the line doesn't specify one) in that speaker's `Portraits` map. Returns `null` if the line has no speaker, the speaker asset can't be found, no portrait name is available, or the named portrait doesn't exist on the speaker.
 
 **Parameters** \
 `line` [Line](../../Murder/Core/Dialogs/Line.html) \
 
 **Returns** \
-[T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+[Portrait?](../../Murder/Core/Dialogs/Portrait.html) \
 
 #### GetSpriteAssetForPortrait(Portrait)
+
 ```csharp
-public T? GetSpriteAssetForPortrait(Portrait portrait)
+public ValueTuple<T1, T2>? GetSpriteAssetForPortrait(Portrait portrait)
 ```
 
-Retrieves the `SpriteAsset` associated with the given portrait definition, or `null` if not found.
+Resolves a `Portrait` definition's `Sprite` GUID to its loaded `SpriteAsset`, returning it together with the portrait's `AnimationId` as `(SpriteAsset Asset, string Animation)`. Returns `null` if the sprite asset can't be found. Pair this with `GetPortraitForLine` to go directly from a dialogue line to the sprite/animation that should be drawn for it.
 
 **Parameters** \
-`portrait` [Portrait](../../Murder/Core/Portrait.html) \
+`portrait` [Portrait](../../Murder/Core/Dialogs/Portrait.html) \
 
 **Returns** \
-[T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+[ValueTuple\<T1, T2\>?](https://learn.microsoft.com/en-us/dotnet/api/System.ValueTuple-2?view=net-7.0) \
 
 #### ToAssetArray(ImmutableArray<T>)
+
 ```csharp
-public T[] ToAssetArray(ImmutableArray<T> guids)
+public T[] ToAssetArray(this ImmutableArray<Guid> guids)
 ```
 
-Resolves an immutable array of asset GUIDs to a typed array of loaded `GameAsset` instances.
+Resolves an immutable array of asset GUIDs to a typed array of loaded `GameAsset` instances of type `T`, in the same order as `guids`. Any GUID that fails to resolve to a `T` is logged as an error and left as the array's default (`null`) at that index, rather than throwing or shrinking the array — callers should be prepared for `null` entries if asset data is missing or misconfigured.
 
 **Parameters** \
-`guids` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
+`guids` [ImmutableArray\<Guid\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 **Returns** \
 [T[]](../../) \
-
-
 
 ⚡

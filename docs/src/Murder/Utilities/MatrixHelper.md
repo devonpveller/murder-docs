@@ -14,7 +14,9 @@ Conversion helpers between `System.Numerics.Matrix4x4` and the MonoGame/XNA `Mat
 **Use-case:** Call `ToXnaMatrix` when passing a System.Numerics matrix to MonoGame rendering APIs that require an XNA `Matrix`.
 
 ### ⭐ Methods
+
 #### ToXnaMatrix(Matrix4x4)
+
 ```csharp
 public Matrix ToXnaMatrix(Matrix4x4 matrix)
 ```
@@ -26,7 +28,5 @@ Converts a `System.Numerics.Matrix4x4` to a MonoGame `Matrix`.
 
 **Returns** \
 [Matrix](https://docs.monogame.net/api/Microsoft.Xna.Framework.Matrix.html) \
-
-
 
 ⚡

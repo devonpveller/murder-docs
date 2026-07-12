@@ -7,47 +7,51 @@
 public class Mask2D : IDisposable
 ```
 
-A 2D render-target-backed mask used to draw visibility regions, light cones, or any GPU-composited area overlay. Wraps a `RenderTarget2D` with a dedicated `Batch2D` and supports drawing content into it and then compositing the result onto the main batch.
+An off-screen, render-target-backed 2D drawing surface used to compose an effect (a light cone, a fog-of-war mask, a screen-space cutout, etc.) separately from the main scene and then blend the result back into it.
 
-**Intent:** Off-screen render texture for masking or overlay effects that need to be rendered separately and then blended into the scene.
+**Intent:** Wraps a dedicated `RenderTarget2D` and `Batch2D`: call `Begin` to point drawing at the mask's own target and get a batch to draw into, then either `Stop` (to just end the batch without compositing) or one of the `End` overloads (to flush the batch and immediately draw the mask's contents into another batch at a given position).
 
-**Use-case:** Create a `Mask2D` once per effect area, call `Begin` to start drawing the mask contents, then call `Draw` to composite the result onto the target batch at the desired world position.
+**Use-case:** Create a `Mask2D` once per effect area, call `Begin` to start drawing the mask contents each frame, draw the mask's shapes/sprites into the returned `Batch2D`, then call `End` to composite the result onto the target batch at the desired world position (optionally offset by the camera).
 
 **Implements:** _[IDisposable](https://learn.microsoft.com/en-us/dotnet/api/System.IDisposable?view=net-7.0)_
 
 ### ⭐ Constructors
+
 ```csharp
-public Mask2D(int width, int height, T? color)
+public Mask2D(int width, int height, Color? color = null)
 ```
 
-Creates a `Mask2D` of the given pixel dimensions, optionally tinted with `color` when composited.
+Creates a mask of the given pixel dimensions. `color` (default transparent) is the color the render target is cleared to at the start of every `Begin` call.
 
 **Parameters** \
 `width` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 `height` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-`color` [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+`color` [Color?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
 
 ```csharp
-public Mask2D(Vector2 size, T? color)
+public Mask2D(Vector2 size, Color? color = null)
 ```
 
-Creates a `Mask2D` whose dimensions are taken from the `size` vector.
+Creates a mask whose pixel dimensions are taken from `size` (truncated to integers).
 
 **Parameters** \
 `size` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
-`color` [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+`color` [Color?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
 
-### ⭐ Properties
-#### IsDisposed
 ```csharp
-public bool IsDisposed { get; }
+public Mask2D(Point size, Color? color = null)
 ```
 
-Whether the underlying render target has already been disposed.
+Creates a mask whose pixel dimensions are taken from `size`.
 
-**Returns** \
-[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+**Parameters** \
+`size` [Point](../../Murder/Core/Geometry/Point.html) \
+`color` [Color?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+
+### ⭐ Properties
+
 #### RenderTarget
+
 ```csharp
 public RenderTarget2D RenderTarget { get; }
 ```
@@ -56,22 +60,27 @@ The underlying MonoGame render target this mask draws into.
 
 **Returns** \
 [RenderTarget2D](https://docs.monogame.net/api/Microsoft.Xna.Framework.Graphics.RenderTarget2D.html) \
+
 #### Size
+
 ```csharp
-public readonly Vector2 Size;
+public Point Size { get; }
 ```
 
-The pixel dimensions of this mask's render target.
+The current pixel dimensions of this mask's render target.
 
 **Returns** \
-[Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+[Point](../../Murder/Core/Geometry/Point.html) \
+
 ### ⭐ Methods
+
 #### Begin(bool)
+
 ```csharp
-public Batch2D Begin(bool debug)
+public Batch2D Begin(bool debug = false)
 ```
 
-Activates this mask's render target and returns its internal `Batch2D` so callers can draw mask content into it.
+Redirects rendering to this mask's own `RenderTarget` (remembering whatever target was previously active so it can be restored by `Stop`/`End`), clears it to the mask's configured color, and starts its internal `Batch2D`.
 
 **Parameters** \
 `debug` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
@@ -80,30 +89,20 @@ Activates this mask's render target and returns its internal `Batch2D` so caller
 [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
 
 #### Dispose()
+
 ```csharp
-public virtual void Dispose()
+public void Dispose()
 ```
 
-Releases the underlying `RenderTarget2D` and associated GPU resources.
-
-#### Draw(Batch2D, Vector2, DrawInfo)
-```csharp
-public void Draw(Batch2D targetBatch, Vector2 position, DrawInfo drawInfo)
-```
-
-Ends the batch (if it is still running) and draws the render target to the target batch. If already ended, it will just draw the render target.
-
-**Parameters** \
-`targetBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
-`position` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
-`drawInfo` [DrawInfo](../../Murder/Core/Graphics/DrawInfo.html) \
+Releases the underlying `RenderTarget2D`.
 
 #### End(Batch2D, Vector2, DrawInfo)
+
 ```csharp
 public void End(Batch2D targetBatch, Vector2 position, DrawInfo drawInfo)
 ```
 
-Flushes the internal batch and immediately composites the mask's render target onto `targetBatch` at `position`.
+Ends the mask's internal batch (drawing a debug outline first if `Begin` was called with `debug: true`), then draws the mask's render target into `targetBatch` at `position`, and restores whatever render target was active before `Begin`.
 
 **Parameters** \
 `targetBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -111,11 +110,12 @@ Flushes the internal batch and immediately composites the mask's render target o
 `drawInfo` [DrawInfo](../../Murder/Core/Graphics/DrawInfo.html) \
 
 #### End(Batch2D, Vector2, Vector2, DrawInfo)
+
 ```csharp
 public void End(Batch2D targetBatch, Vector2 position, Vector2 camera, DrawInfo drawInfo)
 ```
 
-Flushes the internal batch and composites the mask onto `targetBatch`, offsetting by the camera position.
+Applies a camera offset to the mask's internal batch transform, then flushes it and composites the mask's render target onto `targetBatch` at `position`. Use this overload instead of `End(Batch2D, Vector2, DrawInfo)` when the content drawn into the mask was authored in camera/world space and needs the camera translation applied before compositing.
 
 **Parameters** \
 `targetBatch` [Batch2D](../../Murder/Core/Graphics/Batch2D.html) \
@@ -123,6 +123,26 @@ Flushes the internal batch and composites the mask onto `targetBatch`, offsettin
 `camera` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 `drawInfo` [DrawInfo](../../Murder/Core/Graphics/DrawInfo.html) \
 
+#### Resize(Point)
 
+```csharp
+public void Resize(Point size)
+```
+
+Grows or shrinks the mask's logical `Size` to match `size`. The backing `RenderTarget2D` is only reallocated when it needs to grow (shrinking just reduces the reported `Size` while keeping the larger allocation), so repeatedly resizing down and back up within the same peak dimensions is cheap. No-ops if `size` already matches.
+
+**Parameters** \
+`size` [Point](../../Murder/Core/Geometry/Point.html) \
+
+**Exceptions** \
+[ArgumentException](https://learn.microsoft.com/en-us/dotnet/api/System.ArgumentException?view=net-7.0) — if either dimension of `size` is zero or negative. \
+
+#### Stop()
+
+```csharp
+public void Stop()
+```
+
+Stops the current batch (drawing a debug outline first if `Begin` was called with `debug: true`) and resets the render target to the previous one, if any. Does **not** draw the mask's render target to any batch — use one of the `End` overloads instead if the mask's contents need to be composited onto something.
 
 ⚡

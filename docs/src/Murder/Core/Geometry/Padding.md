@@ -14,6 +14,7 @@ Stores top, right, bottom, and left integer padding or margin values.
 **Use-case:** Pass a `Padding` to UI drawing helpers to add inner spacing around a region, or use it when shrinking/expanding `IntRectangle` bounds by different amounts on each side.
 
 ### ⭐ Constructors
+
 ```csharp
 public Padding(int border)
 ```
@@ -32,7 +33,9 @@ public Padding(int top, int left, int right, int bottom)
 `bottom` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Bottom
+
 ```csharp
 public int Bottom;
 ```
@@ -41,7 +44,9 @@ The bottom padding value.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### Height
+
 ```csharp
 public int Height { get; }
 ```
@@ -50,7 +55,9 @@ The total vertical padding (`Top + Bottom`).
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### Left
+
 ```csharp
 public int Left;
 ```
@@ -59,7 +66,9 @@ The left padding value.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### Right
+
 ```csharp
 public int Right;
 ```
@@ -68,7 +77,9 @@ The right padding value.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### Top
+
 ```csharp
 public int Top;
 ```
@@ -77,7 +88,9 @@ The top padding value.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### Width
+
 ```csharp
 public int Width { get; }
 ```
@@ -86,6 +99,5 @@ The total horizontal padding (`Left + Right`).
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-
 
 ⚡

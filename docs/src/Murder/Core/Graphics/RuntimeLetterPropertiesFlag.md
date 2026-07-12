@@ -16,18 +16,22 @@ Bitfield flags that modify how individual characters are displayed during text a
 **Use-case:** Set the appropriate flags on `RuntimeLetterProperties.Properties` to make specific characters wave, shake, glitch, or pause the typewriter reveal.
 
 ### ⭐ Properties
+
 #### DoNotSkipLineEnding
+
 ```csharp
 public static const RuntimeLetterPropertiesFlag DoNotSkipLineEnding;
 ```
 
 Properties that guarantees that the writer does NOT skip this
-            index when calculating. For example, '\n' will be ignored by
-            default unless this is present.
+index when calculating. For example, '\n' will be ignored by
+default unless this is present.
 
 **Returns** \
 [RuntimeLetterPropertiesFlag](../../../Murder/Core/Graphics/RuntimeLetterPropertiesFlag.html) \
+
 #### Fear
+
 ```csharp
 public static const RuntimeLetterPropertiesFlag Fear;
 ```
@@ -36,7 +40,20 @@ They are in !FEAR! while being displayed.
 
 **Returns** \
 [RuntimeLetterPropertiesFlag](../../../Murder/Core/Graphics/RuntimeLetterPropertiesFlag.html) \
+
+#### New
+
+```csharp
+public static const RuntimeLetterPropertiesFlag New;
+```
+
+Signalizes that a new piece of information was presented, marked with an `<new>info</new>` markup tag. Set by the text parser but not currently read by `PixelFont`'s rendering; available for game-specific code to inspect via `RuntimeTextData.TryGetLetterProperty()` and react to (e.g. to highlight newly revealed information).
+
+**Returns** \
+[RuntimeLetterPropertiesFlag](../../../Murder/Core/Graphics/RuntimeLetterPropertiesFlag.html) \
+
 #### ResetColor
+
 ```csharp
 public static const RuntimeLetterPropertiesFlag ResetColor;
 ```
@@ -45,7 +62,9 @@ Reset any color.
 
 **Returns** \
 [RuntimeLetterPropertiesFlag](../../../Murder/Core/Graphics/RuntimeLetterPropertiesFlag.html) \
+
 #### ResetGlitch
+
 ```csharp
 public static const RuntimeLetterPropertiesFlag ResetGlitch;
 ```
@@ -54,7 +73,9 @@ Reset any glitch.
 
 **Returns** \
 [RuntimeLetterPropertiesFlag](../../../Murder/Core/Graphics/RuntimeLetterPropertiesFlag.html) \
+
 #### ResetSpeed
+
 ```csharp
 public static const RuntimeLetterPropertiesFlag ResetSpeed;
 ```
@@ -63,7 +84,9 @@ Reset any speed.
 
 **Returns** \
 [RuntimeLetterPropertiesFlag](../../../Murder/Core/Graphics/RuntimeLetterPropertiesFlag.html) \
+
 #### Wave
+
 ```csharp
 public static const RuntimeLetterPropertiesFlag Wave;
 ```
@@ -72,6 +95,5 @@ They ~wave~ while being displayed.
 
 **Returns** \
 [RuntimeLetterPropertiesFlag](../../../Murder/Core/Graphics/RuntimeLetterPropertiesFlag.html) \
-
 
 ⚡

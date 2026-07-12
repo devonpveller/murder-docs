@@ -8,8 +8,8 @@ public class OnlyPersistThisComponentForEntityOnSaveAttribute : Attribute
 ```
 
 This gets rather complicated, but this will persist only one component for the entity in the save.
-            These are for cases that we want to persist an entity id for an entity with a specific property,
-            e.g. the player.
+These are for cases that we want to persist an entity id for an entity with a specific property,
+e.g. the player.
 
 **Intent:** Limit save-game serialization for an entity to only the component that carries this attribute, discarding all others for that entity.
 
@@ -18,6 +18,7 @@ This gets rather complicated, but this will persist only one component for the e
 **Implements:** _[Attribute](https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0)_
 
 ### ⭐ Constructors
+
 ```csharp
 public OnlyPersistThisComponentForEntityOnSaveAttribute()
 ```
@@ -25,7 +26,9 @@ public OnlyPersistThisComponentForEntityOnSaveAttribute()
 Creates a new instance of `OnlyPersistThisComponentForEntityOnSaveAttribute`.
 
 ### ⭐ Properties
+
 #### TypeId
+
 ```csharp
 public virtual Object TypeId { get; }
 ```
@@ -34,6 +37,5 @@ Unique type identifier for this attribute, inherited from `System.Attribute`.
 
 **Returns** \
 [Object](https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0) \
-
 
 ⚡

@@ -14,6 +14,7 @@ Encapsulates the playback parameters used to evaluate a sprite animation each fr
 **Use-case:** Pass an `AnimationInfo` to sprite-rendering helpers (e.g., `NineSliceInfo.Draw`, `CachedNineSlice.Draw`) to control which animation plays and whether it loops.
 
 ### ⭐ Constructors
+
 ```csharp
 public AnimationInfo()
 ```
@@ -36,7 +37,9 @@ public AnimationInfo(string name)
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Default
+
 ```csharp
 public readonly static AnimationInfo Default;
 ```
@@ -45,7 +48,9 @@ A ready-made `AnimationInfo` with all default settings (empty name, looping, uns
 
 **Returns** \
 [AnimationInfo](../../../Murder/Core/Graphics/AnimationInfo.html) \
+
 #### Duration
+
 ```csharp
 public float Duration { get; public set; }
 ```
@@ -54,7 +59,20 @@ Override duration in seconds. When set to `-1` the animation's own duration is u
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
+#### ForceFrame
+
+```csharp
+public int? ForceFrame { get; public set; }
+```
+
+Ignores the current time and forces the rendering of a specific frame, counted from the start of the animation. `null` (the default) lets the frame be computed normally from elapsed time.
+
+**Returns** \
+[int?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+
 #### Loop
+
 ```csharp
 public bool Loop { get; public set; }
 ```
@@ -63,7 +81,9 @@ Whether the animation should loop continuously. Defaults to `true`.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
 #### Name
+
 ```csharp
 public string Name { get; public set; }
 ```
@@ -72,17 +92,21 @@ The key of the animation clip to play, as defined in the sprite asset's `Animati
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
+
 #### OverrideCurrentTime
+
 ```csharp
 public float OverrideCurrentTime { get; public set; }
 ```
 
 If different than -1, it will ignore [AnimationInfo.UseScaledTime](../../../Murder/Core/Graphics/AnimationInfo.html#usescaledtime) and use the
-            time specified in this field.
+time specified in this field.
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 #### Start
+
 ```csharp
 public float Start { get; public set; }
 ```
@@ -91,7 +115,9 @@ The game-time (seconds) at which playback of this animation began; used to compu
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 #### Ui
+
 ```csharp
 public readonly static AnimationInfo Ui;
 ```
@@ -100,7 +126,9 @@ A ready-made `AnimationInfo` pre-configured with `UseScaledTime = true`, suitabl
 
 **Returns** \
 [AnimationInfo](../../../Murder/Core/Graphics/AnimationInfo.html) \
+
 #### UseScaledTime
+
 ```csharp
 public bool UseScaledTime { get; public set; }
 ```
@@ -109,6 +137,5 @@ When `true`, the animation uses `Game.Now` (scaled by game speed); when `false` 
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-
 
 ⚡

@@ -16,12 +16,15 @@ Watches for changes to `RuleWatcherComponent` and fires interaction events on en
 **Implements:** _[IStartupSystem](../../Bang/Systems/IStartupSystem.html), [ISystem](../../Bang/Systems/ISystem.html), [IReactiveSystem](../../Bang/Systems/IReactiveSystem.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public InteractOnRuleMatchSystem()
 ```
 
 ### ⭐ Methods
+
 #### OnAdded(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnAdded(World world, ImmutableArray<T> entities)
 ```
@@ -33,6 +36,7 @@ Triggered when the `RuleWatcherComponent` is first added; runs an initial rule e
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnModified(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnModified(World world, ImmutableArray<T> entities)
 ```
@@ -44,6 +48,7 @@ Re-evaluates all `InteractOnRuleMatchComponent` entities against current blackbo
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnRemoved(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnRemoved(World world, ImmutableArray<T> entities)
 ```
@@ -55,6 +60,7 @@ Clears the `RuleMatched` component from entities that were previously marked as 
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### Start(Context)
+
 ```csharp
 public virtual void Start(Context context)
 ```
@@ -63,7 +69,5 @@ Adds the singleton `RuleWatcherComponent` entity to the world that reactive rule
 
 **Parameters** \
 `context` [Context](../../Bang/Contexts/Context.html) \
-
-
 
 ⚡

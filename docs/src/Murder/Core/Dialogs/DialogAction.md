@@ -14,6 +14,7 @@ Describes a single side-effect to execute when a `Dialog` node is visited: writi
 **Use-case:** Add `DialogAction` entries to `Dialog.Actions`; the runtime processes them in order when the node is visited, updating blackboards or entity components accordingly.
 
 ### ⭐ Constructors
+
 ```csharp
 public DialogAction()
 ```
@@ -37,7 +38,9 @@ Full constructor; only the value field matching `fact.Kind` is stored — all ot
 `component` [IComponent](../../../Bang/Components/IComponent.html) \
 
 ### ⭐ Properties
+
 #### BoolValue
+
 ```csharp
 public readonly T? BoolValue;
 ```
@@ -46,7 +49,9 @@ The boolean value applied to the fact when `Kind` is `Set` or `Toggle` on a `Boo
 
 **Returns** \
 [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+
 #### ComponentValue
+
 ```csharp
 public readonly IComponent ComponentValue;
 ```
@@ -55,7 +60,9 @@ The component instance applied to the target entity when `Kind` is `Component`.
 
 **Returns** \
 [IComponent](../../../Bang/Components/IComponent.html) \
+
 #### Fact
+
 ```csharp
 public readonly Fact Fact;
 ```
@@ -64,7 +71,9 @@ The blackboard variable this action writes to.
 
 **Returns** \
 [Fact](../../../Murder/Core/Dialogs/Fact.html) \
+
 #### FloatValue
+
 ```csharp
 public readonly T? FloatValue;
 ```
@@ -73,7 +82,9 @@ The float value applied when the fact is of kind `Float`.
 
 **Returns** \
 [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+
 #### Id
+
 ```csharp
 public readonly int Id;
 ```
@@ -82,7 +93,9 @@ Unique identifier for this action within its dialog node, used for editor tracki
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### IntValue
+
 ```csharp
 public readonly T? IntValue;
 ```
@@ -91,7 +104,9 @@ The integer value applied when the fact is of kind `Int` or `Weight`.
 
 **Returns** \
 [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+
 #### Kind
+
 ```csharp
 public readonly BlackboardActionKind Kind;
 ```
@@ -100,7 +115,9 @@ The mutation operation to apply (`Set`, `Add`, `Toggle`, `Component`, etc.).
 
 **Returns** \
 [BlackboardActionKind](../../../Murder/Core/Dialogs/BlackboardActionKind.html) \
+
 #### StrValue
+
 ```csharp
 public readonly string StrValue;
 ```
@@ -109,8 +126,11 @@ The string value applied when the fact is of kind `String`.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
+
 ### ⭐ Methods
+
 #### WithComponent(IComponent)
+
 ```csharp
 public DialogAction WithComponent(IComponent c)
 ```
@@ -124,6 +144,7 @@ Returns a copy of this action with the `ComponentValue` replaced.
 [DialogAction](../../../Murder/Core/Dialogs/DialogAction.html) \
 
 #### WithFact(Fact)
+
 ```csharp
 public DialogAction WithFact(Fact fact)
 ```
@@ -137,6 +158,7 @@ Returns a copy of this action with the `Fact` replaced.
 [DialogAction](../../../Murder/Core/Dialogs/DialogAction.html) \
 
 #### WithKind(BlackboardActionKind)
+
 ```csharp
 public DialogAction WithKind(BlackboardActionKind kind)
 ```
@@ -148,7 +170,5 @@ Returns a copy of this action with the `Kind` replaced.
 
 **Returns** \
 [DialogAction](../../../Murder/Core/Dialogs/DialogAction.html) \
-
-
 
 ⚡

@@ -4,125 +4,73 @@
 **Assembly:** Murder.dll
 
 ```csharp
-public class BlackboardInfo : IEquatable<T>
+public class BlackboardInfo
 ```
 
-Holds the runtime type and live instance of a blackboard, pairing the `IBlackboard` object with its CLR type for reflection-based field access.
+Bundles a resolved blackboard together with the metadata `BlackboardTracker` needs to look it up and read/write its fields via reflection: its declared name, an optional owning character GUID, its CLR `Type`, and the live `IBlackboard` instance itself.
 
-**Intent:** Bundles together a blackboard's type metadata and its runtime instance so that the `BlackboardTracker` can look up and mutate fields by name.
+**Intent:** `BlackboardTracker` discovers every `[Blackboard]`-tagged class in the loaded assemblies at startup (see `BlackboardTracker.InitializeBlackboards`/`InitializeCharacterBlackboards`), instantiates one of each, and wraps the instance in a `BlackboardInfo` so it can be indexed by name (and, for character-scoped blackboards, by character GUID) without losing the concrete `Type` needed for `FieldInfo` lookups.
 
-**Use-case:** Retrieved internally by `BlackboardTracker.FindBlackboard` when evaluating dialogue criteria or setting values; game code typically does not construct these directly.
-
-**Implements:** _[IEquatable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0)_
+**Use-case:** Returned by `BlackboardTracker.FindBlackboard(name, guid)` and consumed internally by `BlackboardTracker`'s `GetBool`/`SetBool`/`GetInt`/`SetInt`/`GetFloat`/`SetFloat`/`GetString`/`SetString`/`GetValue<T>`/`SetValue<T>`/`Matches` methods, which use `Type.GetField` against `BlackboardInfo.Type` and then read/write the field on `BlackboardInfo.Blackboard`. Game code and dialogue scripts almost never construct a `BlackboardInfo` directly — it is produced by the tracker's blackboard discovery pass.
 
 ### ⭐ Constructors
-```csharp
-protected BlackboardInfo(BlackboardInfo original)
-```
-Copy constructor that duplicates an existing `BlackboardInfo` record.
-
-**Parameters** \
-`original` [BlackboardInfo](../../Murder/Data/BlackboardInfo.html) \
 
 ```csharp
-public BlackboardInfo(Type Type, IBlackboard Blackboard)
+public BlackboardInfo(string name, Guid? guid, Type type, IBlackboard blackboard)
 ```
-Creates a new `BlackboardInfo` with the given CLR type and blackboard instance.
+
+Creates a new `BlackboardInfo` pairing a blackboard instance with the lookup metadata `BlackboardTracker` needs: the name it is registered under, the character GUID that owns it (or `null` for a global/default blackboard), its CLR type, and the instance itself.
 
 **Parameters** \
-`Type` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
-`Blackboard` [IBlackboard](../../Murder/Core/Dialogs/IBlackboard.html) \
+`name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
+`guid` [Guid?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+`type` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
+`blackboard` [IBlackboard](../../Murder/Core/Dialogs/IBlackboard.html) \
 
 ### ⭐ Properties
-#### Blackboard
+
+#### Name
+
 ```csharp
-public IBlackboard Blackboard { get; public set; }
+public readonly string Name;
 ```
-The live blackboard instance that stores the actual variable values.
 
-**Returns** \
-[IBlackboard](../../Murder/Core/Dialogs/IBlackboard.html) \
-#### EqualityContract
-```csharp
-protected virtual Type EqualityContract { get; }
-```
-The concrete type used when comparing two `BlackboardInfo` records for equality.
-
-**Returns** \
-[Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
-#### Type
-```csharp
-public Type Type { get; public set; }
-```
-The CLR type of the blackboard class, used for reflection-based field access.
-
-**Returns** \
-[Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
-### ⭐ Methods
-#### PrintMembers(StringBuilder)
-```csharp
-protected virtual bool PrintMembers(StringBuilder builder)
-```
-Appends member values to the provided `StringBuilder` for debug output.
-
-**Parameters** \
-`builder` [StringBuilder](https://learn.microsoft.com/en-us/dotnet/api/System.Text.StringBuilder?view=net-7.0) \
-
-**Returns** \
-[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-
-#### Equals(BlackboardInfo)
-```csharp
-public virtual bool Equals(BlackboardInfo other)
-```
-Returns `true` if `other` has the same `Type` and `Blackboard` reference.
-
-**Parameters** \
-`other` [BlackboardInfo](../../Murder/Data/BlackboardInfo.html) \
-
-**Returns** \
-[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-
-#### Equals(Object)
-```csharp
-public virtual bool Equals(Object obj)
-```
-Returns `true` if `obj` is a `BlackboardInfo` with equivalent field values.
-
-**Parameters** \
-`obj` [Object](https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0) \
-
-**Returns** \
-[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-
-#### GetHashCode()
-```csharp
-public virtual int GetHashCode()
-```
-Returns a hash code derived from `Type` and `Blackboard`.
-
-**Returns** \
-[int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-
-#### ToString()
-```csharp
-public virtual string ToString()
-```
-Returns a human-readable string representation of this instance.
+The blackboard's registered name, taken from `BlackboardAttribute.Name` at discovery time. This is the string dialogue scripts and `BlackboardTracker.FindBlackboard` use to address the blackboard (e.g. as `criterion.Fact.Blackboard`).
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
-#### Deconstruct(out Type&, out IBlackboard&)
+#### Guid
+
 ```csharp
-public void Deconstruct(Type& Type, IBlackboard& Blackboard)
+public readonly Guid? Guid;
 ```
-Deconstructs this instance into its `Type` and `Blackboard` component values.
 
-**Parameters** \
-`Type` [Type&](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
-`Blackboard` [IBlackboard&](../../Murder/Core/Dialogs/IBlackboard.html) \
+The GUID of the character script this blackboard belongs to, or `null` when the blackboard is a global/default blackboard rather than a per-character one. Used to disambiguate character-scoped blackboards that share the same declared name across different characters.
 
+**Returns** \
+[Guid?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
 
+#### Type
+
+```csharp
+public readonly Type Type;
+```
+
+The CLR type of the blackboard class. `BlackboardTracker` uses this with reflection (`Type.GetField`) to locate and read/write individual fact fields on `Blackboard` by name, since the tracker only knows field names as strings coming from dialogue data.
+
+**Returns** \
+[Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
+
+#### Blackboard
+
+```csharp
+public readonly IBlackboard Blackboard;
+```
+
+The live blackboard instance whose fields actually hold the tracked values. This is the object reflection reads from and writes to; its concrete type matches `Type`.
+
+**Returns** \
+[IBlackboard](../../Murder/Core/Dialogs/IBlackboard.html) \
 
 ⚡

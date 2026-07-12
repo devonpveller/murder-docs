@@ -16,12 +16,15 @@ Renders polygon-shaped sprites (currently circles) defined in a `PolygonSpriteCo
 **Implements:** _[IMurderRenderSystem](../../Murder/Core/Graphics/IMurderRenderSystem.html), [IRenderSystem](../../Bang/Systems/IRenderSystem.html), [ISystem](../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public PolygonSpriteRenderSystem()
 ```
 
 ### ⭐ Methods
+
 #### Draw(RenderContext, Context)
+
 ```csharp
 public virtual void Draw(RenderContext render, Context context)
 ```
@@ -31,7 +34,5 @@ Iterates entities with `PolygonSpriteComponent` and draws each declared shape (c
 **Parameters** \
 `render` [RenderContext](../../Murder/Core/Graphics/RenderContext.html) \
 `context` [Context](../../Bang/Contexts/Context.html) \
-
-
 
 ⚡

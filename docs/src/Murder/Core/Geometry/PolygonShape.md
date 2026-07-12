@@ -16,6 +16,7 @@ An `IShape` implementation wrapping a `Polygon` for use in convex polygon collis
 **Implements:** _[IShape](../../../Murder/Core/Geometry/IShape.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public PolygonShape()
 ```
@@ -28,7 +29,9 @@ public PolygonShape(Polygon polygon)
 `polygon` [Polygon](../../../Murder/Core/Geometry/Polygon.html) \
 
 ### ⭐ Properties
+
 #### Polygon
+
 ```csharp
 public readonly Polygon Polygon;
 ```
@@ -37,7 +40,9 @@ The underlying polygon data containing the shape's vertices.
 
 **Returns** \
 [Polygon](../../../Murder/Core/Geometry/Polygon.html) \
+
 #### Rect
+
 ```csharp
 public Rectangle Rect { get; }
 ```
@@ -46,8 +51,11 @@ The cached axis-aligned bounding rectangle of the polygon. Calls `Cache()` autom
 
 **Returns** \
 [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
+
 ### ⭐ Methods
+
 #### GetCenter()
+
 ```csharp
 public Point GetCenter()
 ```
@@ -58,6 +66,7 @@ Returns the integer centre point of the polygon's bounding rectangle.
 [Point](../../../Murder/Core/Geometry/Point.html) \
 
 #### GetPolygon()
+
 ```csharp
 public virtual PolygonShape GetPolygon()
 ```
@@ -68,6 +77,7 @@ Returns `this` — the shape is already a polygon.
 [PolygonShape](../../../Murder/Core/Geometry/PolygonShape.html) \
 
 #### GetBoundingBox()
+
 ```csharp
 public virtual Rectangle GetBoundingBox()
 ```
@@ -78,12 +88,11 @@ Returns the cached bounding rectangle of this polygon shape.
 [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
 
 #### Cache()
+
 ```csharp
 public void Cache()
 ```
 
 Pre-computes and caches the indices of the leftmost, rightmost, topmost, and bottommost vertices for fast bounding-box access.
-
-
 
 ⚡

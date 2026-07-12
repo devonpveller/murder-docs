@@ -16,12 +16,15 @@ Reacts to `DisableParticleSystemComponent` being added or removed, activating or
 **Implements:** _[IReactiveSystem](../../Bang/Systems/IReactiveSystem.html), [ISystem](../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public ParticleDisableTrackerSystem()
 ```
 
 ### ⭐ Methods
+
 #### OnAdded(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnAdded(World world, ImmutableArray<T> entities)
 ```
@@ -33,6 +36,7 @@ Deactivates the particle emitter in the tracker when `DisableParticleSystemCompo
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnModified(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnModified(World world, ImmutableArray<T> entities)
 ```
@@ -44,6 +48,7 @@ No-op; state changes are handled by add and remove events.
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnRemoved(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnRemoved(World world, ImmutableArray<T> entities)
 ```
@@ -53,7 +58,5 @@ Re-activates the particle emitter in the tracker when `DisableParticleSystemComp
 **Parameters** \
 `world` [World](../../Bang/World.html) \
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
-
-
 
 ⚡

@@ -16,12 +16,15 @@ Watches for changes to `AlphaComponent` on particle-system entities and forwards
 **Implements:** _[IReactiveSystem](../../Bang/Systems/IReactiveSystem.html), [ISystem](../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public ParticleAlphaTrackerSystem()
 ```
 
 ### ⭐ Methods
+
 #### OnAdded(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnAdded(World world, ImmutableArray<T> entities)
 ```
@@ -33,6 +36,7 @@ Delegates to `OnModified` to apply the initial alpha value to the particle track
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnModified(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnModified(World world, ImmutableArray<T> entities)
 ```
@@ -44,6 +48,7 @@ Reads the entity's `AlphaComponent` and updates the corresponding emitter's alph
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### OnRemoved(World, ImmutableArray<T>)
+
 ```csharp
 public virtual void OnRemoved(World world, ImmutableArray<T> entities)
 ```
@@ -53,7 +58,5 @@ Resets the emitter's alpha to 1 in the particle tracker when `AlphaComponent` is
 **Parameters** \
 `world` [World](../../Bang/World.html) \
 `entities` [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
-
-
 
 ⚡

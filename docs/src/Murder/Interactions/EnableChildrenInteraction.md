@@ -15,12 +15,34 @@ Activates all inactive child entities of the interacted entity (or a specified t
 
 **Implements:** _[IInteraction](../../Bang/Interactions/IInteraction.html)_
 
+### ⭐ Constructors
+
+```csharp
+public EnableChildrenInteraction()
+```
+
+### ⭐ Properties
+
+#### Target
+
+```csharp
+public readonly string? Target;
+```
+
+Optional name of a target entity (resolved the same way as other target-decorated fields, via the interacted entity's target components) whose children should be activated instead of the interacted entity's own children. When `null`, the interacted entity's own children are used.
+
+**Returns** \
+[string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
+
 ### ⭐ Methods
+
 #### Interact(World, Entity, Entity)
+
 ```csharp
 public virtual void Interact(World world, Entity interactor, Entity interacted)
 ```
-Activates all inactive children of the interacted entity, or of the entity resolved via the optional target name.
+
+Activates all inactive children of the interacted entity, or of the entity resolved via `Target`.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
@@ -28,15 +50,15 @@ Activates all inactive children of the interacted entity, or of the entity resol
 `interacted` [Entity](../../Bang/Entities/Entity.html) \
 
 #### Enable(World, Entity)
+
 ```csharp
-public void Enable(World world, Entity target)
+public static void Enable(World world, Entity target)
 ```
-Activates all inactive children of `target`, resetting their animation start time if they have a sprite component.
+
+Activates all inactive children of `target`, resetting their animation start time if they have a sprite component so the animation plays from the beginning instead of appearing mid-animation.
 
 **Parameters** \
 `world` [World](../../Bang/World.html) \
 `target` [Entity](../../Bang/Entities/Entity.html) \
-
-
 
 ⚡

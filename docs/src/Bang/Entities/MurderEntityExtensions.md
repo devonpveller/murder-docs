@@ -84,13 +84,13 @@ Gets a component of type [AgentSpeedMultiplierComponent](../../Murder/Components
 public AgentSpeedOverride GetAgentSpeedOverride(Entity e)
 ```
 
-Gets a component of type [AgentSpeedOverride](../../Murder/Components/Agents/AgentSpeedOverride.html).
+Gets a component of type [OverrideAgentSpeedComponent](../../Murder/Components/Agents/OverrideAgentSpeedComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
 
 **Returns** \
-[AgentSpeedOverride](../../Murder/Components/Agents/AgentSpeedOverride.html) \
+[OverrideAgentSpeedComponent](../../Murder/Components/Agents/OverrideAgentSpeedComponent.html) \
 
 #### GetAgentSprite(Entity)
 ```csharp
@@ -266,7 +266,7 @@ Checks whether this entity possesses a component of type [AgentSpeedMultiplierCo
 public bool HasAgentSpeedOverride(Entity e)
 ```
 
-Checks whether this entity possesses a component of type [AgentSpeedOverride](../../Murder/Components/Agents/AgentSpeedOverride.html) or not.
+Checks whether this entity possesses a component of type [OverrideAgentSpeedComponent](../../Murder/Components/Agents/OverrideAgentSpeedComponent.html) or not.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -1345,7 +1345,7 @@ Checks whether this entity possesses a component of type [MoveToTargetComponent]
 public bool HasMusic(Entity e)
 ```
 
-Checks whether this entity possesses a component of type [MusicComponent](../../Murder/Components/MusicComponent.html) or not.
+Checks whether this entity possesses a component of type MusicComponent or not.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -1423,7 +1423,7 @@ Checks whether this entity possesses a component of type [OnEnterOnExitComponent
 public bool HasOnInteractExitMessage(Entity e)
 ```
 
-Checks whether the entity has a message of type [OnInteractExitMessage](../../Murder/Messages/OnInteractExitMessage.html) or not.
+Checks whether the entity has a message of type [OnExitMessage](../../Murder/Messages/OnExitMessage.html) or not.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -1592,7 +1592,7 @@ Checks whether this entity possesses a component of type [PolygonSpriteComponent
 public bool HasPosition(Entity e)
 ```
 
-Checks whether this entity possesses a component of type [PositionComponent](../../Murder/Components/PositionComponent.html) or not.
+Checks whether this entity possesses a component of type [PositionComponent](../Components/PositionComponent.html) or not.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -1644,7 +1644,7 @@ Checks whether this entity possesses a component of type [QuadtreeComponent](../
 public bool HasQuestTracker(Entity e)
 ```
 
-Checks whether this entity possesses a component of type [QuestTrackerComponent](../../Murder/Components/QuestTrackerComponent.html) or not.
+Checks whether this entity possesses a component of type QuestTrackerComponent or not.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -1657,7 +1657,7 @@ Checks whether this entity possesses a component of type [QuestTrackerComponent]
 public bool HasQuestTrackerRuntime(Entity e)
 ```
 
-Checks whether this entity possesses a component of type [QuestTrackerRuntimeComponent](../../Murder/Components/QuestTrackerRuntimeComponent.html) or not.
+Checks whether this entity possesses a component of type QuestTrackerRuntimeComponent or not.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -2294,7 +2294,7 @@ Removes the component of type [AgentSpeedMultiplierComponent](../../Murder/Compo
 public bool RemoveAgentSpeedOverride(Entity e)
 ```
 
-Removes the component of type [AgentSpeedOverride](../../Murder/Components/Agents/AgentSpeedOverride.html).
+Removes the component of type [OverrideAgentSpeedComponent](../../Murder/Components/Agents/OverrideAgentSpeedComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -3373,7 +3373,7 @@ Removes the component of type [MoveToTargetComponent](../../Murder/Components/Mo
 public bool RemoveMusic(Entity e)
 ```
 
-Removes the component of type [MusicComponent](../../Murder/Components/MusicComponent.html).
+Removes the component of type MusicComponent.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -3451,7 +3451,7 @@ Removes the component of type [OnEnterOnExitComponent](../../Murder/Components/E
 public bool RemoveOnInteractExitMessage(Entity e)
 ```
 
-Set a message of type [OnInteractExitMessage](../../Murder/Messages/OnInteractExitMessage.html).
+Set a message of type [OnExitMessage](../../Murder/Messages/OnExitMessage.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -3620,7 +3620,7 @@ Removes the component of type [PolygonSpriteComponent](../../Murder/Components/P
 public bool RemovePosition(Entity e)
 ```
 
-Removes the component of type [PositionComponent](../../Murder/Components/PositionComponent.html).
+Removes the component of type [PositionComponent](../Components/PositionComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -3672,7 +3672,7 @@ Removes the component of type [QuadtreeComponent](../../Murder/Components/Quadtr
 public bool RemoveQuestTracker(Entity e)
 ```
 
-Removes the component of type [QuestTrackerComponent](../../Murder/Components/QuestTrackerComponent.html).
+Removes the component of type QuestTrackerComponent.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -3685,7 +3685,7 @@ Removes the component of type [QuestTrackerComponent](../../Murder/Components/Qu
 public bool RemoveQuestTrackerRuntime(Entity e)
 ```
 
-Removes the component of type [QuestTrackerRuntimeComponent](../../Murder/Components/QuestTrackerRuntimeComponent.html).
+Removes the component of type QuestTrackerRuntimeComponent.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -4664,11 +4664,11 @@ Adds or replaces the component of type [AgentSpeedMultiplierComponent](../../Mur
 public Entity WithAgentSpeedOverride(Entity e, AgentSpeedOverride component)
 ```
 
-Adds or replaces the component of type [AgentSpeedOverride](../../Murder/Components/Agents/AgentSpeedOverride.html).
+Adds or replaces the component of type [OverrideAgentSpeedComponent](../../Murder/Components/Agents/OverrideAgentSpeedComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
-`component` [AgentSpeedOverride](../../Murder/Components/Agents/AgentSpeedOverride.html) \
+`component` [OverrideAgentSpeedComponent](../../Murder/Components/Agents/OverrideAgentSpeedComponent.html) \
 
 **Returns** \
 [Entity](../../Bang/Entities/Entity.html) \
@@ -5728,11 +5728,11 @@ Adds or replaces the component of type [MoveToTargetComponent](../../Murder/Comp
 public Entity WithMusic(Entity e, MusicComponent component)
 ```
 
-Adds or replaces the component of type [MusicComponent](../../Murder/Components/MusicComponent.html).
+Adds or replaces the component of type MusicComponent.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
-`component` [MusicComponent](../../Murder/Components/MusicComponent.html) \
+`component` MusicComponent \
 
 **Returns** \
 [Entity](../../Bang/Entities/Entity.html) \
@@ -5924,11 +5924,11 @@ Adds or replaces the component of type [PolygonSpriteComponent](../../Murder/Com
 public Entity WithPosition(Entity e, PositionComponent component)
 ```
 
-Adds or replaces the component of type [PositionComponent](../../Murder/Components/PositionComponent.html).
+Adds or replaces the component of type [PositionComponent](../Components/PositionComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
-`component` [PositionComponent](../../Murder/Components/PositionComponent.html) \
+`component` [PositionComponent](../Components/PositionComponent.html) \
 
 **Returns** \
 [Entity](../../Bang/Entities/Entity.html) \
@@ -5980,11 +5980,11 @@ Adds or replaces the component of type [QuadtreeComponent](../../Murder/Componen
 public Entity WithQuestTracker(Entity e, QuestTrackerComponent component)
 ```
 
-Adds or replaces the component of type [QuestTrackerComponent](../../Murder/Components/QuestTrackerComponent.html).
+Adds or replaces the component of type QuestTrackerComponent.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
-`component` [QuestTrackerComponent](../../Murder/Components/QuestTrackerComponent.html) \
+`component` QuestTrackerComponent \
 
 **Returns** \
 [Entity](../../Bang/Entities/Entity.html) \
@@ -5994,11 +5994,11 @@ Adds or replaces the component of type [QuestTrackerComponent](../../Murder/Comp
 public Entity WithQuestTrackerRuntime(Entity e, QuestTrackerRuntimeComponent component)
 ```
 
-Adds or replaces the component of type [QuestTrackerRuntimeComponent](../../Murder/Components/QuestTrackerRuntimeComponent.html).
+Adds or replaces the component of type QuestTrackerRuntimeComponent.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
-`component` [QuestTrackerRuntimeComponent](../../Murder/Components/QuestTrackerRuntimeComponent.html) \
+`component` QuestTrackerRuntimeComponent \
 
 **Returns** \
 [Entity](../../Bang/Entities/Entity.html) \
@@ -7116,13 +7116,13 @@ Gets a component of type [MoveToTargetComponent](../../Murder/Components/MoveToT
 public MusicComponent GetMusic(Entity e)
 ```
 
-Gets a component of type [MusicComponent](../../Murder/Components/MusicComponent.html).
+Gets a component of type MusicComponent.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
 
 **Returns** \
-[MusicComponent](../../Murder/Components/MusicComponent.html) \
+MusicComponent \
 
 #### GetMuteEvents(Entity)
 ```csharp
@@ -7298,13 +7298,13 @@ Gets a component of type [PolygonSpriteComponent](../../Murder/Components/Polygo
 public PositionComponent GetPosition(Entity e)
 ```
 
-Gets a component of type [PositionComponent](../../Murder/Components/PositionComponent.html).
+Gets a component of type [PositionComponent](../Components/PositionComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
 
 **Returns** \
-[PositionComponent](../../Murder/Components/PositionComponent.html) \
+[PositionComponent](../Components/PositionComponent.html) \
 
 #### GetPrefabRef(Entity)
 ```csharp
@@ -7350,26 +7350,26 @@ Gets a component of type [QuadtreeComponent](../../Murder/Components/QuadtreeCom
 public QuestTrackerComponent GetQuestTracker(Entity e)
 ```
 
-Gets a component of type [QuestTrackerComponent](../../Murder/Components/QuestTrackerComponent.html).
+Gets a component of type QuestTrackerComponent.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
 
 **Returns** \
-[QuestTrackerComponent](../../Murder/Components/QuestTrackerComponent.html) \
+QuestTrackerComponent \
 
 #### GetQuestTrackerRuntime(Entity)
 ```csharp
 public QuestTrackerRuntimeComponent GetQuestTrackerRuntime(Entity e)
 ```
 
-Gets a component of type [QuestTrackerRuntimeComponent](../../Murder/Components/QuestTrackerRuntimeComponent.html).
+Gets a component of type QuestTrackerRuntimeComponent.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
 
 **Returns** \
-[QuestTrackerRuntimeComponent](../../Murder/Components/QuestTrackerRuntimeComponent.html) \
+QuestTrackerRuntimeComponent \
 
 #### GetRandomizeSprite(Entity)
 ```csharp
@@ -7766,7 +7766,7 @@ Gets a [AgentSpeedMultiplierComponent](../../Murder/Components/AgentSpeedMultipl
 public T? TryGetAgentSpeedOverride(Entity e)
 ```
 
-Gets a [AgentSpeedOverride](../../Murder/Components/Agents/AgentSpeedOverride.html) if the entity has one, otherwise returns null.
+Gets a [OverrideAgentSpeedComponent](../../Murder/Components/Agents/OverrideAgentSpeedComponent.html) if the entity has one, otherwise returns null.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -8754,7 +8754,7 @@ Gets a [MoveToTargetComponent](../../Murder/Components/MoveToTargetComponent.htm
 public T? TryGetMusic(Entity e)
 ```
 
-Gets a [MusicComponent](../../Murder/Components/MusicComponent.html) if the entity has one, otherwise returns null.
+Gets a MusicComponent if the entity has one, otherwise returns null.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -8936,7 +8936,7 @@ Gets a [PolygonSpriteComponent](../../Murder/Components/PolygonSpriteComponent.h
 public T? TryGetPosition(Entity e)
 ```
 
-Gets a [PositionComponent](../../Murder/Components/PositionComponent.html) if the entity has one, otherwise returns null.
+Gets a [PositionComponent](../Components/PositionComponent.html) if the entity has one, otherwise returns null.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -8988,7 +8988,7 @@ Gets a [QuadtreeComponent](../../Murder/Components/QuadtreeComponent.html) if th
 public T? TryGetQuestTracker(Entity e)
 ```
 
-Gets a [QuestTrackerComponent](../../Murder/Components/QuestTrackerComponent.html) if the entity has one, otherwise returns null.
+Gets a QuestTrackerComponent if the entity has one, otherwise returns null.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -9001,7 +9001,7 @@ Gets a [QuestTrackerComponent](../../Murder/Components/QuestTrackerComponent.htm
 public T? TryGetQuestTrackerRuntime(Entity e)
 ```
 
-Gets a [QuestTrackerRuntimeComponent](../../Murder/Components/QuestTrackerRuntimeComponent.html) if the entity has one, otherwise returns null.
+Gets a QuestTrackerRuntimeComponent if the entity has one, otherwise returns null.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -10000,18 +10000,18 @@ Send a message of type [OnCollisionMessage](../../Murder/Messages/Physics/OnColl
 public void SendOnInteractExitMessage(Entity e, OnInteractExitMessage message)
 ```
 
-Send a message of type [OnInteractExitMessage](../../Murder/Messages/OnInteractExitMessage.html).
+Send a message of type [OnExitMessage](../../Murder/Messages/OnExitMessage.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
-`message` [OnInteractExitMessage](../../Murder/Messages/OnInteractExitMessage.html) \
+`message` [OnExitMessage](../../Murder/Messages/OnExitMessage.html) \
 
 #### SendOnInteractExitMessage(Entity)
 ```csharp
 public void SendOnInteractExitMessage(Entity e)
 ```
 
-Send a message of type [OnInteractExitMessage](../../Murder/Messages/OnInteractExitMessage.html).
+Send a message of type [OnExitMessage](../../Murder/Messages/OnExitMessage.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -10270,18 +10270,18 @@ Adds or replaces the component of type [AgentSpeedMultiplierComponent](../../Mur
 public void SetAgentSpeedOverride(Entity e, AgentSpeedOverride component)
 ```
 
-Adds or replaces the component of type [AgentSpeedOverride](../../Murder/Components/Agents/AgentSpeedOverride.html).
+Adds or replaces the component of type [OverrideAgentSpeedComponent](../../Murder/Components/Agents/OverrideAgentSpeedComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
-`component` [AgentSpeedOverride](../../Murder/Components/Agents/AgentSpeedOverride.html) \
+`component` [OverrideAgentSpeedComponent](../../Murder/Components/Agents/OverrideAgentSpeedComponent.html) \
 
 #### SetAgentSpeedOverride(Entity, float, float)
 ```csharp
 public void SetAgentSpeedOverride(Entity e, float maxSpeed, float acceleration)
 ```
 
-Adds or replaces the component of type [AgentSpeedOverride](../../Murder/Components/Agents/AgentSpeedOverride.html).
+Adds or replaces the component of type [OverrideAgentSpeedComponent](../../Murder/Components/Agents/OverrideAgentSpeedComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -10293,7 +10293,7 @@ Adds or replaces the component of type [AgentSpeedOverride](../../Murder/Compone
 public void SetAgentSpeedOverride(Entity e)
 ```
 
-Adds or replaces the component of type [AgentSpeedOverride](../../Murder/Components/Agents/AgentSpeedOverride.html).
+Adds or replaces the component of type [OverrideAgentSpeedComponent](../../Murder/Components/Agents/OverrideAgentSpeedComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -10339,7 +10339,7 @@ Adds or replaces the component of type [AlphaComponent](../../Murder/Components/
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
-`source` [AlphaSources](../../Murder/Components/AlphaSources.html) \
+`source` AlphaSources \
 `amount` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 #### SetAlpha(Entity, Single[])
@@ -12766,18 +12766,18 @@ Adds or replaces the component of type [MoveToTargetComponent](../../Murder/Comp
 public void SetMusic(Entity e, MusicComponent component)
 ```
 
-Adds or replaces the component of type [MusicComponent](../../Murder/Components/MusicComponent.html).
+Adds or replaces the component of type MusicComponent.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
-`component` [MusicComponent](../../Murder/Components/MusicComponent.html) \
+`component` MusicComponent \
 
 #### SetMusic(Entity, SoundEventId)
 ```csharp
 public void SetMusic(Entity e, SoundEventId id)
 ```
 
-Adds or replaces the component of type [MusicComponent](../../Murder/Components/MusicComponent.html).
+Adds or replaces the component of type MusicComponent.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -12788,7 +12788,7 @@ Adds or replaces the component of type [MusicComponent](../../Murder/Components/
 public void SetMusic(Entity e)
 ```
 
-Adds or replaces the component of type [MusicComponent](../../Murder/Components/MusicComponent.html).
+Adds or replaces the component of type MusicComponent.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -13116,18 +13116,18 @@ Adds or replaces the component of type [PolygonSpriteComponent](../../Murder/Com
 public void SetPosition(Entity e, PositionComponent component)
 ```
 
-Adds or replaces the component of type [PositionComponent](../../Murder/Components/PositionComponent.html).
+Adds or replaces the component of type [PositionComponent](../Components/PositionComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
-`component` [PositionComponent](../../Murder/Components/PositionComponent.html) \
+`component` [PositionComponent](../Components/PositionComponent.html) \
 
 #### SetPosition(Entity, Point)
 ```csharp
 public void SetPosition(Entity e, Point p)
 ```
 
-Adds or replaces the component of type [PositionComponent](../../Murder/Components/PositionComponent.html).
+Adds or replaces the component of type [PositionComponent](../Components/PositionComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -13138,20 +13138,20 @@ Adds or replaces the component of type [PositionComponent](../../Murder/Componen
 public void SetPosition(Entity e, float x, float y, IMurderTransformComponent parent)
 ```
 
-Adds or replaces the component of type [PositionComponent](../../Murder/Components/PositionComponent.html).
+Adds or replaces the component of type [PositionComponent](../Components/PositionComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
 `x` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 `y` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
-`parent` [IMurderTransformComponent](../../Murder/Components/IMurderTransformComponent.html) \
+`parent` IMurderTransformComponent \
 
 #### SetPosition(Entity, float, float)
 ```csharp
 public void SetPosition(Entity e, float x, float y)
 ```
 
-Adds or replaces the component of type [PositionComponent](../../Murder/Components/PositionComponent.html).
+Adds or replaces the component of type [PositionComponent](../Components/PositionComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -13163,7 +13163,7 @@ Adds or replaces the component of type [PositionComponent](../../Murder/Componen
 public void SetPosition(Entity e, Vector2 v)
 ```
 
-Adds or replaces the component of type [PositionComponent](../../Murder/Components/PositionComponent.html).
+Adds or replaces the component of type [PositionComponent](../Components/PositionComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -13174,7 +13174,7 @@ Adds or replaces the component of type [PositionComponent](../../Murder/Componen
 public void SetPosition(Entity e)
 ```
 
-Adds or replaces the component of type [PositionComponent](../../Murder/Components/PositionComponent.html).
+Adds or replaces the component of type [PositionComponent](../Components/PositionComponent.html).
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -13281,18 +13281,18 @@ Adds or replaces the component of type [QuadtreeComponent](../../Murder/Componen
 public void SetQuestTracker(Entity e, QuestTrackerComponent component)
 ```
 
-Adds or replaces the component of type [QuestTrackerComponent](../../Murder/Components/QuestTrackerComponent.html).
+Adds or replaces the component of type QuestTrackerComponent.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
-`component` [QuestTrackerComponent](../../Murder/Components/QuestTrackerComponent.html) \
+`component` QuestTrackerComponent \
 
 #### SetQuestTracker(Entity)
 ```csharp
 public void SetQuestTracker(Entity e)
 ```
 
-Adds or replaces the component of type [QuestTrackerComponent](../../Murder/Components/QuestTrackerComponent.html).
+Adds or replaces the component of type QuestTrackerComponent.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
@@ -13302,11 +13302,11 @@ Adds or replaces the component of type [QuestTrackerComponent](../../Murder/Comp
 public void SetQuestTrackerRuntime(Entity e, QuestTrackerRuntimeComponent component)
 ```
 
-Adds or replaces the component of type [QuestTrackerRuntimeComponent](../../Murder/Components/QuestTrackerRuntimeComponent.html).
+Adds or replaces the component of type QuestTrackerRuntimeComponent.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \
-`component` [QuestTrackerRuntimeComponent](../../Murder/Components/QuestTrackerRuntimeComponent.html) \
+`component` QuestTrackerRuntimeComponent \
 
 #### SetQuestTrackerRuntime(Entity, ImmutableArray<T>)
 ```csharp
@@ -13322,7 +13322,7 @@ public void SetQuestTrackerRuntime(Entity e, ImmutableArray<T> questStages)
 public void SetQuestTrackerRuntime(Entity e)
 ```
 
-Adds or replaces the component of type [QuestTrackerRuntimeComponent](../../Murder/Components/QuestTrackerRuntimeComponent.html).
+Adds or replaces the component of type QuestTrackerRuntimeComponent.
 
 **Parameters** \
 `e` [Entity](../../Bang/Entities/Entity.html) \

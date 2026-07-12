@@ -7,43 +7,55 @@
 public class EntityModifier
 ```
 
-Records the component additions, removals, and child-instance overrides that a `PrefabEntityInstance` applies on top of its parent prefab.
+Records the component additions/removals and extra children that a `PrefabEntityInstance` applies on top of one specific child (identified by `Guid`) of its parent prefab.
 
-**Intent:** Encapsulates all customizations that distinguish one placed prefab instance from the base `PrefabAsset` definition.
+**Intent:** A prefab can be nested arbitrarily deep (an instance's children can themselves come from other prefabs), so overriding "the third child of my second child" needs to be expressed without mutating the shared prefab data. `EntityModifier` is that per-child delta: it tracks which components were added/replaced (`_addComponent`), which were explicitly removed (`_removeComponent`), and which extra child entities were introduced (`_children`), keyed by the target child's `Guid`. `PrefabEntityInstance` keeps a `Guid -> EntityModifier` map (`GetChildrenModifiers`) and applies it via `FilterComponents`/`FetchChildren` whenever it resolves a child's effective components, and `ApplyModifiersFrom` merges two modifiers together (used when a prefab-of-a-prefab's own modifiers need to be combined with modifiers passed down from further up the hierarchy).
 
-**Use-case:** Created and manipulated by `PrefabEntityInstance` and the editor; game code rarely constructs these directly.
+**Use-case:** Created and manipulated by `PrefabEntityInstance` (via `GetOrCreateModifier`) and the level editor when a designer tweaks or removes a component on a nested prefab child, or adds an extra child under one; game code essentially never constructs these directly.
 
 ### ⭐ Constructors
+
 ```csharp
 public EntityModifier(Guid guid)
 ```
+
 Creates a new empty modifier for the entity identified by `guid`.
 
 **Parameters** \
 `guid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Children
+
 ```csharp
 public ImmutableArray<T> Children { get; }
 ```
+
 Immutable set of child entity GUIDs that this modifier adds to the parent instance.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
+
 #### Guid
+
 ```csharp
 public readonly Guid Guid;
 ```
+
 The GUID of the entity this modifier is associated with.
 
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
+
 ### ⭐ Methods
+
 #### HasChild(Guid)
+
 ```csharp
 public bool HasChild(Guid childId)
 ```
+
 Returns `true` if this modifier adds a child entity with the given GUID.
 
 **Parameters** \
@@ -53,9 +65,11 @@ Returns `true` if this modifier adds a child entity with the given GUID.
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### HasComponent(Type)
+
 ```csharp
 public bool HasComponent(Type t)
 ```
+
 Returns `true` if this modifier adds or overrides a component of the given type.
 
 **Parameters** \
@@ -65,9 +79,11 @@ Returns `true` if this modifier adds or overrides a component of the given type.
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### IsComponentRemoved(Type)
+
 ```csharp
 public bool IsComponentRemoved(Type t)
 ```
+
 Returns `true` if this modifier explicitly removes the component of the given type.
 
 **Parameters** \
@@ -77,9 +93,11 @@ Returns `true` if this modifier explicitly removes the component of the given ty
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### TryGetComponent(Type, out IComponent&)
+
 ```csharp
 public bool TryGetComponent(Type t, IComponent& result)
 ```
+
 Attempts to retrieve the overriding component of type `t`; returns `true` and writes to `result` if found.
 
 **Parameters** \
@@ -90,9 +108,11 @@ Attempts to retrieve the overriding component of type `t`; returns `true` and wr
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### UndoCustomComponent(Type)
+
 ```csharp
 public bool UndoCustomComponent(Type t)
 ```
+
 Removes the component override of type `t` from this modifier; returns `true` if it was present.
 
 **Parameters** \
@@ -102,12 +122,13 @@ Removes the component override of type `t` from this modifier; returns `true` if
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### ApplyModifiersFrom(EntityModifier)
+
 ```csharp
 public EntityModifier ApplyModifiersFrom(EntityModifier other)
 ```
 
 Merge modifier with <paramref name="other" />.
-            This will prioritize items present in <paramref name="other" />.
+This will prioritize items present in <paramref name="other" />.
 
 **Parameters** \
 `other` [EntityModifier](../../Murder/Prefabs/EntityModifier.html) \
@@ -116,18 +137,22 @@ Merge modifier with <paramref name="other" />.
 [EntityModifier](../../Murder/Prefabs/EntityModifier.html) \
 
 #### FetchChildren()
+
 ```csharp
 public ImmutableArray<T> FetchChildren()
 ```
+
 Returns all child entity GUIDs added by this modifier as an immutable array.
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### FilterComponents(IEnumerable`1&)
+
 ```csharp
 public ImmutableArray<T> FilterComponents(IEnumerable`1& allComponents)
 ```
+
 Filters `allComponents` by removing any that this modifier overrides or deletes, and injects the modifier's own component values.
 
 **Parameters** \
@@ -137,41 +162,47 @@ Filters `allComponents` by removing any that this modifier overrides or deletes,
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
 
 #### AddChild(EntityInstance)
+
 ```csharp
 public void AddChild(EntityInstance child)
 ```
+
 Registers `child` as an entity that this modifier adds to the parent instance.
 
 **Parameters** \
 `child` [EntityInstance](../../Murder/Prefabs/EntityInstance.html) \
 
 #### AddOrReplaceComponent(IComponent)
+
 ```csharp
 public void AddOrReplaceComponent(IComponent c)
 ```
+
 Adds or replaces the component `c` in this modifier, and removes it from the removal set if present.
 
 **Parameters** \
 `c` [IComponent](../../Bang/Components/IComponent.html) \
 
 #### RemoveChild(Guid)
+
 ```csharp
 public void RemoveChild(Guid guid)
 ```
+
 Unregisters the child entity with the given GUID from this modifier.
 
 **Parameters** \
 `guid` [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
 
 #### RemoveComponent(Type)
+
 ```csharp
 public void RemoveComponent(Type t)
 ```
+
 Marks the component of type `t` for removal, and strips any override value previously added.
 
 **Parameters** \
 `t` [Type](https://learn.microsoft.com/en-us/dotnet/api/System.Type?view=net-7.0) \
-
-
 
 ⚡

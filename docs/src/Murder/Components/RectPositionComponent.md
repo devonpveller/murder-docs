@@ -7,18 +7,21 @@
 public sealed struct RectPositionComponent : IParentRelativeComponent, IComponent
 ```
 
-UI position component that calculates an entity's on-screen rectangle from padding and size values relative to its parent or the screen bounds.
+UI layout component that describes an element's box (position and size) declaratively, as padding insets and an anchor origin relative either to the screen or to a parent `RectPositionComponent`, instead of an absolute pixel position.
 
-**Intent:** Layout a UI element using CSS-like padding constraints rather than absolute coordinates.
+**Intent:** Layout a UI element using padding/anchor constraints rather than hard-coded coordinates, so it reflows automatically when the window or a parent container is resized.
 
-**Use-case:** Attach to UI entities whose position should reflow automatically when the parent container or screen size changes.
+**Use-case:** Attach to UI entities (panels, buttons, HUD elements) whose position should reflow with the screen or a parent container. Call `GetBox` each frame (or on layout change) to resolve the final screen-space rectangle, scaled to the current resolution via an optional reference size.
 
 **Implements:** _[IParentRelativeComponent](../../Bang/Components/IParentRelativeComponent.html), [IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public RectPositionComponent(float top, float left, float bottom, float right, Vector2 size, Vector2 origin, IComponent parent)
 ```
+
+Creates a new UI box description from padding insets, an explicit size override, an anchor origin, and an optional parent box to lay out relative to.
 
 **Parameters** \
 `top` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -30,55 +33,65 @@ public RectPositionComponent(float top, float left, float bottom, float right, V
 `parent` [IComponent](../../Bang/Components/IComponent.html) \
 
 ### ⭐ Properties
+
 #### HasParent
+
 ```csharp
 public virtual bool HasParent { get; }
 ```
 
-Whether this component is positioned relative to a parent component.
+Whether this element's box is computed relative to a parent `RectPositionComponent` rather than directly against the screen bounds.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
 #### Origin
+
 ```csharp
 public readonly Vector2 Origin;
 ```
 
-Normalised anchor point within the element where (0,0) is top-left and (1,1) is bottom-right.
+Normalised anchor point within the element's box, where (0,0) is the top-left corner and (1,1) is the bottom-right corner. Used by `GetBox` to decide how the element is positioned and clipped relative to its parent/screen box once padding and size are applied.
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+
 #### Size
+
 ```csharp
 public readonly Vector2 Size;
 ```
 
-Explicit size override for the element. Used when the size cannot be inferred from the content.
+Explicit width/height override for the element, in pixels (pre-scale). When a component is zero or negative on an axis, `GetBox` falls back to filling the parent/screen box on that axis.
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+
 ### ⭐ Methods
-#### GetBox(Entity, Point, T?)
+
+#### GetBox(Entity, Point, Point)
+
 ```csharp
-public Rectangle GetBox(Entity entity, Point screenSize, T? referenceSize)
+public Rectangle GetBox(Entity? entity, Point screenSize, Point? referenceSize = null)
 ```
 
-Calculates the screen-space rectangle for this element given the entity, current screen size, and an optional reference size.
+Resolves this element's final on-screen rectangle, walking up to the parent box (or falling back to `screenSize` if there is none), then applying padding, `Size` and `Origin`. Values are scaled by the ratio between `screenSize` and `referenceSize` so layouts designed at one resolution still look correct at another.
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
 `screenSize` [Point](../../Murder/Core/Geometry/Point.html) \
-`referenceSize` [T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+`referenceSize` [Point](../../Murder/Core/Geometry/Point.html) \
 
 **Returns** \
 [Rectangle](../../Murder/Core/Geometry/Rectangle.html) \
 
 #### AddPadding(RectPositionComponent)
+
 ```csharp
 public RectPositionComponent AddPadding(RectPositionComponent b)
 ```
 
-Returns a new component with the padding values of `b` added to this component's padding.
+Returns a copy of this component with each padding value increased by the corresponding padding value of `b`. Useful for compositing an extra inset (e.g. a nested panel's own margin) on top of an existing layout without recomputing every field by hand.
 
 **Parameters** \
 `b` [RectPositionComponent](../../Murder/Components/RectPositionComponent.html) \
@@ -87,11 +100,12 @@ Returns a new component with the padding values of `b` added to this component's
 [RectPositionComponent](../../Murder/Components/RectPositionComponent.html) \
 
 #### WithSize(Vector2)
+
 ```csharp
 public RectPositionComponent WithSize(Vector2 size)
 ```
 
-Returns a new component with the `Size` field replaced by the given value.
+Returns a copy of this component with `Size` replaced by the given value, keeping all padding, origin and parent settings unchanged.
 
 **Parameters** \
 `size` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
@@ -100,26 +114,26 @@ Returns a new component with the `Size` field replaced by the given value.
 [RectPositionComponent](../../Murder/Components/RectPositionComponent.html) \
 
 #### WithoutParent()
+
 ```csharp
 public virtual IParentRelativeComponent WithoutParent()
 ```
 
-Returns a copy of this component with the parent reference removed.
+Returns a copy of this component with its parent reference cleared, so the resulting box is laid out directly against the screen bounds instead of a parent element's box.
 
 **Returns** \
 [IParentRelativeComponent](../../Bang/Components/IParentRelativeComponent.html) \
 
 #### OnParentModified(IComponent, Entity)
+
 ```csharp
 public virtual void OnParentModified(IComponent parentComponent, Entity childEntity)
 ```
 
-Called by the engine when the parent component changes; updates this element's position to match the new parent bounds.
+Called by the engine when this entity's parent's `RectPositionComponent` changes, so this element's cached parent box is kept in sync and `GetBox` resolves against the parent's latest layout.
 
 **Parameters** \
 `parentComponent` [IComponent](../../Bang/Components/IComponent.html) \
 `childEntity` [Entity](../../Bang/Entities/Entity.html) \
-
-
 
 ⚡

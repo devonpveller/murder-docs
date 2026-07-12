@@ -15,6 +15,4 @@ This will block any [EventListenerComponent](../../Murder/Components/EventListen
 
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
-
-
 ⚡

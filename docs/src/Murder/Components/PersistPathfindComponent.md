@@ -15,6 +15,4 @@ Marker component that opts a [RouteComponent](../../Murder/Components/RouteCompo
 
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
-
-
 ⚡

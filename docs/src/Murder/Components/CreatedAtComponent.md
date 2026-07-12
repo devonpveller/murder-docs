@@ -16,6 +16,7 @@ Records the game time (in seconds) at which this entity was spawned.
 **Use-case:** Added automatically by `CreationTimeSystem`; read by `DestroyAfterSecondsComponent` and other time-based systems to determine when to remove the entity.
 
 ### ⭐ Constructors
+
 ```csharp
 public CreatedAtComponent(float when)
 ```
@@ -24,7 +25,9 @@ public CreatedAtComponent(float when)
 `when` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### When
+
 ```csharp
 public float When { get; public set; }
 ```
@@ -33,6 +36,5 @@ The game time, in seconds, at which this entity was created.
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
-
 
 ⚡

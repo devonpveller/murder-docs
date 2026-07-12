@@ -14,6 +14,7 @@ Stores per-glyph metrics for a single character in a bitmap font.
 **Use-case:** Used internally by `PixelFontSize` during text layout; inspect directly when building custom text rendering or measuring individual glyphs.
 
 ### ⭐ Constructors
+
 ```csharp
 public PixelFontCharacter()
 ```
@@ -30,7 +31,9 @@ public PixelFontCharacter(int character, Rectangle rectangle, int xOffset, int y
 `xAdvance` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Character
+
 ```csharp
 public int Character;
 ```
@@ -39,7 +42,9 @@ Unicode codepoint of this glyph.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### Glyph
+
 ```csharp
 public Rectangle Glyph;
 ```
@@ -48,7 +53,9 @@ Source rectangle within the atlas texture that contains this glyph's bitmap.
 
 **Returns** \
 [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
+
 #### Kerning
+
 ```csharp
 public ImmutableDictionary<TKey, TValue> Kerning;
 ```
@@ -57,7 +64,9 @@ Optional per-following-character horizontal adjustments applied after this glyph
 
 **Returns** \
 [ImmutableDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0) \
+
 #### Page
+
 ```csharp
 public int Page;
 ```
@@ -66,7 +75,9 @@ Index of the atlas texture page that contains this glyph.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### XAdvance
+
 ```csharp
 public int XAdvance;
 ```
@@ -75,7 +86,9 @@ Horizontal advance in pixels — how far the cursor moves right after drawing th
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### XOffset
+
 ```csharp
 public int XOffset;
 ```
@@ -84,7 +97,9 @@ Horizontal draw offset in pixels applied relative to the current cursor position
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### YOffset
+
 ```csharp
 public int YOffset;
 ```
@@ -93,6 +108,5 @@ Vertical draw offset in pixels applied relative to the baseline before rendering
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-
 
 ⚡

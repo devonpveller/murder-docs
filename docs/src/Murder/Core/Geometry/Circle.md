@@ -14,6 +14,7 @@ A 2D circle defined by a centre position and radius.
 **Use-case:** Use `Circle` directly when you need to test whether a point or another circle overlaps a circular region. Pass a `CircleShape` (which wraps a `Circle`) to a `ColliderComponent` for physics-based collision.
 
 ### ⭐ Constructors
+
 ```csharp
 public Circle(float radius)
 ```
@@ -35,7 +36,9 @@ Creates a circle at position `(x, y)` with the given radius.
 `radius` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Radius
+
 ```csharp
 public readonly float Radius;
 ```
@@ -44,7 +47,9 @@ The radius of the circle.
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 #### X
+
 ```csharp
 public readonly float X;
 ```
@@ -53,7 +58,9 @@ Horizontal position of the circle's centre.
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 #### Y
+
 ```csharp
 public readonly float Y;
 ```
@@ -62,8 +69,11 @@ Vertical position of the circle's centre.
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 ### ⭐ Methods
+
 #### Contains(Point)
+
 ```csharp
 public bool Contains(Point point)
 ```
@@ -77,6 +87,7 @@ Returns `true` if `point` lies strictly inside this circle.
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### Contains(Vector2)
+
 ```csharp
 public bool Contains(Vector2 vector2)
 ```
@@ -90,6 +101,7 @@ Returns `true` if `vector2` lies strictly inside this circle.
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### AddPosition(PositionComponent)
+
 ```csharp
 public Circle AddPosition(PositionComponent position)
 ```
@@ -97,12 +109,13 @@ public Circle AddPosition(PositionComponent position)
 Returns a new circle translated by the given `PositionComponent`.
 
 **Parameters** \
-`position` [PositionComponent](../../../Murder/Components/PositionComponent.html) \
+`position` [PositionComponent](../../../Bang/Components/PositionComponent.html) \
 
 **Returns** \
 [Circle](../../../Murder/Core/Geometry/Circle.html) \
 
 #### AddPosition(Point)
+
 ```csharp
 public Circle AddPosition(Point position)
 ```
@@ -116,6 +129,7 @@ Returns a new circle translated by the given `Point`.
 [Circle](../../../Murder/Core/Geometry/Circle.html) \
 
 #### AddPosition(Vector2)
+
 ```csharp
 public Circle AddPosition(Vector2 position)
 ```
@@ -129,18 +143,17 @@ Returns a new circle translated by the given `Vector2`.
 [Circle](../../../Murder/Core/Geometry/Circle.html) \
 
 #### EstipulateSidesFromRadius(float)
+
 ```csharp
-public int EstipulateSidesFromRadius(float radius)
+public static int EstipulateSidesFromRadius(float radius)
 ```
 
-Calculates the recommended polygon vertex count for approximating a circle with the given radius.
+Estimates a reasonable number of polygon sides to approximate a circle of the given `radius` with, clamped to a maximum of 22. Larger circles get more sides so the approximation still looks round, while small circles stay cheap.
 
 **Parameters** \
 `radius` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-
-
 
 ⚡

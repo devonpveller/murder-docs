@@ -4,26 +4,27 @@
 **Assembly:** Murder.dll
 
 ```csharp
-abstract IVirtualInput
+internal abstract IVirtualInput
 ```
 
-Internal interface implemented by `VirtualButton` and `VirtualAxis` for uniform per-frame input polling.
+Common contract implemented by `VirtualButton` and `VirtualAxis` so that `PlayerInput` can advance every registered virtual input uniformly, once per frame, without knowing whether it is polling a button or an axis.
 
-**Intent:** Provide a common contract for all virtual input objects so `PlayerInput` can update them uniformly.
+**Intent:** Provide a single per-frame update entry point shared by all virtual input objects.
 
-**Use-case:** You do not implement this interface directly; `VirtualButton` and `VirtualAxis` implement it internally.
+**Use-case:** This is an internal engine interface — game code does not implement it directly. `VirtualButton` and `VirtualAxis` implement it so `PlayerInput.Update()` can loop over its registered buttons and axes polymorphically and call `Update(InputState)` on each.
 
 ### ⭐ Methods
+
 #### Update(InputState)
+
 ```csharp
 public abstract void Update(InputState inputState)
 ```
 
-Updates the internal state of this virtual input from the raw `inputState` captured this frame.
+Re-evaluates this virtual input's state (pressed/down/value/etc.) against the raw device snapshot captured this frame. Called by `PlayerInput.Update()` for every registered button and axis.
 
 **Parameters** \
 `inputState` [InputState](../../../Murder/Core/Input/InputState.html) \
-
-
+The raw keyboard/mouse/gamepad state captured this frame. \
 
 ⚡

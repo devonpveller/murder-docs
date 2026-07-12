@@ -16,6 +16,7 @@ An `IShape` implementation that represents a single point as a degenerate collis
 **Implements:** _[IShape](../../../Murder/Core/Geometry/IShape.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public PointShape(Point point)
 ```
@@ -24,7 +25,9 @@ public PointShape(Point point)
 `point` [Point](../../../Murder/Core/Geometry/Point.html) \
 
 ### ⭐ Properties
+
 #### Point
+
 ```csharp
 public readonly Point Point;
 ```
@@ -33,8 +36,11 @@ The single point that defines this shape's position.
 
 **Returns** \
 [Point](../../../Murder/Core/Geometry/Point.html) \
+
 ### ⭐ Methods
+
 #### GetPolygon()
+
 ```csharp
 public virtual PolygonShape GetPolygon()
 ```
@@ -45,6 +51,7 @@ Returns a minimal degenerate triangle polygon centred on this point. Result is c
 [PolygonShape](../../../Murder/Core/Geometry/PolygonShape.html) \
 
 #### GetBoundingBox()
+
 ```csharp
 public virtual Rectangle GetBoundingBox()
 ```
@@ -53,7 +60,5 @@ Returns a 1×1 bounding rectangle at this point's position.
 
 **Returns** \
 [Rectangle](../../../Murder/Core/Geometry/Rectangle.html) \
-
-
 
 ⚡

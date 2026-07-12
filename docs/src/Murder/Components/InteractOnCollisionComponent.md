@@ -7,89 +7,64 @@
 public sealed struct InteractOnCollisionComponent : IComponent
 ```
 
-Triggers the entity's interactive components when another entity enters (and optionally exits) its collision bounds.
+Triggers the entity's interactive components when another entity (typically the player agent) enters, stays within, or exits its collision bounds.
 
-**Intent:** Enable proximity-based interactions, such as opening a door, starting a dialogue, or activating a trap, driven by physical collision overlap.
+**Intent:** Enable proximity-based interactions, such as opening a door, starting a dialogue, or activating a trap, driven by physical collision overlap, with fine-grained control over who can trigger it and how many times via the `InteractOnCollisionFlags` bit flags.
 
-**Use-case:** Add to a trigger zone entity; configure `PlayerOnly` to restrict activation to the player, `OnlyOnce` to fire only the first time, and `SendMessageOnExit` to also fire when the collider leaves.
+**Use-case:** Add to a trigger zone entity; set `Flags` with `InteractOnCollisionFlags.PlayerOnly` to restrict activation to the player, `InteractOnCollisionFlags.Once`/`OnceEveryLoad` to fire only the first time, and populate `CustomEnterMessages`/`CustomExitMessages` to trigger interactions beyond the ones already on this entity. Consumed by `InteractOnCollisionSystem`, which listens for collision messages and reacts according to `Flags`.
 
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public InteractOnCollisionComponent()
 ```
 
-```csharp
-public InteractOnCollisionComponent(bool playerOnly, bool sendMessageOnExit)
-```
-
-**Parameters** \
-`playerOnly` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-`sendMessageOnExit` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+Creates a component with no flags set: any actor can trigger it, repeatedly, with no exit suppression.
 
 ```csharp
-public InteractOnCollisionComponent(bool playerOnly)
+public InteractOnCollisionComponent(InteractOnCollisionFlags flags)
 ```
 
+Creates a component configured with the given `flags`.
+
 **Parameters** \
-`playerOnly` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+`flags` `InteractOnCollisionFlags` \
 
 ### ⭐ Properties
+
 #### CustomEnterMessages
+
 ```csharp
-public readonly ImmutableArray<T> CustomEnterMessages;
+public readonly ImmutableArray<IInteractiveComponent> CustomEnterMessages;
 ```
 
-Additional interactive components whose interactions are triggered when an actor enters the collision area, in addition to any interactions on this entity.
+Additional interactions triggered when a valid actor enters the collision area, on top of any [IInteractiveComponent](../../Bang/Interactions/IInteractiveComponent.html) already present on this entity.
 
 **Returns** \
-[ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
+[ImmutableArray\<IInteractiveComponent\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
+
 #### CustomExitMessages
+
 ```csharp
-public readonly ImmutableArray<T> CustomExitMessages;
+public readonly ImmutableArray<IInteractiveComponent> CustomExitMessages;
 ```
 
-Additional interactive components whose interactions are triggered when an actor exits the collision area.
+Additional interactions triggered when a valid actor exits the collision area. Only fires when the exiting actor was previously inside and this list is non-empty (see `InteractOnCollisionFlags.SkipExitIfInteractorInside` for suppressing this while another valid actor remains inside).
 
 **Returns** \
-[ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
-#### OnlyOnce
+[ImmutableArray\<IInteractiveComponent\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
+
+#### Flags
+
 ```csharp
-public readonly bool OnlyOnce;
+public readonly InteractOnCollisionFlags Flags { get; init; }
 ```
 
-When `true`, the collision interaction fires only the first time an actor enters; subsequent entries are ignored.
+Combination of `InteractOnCollisionFlags` controlling who can trigger this interaction, whether it can fire more than once, and how exit notifications behave. Available flags are `None`, `PlayerOnly` (only the player entity can activate it), `Once` (deactivates after the first successful interaction for the lifetime of the entity), `OnceEveryLoad` (like `Once`, but the "already interacted" state persists across map reloads), and `SkipExitIfInteractorInside` (skip the exit notification if another valid actor is still inside the area).
 
 **Returns** \
-[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-#### PlayerOnly
-```csharp
-public readonly bool PlayerOnly;
-```
-
-When `true`, only collisions with the player entity trigger the interaction; other actors are ignored.
-
-**Returns** \
-[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-#### SendMessageOnExit
-```csharp
-public readonly bool SendMessageOnExit;
-```
-
-When `true`, the interaction is also triggered when the colliding actor exits the collision area.
-
-**Returns** \
-[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-#### SendMessageOnStay
-```csharp
-public readonly bool SendMessageOnStay;
-```
-
-When `true`, the interaction is repeatedly triggered while the colliding actor remains inside the collision area.
-
-**Returns** \
-[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-
+`InteractOnCollisionFlags` \
 
 ⚡

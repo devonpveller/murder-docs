@@ -16,6 +16,7 @@ Ignores all trigger collisions until a time is reached, then it gets removed
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public IgnoreTriggersUntilComponent(float until)
 ```
@@ -24,7 +25,9 @@ public IgnoreTriggersUntilComponent(float until)
 `until` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Until
+
 ```csharp
 public readonly float Until;
 ```
@@ -33,6 +36,5 @@ Absolute game time (in seconds) after which trigger collisions are no longer ign
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
-
 
 ⚡

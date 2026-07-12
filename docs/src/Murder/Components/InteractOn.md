@@ -16,7 +16,9 @@ Specifies the condition under which an `InteractOnRuleMatchComponent` rule is ev
 **Implements:** _[Enum](https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0), [IComparable](https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0), [ISpanFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0), [IFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0), [IConvertible](https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0)_
 
 ### ⭐ Properties
+
 #### AddedOrModified
+
 ```csharp
 public static const InteractOn AddedOrModified;
 ```
@@ -25,7 +27,9 @@ The rule fires both when the tracked blackboard value is first added (set) and w
 
 **Returns** \
 [InteractOn](../../Murder/Components/InteractOn.html) \
+
 #### Modified
+
 ```csharp
 public static const InteractOn Modified;
 ```
@@ -34,6 +38,5 @@ The rule fires only when the tracked blackboard value changes after it has alrea
 
 **Returns** \
 [InteractOn](../../Murder/Components/InteractOn.html) \
-
 
 ⚡

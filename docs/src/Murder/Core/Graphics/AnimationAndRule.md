@@ -14,6 +14,7 @@ Pairs one or more animation clip names with the blackboard conditions that must 
 **Use-case:** Add `AnimationAndRule` entries to a `PlayAnimationOnRuleComponent` on an entity; the system evaluates each rule in order and plays the first one whose requirements are satisfied.
 
 ### ⭐ Constructors
+
 ```csharp
 public AnimationAndRule()
 ```
@@ -21,7 +22,9 @@ public AnimationAndRule()
 Creates an empty rule with no animation clips and no requirements.
 
 ### ⭐ Properties
+
 #### Animation
+
 ```csharp
 public readonly ImmutableArray<T> Animation;
 ```
@@ -30,7 +33,9 @@ The animation clip names (as defined in the sprite asset) that will play when al
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
+
 #### Requirements
+
 ```csharp
 public readonly ImmutableArray<T> Requirements;
 ```
@@ -39,6 +44,5 @@ The blackboard criterion nodes that must all evaluate to true for this rule to m
 
 **Returns** \
 [ImmutableArray\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableArray-1?view=net-7.0) \
-
 
 ⚡

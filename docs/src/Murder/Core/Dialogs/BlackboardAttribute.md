@@ -16,6 +16,7 @@ Marks a class as a named blackboard type that the editor and engine can discover
 **Implements:** _[Attribute](https://learn.microsoft.com/en-us/dotnet/api/System.Attribute?view=net-7.0)_
 
 ### ⭐ Constructors
+
 ```csharp
 public BlackboardAttribute(string name, bool default)
 ```
@@ -36,7 +37,9 @@ Creates the attribute with the given name; `IsDefault` will be `false`.
 `name` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### IsDefault
+
 ```csharp
 public readonly bool IsDefault;
 ```
@@ -45,7 +48,9 @@ When `true`, this blackboard is the fallback used when no explicit blackboard na
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
 #### Name
+
 ```csharp
 public readonly string Name;
 ```
@@ -54,7 +59,9 @@ The unique string identifier for this blackboard type, used by the dialogue syst
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
+
 #### TypeId
+
 ```csharp
 public virtual Object TypeId { get; }
 ```
@@ -63,6 +70,5 @@ Inherited from `Attribute`; returns a unique object that identifies this attribu
 
 **Returns** \
 [Object](https://learn.microsoft.com/en-us/dotnet/api/System.Object?view=net-7.0) \
-
 
 ⚡

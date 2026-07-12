@@ -7,269 +7,324 @@
 public static class PositionExtensions
 ```
 
-Extension methods for `IMurderTransformComponent` and related types for grid-coordinate conversion, global transform queries, and cell comparison.
+Extension methods bridging [PositionComponent](../../Bang/Components/PositionComponent.html) (Bang's built-in transform component), `System.Numerics.Vector2`/[Point](../../Murder/Core/Geometry/Point.html), and the tile grid (`Grid.CellSize`).
 
-**Intent:** Provides the coordinate-space conversions that game systems need when working with the tile grid and entity positions.
+**Intent:** Used throughout rendering, physics and AI systems whenever a position needs to move between "local component space", "world-space pixels" and "grid cell coordinates".
 
-**Use-case:** Use in any system that needs to convert world-space positions to tile-grid cells, compare entity occupancy, or retrieve an entity's world-space position including parent transforms.
+**Use-case:** Call the `Entity`-based overloads (`GetGlobalPosition`, `SetGlobalPosition`, `SetLocalPosition`) when working with a live entity, and the `PositionComponent`/`Vector2`/`Point` overloads when transforming raw coordinates (e.g. converting a mouse click to a grid cell, or offsetting a component's position by a delta).
 
 ### ⭐ Methods
-#### IsSameCell(IMurderTransformComponent, IMurderTransformComponent)
+
+#### GetGlobalPosition(Entity)
+
 ```csharp
-public bool IsSameCell(IMurderTransformComponent this, IMurderTransformComponent other)
+public Vector2 GetGlobalPosition(Entity entity)
 ```
 
-Returns `true` if both transforms occupy the same tile-grid cell.
-
-**Parameters** \
-`this` [IMurderTransformComponent](../../Murder/Components/IMurderTransformComponent.html) \
-`other` [IMurderTransformComponent](../../Murder/Components/IMurderTransformComponent.html) \
-
-**Returns** \
-[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-
-#### GetGlobalTransform(Entity)
-```csharp
-public IMurderTransformComponent GetGlobalTransform(Entity entity)
-```
-
-Returns the entity's transform in world space, composing all parent transforms up the hierarchy.
+Returns the entity's resolved world-space position (i.e. including any parent offset via `PositionComponent.GetGlobal`). Logs an error and returns `Vector2.Zero` if the entity has no `PositionComponent` or is no longer active — prefer `TryGetGlobalPosition` when the entity might legitimately lack a position.
 
 **Parameters** \
 `entity` [Entity](../../Bang/Entities/Entity.html) \
 
 **Returns** \
-[IMurderTransformComponent](../../Murder/Components/IMurderTransformComponent.html) \
+[Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
-#### CellPoint(IMurderTransformComponent)
+#### TryGetGlobalPosition(Entity)
+
 ```csharp
-public Point CellPoint(IMurderTransformComponent this)
+public Vector2? TryGetGlobalPosition(Entity entity)
 ```
 
-Returns the tile-grid cell coordinate of the transform as a `Point`.
+Returns the entity's resolved world-space position, or `null` if the entity has no `PositionComponent`. Delegates to `EntityServices.GetGlobalPositionIfValid`. The safe counterpart to `GetGlobalPosition` for code paths where a missing position is expected (e.g. checking two entities before a distance test).
 
 **Parameters** \
-`this` [IMurderTransformComponent](../../Murder/Components/IMurderTransformComponent.html) \
+`entity` [Entity](../../Bang/Entities/Entity.html) \
+
+**Returns** \
+[Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0)? \
+
+#### SetLocalPosition(Entity, Vector2)
+
+```csharp
+public void SetLocalPosition(Entity entity, Vector2 position)
+```
+
+Sets the entity's position relative to its parent (if any), preserving the parent relationship. Reads the current `PositionComponent`, applies `PositionComponent.WithLocal(float, float)`, and replaces the component. Use this instead of directly replacing the component when the entity may be parented, so the cached global position stays consistent.
+
+**Parameters** \
+`entity` [Entity](../../Bang/Entities/Entity.html) \
+`position` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+
+#### SetGlobalPosition(Entity, Vector2)
+
+```csharp
+public void SetGlobalPosition(Entity entity, Vector2 position)
+```
+
+Moves the entity to an absolute world-space position. If the entity already has a `PositionComponent`, this preserves its parent relationship via `PositionComponent.SetGlobal` (adjusting the local offset accordingly); otherwise it simply assigns `position` as a brand-new, unparented position.
+
+**Parameters** \
+`entity` [Entity](../../Bang/Entities/Entity.html) \
+`position` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+
+#### ToPosition(Point)
+
+```csharp
+public PositionComponent ToPosition(Point position)
+```
+
+Wraps an integer grid `Point` in a new, unparented `PositionComponent` (component space, not pixel space).
+
+**Parameters** \
+`position` [Point](../../Murder/Core/Geometry/Point.html) \
+
+**Returns** \
+[PositionComponent](../../Bang/Components/PositionComponent.html) \
+
+#### ToPosition(Vector2)
+
+```csharp
+public PositionComponent ToPosition(Vector2 position)
+```
+
+Wraps a `Vector2` in a new, unparented `PositionComponent`.
+
+**Parameters** \
+`position` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+
+**Returns** \
+[PositionComponent](../../Bang/Components/PositionComponent.html) \
+
+#### FromCellToVector2Position(Point)
+
+```csharp
+public Vector2 FromCellToVector2Position(Point point)
+```
+
+Converts a tile-grid cell coordinate to the world-space pixel position of its top-left corner.
+
+**Parameters** \
+`point` [Point](../../Murder/Core/Geometry/Point.html) \
+
+**Returns** \
+[Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+
+#### FromWorldToLowerBoundGridPosition(Point)
+
+```csharp
+public Point FromWorldToLowerBoundGridPosition(Point point)
+```
+
+Snaps a world-space pixel position down (floor) to the grid cell that contains it.
+
+**Parameters** \
+`point` [Point](../../Murder/Core/Geometry/Point.html) \
 
 **Returns** \
 [Point](../../Murder/Core/Geometry/Point.html) \
 
-#### FromCellToPointPosition(Point&)
+#### FromCellToVector2CenterPosition(Point)
+
 ```csharp
-public Point FromCellToPointPosition(Point& point)
+public Vector2 FromCellToVector2CenterPosition(Point point)
 ```
 
-Converts a tile-grid cell coordinate to its world-space pixel position (top-left of the cell).
+Converts a tile-grid cell coordinate to the world-space pixel position at the center of that cell.
 
 **Parameters** \
-`point` [Point&](../../Murder/Core/Geometry/Point.html) \
+`point` [Point](../../Murder/Core/Geometry/Point.html) \
+
+**Returns** \
+[Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+
+#### FromCellToPointPosition(Point)
+
+```csharp
+public Point FromCellToPointPosition(Point point)
+```
+
+Converts a tile-grid cell coordinate to the world-space pixel position of its top-left corner, as a `Point`.
+
+**Parameters** \
+`point` [Point](../../Murder/Core/Geometry/Point.html) \
 
 **Returns** \
 [Point](../../Murder/Core/Geometry/Point.html) \
 
-#### FromWorldToLowerBoundGridPosition(Point&)
+#### ToSysVector2(PositionComponent)
+
 ```csharp
-public Point FromWorldToLowerBoundGridPosition(Point& point)
+public Vector2 ToSysVector2(PositionComponent position)
 ```
 
-Snaps a world-space pixel position down to the lower-left corner of its enclosing grid cell.
+Returns the component's local X/Y as a `Vector2`. Equivalent to `PositionComponent.Vector2`.
 
 **Parameters** \
-`point` [Point&](../../Murder/Core/Geometry/Point.html) \
+`position` [PositionComponent](../../Bang/Components/PositionComponent.html) \
 
 **Returns** \
-[Point](../../Murder/Core/Geometry/Point.html) \
-
-#### ToCellPoint(IMurderTransformComponent)
-```csharp
-public Point ToCellPoint(IMurderTransformComponent position)
-```
-
-Converts the given world-space transform to its tile-grid cell coordinate.
-
-**Parameters** \
-`position` [IMurderTransformComponent](../../Murder/Components/IMurderTransformComponent.html) \
-
-**Returns** \
-[Point](../../Murder/Core/Geometry/Point.html) \
+[Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
 #### ToPoint(PositionComponent)
+
 ```csharp
 public Point ToPoint(PositionComponent position)
 ```
 
-Returns the position component's coordinates as an integer `Point`.
+Returns the component's local X/Y rounded to the nearest integer `Point`.
 
 **Parameters** \
-`position` [PositionComponent](../../Murder/Components/PositionComponent.html) \
+`position` [PositionComponent](../../Bang/Components/PositionComponent.html) \
 
 **Returns** \
 [Point](../../Murder/Core/Geometry/Point.html) \
 
+#### ToCellPoint(PositionComponent)
+
 ```csharp
-public PositionComponent Add(PositionComponent position, Point delta)
+public Point ToCellPoint(PositionComponent position)
 ```
 
-Returns a new `PositionComponent` offset from `position` by the integer `delta`.
+Returns the tile-grid cell that this component's local position falls in.
 
 **Parameters** \
-`position` [PositionComponent](../../Murder/Components/PositionComponent.html) \
-`delta` [Point](../../Murder/Core/Geometry/Point.html) \
+`position` [PositionComponent](../../Bang/Components/PositionComponent.html) \
 
 **Returns** \
-[PositionComponent](../../Murder/Components/PositionComponent.html) \
+[Point](../../Murder/Core/Geometry/Point.html) \
+
+#### ToCellPoint(Vector2)
 
 ```csharp
-public PositionComponent Add(PositionComponent position, float dx, float dy)
+public Point ToCellPoint(Vector2 v)
 ```
 
-Returns a new `PositionComponent` offset from `position` by the given float deltas.
+Returns the tile-grid cell that a world-space `Vector2` falls in (floor of position divided by `Grid.CellSize`).
 
 **Parameters** \
-`position` [PositionComponent](../../Murder/Components/PositionComponent.html) \
-`dx` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
-`dy` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+`v` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
 **Returns** \
-[PositionComponent](../../Murder/Components/PositionComponent.html) \
+[Point](../../Murder/Core/Geometry/Point.html) \
+
+#### ToVector2(PositionComponent)
 
 ```csharp
-public PositionComponent Add(PositionComponent position, Vector2 delta)
+public Vector2 ToVector2(PositionComponent position)
 ```
 
-Returns a new `PositionComponent` offset from `position` by the given `Vector2` delta.
+Returns the component's local X/Y as a `Vector2`. Equivalent to `ToSysVector2`.
 
 **Parameters** \
-`position` [PositionComponent](../../Murder/Components/PositionComponent.html) \
-`delta` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+`position` [PositionComponent](../../Bang/Components/PositionComponent.html) \
 
 **Returns** \
-[PositionComponent](../../Murder/Components/PositionComponent.html) \
+[Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+
+#### AddToVector2(PositionComponent, Vector2)
 
 ```csharp
-public PositionComponent ToPosition(Point& position)
+public Vector2 AddToVector2(PositionComponent position, Vector2 delta)
 ```
 
-Converts an integer `Point` to a `PositionComponent`.
+Returns the component's local X/Y offset by `delta`, as a plain `Vector2` (does not create a new component).
 
 **Parameters** \
-`position` [Point&](../../Murder/Core/Geometry/Point.html) \
-
-**Returns** \
-[PositionComponent](../../Murder/Components/PositionComponent.html) \
-
-```csharp
-public PositionComponent ToPosition(Vector2& position)
-```
-
-Converts a `Vector2` to a `PositionComponent`.
-
-**Parameters** \
-`position` [Vector2&](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
-
-**Returns** \
-[PositionComponent](../../Murder/Components/PositionComponent.html) \
-
-```csharp
-public Vector2 AddToVector2(IMurderTransformComponent position, Vector2 delta)
-```
-
-Returns the transform's position as a `Vector2` offset by `delta`.
-
-**Parameters** \
-`position` [IMurderTransformComponent](../../Murder/Components/IMurderTransformComponent.html) \
+`position` [PositionComponent](../../Bang/Components/PositionComponent.html) \
 `delta` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+
+#### AddToVector2(PositionComponent, float, float)
 
 ```csharp
 public Vector2 AddToVector2(PositionComponent position, float dx, float dy)
 ```
 
-Returns the position component as a `Vector2` offset by the given float deltas.
+Returns the component's local X/Y offset by (`dx`, `dy`), as a plain `Vector2` (does not create a new component).
 
 **Parameters** \
-`position` [PositionComponent](../../Murder/Components/PositionComponent.html) \
+`position` [PositionComponent](../../Bang/Components/PositionComponent.html) \
 `dx` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 `dy` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
-#### FromCellToVector2CenterPosition(Point&)
+#### Add(PositionComponent, float, float)
+
 ```csharp
-public Vector2 FromCellToVector2CenterPosition(Point& point)
+public PositionComponent Add(PositionComponent position, float dx, float dy)
 ```
 
-Converts a tile-grid cell coordinate to the world-space `Vector2` position at the center of that cell.
+Returns a new `PositionComponent` with local X/Y offset by (`dx`, `dy`). Note this discards any cached global/parent position, same as `PositionComponent`'s own `operator +`.
 
 **Parameters** \
-`point` [Point&](../../Murder/Core/Geometry/Point.html) \
+`position` [PositionComponent](../../Bang/Components/PositionComponent.html) \
+`dx` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+`dy` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 **Returns** \
-[Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+[PositionComponent](../../Bang/Components/PositionComponent.html) \
 
-#### FromCellToVector2Position(Point&)
+#### Add(PositionComponent, Vector2)
+
 ```csharp
-public Vector2 FromCellToVector2Position(Point& point)
+public PositionComponent Add(PositionComponent position, Vector2 delta)
 ```
 
+Returns a new `PositionComponent` with local X/Y offset by `delta`.
+
 **Parameters** \
-`point` [Point&](../../Murder/Core/Geometry/Point.html) \
+`position` [PositionComponent](../../Bang/Components/PositionComponent.html) \
+`delta` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
 **Returns** \
-[Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+[PositionComponent](../../Bang/Components/PositionComponent.html) \
 
-#### ToSysVector2(PositionComponent)
+#### Add(PositionComponent, Point)
+
 ```csharp
-public Vector2 ToSysVector2(PositionComponent position)
+public PositionComponent Add(PositionComponent position, Point delta)
 ```
 
+Returns a new `PositionComponent` with local X/Y offset by the integer `delta`.
+
 **Parameters** \
-`position` [PositionComponent](../../Murder/Components/PositionComponent.html) \
+`position` [PositionComponent](../../Bang/Components/PositionComponent.html) \
+`delta` [Point](../../Murder/Core/Geometry/Point.html) \
 
 **Returns** \
-[Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+[PositionComponent](../../Bang/Components/PositionComponent.html) \
 
-#### ToVector2(IMurderTransformComponent)
+#### IsSameCell(PositionComponent, PositionComponent)
+
 ```csharp
-public Vector2 ToVector2(IMurderTransformComponent position)
+public bool IsSameCell(PositionComponent this, PositionComponent other)
 ```
 
+Returns `true` if both components' local positions fall in the same tile-grid cell.
+
 **Parameters** \
-`position` [IMurderTransformComponent](../../Murder/Components/IMurderTransformComponent.html) \
+`this` [PositionComponent](../../Bang/Components/PositionComponent.html) \
+`other` [PositionComponent](../../Bang/Components/PositionComponent.html) \
 
 **Returns** \
-[Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+[bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
-#### SetGlobalPosition(Entity, Vector2)
+#### CellPoint(PositionComponent)
+
 ```csharp
-public void SetGlobalPosition(Entity entity, Vector2 position)
+public Point CellPoint(PositionComponent this)
 ```
 
-**Parameters** \
-`entity` [Entity](../../Bang/Entities/Entity.html) \
-`position` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
-
-#### SetGlobalTransform(Entity, T)
-```csharp
-public void SetGlobalTransform(Entity entity, T transform)
-```
+Returns the tile-grid cell that this component's local position falls in.
 
 **Parameters** \
-`entity` [Entity](../../Bang/Entities/Entity.html) \
-`transform` [T](../../) \
+`this` [PositionComponent](../../Bang/Components/PositionComponent.html) \
 
-#### SetLocalPosition(Entity, Vector2)
-```csharp
-public void SetLocalPosition(Entity entity, Vector2 position)
-```
-
-**Parameters** \
-`entity` [Entity](../../Bang/Entities/Entity.html) \
-`position` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
-
-
+**Returns** \
+[Point](../../Murder/Core/Geometry/Point.html) \
 
 ⚡

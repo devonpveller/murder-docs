@@ -8,15 +8,17 @@ public static class Ease
 ```
 
 Static class with useful easer functions that can be used by Tweens.
-            This was copied from:
-            https://github.com/kylepulver/Otter/blob/master/Otter/Utility/Glide/Ease.cs
+This was copied from:
+https://github.com/kylepulver/Otter/blob/master/Otter/Utility/Glide/Ease.cs
 
 **Intent:** Provides a complete library of standard easing functions (quad, cube, bounce, elastic, back, etc.) for use with tweens and animations.
 
-**Use-case:** Call the static methods directly with a normalized time value `t ∈ [0, 1]`, or use `Evaluate(t, EaseKind)` to select a curve by its `EaseKind` enum value.
+**Use-case:** Call the static methods directly with a normalized time value `t ∈ [0, 1]`, or use `Evaluate(t, EaseKind)` to select a curve by its `EaseKind` enum value. Note that `EaseKind.ZeroToOne` is not handled by `Evaluate`'s `switch` and falls through to the `default` case (logs a warning and evaluates `CubeInOut` instead) — every `EaseKind` member has a same-named method here except that one.
 
 ### ⭐ Methods
+
 #### BackIn(double)
+
 ```csharp
 public double BackIn(double t)
 ```
@@ -32,6 +34,7 @@ Back in.
 \
 
 #### BackInOut(double)
+
 ```csharp
 public double BackInOut(double t)
 ```
@@ -47,6 +50,7 @@ Back in and out.
 \
 
 #### BackOut(double)
+
 ```csharp
 public double BackOut(double t)
 ```
@@ -62,6 +66,7 @@ Back out.
 \
 
 #### BackOutSm(double)
+
 ```csharp
 public double BackOutSm(double t)
 ```
@@ -77,6 +82,7 @@ Back out.
 \
 
 #### BounceIn(double)
+
 ```csharp
 public double BounceIn(double t)
 ```
@@ -92,6 +98,7 @@ Bounce in.
 \
 
 #### BounceInOut(double)
+
 ```csharp
 public double BounceInOut(double t)
 ```
@@ -107,6 +114,7 @@ Bounce in and out.
 \
 
 #### BounceOut(double)
+
 ```csharp
 public double BounceOut(double t)
 ```
@@ -122,6 +130,7 @@ Bounce out.
 \
 
 #### CircIn(double)
+
 ```csharp
 public double CircIn(double t)
 ```
@@ -137,6 +146,7 @@ Circle in.
 \
 
 #### CircInOut(double)
+
 ```csharp
 public double CircInOut(double t)
 ```
@@ -152,6 +162,7 @@ Circle in and out.
 \
 
 #### CircOut(double)
+
 ```csharp
 public double CircOut(double t)
 ```
@@ -167,6 +178,7 @@ Circle out
 \
 
 #### CubeIn(double)
+
 ```csharp
 public double CubeIn(double t)
 ```
@@ -182,6 +194,7 @@ Cubic in.
 \
 
 #### CubeInOut(double)
+
 ```csharp
 public double CubeInOut(double t)
 ```
@@ -197,6 +210,7 @@ Cubic in and out.
 \
 
 #### CubeOut(double)
+
 ```csharp
 public double CubeOut(double t)
 ```
@@ -212,6 +226,7 @@ Cubic out.
 \
 
 #### ElasticIn(double)
+
 ```csharp
 public double ElasticIn(double t)
 ```
@@ -227,6 +242,7 @@ Elastic in.
 \
 
 #### ElasticInOut(double)
+
 ```csharp
 public double ElasticInOut(double t)
 ```
@@ -242,6 +258,7 @@ Elastic in and out.
 \
 
 #### ElasticOut(double)
+
 ```csharp
 public double ElasticOut(double t)
 ```
@@ -257,6 +274,7 @@ Elastic out.
 \
 
 #### Evaluate(double, EaseKind)
+
 ```csharp
 public double Evaluate(double t, EaseKind kind)
 ```
@@ -271,6 +289,7 @@ Do an ease according to <paramref name="kind" />.
 [double](https://learn.microsoft.com/en-us/dotnet/api/System.Double?view=net-7.0) \
 
 #### ExpoIn(double)
+
 ```csharp
 public double ExpoIn(double t)
 ```
@@ -286,6 +305,7 @@ Exponential in.
 \
 
 #### ExpoInOut(double)
+
 ```csharp
 public double ExpoInOut(double t)
 ```
@@ -301,6 +321,7 @@ Exponential in and out.
 \
 
 #### ExpoOut(double)
+
 ```csharp
 public double ExpoOut(double t)
 ```
@@ -316,6 +337,7 @@ Exponential out.
 \
 
 #### Linear(double)
+
 ```csharp
 public double Linear(double t)
 ```
@@ -331,6 +353,7 @@ Linear.
 \
 
 #### QuadIn(double)
+
 ```csharp
 public double QuadIn(double t)
 ```
@@ -346,6 +369,7 @@ Quadratic in.
 \
 
 #### QuadInOut(double)
+
 ```csharp
 public double QuadInOut(double t)
 ```
@@ -361,6 +385,7 @@ Quadratic in and out.
 \
 
 #### QuadOut(double)
+
 ```csharp
 public double QuadOut(double t)
 ```
@@ -376,6 +401,7 @@ Quadratic out.
 \
 
 #### QuartIn(double)
+
 ```csharp
 public double QuartIn(double t)
 ```
@@ -391,6 +417,7 @@ Quart in.
 \
 
 #### QuartInOut(double)
+
 ```csharp
 public double QuartInOut(double t)
 ```
@@ -406,6 +433,7 @@ Quart in and out.
 \
 
 #### QuartOut(double)
+
 ```csharp
 public double QuartOut(double t)
 ```
@@ -421,6 +449,7 @@ Quart out.
 \
 
 #### QuintIn(double)
+
 ```csharp
 public double QuintIn(double t)
 ```
@@ -436,6 +465,7 @@ Quint in.
 \
 
 #### QuintInOut(double)
+
 ```csharp
 public double QuintInOut(double t)
 ```
@@ -451,6 +481,7 @@ Quint in and out.
 \
 
 #### QuintOut(double)
+
 ```csharp
 public double QuintOut(double t)
 ```
@@ -466,6 +497,7 @@ Quint out.
 \
 
 #### SineIn(double)
+
 ```csharp
 public double SineIn(double t)
 ```
@@ -481,6 +513,7 @@ Sine in.
 \
 
 #### SineInOut(double)
+
 ```csharp
 public double SineInOut(double t)
 ```
@@ -496,6 +529,7 @@ Sine in and out
 \
 
 #### SineOut(double)
+
 ```csharp
 public double SineOut(double t)
 ```
@@ -511,6 +545,7 @@ Sine out.
 \
 
 #### ToAndFrom(double)
+
 ```csharp
 public double ToAndFrom(double t)
 ```
@@ -524,9 +559,12 @@ Ease a value to its target and then back.
 [double](https://learn.microsoft.com/en-us/dotnet/api/System.Double?view=net-7.0) \
 
 #### ZeroToOne(Func<T, TResult>, double, double)
+
 ```csharp
 public double ZeroToOne(Func<T, TResult> easeMethod, double duration, double tweenStart)
 ```
+
+Runs `easeMethod` against the ratio of elapsed time (`Game.Now - tweenStart`) to `duration`, clamped to `[0, 1]`. A convenience wrapper for driving a tween directly off game time without the caller having to compute and clamp the progress ratio itself.
 
 **Parameters** \
 `easeMethod` [Func\<T, TResult\>](https://learn.microsoft.com/en-us/dotnet/api/System.Func-2?view=net-7.0) \
@@ -537,6 +575,7 @@ public double ZeroToOne(Func<T, TResult> easeMethod, double duration, double twe
 [double](https://learn.microsoft.com/en-us/dotnet/api/System.Double?view=net-7.0) \
 
 #### BackIn(float)
+
 ```csharp
 public float BackIn(float t)
 ```
@@ -552,6 +591,7 @@ Back in.
 \
 
 #### BackInOut(float)
+
 ```csharp
 public float BackInOut(float t)
 ```
@@ -567,6 +607,7 @@ Back in and out.
 \
 
 #### BackOut(float)
+
 ```csharp
 public float BackOut(float t)
 ```
@@ -582,6 +623,7 @@ Back out.
 \
 
 #### BackOutSm(float)
+
 ```csharp
 public float BackOutSm(float t)
 ```
@@ -597,6 +639,7 @@ Back out.
 \
 
 #### BounceIn(float)
+
 ```csharp
 public float BounceIn(float t)
 ```
@@ -612,6 +655,7 @@ Bounce in.
 \
 
 #### BounceInOut(float)
+
 ```csharp
 public float BounceInOut(float t)
 ```
@@ -627,6 +671,7 @@ Bounce in and out.
 \
 
 #### BounceOut(float)
+
 ```csharp
 public float BounceOut(float t)
 ```
@@ -642,6 +687,7 @@ Bounce out.
 \
 
 #### CircIn(float)
+
 ```csharp
 public float CircIn(float t)
 ```
@@ -657,6 +703,7 @@ Circle in.
 \
 
 #### CircInOut(float)
+
 ```csharp
 public float CircInOut(float t)
 ```
@@ -672,6 +719,7 @@ Circle in and out.
 \
 
 #### CircOut(float)
+
 ```csharp
 public float CircOut(float t)
 ```
@@ -687,6 +735,7 @@ Circle out
 \
 
 #### CubeIn(float)
+
 ```csharp
 public float CubeIn(float t)
 ```
@@ -702,6 +751,7 @@ Cubic in.
 \
 
 #### CubeInOut(float)
+
 ```csharp
 public float CubeInOut(float t)
 ```
@@ -717,6 +767,7 @@ Cubic in and out.
 \
 
 #### CubeOut(float)
+
 ```csharp
 public float CubeOut(float t)
 ```
@@ -732,6 +783,7 @@ Cubic out.
 \
 
 #### ElasticIn(float)
+
 ```csharp
 public float ElasticIn(float t)
 ```
@@ -747,6 +799,7 @@ Elastic in.
 \
 
 #### ElasticInOut(float)
+
 ```csharp
 public float ElasticInOut(float t)
 ```
@@ -762,6 +815,7 @@ Elastic in and out.
 \
 
 #### ElasticOut(float)
+
 ```csharp
 public float ElasticOut(float t)
 ```
@@ -777,6 +831,7 @@ Elastic out.
 \
 
 #### Evaluate(float, EaseKind)
+
 ```csharp
 public float Evaluate(float t, EaseKind kind)
 ```
@@ -791,6 +846,7 @@ Do an ease according to <paramref name="kind" />.
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 #### ExpoIn(float)
+
 ```csharp
 public float ExpoIn(float t)
 ```
@@ -806,6 +862,7 @@ Exponential in.
 \
 
 #### ExpoInOut(float)
+
 ```csharp
 public float ExpoInOut(float t)
 ```
@@ -821,6 +878,7 @@ Exponential in and out.
 \
 
 #### ExpoOut(float)
+
 ```csharp
 public float ExpoOut(float t)
 ```
@@ -835,10 +893,45 @@ Exponential out.
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 \
 
+#### Envelope(float, float, float, EaseKind, EaseKind)
+
+```csharp
+public float Envelope(float t, float attackRatio, float sustainRatio, EaseKind attackEase, EaseKind releaseEase)
+```
+
+ASR (Attack-Sustain-Release) envelope over `t ∈ [0, 1]`: eases from 0 to 1 using `attackEase` over the first `attackRatio` of the duration, holds at 1 for `sustainRatio`, then eases back down to 0 using `releaseEase` over the remaining time. Defaults to a short cubic-in attack (`attackRatio = 0.1`) with no sustain and a cubic-out release. Use for effects that need a distinct ramp-up/hold/ramp-down shape (e.g. a flash or audio-style envelope) rather than a single symmetric ease.
+
+**Parameters** \
+`t` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+`attackRatio` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+`sustainRatio` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+`attackEase` [EaseKind](../../Murder/Utilities/EaseKind.html) \
+`releaseEase` [EaseKind](../../Murder/Utilities/EaseKind.html) \
+
+**Returns** \
+[float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
+#### FlickerRandom(float)
+
+```csharp
+public float FlickerRandom(float t)
+```
+
+Maps `t ∈ [0, 1]` onto a fixed, hand-authored 16-point flicker intensity curve (via linear interpolation between the nearest two points), producing an irregular flame/electrical-flicker-like waveform instead of a smooth periodic one. Unlike `Wave`, this is driven purely by the input `t` you provide (not by `Game.Now`), so callers control the flicker's timing/looping themselves.
+
+**Parameters** \
+`t` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
+**Returns** \
+[float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 #### JumpArc(float)
+
 ```csharp
 public float JumpArc(float t)
 ```
+
+Returns `sin(clamp01(t) * π)`: a single symmetric arc that rises from 0 to 1 and back to 0 as `t` goes from 0 to 1, matching the height profile of a jump (ease in on the way up, ease out on the way down) — feed a clamped jump-progress ratio to get an arc-shaped height multiplier.
 
 **Parameters** \
 `t` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
@@ -847,6 +940,7 @@ public float JumpArc(float t)
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 #### Linear(float)
+
 ```csharp
 public float Linear(float t)
 ```
@@ -862,6 +956,7 @@ Linear.
 \
 
 #### QuadIn(float)
+
 ```csharp
 public float QuadIn(float t)
 ```
@@ -877,6 +972,7 @@ Quadratic in.
 \
 
 #### QuadInOut(float)
+
 ```csharp
 public float QuadInOut(float t)
 ```
@@ -892,6 +988,7 @@ Quadratic in and out.
 \
 
 #### QuadOut(float)
+
 ```csharp
 public float QuadOut(float t)
 ```
@@ -907,6 +1004,7 @@ Quadratic out.
 \
 
 #### QuartIn(float)
+
 ```csharp
 public float QuartIn(float t)
 ```
@@ -922,6 +1020,7 @@ Quart in.
 \
 
 #### QuartInOut(float)
+
 ```csharp
 public float QuartInOut(float t)
 ```
@@ -937,6 +1036,7 @@ Quart in and out.
 \
 
 #### QuartOut(float)
+
 ```csharp
 public float QuartOut(float t)
 ```
@@ -952,6 +1052,7 @@ Quart out.
 \
 
 #### QuintIn(float)
+
 ```csharp
 public float QuintIn(float t)
 ```
@@ -967,6 +1068,7 @@ Quint in.
 \
 
 #### QuintInOut(float)
+
 ```csharp
 public float QuintInOut(float t)
 ```
@@ -982,6 +1084,7 @@ Quint in and out.
 \
 
 #### QuintOut(float)
+
 ```csharp
 public float QuintOut(float t)
 ```
@@ -997,6 +1100,7 @@ Quint out.
 \
 
 #### SineIn(float)
+
 ```csharp
 public float SineIn(float t)
 ```
@@ -1012,6 +1116,7 @@ Sine in.
 \
 
 #### SineInOut(float)
+
 ```csharp
 public float SineInOut(float t)
 ```
@@ -1027,6 +1132,7 @@ Sine in and out
 \
 
 #### SineOut(float)
+
 ```csharp
 public float SineOut(float t)
 ```
@@ -1042,6 +1148,7 @@ Sine out.
 \
 
 #### ToAndFrom(float)
+
 ```csharp
 public float ToAndFrom(float t)
 ```
@@ -1055,9 +1162,12 @@ Ease a value to its target and then back.
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 #### ZeroToOne(Func<T, TResult>, float, float)
+
 ```csharp
 public float ZeroToOne(Func<T, TResult> easeMethod, float duration, float tweenStart)
 ```
+
+`float`-precision overload of `ZeroToOne(Func<T, TResult>, double, double)`: runs `easeMethod` against the clamped `[0, 1]` ratio of elapsed time to `duration`.
 
 **Parameters** \
 `easeMethod` [Func\<T, TResult\>](https://learn.microsoft.com/en-us/dotnet/api/System.Func-2?view=net-7.0) \
@@ -1068,6 +1178,7 @@ public float ZeroToOne(Func<T, TResult> easeMethod, float duration, float tweenS
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 #### ToAndFrom(Func<T, TResult>)
+
 ```csharp
 public Func<T, TResult> ToAndFrom(Func<T, TResult> easer)
 ```
@@ -1079,7 +1190,5 @@ Ease a value to its target and then back. Use this to wrap another easing functi
 
 **Returns** \
 [Func\<T, TResult\>](https://learn.microsoft.com/en-us/dotnet/api/System.Func-2?view=net-7.0) \
-
-
 
 ⚡

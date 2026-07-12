@@ -15,6 +15,4 @@ All render systems are supposed to filter out this component
 
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
-
-
 ⚡

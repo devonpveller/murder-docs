@@ -16,6 +16,7 @@ Caches the set of entity IDs that are currently overlapping this entity's collid
 **Use-case:** Added and updated automatically by the physics system; query `CollidingWith` to iterate or test for specific colliders, and call `Add`/`Remove` to update it immutably.
 
 ### ⭐ Constructors
+
 ```csharp
 public CollisionCacheComponent()
 ```
@@ -35,7 +36,9 @@ public CollisionCacheComponent(int id)
 `id` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### CollidingWith
+
 ```csharp
 public ImmutableHashSet<T> CollidingWith { get; }
 ```
@@ -44,8 +47,11 @@ The set of entity IDs currently overlapping this entity's collider.
 
 **Returns** \
 [ImmutableHashSet\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableHashSet-1?view=net-7.0) \
+
 ### ⭐ Methods
+
 #### Contains(World)
+
 ```csharp
 public bool Contains(World world)
 ```
@@ -59,6 +65,7 @@ Returns `true` if any entity in the collision set has a component of type `T`.
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### HasId(int)
+
 ```csharp
 public bool HasId(int id)
 ```
@@ -72,6 +79,7 @@ Returns `true` if the entity with `id` is in the current collision set.
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### Add(int)
+
 ```csharp
 public CollisionCacheComponent Add(int id)
 ```
@@ -85,6 +93,7 @@ Returns a new component with `id` added to the collision set.
 [CollisionCacheComponent](../../Murder/Components/CollisionCacheComponent.html) \
 
 #### Remove(int)
+
 ```csharp
 public CollisionCacheComponent Remove(int id)
 ```
@@ -98,6 +107,7 @@ Returns a new component with `id` removed from the collision set.
 [CollisionCacheComponent](../../Murder/Components/CollisionCacheComponent.html) \
 
 #### GetCollidingEntities(World)
+
 ```csharp
 public IEnumerable<T> GetCollidingEntities(World world)
 ```
@@ -109,7 +119,5 @@ Enumerates all live entities currently in the collision set.
 
 **Returns** \
 [IEnumerable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IEnumerable-1?view=net-7.0) \
-
-
 
 ⚡

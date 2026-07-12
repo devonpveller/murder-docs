@@ -16,7 +16,9 @@ Enumerates the standard render targets managed by a `RenderContext` and availabl
 **Implements:** _[Enum](https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0), [IComparable](https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0), [ISpanFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0), [IFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0), [IConvertible](https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0)_
 
 ### ⭐ Properties
+
 #### FinalTarget
+
 ```csharp
 public static const RenderTargets FinalTarget;
 ```
@@ -25,7 +27,9 @@ The screen-resolution buffer containing the fully composited frame ready to be b
 
 **Returns** \
 [RenderTargets](../../../Murder/Core/Graphics/RenderTargets.html) \
+
 #### MainBufferTarget
+
 ```csharp
 public static const RenderTargets MainBufferTarget;
 ```
@@ -34,7 +38,9 @@ The game-resolution buffer where all gameplay sprites are drawn before post-proc
 
 **Returns** \
 [RenderTargets](../../../Murder/Core/Graphics/RenderTargets.html) \
+
 #### UiTarget
+
 ```csharp
 public static const RenderTargets UiTarget;
 ```
@@ -43,6 +49,5 @@ The render target that holds the UI layer drawn above the gameplay buffer.
 
 **Returns** \
 [RenderTargets](../../../Murder/Core/Graphics/RenderTargets.html) \
-
 
 ⚡

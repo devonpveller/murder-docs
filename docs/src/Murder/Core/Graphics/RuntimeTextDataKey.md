@@ -16,6 +16,7 @@ Cache key identifying a unique combination of text content, font index, and maxi
 **Implements:** _[IEquatable\<T\>](https://learn.microsoft.com/en-us/dotnet/api/System.IEquatable-1?view=net-7.0)_
 
 ### ⭐ Constructors
+
 ```csharp
 public RuntimeTextDataKey(string Text, int Font, int Width)
 ```
@@ -26,7 +27,9 @@ public RuntimeTextDataKey(string Text, int Font, int Width)
 `Width` [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Font
+
 ```csharp
 public int Font { get; public set; }
 ```
@@ -35,7 +38,9 @@ Index of the font used to lay out this text, as registered in the game's font li
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 #### Text
+
 ```csharp
 public string Text { get; public set; }
 ```
@@ -44,7 +49,9 @@ The raw text string that was parsed to produce the cached `RuntimeTextData`.
 
 **Returns** \
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
+
 #### Width
+
 ```csharp
 public int Width { get; public set; }
 ```
@@ -53,8 +60,11 @@ Maximum line width in pixels that was applied during word-wrap layout, or -1 if 
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
+
 ### ⭐ Methods
+
 #### Equals(RuntimeTextDataKey)
+
 ```csharp
 public virtual bool Equals(RuntimeTextDataKey other)
 ```
@@ -68,6 +78,7 @@ Returns true if `other` has the same text, font index, and wrap width as this ke
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### Equals(Object)
+
 ```csharp
 public virtual bool Equals(Object obj)
 ```
@@ -81,6 +92,7 @@ Returns true if `obj` is a `RuntimeTextDataKey` with matching text, font, and wi
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 #### GetHashCode()
+
 ```csharp
 public virtual int GetHashCode()
 ```
@@ -89,6 +101,7 @@ public virtual int GetHashCode()
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 
 #### ToString()
+
 ```csharp
 public virtual string ToString()
 ```
@@ -97,6 +110,7 @@ public virtual string ToString()
 [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
 #### Deconstruct(out String&, out Int32&, out Int32&)
+
 ```csharp
 public void Deconstruct(String& Text, Int32& Font, Int32& Width)
 ```
@@ -105,7 +119,5 @@ public void Deconstruct(String& Text, Int32& Font, Int32& Width)
 `Text` [string&](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 `Font` [int&](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
 `Width` [int&](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-
-
 
 ⚡

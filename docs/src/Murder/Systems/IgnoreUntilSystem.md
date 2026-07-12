@@ -16,12 +16,15 @@ Removes `IgnoreUntilComponent` from entities once `Game.Now` reaches or surpasse
 **Implements:** _[IUpdateSystem](../../Bang/Systems/IUpdateSystem.html), [ISystem](../../Bang/Systems/ISystem.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public IgnoreUntilSystem()
 ```
 
 ### ⭐ Methods
+
 #### Update(Context)
+
 ```csharp
 public virtual void Update(Context context)
 ```
@@ -30,7 +33,5 @@ Checks each entity's `IgnoreUntilComponent` timestamp; removes the component onc
 
 **Parameters** \
 `context` [Context](../../Bang/Contexts/Context.html) \
-
-
 
 ⚡

@@ -16,6 +16,7 @@ References a `ParticleSystemAsset` to be instantiated and emitted at this entity
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public ParticleSystemComponent(Guid asset, bool destroy)
 ```
@@ -25,7 +26,9 @@ public ParticleSystemComponent(Guid asset, bool destroy)
 `destroy` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Asset
+
 ```csharp
 public readonly Guid Asset;
 ```
@@ -34,7 +37,9 @@ GUID of the `ParticleSystemAsset` that defines the emitter behavior and particle
 
 **Returns** \
 [Guid](https://learn.microsoft.com/en-us/dotnet/api/System.Guid?view=net-7.0) \
+
 #### DestroyWhenEmpty
+
 ```csharp
 public readonly bool DestroyWhenEmpty;
 ```
@@ -43,6 +48,5 @@ When `true`, the entity is destroyed automatically once all emitted particles ha
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
-
 
 ⚡

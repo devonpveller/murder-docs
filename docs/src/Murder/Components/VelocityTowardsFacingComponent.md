@@ -7,29 +7,33 @@
 public sealed struct VelocityTowardsFacingComponent : IComponent
 ```
 
-Causes an entity to move at a constant speed in the direction it is currently facing.
+One-shot trigger that converts the entity's current facing direction into a launch velocity.
 
-**Intent:** Drive forward movement automatically from the entity's facing angle.
+**Intent:** Let designers/gameplay code launch an entity in whatever direction it is currently facing, without manually computing the direction vector from the facing angle.
 
-**Use-case:** Attach to projectiles, homing objects, or characters that always move forward; set `Velocity` to the desired forward speed in pixels per second.
+**Use-case:** Attach to an entity that already has a `FacingComponent` (e.g. a projectile or a character about to dash) to launch it forward at `Velocity` pixels per second. `VelocityTowardsFacingSystem` reacts to this component being added, immediately converts it into a [VelocityComponent](../../Murder/Components/VelocityComponent.html) pointing along the entity's current facing angle, and then removes this component again — it does not persist on the entity or continuously track facing changes, so it must be re-added to trigger another launch.
 
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public VelocityTowardsFacingComponent()
 ```
 
+Creates the component with a default velocity of `0`. There is no public constructor that sets `Velocity` directly; it is intended to be authored via the component's field editor (e.g. in the level/prefab editor) or set through reflection.
+
 ### ⭐ Properties
+
 #### Velocity
+
 ```csharp
 public readonly float Velocity;
 ```
 
-Forward speed in pixels per second; the movement system resolves the actual direction from the entity's facing angle.
+Speed, in pixels per second, to launch the entity at along its current facing direction.
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
-
 
 ⚡

@@ -16,12 +16,15 @@ Manages the world-unique `ParticleSystemWorldTrackerComponent`, advances all par
 **Implements:** _[IStartupSystem](../../Bang/Systems/IStartupSystem.html), [ISystem](../../Bang/Systems/ISystem.html), [IMurderRenderSystem](../../Murder/Core/Graphics/IMurderRenderSystem.html), [IRenderSystem](../../Bang/Systems/IRenderSystem.html), [IUpdateSystem](../../Bang/Systems/IUpdateSystem.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public ParticleRendererSystem()
 ```
 
 ### ⭐ Methods
+
 #### Draw(RenderContext, Context)
+
 ```csharp
 public virtual void Draw(RenderContext render, Context context)
 ```
@@ -33,14 +36,18 @@ Iterates all active particle trackers and draws each particle's texture, color, 
 `context` [Context](../../Bang/Contexts/Context.html) \
 
 #### Start(Context)
+
 ```csharp
 public virtual void Start(Context context)
 ```
-Creates the world-unique `ParticleSystemWorldTrackerComponent` entity that all particle systems register with.
+
+Creates the world-unique `ParticleSystemWorldTrackerComponent` entity that all particle systems register with, guarding against double-initialization if the entity was somehow already added.
+
 **Parameters** \
 `context` [Context](../../Bang/Contexts/Context.html) \
 
 #### Update(Context)
+
 ```csharp
 public virtual void Update(Context context)
 ```
@@ -49,7 +56,5 @@ Advances all tracked particle simulations by one game tick, applying lifetime, v
 
 **Parameters** \
 `context` [Context](../../Bang/Contexts/Context.html) \
-
-
 
 ⚡

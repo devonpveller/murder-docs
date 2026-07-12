@@ -14,6 +14,7 @@ Pairs a `Criterion` with a `CriterionNodeKind` combinator, forming one node in a
 **Use-case:** Add `CriterionNode` values to `Dialog.Requirements`; the runtime traverses the list and short-circuits evaluation according to each node's `Kind` to decide whether a dialog node is eligible to play.
 
 ### ⭐ Constructors
+
 ```csharp
 public CriterionNode()
 ```
@@ -40,7 +41,9 @@ Creates a node with the given criterion and the default combinator `CriterionNod
 `criterion` [Criterion](../../../Murder/Core/Dialogs/Criterion.html) \
 
 ### ⭐ Properties
+
 #### Criterion
+
 ```csharp
 public readonly Criterion Criterion;
 ```
@@ -49,7 +52,9 @@ The individual condition this node represents.
 
 **Returns** \
 [Criterion](../../../Murder/Core/Dialogs/Criterion.html) \
+
 #### Kind
+
 ```csharp
 public readonly CriterionNodeKind Kind;
 ```
@@ -58,8 +63,11 @@ Determines how this node is combined with adjacent nodes in the requirements lis
 
 **Returns** \
 [CriterionNodeKind](../../../Murder/Core/Dialogs/CriterionNodeKind.html) \
+
 ### ⭐ Methods
+
 #### WithCriterion(Criterion)
+
 ```csharp
 public CriterionNode WithCriterion(Criterion criterion)
 ```
@@ -73,6 +81,7 @@ Returns a copy of this node with the `Criterion` replaced.
 [CriterionNode](../../../Murder/Core/Dialogs/CriterionNode.html) \
 
 #### WithKind(CriterionNodeKind)
+
 ```csharp
 public CriterionNode WithKind(CriterionNodeKind kind)
 ```
@@ -85,6 +94,15 @@ Returns a copy of this node with the combinator `Kind` replaced.
 **Returns** \
 [CriterionNode](../../../Murder/Core/Dialogs/CriterionNode.html) \
 
+#### DebuggerDisplay()
 
+```csharp
+public string DebuggerDisplay()
+```
+
+Returns a compact debug string showing the fact name, comparison operator, and value, used by the type's `[DebuggerDisplay]` attribute.
+
+**Returns** \
+[string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
 ⚡

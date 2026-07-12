@@ -16,6 +16,7 @@ Instructs the agent movement system to steer the entity toward another entity id
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public MoveToTargetComponent(int target, float minDistance, float slowDownDistance, Vector2 offset)
 ```
@@ -36,7 +37,9 @@ public MoveToTargetComponent(int target, float minDistance, float slowDownDistan
 `slowDownDistance` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### MinDistance
+
 ```csharp
 public readonly float MinDistance;
 ```
@@ -45,7 +48,9 @@ Distance threshold (in pixels) at which the entity is considered to have reached
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 #### Offset
+
 ```csharp
 public readonly Vector2 Offset;
 ```
@@ -54,7 +59,9 @@ Offset (in pixels) applied to the target entity's position, allowing the pursuer
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
+
 #### SlowDownDistance
+
 ```csharp
 public readonly float SlowDownDistance;
 ```
@@ -63,7 +70,9 @@ Distance (in pixels) from the target at which the entity begins decelerating.
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
+
 #### Target
+
 ```csharp
 public readonly int Target;
 ```
@@ -72,6 +81,5 @@ Runtime entity ID of the entity to move toward.
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \
-
 
 ⚡

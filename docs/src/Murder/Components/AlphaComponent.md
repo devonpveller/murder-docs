@@ -11,72 +11,38 @@ Set alpha of a component being displayed in the screen.
 
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
-**Intent:** Stores a composite alpha value computed from multiple independent sources so any system can adjust transparency without overwriting another system's contribution.
+**Intent:** Provides a single, simple opacity value for an entity's rendering, independent of that entity's other components (e.g. `SpriteRendererComponent`'s own tint). This lets systems fade an entity in or out without needing to know about or overwrite its rendering-specific state.
 
-**Use-case:** Attach to a sprite entity and use `Set(AlphaSources, float)` to let the fade system and the game logic each independently control opacity; the final `Alpha` is the product of all source values.
+**Use-case:** Attach to any renderable entity and read `Alpha` from render systems / draw-info construction to scale the sprite's transparency — for example a fade-in/fade-out effect, a "recently seen" dimming effect, or any system that needs to temporarily make an entity translucent. Multiple systems writing to this component will overwrite each other's value, since there is only a single `Alpha` slot (there is no per-source blending); coordinate ownership of this component if more than one system needs to drive an entity's fade.
 
 ### ⭐ Constructors
+
 ```csharp
 public AlphaComponent()
 ```
 
+Creates a component with `Alpha` at its default of `1f` (fully opaque).
+
 ```csharp
-public AlphaComponent(AlphaSources source, float amount)
+public AlphaComponent(float amount)
 ```
 
-Creates a component with `amount` applied to the specified `source` slot.
+Creates a component with `Alpha` set to `amount`.
 
 **Parameters** \
-`source` [AlphaSources](../../Murder/Components/AlphaSources.html) \
 `amount` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
-
-```csharp
-public AlphaComponent(Single[] sources)
-```
-
-Creates a component from a raw array of per-source alpha values.
-
-**Parameters** \
-`sources` [float[]](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Alpha
+
 ```csharp
-public float Alpha { get; }
+public readonly float Alpha;
 ```
 
-The final composite alpha value, computed as the product of all source slots.
+The opacity value for this entity's rendering, from `0` (fully transparent) to `1` (fully opaque, the default). Values outside that range are not clamped by the component itself.
 
 **Returns** \
 [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
-### ⭐ Methods
-#### Set(AlphaSources, float)
-```csharp
-public AlphaComponent Set(AlphaSources source, float amount)
-```
-
-Returns a new `AlphaComponent` with the value for `source` updated to `amount`.
-
-**Parameters** \
-`source` [AlphaSources](../../Murder/Components/AlphaSources.html) \
-`amount` [float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
-
-**Returns** \
-[AlphaComponent](../../Murder/Components/AlphaComponent.html) \
-
-#### Get(AlphaSources)
-```csharp
-public float Get(AlphaSources source)
-```
-
-Returns the alpha value currently stored for the given `source` slot.
-
-**Parameters** \
-`source` [AlphaSources](../../Murder/Components/AlphaSources.html) \
-
-**Returns** \
-[float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
-
-
 
 ⚡

@@ -16,6 +16,7 @@ Runtime marker added to entities that are currently within the camera's visible 
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public InCameraComponent(Vector2 renderPosition)
 ```
@@ -24,7 +25,9 @@ public InCameraComponent(Vector2 renderPosition)
 `renderPosition` [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### RenderPosition
+
 ```csharp
 public readonly Vector2 RenderPosition;
 ```
@@ -33,6 +36,5 @@ The pre-computed screen-space position at which this entity should be rendered t
 
 **Returns** \
 [Vector2](https://learn.microsoft.com/en-us/dotnet/api/System.Numerics.Vector2?view=net-7.0) \
-
 
 ⚡

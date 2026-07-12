@@ -16,36 +16,44 @@ This is used when serializing save data. This keeps a reference between entities
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
 ### ⭐ Constructors
+
 ```csharp
 public InstanceToEntityLookupComponent()
 ```
 
+Creates an empty lookup, with no known instance/entity mappings.
+
 ```csharp
-public InstanceToEntityLookupComponent(IDictionary<TKey, TValue> instancesToEntities)
+public InstanceToEntityLookupComponent(IDictionary<Guid, int> instancesToEntities)
 ```
+
+Creates a lookup from an explicit instance-guid-to-entity-id map, deriving the reverse `EntitiesToInstances` map automatically. Entries whose entity id is `-1` (i.e. the instance was never actually instantiated) are skipped when building the reverse map.
 
 **Parameters** \
-`instancesToEntities` [IDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IDictionary-2?view=net-7.0) \
+`instancesToEntities` [IDictionary\<Guid, int\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Generic.IDictionary-2?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### EntitiesToInstances
+
 ```csharp
-public readonly ImmutableDictionary<TKey, TValue> EntitiesToInstances;
+public readonly ImmutableDictionary<int, Guid> EntitiesToInstances;
 ```
 
-This keeps a map of the instances (guid) to their entities (id).
+This keeps a map of the entities (id) to their instances (guid) — the reverse of `InstancesToEntities`, derived automatically by the constructor.
 
 **Returns** \
-[ImmutableDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0) \
+[ImmutableDictionary\<int, Guid\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0) \
+
 #### InstancesToEntities
+
 ```csharp
-public readonly ImmutableDictionary<TKey, TValue> InstancesToEntities;
+public readonly ImmutableDictionary<Guid, int> InstancesToEntities;
 ```
 
 This keeps a map of the instances (guid) to their entities (id).
 
 **Returns** \
-[ImmutableDictionary\<TKey, TValue\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0) \
-
+[ImmutableDictionary\<Guid, int\>](https://learn.microsoft.com/en-us/dotnet/api/System.Collections.Immutable.ImmutableDictionary-2?view=net-7.0) \
 
 ⚡

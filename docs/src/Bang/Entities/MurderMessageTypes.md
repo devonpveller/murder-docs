@@ -100,7 +100,7 @@ Unique Id used for the lookup of messages with type [OnCollisionMessage](../../M
 public static int OnInteractExitMessage { get; }
 ```
 
-Unique Id used for the lookup of messages with type [OnInteractExitMessage](../../Murder/Messages/OnInteractExitMessage.html).
+Unique Id used for the lookup of messages with type [OnExitMessage](../../Murder/Messages/OnExitMessage.html).
 
 **Returns** \
 [int](https://learn.microsoft.com/en-us/dotnet/api/System.Int32?view=net-7.0) \

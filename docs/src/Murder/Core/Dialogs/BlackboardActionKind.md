@@ -16,7 +16,9 @@ Defines the operation to perform on a blackboard fact when a `DialogAction` is e
 **Implements:** _[Enum](https://learn.microsoft.com/en-us/dotnet/api/System.Enum?view=net-7.0), [IComparable](https://learn.microsoft.com/en-us/dotnet/api/System.IComparable?view=net-7.0), [ISpanFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.ISpanFormattable?view=net-7.0), [IFormattable](https://learn.microsoft.com/en-us/dotnet/api/System.IFormattable?view=net-7.0), [IConvertible](https://learn.microsoft.com/en-us/dotnet/api/System.IConvertible?view=net-7.0)_
 
 ### ⭐ Properties
+
 #### Add
+
 ```csharp
 public static const BlackboardActionKind Add;
 ```
@@ -25,7 +27,9 @@ Increments an integer or float fact by the specified value.
 
 **Returns** \
 [BlackboardActionKind](../../../Murder/Core/Dialogs/BlackboardActionKind.html) \
+
 #### Component
+
 ```csharp
 public static const BlackboardActionKind Component;
 ```
@@ -34,7 +38,9 @@ Adds or replaces a component on the target entity instead of modifying a named f
 
 **Returns** \
 [BlackboardActionKind](../../../Murder/Core/Dialogs/BlackboardActionKind.html) \
+
 #### Minus
+
 ```csharp
 public static const BlackboardActionKind Minus;
 ```
@@ -43,7 +49,9 @@ Decrements an integer or float fact by the specified value.
 
 **Returns** \
 [BlackboardActionKind](../../../Murder/Core/Dialogs/BlackboardActionKind.html) \
+
 #### Set
+
 ```csharp
 public static const BlackboardActionKind Set;
 ```
@@ -52,7 +60,9 @@ Assigns the specified value directly to the fact, replacing any existing value.
 
 **Returns** \
 [BlackboardActionKind](../../../Murder/Core/Dialogs/BlackboardActionKind.html) \
+
 #### SetMax
+
 ```csharp
 public static const BlackboardActionKind SetMax;
 ```
@@ -61,7 +71,9 @@ Sets the fact to the higher of its current value and the specified value, clampi
 
 **Returns** \
 [BlackboardActionKind](../../../Murder/Core/Dialogs/BlackboardActionKind.html) \
+
 #### SetMin
+
 ```csharp
 public static const BlackboardActionKind SetMin;
 ```
@@ -70,7 +82,9 @@ Sets the fact to the lower of its current value and the specified value, clampin
 
 **Returns** \
 [BlackboardActionKind](../../../Murder/Core/Dialogs/BlackboardActionKind.html) \
+
 #### Toggle
+
 ```csharp
 public static const BlackboardActionKind Toggle;
 ```
@@ -79,6 +93,5 @@ Flips a boolean fact from `true` to `false` or vice versa.
 
 **Returns** \
 [BlackboardActionKind](../../../Murder/Core/Dialogs/BlackboardActionKind.html) \
-
 
 ⚡

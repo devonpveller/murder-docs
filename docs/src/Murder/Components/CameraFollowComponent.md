@@ -11,11 +11,12 @@ Component used by the camera for tracking its target position.
 
 **Implements:** _[IComponent](../../Bang/Components/IComponent.html)_
 
-**Intent:** Marks an entity as the camera's follow target and configures how the camera interpolates toward it.
+**Intent:** Marks the entity the camera should track and configures how it should approach that target — via a dead zone, instant centering, an exact pixel-perfect follow, or by simply holding its current position. `[Unique]`, so only one entity in the world can carry this component at a time; that entity is fetched with `world.GetUniqueEntityCameraFollow()`.
 
-**Use-case:** Attach to the player entity (or a dedicated camera target entity) so `CameraFollowSystem` knows which entity to track and with which `CameraStyle`.
+**Use-case:** Attach to the unique entity that owns camera-follow state (fetched via `world.GetUniqueEntityCameraFollow()`); [CameraServices](../../Murder/Services/CameraServices.html) exposes `AddSecondaryTarget`/`RemoveSecondaryTarget` helpers that replace this component to blend in a second point of interest (e.g. a boss during a fight) without losing the primary target. `Style`, `SecondaryTarget`, and `TargetPosition` are the data a game-specific camera-tracking system is expected to read each frame to decide where the camera should move; the Murder engine itself only provides this component and the `CameraServices` helpers for mutating it, not a built-in system that moves the camera from it.
 
 ### ⭐ Constructors
+
 ```csharp
 public CameraFollowComponent()
 ```
@@ -51,7 +52,9 @@ public CameraFollowComponent(bool enabled)
 `enabled` [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
 
 ### ⭐ Properties
+
 #### Enabled
+
 ```csharp
 public readonly bool Enabled;
 ```
@@ -60,33 +63,49 @@ Whether camera following is currently active for this entity.
 
 **Returns** \
 [bool](https://learn.microsoft.com/en-us/dotnet/api/System.Boolean?view=net-7.0) \
+
 #### SecondaryTarget
+
 ```csharp
 public readonly Entity SecondaryTarget;
 ```
 
-Optional secondary entity whose position is blended with the primary target to produce the final camera position.
+Optional secondary entity whose position should be blended with the primary target to produce the final camera position, set via `CameraServices.AddSecondaryTarget`. Not serialized (`[JsonIgnore]`).
 
 **Returns** \
 [Entity](../../Bang/Entities/Entity.html) \
+
 #### Style
+
 ```csharp
 public readonly CameraStyle Style;
 ```
 
-Force to centralize the camera without a dead zone.
+Determines how the camera approaches its target: `DeadZone` (the default — only moves once the target leaves a dead-zone rectangle), `Center` (keeps the target exactly centered), `Perfect` (pixel-perfect tracking), or `KeepPosition` (camera stays where it is regardless of the target). Not serialized (`[JsonIgnore]`).
 
 **Returns** \
 [CameraStyle](../../Murder/Components/CameraStyle.html) \
-#### TargetPosition
+
+#### Speed
+
 ```csharp
-public readonly T? TargetPosition;
+public readonly float Speed { get; public set; }
 ```
 
-Optional fixed world-space position the camera should move toward; overrides entity tracking when set.
+Interpolation speed used when moving the camera toward its target; defaults to `1`. Tagged `[HideInEditor]`, so it is not exposed in the entity inspector.
 
 **Returns** \
-[T?](https://learn.microsoft.com/en-us/dotnet/api/System.Nullable-1?view=net-7.0) \
+[float](https://learn.microsoft.com/en-us/dotnet/api/System.Single?view=net-7.0) \
 
+#### TargetPosition
+
+```csharp
+public readonly Point? TargetPosition;
+```
+
+Optional fixed world-space position the camera should move toward, set by the `CameraFollowComponent(Point)` constructor; when set, `Style` is forced to `CameraStyle.Center`. Not serialized (`[JsonIgnore]`).
+
+**Returns** \
+[Point?](../../Murder/Core/Geometry/Point.html) \
 
 ⚡

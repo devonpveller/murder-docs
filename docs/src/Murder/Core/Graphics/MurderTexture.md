@@ -14,6 +14,7 @@ A unified texture handle that can represent either an `AtlasCoordinates` sprite 
 **Use-case:** Construct with an `AtlasCoordinates` for atlas sprites or with a string path for standalone textures; call `Draw()` to render and `Preload()` to warm the texture cache before first use.
 
 ### ⭐ Constructors
+
 ```csharp
 public MurderTexture(AtlasCoordinates AtlasCoordinates)
 ```
@@ -33,7 +34,9 @@ Creates a `MurderTexture` backed by a standalone texture loaded from the given f
 `texture` [string](https://learn.microsoft.com/en-us/dotnet/api/System.String?view=net-7.0) \
 
 ### ⭐ Methods
+
 #### Draw(Batch2D, Vector2, Vector2, Rectangle, Color, ImageFlip, float, Vector3)
+
 ```csharp
 public void Draw(Batch2D batch2D, Vector2 position, Vector2 scale, Rectangle clip, Color color, ImageFlip flip, float sort, Vector3 blend)
 ```
@@ -51,12 +54,11 @@ Draws a texture with a clipping area.
 `blend` [Vector3](https://docs.monogame.net/api/Microsoft.Xna.Framework.Vector3.html) \
 
 #### Preload()
+
 ```csharp
 public void Preload()
 ```
 
 Ensures the underlying standalone texture is loaded into memory; no-op for atlas-backed textures. Call this during a loading screen to avoid hitches on first render.
-
-
 
 ⚡
