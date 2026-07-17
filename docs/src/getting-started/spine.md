@@ -25,7 +25,7 @@ On the next import, the `SpineImporter` copies the files through as-is (Spine sh
 Add a `SpineComponent` to an entity (it requires a `PositionComponent`) and set:
 
 - **Skeleton** — the `SpineAsset` to draw.
-- **Animation** — the name of the animation to play on track 0, exactly as authored in Spine.
+- **Animation** — picked from a dropdown of the skeleton's animations (once a skeleton is assigned). Animations are skeleton-wide, not per-skin.
 - **Loop** — whether that animation loops.
 - **Target Sprite Batch** — which batch layer the skeleton draws into, controlling its draw order relative to other visuals (same idea as `SpriteComponent`).
 
@@ -90,7 +90,7 @@ Opening a `SpineAsset` opens the Spine asset editor, which shows:
 
 To attach a prop, weapon, or effect to a moving bone (a "socket"), add a `SpineBoneFollowerComponent` to the follower entity. It requires a `GuidToIdTargetComponent` (added automatically), which is how you point at the skeleton entity from the editor — pick the target in the scene the same way as any other entity reference. Then set:
 
-- **Bone Name** — the bone to follow, as authored in Spine.
+- **Bone** — picked from the *target* skeleton's bone hierarchy (an expandable tree of the skeleton the follower points at), rather than typed. Falls back to a text field if the target skeleton can't be resolved.
 - **Offset** — an additional pixel offset on top of the bone's world position.
 
 Each frame, `SpineBoneFollowerSystem` (which runs after `SpineAnimationSystem`, so the pose is already resolved) moves the follower to the bone's world position. An unknown bone name logs an error and leaves the follower in place rather than throwing.
