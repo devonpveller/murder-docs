@@ -62,10 +62,6 @@ Events authored in Spine (footsteps, hit frames, cast points, …) dispatch the 
 
 Because these are the existing message types, existing listeners work with Spine unchanged — including `AnimationEventBroadcasterComponent`, which re-broadcasts an entity's animation events to other entities. Events fire only during live playback, not while scrubbing in the editor. (Spine event payloads — `Int`/`Float`/`String` values — aren't carried yet; the message holds the event name, matching sprites.)
 
-### Binding responses (no code)
-
-To react to an event without writing a system, add an **Event Listener** component (`EventListenerEditorComponent`) to the skeleton entity or its prefab and, for each event, bind a sound and/or interactions. The event names are **discoverable**: the Spine asset editor lists the events a skeleton authors, and when binding on an entity the available events are offered from that entity's Spine skeleton rather than typed by hand. At runtime `EventListenerSystem` plays the bound sound / runs the interactions when the event fires — so a prefab carrying a `SpineComponent` plus an Event Listener is a reusable, self-contained character that responds to its own animation events. (`EventListenerSystem` must be in the world's systems list.)
-
 ## Previewing in the editor
 
 Opening a `SpineAsset` opens the Spine asset editor, which shows:
