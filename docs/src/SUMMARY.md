@@ -6,6 +6,7 @@
 # Getting Started
 - [Hello World](getting-started/helloworld.md)
 - [Asset Hot-Reloading](getting-started/hot-reload.md)
+- [Spine Skeletal Animation](getting-started/spine.md)
 
 ----------
 
