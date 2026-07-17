@@ -49,22 +49,9 @@ Spine authors skeletons in their own units, which rarely match a game's pixel sc
 
 A `BaseScale` of `0` is treated as native (`1`) so a skeleton is never accidentally scaled to nothing.
 
-## Crossfading animations
+`BaseScale` is an *import attribute*: it lives on the asset, is tuned in the Spine asset editor, and is preserved across reimports (the importer will not reset it when it regenerates the asset).
 
-By default, changing a `SpineComponent`'s animation is an instant cut. Blending is authored on the asset, in the Spine asset editor, at two levels:
-
-- **Fallback crossfade** (`SpineAsset.DefaultMix`, seconds) — used for any animation pair without a specific rule. `0` keeps the instant cut.
-- **Transitions** (`SpineAsset.Transitions`) — per-pair rules (`From`, `To`, `Duration`) that override the fallback for that pair.
-
-Per-pair rules exist because one global duration is too blunt for real character animation: `walk → run` wants a quick blend, `idle → jump` usually wants none at all, `land → idle` wants a slow settle.
-
-In the editor's **Transitions** table each row picks its source and target animation from dropdowns, sets a duration, and has a **Play** button that previews exactly that transition — it plays the source, then blends into the target. Rows naming an animation the skeleton no longer has are reported and skipped, so a rule that outlives a renamed animation degrades quietly instead of breaking playback.
-
-Gameplay code needs no special API: keep setting `SpineComponent.Animation`, and the right blend is resolved from the authored table automatically. Under the hood this is applied through Spine's own `AnimationStateData.SetMix`, so it is a thin authoring layer over the runtime's native mix table rather than a second blending mechanism.
-
-> This controls *how long* a blend takes once something changes the animation — not *when* to change it. Choosing the next animation from gameplay input is the concern of the planned locomotion blend-space work, which layers on top of this.
-
-`BaseScale`, `DefaultMix` and `Transitions` are all *import attributes*: they live on the asset, are tuned in the Spine asset editor, and are preserved across reimports (the importer will not reset them when it regenerates the asset).
+> **Animation blending is planned, not yet built.** Changing a `SpineComponent`'s animation is currently an instant cut. Continuous weighted blending of several animations — a 2D blend space with a movable puck, driven from gameplay — is the planned model (see `_agent/_plans/spine-integration/blend-space.md`). This guide will document it when it ships.
 
 ## Previewing in the editor
 
@@ -75,7 +62,6 @@ Opening a `SpineAsset` opens the Spine asset editor, which shows:
 - A scrubber timeline — pause and drag to scrub to an exact point in an animation.
 - The bone hierarchy.
 - The **Import scale** control, which updates the preview live.
-- The **Fallback crossfade** control and the **Transitions** table, where each row previews its own blend.
 
 ## Bone-follower sockets
 
@@ -88,4 +74,4 @@ Each frame, `SpineBoneFollowerSystem` (which runs after `SpineAnimationSystem`, 
 
 ## What's supported
 
-The integration currently covers importing, rendering, animation playback with per-pair crossfade, per-asset import scale, per-entity scale/flip, editor preview and scrubbing, the bone hierarchy view, and bone-follower sockets. Further authoring and runtime-control features — skins, animation events routed into Murder's message system, per-slot tint, bounding-box hitboxes, and constraint control — are planned.
+The integration currently covers importing, rendering, single-track animation playback, per-asset import scale, per-entity scale/flip, editor preview and scrubbing, the bone hierarchy view, and bone-follower sockets. Further authoring and runtime-control features — a 2D blend space for continuous weighted blending, skins, animation events routed into Murder's message system, per-slot tint, bounding-box hitboxes, and constraint control — are planned.
