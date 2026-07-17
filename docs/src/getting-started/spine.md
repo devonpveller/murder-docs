@@ -62,6 +62,12 @@ Events authored in Spine (footsteps, hit frames, cast points, …) dispatch the 
 
 Because these are the existing message types, existing listeners work with Spine unchanged — including `AnimationEventBroadcasterComponent`, which re-broadcasts an entity's animation events to other entities. Events fire only during live playback, not while scrubbing in the editor. (Spine event payloads — `Int`/`Float`/`String` values — aren't carried yet; the message holds the event name, matching sprites.)
 
+Events are authored **in Spine**, per animation, on each animation's timeline — Murder reads them, it doesn't re-author them. The Spine asset editor shows the selected animation's events as markers on its timeline (hover for name and time), so you can see what fires and when.
+
+### Binding responses (no code)
+
+Add a **Spine Event Listener** component (`SpineEventListenerComponent`) to the skeleton entity or its prefab. Each binding picks an **`animation: event`** pair from a dropdown of the skeleton's real events (e.g. `walk: footstep` vs `run: footstep`, so the same event name can do different things per animation) and binds a sound and/or interactions. At runtime `SpineEventListenerSystem` plays the bound response when that event fires under that animation — so a prefab carrying a `SpineComponent` plus a Spine Event Listener is a reusable, self-contained character that responds to its own animation events, no code required. (This is separate from the sprite `EventListenerComponent`; put `SpineEventListenerSystem` in the world's systems list.)
+
 ## Previewing in the editor
 
 Opening a `SpineAsset` opens the Spine asset editor, which shows:
@@ -70,6 +76,7 @@ Opening a `SpineAsset` opens the Spine asset editor, which shows:
 - The animation list — click any animation to preview it.
 - A scrubber timeline — pause and drag to scrub to an exact point in an animation.
 - The bone hierarchy.
+- Event markers on the selected animation's timeline (read-only; authored in Spine).
 - The **Import scale** control, which updates the preview live.
 
 ## Bone-follower sockets
