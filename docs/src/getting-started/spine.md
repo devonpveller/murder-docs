@@ -83,6 +83,7 @@ Opening a `SpineAsset` opens the Spine asset editor, which shows:
 - A scrubber timeline — pause and drag to scrub to an exact point in an animation.
 - The bone hierarchy.
 - Event markers on the selected animation's timeline (read-only; authored in Spine).
+- A **Skins** section (when the skeleton has variants) — tick skins to preview them on the skeleton, combined, without wiring up an entity.
 - The **Import scale** control, which updates the preview live.
 
 ## Bone-follower sockets
