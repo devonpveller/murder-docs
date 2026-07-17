@@ -53,6 +53,15 @@ A `BaseScale` of `0` is treated as native (`1`) so a skeleton is never accidenta
 
 > **Animation blending is planned, not yet built.** Changing a `SpineComponent`'s animation is currently an instant cut. Continuous weighted blending of several animations — a 2D blend space with a movable puck, driven from gameplay — is the planned model (see `_agent/_plans/spine-integration/blend-space.md`). This guide will document it when it ships.
 
+## Animation events
+
+Events authored in Spine (footsteps, hit frames, cast points, …) dispatch the **same** Bang messages that Aseprite animations do, so gameplay reacts to them identically regardless of the animation source:
+
+- Each Spine event sends an `AnimationEventMessage` carrying the event's name — read it with `message.Is("footstep")` in a reactive system or state machine, exactly as for a sprite tag event.
+- Each time an animation reaches its end, an `AnimationCompleteMessage` is sent — `Sequence` when a non-looping animation finishes, `Single` at each loop of a looping one.
+
+Because these are the existing message types, existing listeners work with Spine unchanged — including `AnimationEventBroadcasterComponent`, which re-broadcasts an entity's animation events to other entities. Events fire only during live playback, not while scrubbing in the editor. (Spine event payloads — `Int`/`Float`/`String` values — aren't carried yet; the message holds the event name, matching sprites.)
+
 ## Previewing in the editor
 
 Opening a `SpineAsset` opens the Spine asset editor, which shows:
@@ -74,4 +83,4 @@ Each frame, `SpineBoneFollowerSystem` (which runs after `SpineAnimationSystem`, 
 
 ## What's supported
 
-The integration currently covers importing, rendering, single-track animation playback, per-asset import scale, per-entity scale/flip, editor preview and scrubbing, the bone hierarchy view, and bone-follower sockets. Further authoring and runtime-control features — a 2D blend space for continuous weighted blending, skins, animation events routed into Murder's message system, per-slot tint, bounding-box hitboxes, and constraint control — are planned.
+The integration currently covers importing, rendering, single-track animation playback, animation events and completion routed into Murder's message system, per-asset import scale, per-entity scale/flip, editor preview and scrubbing, the bone hierarchy view, and bone-follower sockets. Further authoring and runtime-control features — a 2D blend space for continuous weighted blending, skins, per-slot tint, bounding-box hitboxes, and constraint control — are planned.
