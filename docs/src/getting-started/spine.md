@@ -57,6 +57,10 @@ A `BaseScale` of `0` is treated as native (`1`) so a skeleton is never accidenta
 
 If a skeleton defines Spine **skins** (character variants, or mix-and-match equipment — a base plus hair, clothes, accessories), pick them per entity on the `SpineComponent`: its inspector shows a checklist of the skeleton's skins. Tick one for a single skin, or several to **combine** them in order (base + pieces) — the mix-and-match case. None ticked uses the skeleton's default setup. The Spine asset editor shows how many skins a skeleton defines (hover for the list). Skeletons with only a default skin show no checklist.
 
+## Tint and fade
+
+A Spine skeleton honors Murder's standard **`TintComponent`** (a color multiplied over the whole skeleton) and **`AlphaComponent`** (fade), the same components sprites use — so damage flashes, status colors, and fade-in/out written for sprites work unchanged on a Spine entity. With neither present the skeleton renders at its authored colors. (This tints the whole skeleton; per-slot coloring is planned.)
+
 ## Animation events
 
 Events authored in Spine (footsteps, hit frames, cast points, …) dispatch the **same** Bang messages that Aseprite animations do, so gameplay reacts to them identically regardless of the animation source:
@@ -97,4 +101,4 @@ Each frame, `SpineBoneFollowerSystem` (which runs after `SpineAnimationSystem`, 
 
 ## What's supported
 
-The integration currently covers importing, rendering, single-track animation playback, animation events and completion routed into Murder's message system, per-asset import scale, per-entity scale/flip, single and combined skins, editor preview and scrubbing, the bone hierarchy view, and bone-follower sockets. Further authoring and runtime-control features — a 2D blend space for continuous weighted blending, per-slot tint, bounding-box hitboxes, and constraint control — are planned.
+The integration currently covers importing, rendering, single-track animation playback, animation events and completion routed into Murder's message system, per-asset import scale, per-entity scale/flip, whole-skeleton tint and fade, single and combined skins, editor preview and scrubbing, the bone hierarchy view, and bone-follower sockets. Further authoring and runtime-control features — a 2D blend space for continuous weighted blending, per-slot tint, bounding-box hitboxes, and constraint control — are planned.
