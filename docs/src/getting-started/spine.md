@@ -90,6 +90,12 @@ Opening a `SpineAsset` opens the Spine asset editor, which shows:
 - A **Skins** section (when the skeleton has variants) — tick skins to preview them on the skeleton, combined, without wiring up an entity.
 - The **Import scale** control, which updates the preview live.
 
+## Bounding-box hitboxes
+
+Add a **Spine Hitbox** component (`SpineHitboxComponent`) and the skeleton's active Spine bounding-box attachments become the entity's `ColliderComponent`, rebuilt each frame so the collider follows the animated pose. Pick the collision **Layer** (default `HITBOX`); add `SpineHitboxSystem` to the world's systems (after `SpineAnimationSystem`). Because the skeleton's vertices already include the entity scale, the system divides it back out so Murder's collision doesn't double-scale.
+
+This is the simple whole-entity form: all active boxes become one collider on one layer, and a collision reports the entity, not which box. Per-box identity and mixed hit/hurt boxes on one character are planned (`_agent/_plans/spine-integration/collisions-advanced.md`). Note skeletons only pose while on-camera, so hitboxes exist only on-screen.
+
 ## Bone-follower sockets
 
 To attach a prop, weapon, or effect to a moving bone (a "socket"), add a `SpineBoneFollowerComponent` to the follower entity. It requires a `GuidToIdTargetComponent` (added automatically), which is how you point at the skeleton entity from the editor — pick the target in the scene the same way as any other entity reference. Then set:
@@ -101,4 +107,4 @@ Each frame, `SpineBoneFollowerSystem` (which runs after `SpineAnimationSystem`, 
 
 ## What's supported
 
-The integration currently covers importing, rendering, single-track animation playback, animation events and completion routed into Murder's message system, per-asset import scale, per-entity scale/flip, whole-skeleton tint and fade, single and combined skins, editor preview and scrubbing, the bone hierarchy view, and bone-follower sockets. Further authoring and runtime-control features — a 2D blend space for continuous weighted blending, per-slot tint, bounding-box hitboxes, and constraint control — are planned.
+The integration currently covers importing, rendering, single-track animation playback, animation events and completion routed into Murder's message system, per-asset import scale, per-entity scale/flip, whole-skeleton tint and fade, single and combined skins, bounding-box hitboxes, editor preview and scrubbing, the bone hierarchy view, and bone-follower sockets. Further authoring and runtime-control features — a 2D blend space for continuous weighted blending, per-slot tint, advanced per-box combat collisions, and constraint control — are planned.
